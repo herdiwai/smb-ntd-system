@@ -19,11 +19,17 @@ License: For each use you must have a valid license purchased only from above li
 
 	<title>Admin Panel - Sunda Estate</title>
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-  <!-- End fonts -->
+	<!-- Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+	<!-- End fonts -->
+
+	<!-- Plugin css for this page -->
+	<link rel="stylesheet" href="{{ asset('backend/assets/vendors/pickr/themes/classic.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('backend/assets/vendors/datatables.net-bs5/dataTables.bootstrap5.css') }}">
+	<link rel="stylesheet" href="{{ asset('backend/assets/vendors/flatpickr/flatpickr.min.css') }}">
+	<!-- End plugin css for this page -->
 
 	<!-- core:css -->
 	<link rel="stylesheet" href="{{ asset('backend/assets/vendors/core/core.css') }}">
@@ -73,6 +79,7 @@ License: For each use you must have a valid license purchased only from above li
 		<!-- Plugin js for this page -->
 		<script src="{{ asset('backend/assets/vendors/flatpickr/flatpickr.min.js') }}"></script>
 		<script src="{{ asset('backend/assets/vendors/apexcharts/apexcharts.min.js') }}"></script>
+		{{-- <script src="{{ asset('backend/assets/vendors/pickr/pickr.min.js') }}"></script> --}}
 		<!-- End plugin js for this page -->
 
 		<!-- inject:js -->
@@ -81,6 +88,7 @@ License: For each use you must have a valid license purchased only from above li
 		<!-- endinject -->
 
 		<!-- Custom js for this page -->
+		{{-- <script src="{{ asset('backend/assets/js/pickr.js') }}"></script> --}}
 		<script src="{{ asset('backend/assets/js/dashboard-dark.js') }}"></script>
 		<!-- End custom js for this page -->
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -107,6 +115,12 @@ License: For each use you must have a valid license purchased only from above li
 			}
 			@endif 
 		</script>
+
+		<!-- Start DataTables -->
+		<script src="{{ asset('backend/assets/vendors/datatables.net/jquery.dataTables.js') }}"></script>
+		<script src="{{ asset('backend/assets/vendors/datatables.net-bs5/dataTables.bootstrap5.js') }}"></script>
+		<script src="{{ asset('backend/assets/js/data-table.js') }}"></script>
+		<!-- End DataTables -->
 
 	</body>
 </html>    

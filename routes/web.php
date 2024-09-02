@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\NtdController;
+use App\Http\Controllers\PDHourlyOutputController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -47,4 +48,15 @@ Route::middleware(['auth', 'role:ntd'])->group(function() {
 });
 
 Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login');
+// Route::get('/production/hourlyoutput', [PDHourlyOutputController::class, 'index'])->name('production.hourlyoutput');
+// Route::get('/production/output', [PDHourlyOutputController::class, 'index'])->name('production.hourlyoutput');
 
+// Production Hourly Outpuy
+Route::middleware(['auth', 'role:admin'])->group(function() {
+
+    Route::controller(PDHourlyOutputController::class)->group(function(){
+        Route::get('/production/hourlyoutput', 'PDHourlyOutput' )->name('production.hourlyoutput');
+        Route::get('/add/hourlyoutput', 'AddHourlyOutput' )->name('add.hourlyoutput');
+
+    });
+});
