@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('p_d_hourly_outputs', function (Blueprint $table) {
+            $table->id();
             $table->string('process')->nullable();
             $table->string('model')->nullable();
             $table->string('lot')->nullable();

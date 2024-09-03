@@ -57,6 +57,9 @@ Route::middleware(['auth', 'role:admin'])->group(function() {
     Route::controller(PDHourlyOutputController::class)->group(function(){
         Route::get('/production/hourlyoutput', 'PDHourlyOutput' )->name('production.hourlyoutput');
         Route::get('/add/hourlyoutput', 'AddHourlyOutput' )->name('add.hourlyoutput');
+        Route::post('/store/hourlyoutput', 'StoreHourlyOutput' )->name('store.hourlyoutput');
+        Route::get('/edit/hourlyoutput/{id}', 'EditHourlyOutput' )->name('edit.hourlyoutput');
+        Route::post('/update/hourlyoutput', 'UpdateHourlyOutput' )->name('update.hourlyoutput');
 
     });
 });

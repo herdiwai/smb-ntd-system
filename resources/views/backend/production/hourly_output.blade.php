@@ -5,7 +5,7 @@
   
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
-            <a href="" class="btn btn-inverse-info">Add Hourly Output</a>
+            <a href="{{ route('add.hourlyoutput') }}" class="btn btn-inverse-info">Add Hourly Output</a>
     </nav>
 
     <div class="row">
@@ -50,7 +50,7 @@
                                         <td>{{ $production->deskription }}</td>
                                         <td>{{ $production->name }}</td>
                                         <td>
-                                            <a href="" class="btn btn-inverse-warning">Edit</a>
+                                            <a href="{{ route('edit.hourlyoutput', $production->id) }}" class="btn btn-inverse-warning">Edit</a>
                                             <a href="" class="btn btn-inverse-daanger">Delete</a>
                                         </td>
                                     </tr>
