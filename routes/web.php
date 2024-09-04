@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\NtdController;
 use App\Http\Controllers\PDHourlyOutputController;
 use App\Http\Controllers\ProfileController;
@@ -45,6 +46,8 @@ Route::middleware(['auth', 'role:admin'])->group(function() {
 // NTD Group Middleware
 Route::middleware(['auth', 'role:ntd'])->group(function() {
     Route::get('/ntd/dashboard', [NtdController::class, 'NtdDashboard'])->name('ntd.dashboard');
+    Route::get('/ntd/mrr', [NtdController::class, 'NtdMrr'])->name('ntd.mrr');
+
 });
 
 Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login');
@@ -62,4 +65,19 @@ Route::middleware(['auth', 'role:admin'])->group(function() {
         Route::post('/update/hourlyoutput', 'UpdateHourlyOutput' )->name('update.hourlyoutput');
 
     });
+});
+
+// Permission All Route
+Route::controller(RoleController::class)->group(function(){
+
+    Route::get('/all/permission', 'AllPermission' )->name('all.permission');
+    Route::get('/add/permission', 'AddPermission' )->name('add.permission');
+    Route::post('/store/permission', 'StorePermission' )->name('store.permission');
+    Route::get('/edit/permission/{id}', 'EditPermission' )->name('edit.permission');
+    Route::post('/update/permission', 'UpdatePermission' )->name('update.permission');
+    Route::get('/delete/permission/{id}', 'DeletePermission' )->name('delete.permission');
+
+    Route::get('/import/permission', 'ImportPermission' )->name('import.permission');
+    Route::get('/export', 'Export' )->name('export');
+
 });

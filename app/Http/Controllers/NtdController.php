@@ -10,4 +10,8 @@ class NtdController extends Controller
     {
         return view('ntd.ntd_dashboard');
     }
+    public function NtdMrr()
+    {
+        return view('backend.ntd.mrr');
+    }
 }
