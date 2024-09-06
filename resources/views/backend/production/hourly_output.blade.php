@@ -17,14 +17,14 @@
                         <table id="dataTableExample" class="table">
                             <thead>
                             <tr>
-                                <th>No</th>
+                                    <th>No</th>
+                                    <th>DATE</th>
                                     <th>PROCESS</th>
                                     <th>MODEL</th>
                                     <th>LOT</th>
                                     <th>SHIFT</th>
                                     <th>LINE</th>
                                     <th>TIME</th>
-                                    <th>DATE</th>
                                     <th>TARGET</th> 
                                     <th>OUTPUT</th>
                                     <th>ACCM</th>
@@ -37,13 +37,13 @@
                                 @foreach ($pd as $key => $production)
                                     <tr>
                                         <td>{{ $key+1 }}</td>
+                                        <td>{{ $production->date }}</td>
                                         <td>{{ $production->process }}</td>
                                         <td>{{ $production->model }}</td>
                                         <td>{{ $production->lot }}</td>
                                         <td>{{ $production->shift }}</td>
                                         <td>{{ $production->line }}</td>
                                         <td>{{ $production->time }}</td>
-                                        <td>{{ $production->date }}</td>
                                         <td>{{ $production->target }}</td>
                                         <td>{{ $production->output }}</td>
                                         <td>{{ $production->accm }}</td>
@@ -51,7 +51,7 @@
                                         <td>{{ $production->name }}</td>
                                         <td>
                                             <a href="{{ route('edit.hourlyoutput', $production->id) }}" class="btn btn-inverse-warning">Edit</a>
-                                            <a href="" class="btn btn-inverse-daanger">Delete</a>
+                                            <a href="{{ route('delete.hourlyoutput', $production->id) }}" class="btn btn-inverse-daanger">Delete</a>
                                         </td>
                                     </tr>
                                 @endforeach

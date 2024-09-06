@@ -63,6 +63,7 @@ Route::middleware(['auth', 'role:admin'])->group(function() {
         Route::post('/store/hourlyoutput', 'StoreHourlyOutput' )->name('store.hourlyoutput');
         Route::get('/edit/hourlyoutput/{id}', 'EditHourlyOutput' )->name('edit.hourlyoutput');
         Route::post('/update/hourlyoutput', 'UpdateHourlyOutput' )->name('update.hourlyoutput');
+        Route::get('/delete/hourlyoutput/{id}', 'DeleteHourlyoutput' )->name('delete.hourlyoutput');
 
     });
 });
@@ -79,5 +80,19 @@ Route::controller(RoleController::class)->group(function(){
 
     Route::get('/import/permission', 'ImportPermission' )->name('import.permission');
     Route::get('/export', 'Export' )->name('export');
+
+});
+
+// Roles All Route
+Route::controller(RoleController::class)->group(function(){
+
+    Route::get('/all/roles', 'AllRoles' )->name('all.roles');
+    Route::get('/add/roles', 'AddRoles' )->name('add.roles');
+    Route::post('/store/roles', 'StoreRoles' )->name('store.roles');
+    Route::get('/edit/roles/{id}', 'EditRoles' )->name('edit.roles');
+    Route::post('/update/roles', 'UpdateRoles' )->name('update.roles');
+    Route::get('/delete/roles/{id}', 'DeleteRoles' )->name('delete.roles');
+
+    Route::get('/add/roles/permission', 'AddRolesPermission' )->name('add.roles.permission');
 
 });

@@ -97,7 +97,7 @@
 
                     <div class="mb-3">
                         <label for="exampleInputText1" class="form-label">TARGET</label>
-                        <input type="text" name="target" value="{{ old('target') }}" class="form-control @error('target') is-invalid @enderror" id="exampleInputText1">
+                        <input type="number" name="target" value="{{ old('target') }}" class="form-control @error('target') is-invalid @enderror" id="exampleInputText1">
                         @error('target')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -105,7 +105,7 @@
 
                     <div class="mb-3">
                         <label for="exampleInputText1" class="form-label">OUTPUT</label>
-                        <input type="text" name="output" value="{{ old('output') }}" class="form-control @error('output') is-invalid @enderror" id="exampleInputText1">
+                        <input type="number" name="output" value="{{ old('output') }}" class="form-control @error('output') is-invalid @enderror" id="exampleInputText1">
                         @error('output')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -113,7 +113,7 @@
 
                     <div class="mb-3">
                         <label for="exampleInputText1" class="form-label">ACCM</label>
-                        <input type="text" name="accm" value="{{ old('accm') }}" class="form-control @error('accm') is-invalid @enderror" id="exampleInputText1">
+                        <input type="number" name="accm" value="{{ old('accm') }}" class="form-control @error('accm') is-invalid @enderror" id="exampleInputText1">
                         @error('accm')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror

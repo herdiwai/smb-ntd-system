@@ -29,7 +29,6 @@
                             <option value="Qc">QC </option>
                             <option value="Ntd">NTD</option>
                             <option value="Fty">Facility</option>
-
                         </select>
                     </div>
 

@@ -1,7 +1,7 @@
 <nav class="sidebar">
     <div class="sidebar-header">
       <a href="#" class="sidebar-brand">
-        Sunda<span>Empire</span>
+        BTM-<span>System</span>
       </a>
       <div class="sidebar-toggler not-active">
         <span></span>
@@ -28,38 +28,39 @@
           <div class="collapse" id="emails">
             <ul class="nav sub-menu">
               <li class="nav-item">
-                <a href="{{ route('production.hourlyoutput') }}" class="nav-link">Table</a>
+                <a href="{{ route('production.hourlyoutput') }}" class="nav-link">All Table</a>
               </li>
               <li class="nav-item">
                 <a href="{{ route('add.hourlyoutput') }}" class="nav-link">Add</a>
               </li>
-              <li class="nav-item">
+              {{-- <li class="nav-item">
                 <a href="pages/email/compose.html" class="nav-link">Compose</a>
-              </li>
+              </li> --}}
             </ul>
           </div>
         </li>
       
-        <li class="nav-item">
+        {{-- <li class="nav-item">
           <a href="pages/apps/calendar.html" class="nav-link">
             <i class="link-icon" data-feather="calendar"></i>
             <span class="link-title">Calendar</span>
           </a>
-        </li>
-        <li class="nav-item nav-category">Components</li>
+        </li> --}}
+
+        <li class="nav-item nav-category">Quality Control</li>
         <li class="nav-item">
           <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents" role="button" aria-expanded="false" aria-controls="uiComponents">
             <i class="link-icon" data-feather="feather"></i>
-            <span class="link-title">UI Kit</span>
+            <span class="link-title">Pull Strength Test</span>
             <i class="link-arrow" data-feather="chevron-down"></i>
           </a>
           <div class="collapse" id="uiComponents">
             <ul class="nav sub-menu">
               <li class="nav-item">
-                <a href="pages/ui-components/accordion.html" class="nav-link">Accordion</a>
+                <a href="pages/ui-components/accordion.html" class="nav-link">All Table</a>
               </li>
               <li class="nav-item">
-                <a href="pages/ui-components/alerts.html" class="nav-link">Alerts</a>
+                <a href="pages/ui-components/alerts.html" class="nav-link">Add</a>
               </li>
             </ul>
           </div>
@@ -78,7 +79,10 @@
                 <a href="{{ route('all.permission') }}" class="nav-link">All Permission</a>
               </li>
               <li class="nav-item">
-                <a href="pages/advanced-ui/owl-carousel.html" class="nav-link">Owl carousel</a>
+                <a href="{{ route('all.roles') }}" class="nav-link">All Roles</a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('add.roles.permission') }}" class="nav-link">Role In Permission</a>
               </li>
             </ul>
           </div>

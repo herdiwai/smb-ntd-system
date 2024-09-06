@@ -113,4 +113,16 @@ class PDHourlyOutputController extends Controller
         );
         return redirect()->route('production.hourlyoutput')->with($notification);
     }
+
+    public function DeleteHourlyoutput(Request $request)
+    {
+        $per_id = $request->id;
+
+        PDHourlyOutput::findOrFail($per_id)->delete();
+        $notification = array(
+            'message' => 'Hourlyoutput Deleted Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
 }

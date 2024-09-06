@@ -13,6 +13,8 @@
                     @method('POST')
                     @csrf
 
+                    <input type="hidden" name="id" value="{{ $hourlyoutput->id }}">
+
                     <div class="mb-3">
                         <label for="exampleFormControlSelect1" class="form-label">PROCESS</label>
                         <select class="form-select" id="exampleFormControlSelect1" name="process">
@@ -102,7 +104,7 @@
                         <span class="input-group-text input-group-addon" data-toggle><i data-feather="calendar"></i></span>
                         @error('date')
                             <span class="text-danger">{{ $message }}</span>
-                    @enderror
+                        @enderror
                     </div>
 
                     <div class="mb-3">
