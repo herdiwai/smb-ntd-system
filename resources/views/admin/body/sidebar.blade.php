@@ -66,6 +66,44 @@
           </div>
         </li>
 
+        <li class="nav-item nav-category">Facility</li>
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents" role="button" aria-expanded="false" aria-controls="uiComponents">
+            <i class="link-icon" data-feather="feather"></i>
+            <span class="link-title">Spare part</span>
+            <i class="link-arrow" data-feather="chevron-down"></i>
+          </a>
+          <div class="collapse" id="uiComponents">
+            <ul class="nav sub-menu">
+              <li class="nav-item">
+                <a href="pages/ui-components/accordion.html" class="nav-link">All Table</a>
+              </li>
+              <li class="nav-item">
+                <a href="pages/ui-components/alerts.html" class="nav-link">Add</a>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="nav-item nav-category">Maintenance</li>
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents" role="button" aria-expanded="false" aria-controls="uiComponents">
+            <i class="link-icon" data-feather="feather"></i>
+            <span class="link-title">Spare part</span>
+            <i class="link-arrow" data-feather="chevron-down"></i>
+          </a>
+          <div class="collapse" id="uiComponents">
+            <ul class="nav sub-menu">
+              <li class="nav-item">
+                <a href="pages/ui-components/accordion.html" class="nav-link">All Table</a>
+              </li>
+              <li class="nav-item">
+                <a href="pages/ui-components/alerts.html" class="nav-link">Add</a>
+              </li>
+            </ul>
+          </div>
+        </li>
+
         <li class="nav-item nav-category">Role & Permission</li>
         <li class="nav-item">
           <a class="nav-link" data-bs-toggle="collapse" href="#advancedUI" role="button" aria-expanded="false" aria-controls="advancedUI">
@@ -84,17 +122,38 @@
               <li class="nav-item">
                 <a href="{{ route('add.roles.permission') }}" class="nav-link">Role In Permission</a>
               </li>
+              <li class="nav-item">
+                <a href="{{ route('all.roles.permission') }}" class="nav-link">All Role In Permission</a>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="collapse" href="#admin" role="button" aria-expanded="false" aria-controls="admin">
+            <i class="link-icon" data-feather="anchor"></i>
+            <span class="link-title">Manage Admin User</span>
+            <i class="link-arrow" data-feather="chevron-down"></i>
+          </a>
+          <div class="collapse" id="admin">
+            <ul class="nav sub-menu">
+              <li class="nav-item">
+                <a href="{{ route('all.admin') }}" class="nav-link">All Admin</a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('all.roles') }}" class="nav-link">Add Admin</a>
+              </li>
             </ul>
           </div>
         </li>
       
-        
+{{--         
         <li class="nav-item">
           <a href="#" target="_blank" class="nav-link">
             <i class="link-icon" data-feather="hash"></i>
             <span class="link-title">Documentation</span>
           </a>
-        </li>
+        </li> --}}
       </ul>
     </div>
   </nav>

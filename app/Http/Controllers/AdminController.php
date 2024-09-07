@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class AdminController extends Controller
 {
@@ -103,6 +106,20 @@ class AdminController extends Controller
             'alert-type' => 'success'
         );
         return back()->with($notification);
+    }
+
+    //Admin User All Method//
+
+    public function AllAdmin()
+    {
+        $alladmin = User::where('role', 'admin')->get();
+        return view('backend.pages.admin.all_admin', compact('alladmin'));
+    }
+
+    public function AddAdmin()
+    {
+        $roles = Role::all();
+        return view('backend.pages.admin.add_admin', compact('roles'));
     }
 
 }
