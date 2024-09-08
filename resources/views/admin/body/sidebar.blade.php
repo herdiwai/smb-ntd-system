@@ -18,28 +18,38 @@
             <span class="link-title">Dashboard</span>
           </a>
         </li>
-        <li class="nav-item nav-category">PRODUCTION</li>
-        <li class="nav-item">
-          <a class="nav-link" data-bs-toggle="collapse" href="#emails" role="button" aria-expanded="false" aria-controls="emails">
-            <i class="link-icon" data-feather="mail"></i>
-            <span class="link-title">Hourly Output</span>
-            <i class="link-arrow" data-feather="chevron-down"></i>
-          </a>
-          <div class="collapse" id="emails">
-            <ul class="nav sub-menu">
-              <li class="nav-item">
-                <a href="{{ route('production.hourlyoutput') }}" class="nav-link">All Table</a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ route('add.hourlyoutput') }}" class="nav-link">Add</a>
-              </li>
-              {{-- <li class="nav-item">
-                <a href="pages/email/compose.html" class="nav-link">Compose</a>
-              </li> --}}
-            </ul>
-          </div>
-        </li>
-      
+
+        @if(Auth::user()->can('hourlyoutput.menu'))
+
+          <li class="nav-item nav-category">PRODUCTION</li>
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#emails" role="button" aria-expanded="false" aria-controls="emails">
+              <i class="link-icon" data-feather="mail"></i>
+              <span class="link-title">Hourly Output</span>
+              <i class="link-arrow" data-feather="chevron-down"></i>
+            </a>
+            <div class="collapse" id="emails">
+              <ul class="nav sub-menu">
+
+                @if(Auth::user()->can('hourlyoutput.all'))
+                  <li class="nav-item">
+                    <a href="{{ route('production.hourlyoutput') }}" class="nav-link">All Table</a>
+                  </li>
+                @endif
+
+                @if(Auth::user()->can('hourlyoutput.Add'))
+                  <li class="nav-item">
+                    <a href="{{ route('add.hourlyoutput') }}" class="nav-link">Add</a>
+                  </li>
+                @endif
+                {{-- <li class="nav-item">
+                  <a href="pages/email/compose.html" class="nav-link">Compose</a>
+                </li> --}}
+              </ul>
+            </div>
+          </li>
+
+        @endif
         {{-- <li class="nav-item">
           <a href="pages/apps/calendar.html" class="nav-link">
             <i class="link-icon" data-feather="calendar"></i>
@@ -141,7 +151,7 @@
                 <a href="{{ route('all.admin') }}" class="nav-link">All Admin</a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('all.roles') }}" class="nav-link">Add Admin</a>
+                <a href="{{ route('add.admin') }}" class="nav-link">Add Admin</a>
               </li>
             </ul>
           </div>

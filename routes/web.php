@@ -35,7 +35,7 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 // Admin Group Middleware
-Route::middleware(['auth', 'role:admin'])->group(function() {
+Route::middleware(['auth', 'roles:admin'])->group(function() {
     Route::get('/admin/dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');
     Route::get('/admin/logout', [AdminController::class, 'AdminLogout'])->name('admin.logout');
     Route::get('/admin/profile', [AdminController::class, 'AdminProfile'])->name('admin.profile');
@@ -44,7 +44,7 @@ Route::middleware(['auth', 'role:admin'])->group(function() {
     Route::post('/admin/update/password', [AdminController::class, 'AdminUpdatePassword'])->name('admin.update.password');
 });
 // NTD Group Middleware
-Route::middleware(['auth', 'role:ntd'])->group(function() {
+Route::middleware(['auth', 'roles:ntd'])->group(function() {
     Route::get('/ntd/dashboard', [NtdController::class, 'NtdDashboard'])->name('ntd.dashboard');
     Route::get('/ntd/mrr', [NtdController::class, 'NtdMrr'])->name('ntd.mrr');
 
@@ -55,18 +55,24 @@ Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.
 // Route::get('/production/output', [PDHourlyOutputController::class, 'index'])->name('production.hourlyoutput');
 
 // Production Hourly Outpuy
-Route::middleware(['auth', 'role:admin'])->group(function() {
+Route::middleware(['auth', 'roles:admin'])->group(function() {
 
     Route::controller(PDHourlyOutputController::class)->group(function(){
-        Route::get('/production/hourlyoutput', 'PDHourlyOutput' )->name('production.hourlyoutput');
+        Route::get('/production/hourlyoutput', 'PDHourlyOutput' )->name('production.hourlyoutput')->middleware('permission:hourlyoutput.menu');
         Route::get('/add/hourlyoutput', 'AddHourlyOutput' )->name('add.hourlyoutput');
         Route::post('/store/hourlyoutput', 'StoreHourlyOutput' )->name('store.hourlyoutput');
         Route::get('/edit/hourlyoutput/{id}', 'EditHourlyOutput' )->name('edit.hourlyoutput');
         Route::post('/update/hourlyoutput', 'UpdateHourlyOutput' )->name('update.hourlyoutput');
         Route::get('/delete/hourlyoutput/{id}', 'DeleteHourlyoutput' )->name('delete.hourlyoutput');
 
+        //Production Hourly Ouput Export Excel
+        Route::get('/production/export-excel', 'ExportToExcel')->name('excel.export.file');
+        //Production Hourly Ouput Filter Data
+        Route::get('/filter/hourlyoutput', 'FilterHourlyOutput')->name('filter.hourlyoutput');
     });
 });
+
+// Route::get('/export-excel', [PDHourlyOutputController::class, 'ExportExcel'] )->name('export.to.excel');
 
 // Permission All Route
 Route::controller(RoleController::class)->group(function(){
@@ -105,5 +111,9 @@ Route::controller(RoleController::class)->group(function(){
 // Admin User All Route
 Route::controller(AdminController::class)->group(function() {
     Route::get('/all/admin', 'AllAdmin')->name('all.admin');
-    Route::get('/add/admin', 'AllAdmin')->name('add.admin');
+    Route::get('/add/admin', 'AddAdmin')->name('add.admin');
+    Route::post('/store/admin', 'StoreAdmin')->name('store.admin');
+    Route::get('/edit/admin/{id}', 'EditAdmin')->name('edit.admin');
+    Route::post('/update/admin/{id}', 'UpdateAdmin')->name('update.admin');
+    Route::get('/delete/admin/{id}', 'DeleteAdmin')->name('delete.admin');
 });

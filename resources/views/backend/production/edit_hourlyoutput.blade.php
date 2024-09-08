@@ -90,13 +90,15 @@
                         @enderror
                     </div>
 
-                    <h6 class="card-title">Time</h6>
-                    <div class="input-group flatpickr" id="flatpickr-time">
-                        <input type="time" value="{{ $hourlyoutput->time }}" name="time" class="form-control @error('time') is-invalid @enderror" placeholder="Select time" data-input>
-                        <span class="input-group-text input-group-addon" data-toggle><i data-feather="clock"></i></span>
-                        @error('time')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
+                    <div class="form-group mb-3">
+                        <label for="exampleFormControlSelect1" class="form-label">TIME</label>
+                        <select class="form-select" id="exampleFormControlSelect1" name="time">
+                            <option value="">--select time--</option>
+                                @foreach($time as $times)
+                                    <option value="{{ $times }}" {{ $times == $hourlyoutput->time ? 'selected' : '' }}>
+                                        {{ $times }}</option>
+                                @endforeach
+                        </select>
                     </div>
 
                         <h6 class="card-title">DATE</h6><div class="input-group flatpickr" id="flatpickr-date">
@@ -133,7 +135,7 @@
 
                     <div class="mb-3">
                         <label for="exampleFormControlTextarea1" class="form-label">DESCRIPTION</label>
-                        <textarea class="form-control" value="{{ $hourlyoutput->deskription }}" name="deskription" id="exampleFormControlTextarea1" rows="5"></textarea>
+                        <textarea class="form-control" name="deskription" id="exampleFormControlTextarea1" rows="5">{{ $hourlyoutput->deskription }}</textarea>
                     </div>
 
                     <div class="mb-3">

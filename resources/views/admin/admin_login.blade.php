@@ -9,7 +9,7 @@
 	<meta name="author" content="NobleUI">
 	<meta name="keywords" content="nobleui, bootstrap, bootstrap 5, bootstrap5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
 
-	<title>Admin Login Page</title>
+	<title>BTM-System Login Page</title>
 
     <style type="text/css">
         .authlogin-side-wrapper{
@@ -65,23 +65,23 @@
                         <form class="forms-sample" action="{{ route('login') }}" method="post">
                             @csrf
                             <div class="mb-3">
-                                <label for="login" class="form-label">Email/Name/Phone</label>
-                                <input type="text" name="login" class="form-control" id="login" placeholder="Email" autocomplete="username">
+                                <label for="login" class="form-label">Username</label>
+                                <input type="text" name="login" class="form-control" id="login" placeholder="username" autocomplete="username">
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password</label>
                                 <input type="password" name="password" class="form-control" id="password" autocomplete="current-password" placeholder="Password">
                             </div>
-                            <div class="form-check mb-3">
+                            {{-- <div class="form-check mb-3">
                                 <input type="checkbox" class="form-check-input" id="authCheck">
                                 <label class="form-check-label" for="authCheck">
                                 Remember me
                                 </label>
-                            </div>
+                            </div> --}}
                             <div>
                                 <button type="submit" class="btn btn-outline-primary btn-icon-text mb-2 mb-md-0">Login</button>
                             </div>
-                            <a href="register.html" class="d-block mt-3 text-muted">Not a user? Sign up</a>
+                            {{-- <a href="register.html" class="d-block mt-3 text-muted">Not a user? Sign up</a> --}}
                         </form>
 
                     </div>

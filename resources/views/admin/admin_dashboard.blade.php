@@ -94,6 +94,7 @@ License: For each use you must have a valid license purchased only from above li
 		<script src="{{ asset('backend/assets/js/dashboard-dark.js') }}"></script>
 		<!-- End custom js for this page -->
 		<script type="text/javascript" src="{{ asset('backend/assets/vendors/toastr/js/toastr.min.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('backend/assets/js/code/validate.min.js') }}"></script>
 
 		<script>
 			@if(Session::has('message'))
