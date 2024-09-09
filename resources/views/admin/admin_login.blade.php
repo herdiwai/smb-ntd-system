@@ -65,8 +65,8 @@
                         <form class="forms-sample" action="{{ route('login') }}" method="post">
                             @csrf
                             <div class="mb-3">
-                                <label for="login" class="form-label">Username</label>
-                                <input type="text" name="login" class="form-control" id="login" placeholder="username" autocomplete="username">
+                                <label for="login" class="form-label">Badge ID</label>
+                                <input type="text" name="login" class="form-control" id="login" placeholder="enter your badge_id number..">
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password</label>

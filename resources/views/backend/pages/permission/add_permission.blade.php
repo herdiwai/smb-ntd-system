@@ -25,10 +25,13 @@
                         <label for="exampleFormControlSelect2" class="form-label">Group Name</label>
                         <select class="form-select" id="exampleFormControlSelect2" name="group_name">
                             <option selected="" disabled="">---select Group---</option>
-                            <option value="HourlyOutput">Production Hourly Output</option>
+                            <option value="HourlyOutput">Hourly Output</option>
                             <option value="Qc">QC </option>
                             <option value="Ntd">NTD</option>
                             <option value="Fty">Facility</option>
+                            <option value="Maintenance">Maintenance</option>
+                            <option value="Role & Permission">Role & Permission</option>
+                            <option value="Manage Admin User">Manage Admin User</option>
                         </select>
                     </div>
 
