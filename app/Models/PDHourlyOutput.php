@@ -10,7 +10,13 @@ class PDHourlyOutput extends Model
     use HasFactory;
 
     protected $table = 'p_d_hourly_outputs';
+    // protected $fillable = ['']
     protected $guarded = [];
+
+    public function processmodels()
+    {
+        return $this->hasMany(PDHourlyOutput::class);
+    }
 
     // protected $fillable = [
     //     'process',

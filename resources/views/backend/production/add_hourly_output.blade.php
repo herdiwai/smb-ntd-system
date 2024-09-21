@@ -19,8 +19,8 @@
                         <label for="exampleFormControlSelect1" class="form-label">PROCESS</label>
                         <select class="form-select" id="exampleFormControlSelect1" name="process">
                             <option value="">---select process---</option>
-                                @foreach($process as $processs)
-                                    <option value="{{ $processs }}" {{ old('process') == $processs ? 'selected' : '' }}>{{ $processs }}</option>
+                                @foreach($process as $process)
+                                    <option value="{{ $process }}" {{ old('process') == $process ? 'selected' : '' }}>{{ $process }}</option>
                                 @endforeach
                         </select>
                     </div>
@@ -103,7 +103,7 @@
 
                     <div class="form-group mb-3">
                         <label for="exampleInputEmail3" class="form-label">PIC</label>
-                        <input type="text" name="name" value="{{ old('name') }}" class="form-control">
+                        <input type="text" name="name" value="{{ old('name') }} {{ $profileData->username }}" class="form-control" readonly>
                     </div>
 
                     <button class="btn btn-primary btn-sm" type="submit"><i data-feather="save"></i> SAVE CHANGES</button>

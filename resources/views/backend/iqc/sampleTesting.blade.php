@@ -5,12 +5,12 @@
   
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
-             <a href="{{ route('add.sampleTesting') }}" class="btn btn-inverse-info btn-sm""><i data-feather="plus-square"></i> Add Requistion Form</a>
+             <a href="" class="btn btn-inverse-info btn-sm"><i data-feather="plus-square"></i> Add Requistion Form</a>
         </ol>
     </nav>
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
-             <a href="{{ route('update.sampleTesting') }}" class="btn btn-inverse-info btn-sm""><i data-feather="plus-square"></i> UpdateForm</a>
+             <a href="" class="btn btn-inverse-info btn-sm"><i data-feather="plus-square"></i> UpdateForm</a>
         </ol>
     </nav>
     <div class="row">
