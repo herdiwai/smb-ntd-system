@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    // return redirect()->route('/admin/login');
     return view('welcome');
 });
 
@@ -36,6 +37,7 @@ require __DIR__.'/auth.php';
 
 // Admin Group Middleware
 Route::middleware(['auth', 'roles:admin'])->group(function() {
+    
     Route::get('/admin/dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');
     Route::get('/admin/logout', [AdminController::class, 'AdminLogout'])->name('admin.logout');
     Route::get('/admin/profile', [AdminController::class, 'AdminProfile'])->name('admin.profile');
@@ -51,6 +53,7 @@ Route::middleware(['auth', 'roles:ntd'])->group(function() {
 });
 
 Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login');
+
 // Route::get('/production/hourlyoutput', [PDHourlyOutputController::class, 'index'])->name('production.hourlyoutput');
 // Route::get('/production/output', [PDHourlyOutputController::class, 'index'])->name('production.hourlyoutput');
 
