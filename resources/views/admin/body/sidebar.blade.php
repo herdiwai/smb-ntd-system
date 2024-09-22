@@ -42,6 +42,15 @@
                     <a href="{{ route('add.hourlyoutput') }}" class="nav-link">Add</a>
                   </li>
                 @endif
+
+                  <li class="nav-item">
+                    <a href="{{ route('process.model') }}" class="nav-link">All Table Procces Model</a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a href="{{ route('add.processmodel') }}" class="nav-link">Add Procces Model</a>
+                  </li>
+                
                 {{-- <li class="nav-item">
                   <a href="pages/email/compose.html" class="nav-link">Compose</a>
                 </li> --}}
@@ -82,6 +91,30 @@
             </div>
           </li>
           @endif
+
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents1" role="button" aria-expanded="false" aria-controls="uiComponents1">
+              <i class="link-icon" data-feather="feather"></i>
+              <span class="link-title">Testing Requisition</span>
+              <i class="link-arrow" data-feather="chevron-down"></i>
+            </a>
+            <div class="collapse" id="uiComponents1">
+              <ul class="nav sub-menu">
+                
+                <li class="nav-item">
+                  <a href="{{ route('qualitycontrol.sampletestingrequisition') }}" class="nav-link">All Table</a>
+                </li>
+               
+      
+                <li class="nav-item">
+                  <a href="{{ route('add.sampletestingrequisition') }}" class="nav-link">Add</a>
+                </li>
+             
+              </ul>
+            </div>
+          </li>
+
+         
 
           @if(Auth::user()->can('Sparepart.menu'))
         <li class="nav-item nav-category">Facility</li>
@@ -124,7 +157,64 @@
             </div>
           </li>
         @endif
-        {{-- @if(Auth::user()->can('')) --}}
+        
+        
+          <li class="nav-item nav-category">List</li>
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents2" role="button" aria-expanded="false" aria-controls="uiComponents2">
+              <i class="link-icon" data-feather="feather"></i>
+              <span class="link-title">Model</span>
+              <i class="link-arrow" data-feather="chevron-down"></i>
+            </a>
+            <div class="collapse" id="uiComponents2">
+              <ul class="nav sub-menu">
+                <li class="nav-item">
+                  <a href="{{ route('model.brewer') }}" class="nav-link">All Table</a>
+                </li>
+                <li class="nav-item">
+                  <a href="pages/ui-components/alerts.html" class="nav-link">Add</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents3" role="button" aria-expanded="false" aria-controls="uiComponents3">
+              <i class="link-icon" data-feather="feather"></i>
+              <span class="link-title">Process</span>
+              <i class="link-arrow" data-feather="chevron-down"></i>
+            </a>
+            <div class="collapse" id="uiComponents3">
+              <ul class="nav sub-menu">
+                <li class="nav-item">
+                  <a href="{{ route('process.all') }}" class="nav-link">All Table</a>
+                </li>
+                <li class="nav-item">
+                  <a href="pages/ui-components/alerts.html" class="nav-link">Add</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents4" role="button" aria-expanded="false" aria-controls="uiComponents4">
+              <i class="link-icon" data-feather="feather"></i>
+              <span class="link-title">Lot</span>
+              <i class="link-arrow" data-feather="chevron-down"></i>
+            </a>
+            <div class="collapse" id="uiComponents4">
+              <ul class="nav sub-menu">
+                <li class="nav-item">
+                  <a href="{{ route('lot.all') }}" class="nav-link">All Table</a>
+                </li>
+                <li class="nav-item">
+                  <a href="pages/ui-components/alerts.html" class="nav-link">Add</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+ 
+
 
         @if(Auth::user()->can('role&permission.menu'))
 

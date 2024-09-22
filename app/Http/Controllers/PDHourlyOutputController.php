@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Exports\ExportPDHourlyOutput;
 use App\Exports\HourlyOutputExport;
 use App\Models\PDHourlyOutput;
+use App\Models\ProcessModel;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 
 class PDHourlyOutputController extends Controller
@@ -13,6 +16,7 @@ class PDHourlyOutputController extends Controller
     public function PDHourlyOutput()
     {
         $pd = PDHourlyOutput::latest()->get();
+        // $pm = ProcessModel::all();
         $shift = ['1st','2nd','3rd'];
         $lot = ['B','C','D','E'];
         $process = ['P1','P2','P3','P4','P5'];
@@ -160,6 +164,8 @@ class PDHourlyOutputController extends Controller
 
     public function AddHourlyOutput()
     {
+        $id = Auth::user()->id;
+        $profileData = User::find($id);
         $pd = PDHourlyOutput::latest()->get();
         $shift = ['1st','2nd','3rd'];
         $lot = ['B','C','D','E'];
@@ -167,7 +173,7 @@ class PDHourlyOutputController extends Controller
         $line = ['1','2','3','4'];
         $model = ['KEE','KIE','K-SUPREME GSV','KCS','KSS','K-SLIM GSV','K90','K55'];
         $time = ['06.45-07.45','07.45-08.45','08.45-09.45','09.45-10.45','10.45-11.45','11.45-12.45','12.45-13.45','13.45-14.45','14.45-15.15','14.45-15.45','15.45-16.45','16.45-17.45','17.45-18.45','18.45-19.45','19.45-20.45','20.45-21.45','21.45-22.45','22.45-23.45','23.45-00.45','00.45-01.45','01.45-02.45','02.45-03.45','03.45-04.45','04.45-05.45','05.45-06.45'];
-        return view('backend.production.add_hourly_output', compact('pd','shift','lot','process','line','model','time'));
+        return view('backend.production.add_hourly_output', compact('profileData','pd','shift','lot','process','line','model','time'));
     }
 
     public function StoreHourlyOutput(Request $request)

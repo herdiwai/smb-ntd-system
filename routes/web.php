@@ -1,7 +1,12 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Backend\LotController;
+use App\Http\Controllers\Backend\ModelBrewerController;
+use App\Http\Controllers\Backend\ProcessController;
+use App\Http\Controllers\Backend\ProcessModelController;
 use App\Http\Controllers\Backend\RoleController;
+use App\Http\Controllers\Backend\SampleTestingRequisitionController;
 use App\Http\Controllers\NtdController;
 use App\Http\Controllers\PDHourlyOutputController;
 use App\Http\Controllers\ProfileController;
@@ -57,23 +62,6 @@ Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.
 // Route::get('/production/hourlyoutput', [PDHourlyOutputController::class, 'index'])->name('production.hourlyoutput');
 // Route::get('/production/output', [PDHourlyOutputController::class, 'index'])->name('production.hourlyoutput');
 
-// Production Hourly Outpuy
-Route::middleware(['auth', 'roles:admin'])->group(function() {
-
-    Route::controller(PDHourlyOutputController::class)->group(function(){
-        Route::get('/production/hourlyoutput', 'PDHourlyOutput' )->name('production.hourlyoutput')->middleware('permission:hourlyoutput.menu');
-        Route::get('/add/hourlyoutput', 'AddHourlyOutput' )->name('add.hourlyoutput');
-        Route::post('/store/hourlyoutput', 'StoreHourlyOutput' )->name('store.hourlyoutput');
-        Route::get('/edit/hourlyoutput/{id}', 'EditHourlyOutput' )->name('edit.hourlyoutput');
-        Route::post('/update/hourlyoutput', 'UpdateHourlyOutput' )->name('update.hourlyoutput');
-        Route::get('/delete/hourlyoutput/{id}', 'DeleteHourlyoutput' )->name('delete.hourlyoutput');
-
-        //Production Hourly Ouput Export Excel
-        Route::get('/production/export-excel', 'ExportToExcel')->name('excel.export.file');
-        //Production Hourly Ouput Filter Data
-        Route::get('/filter/hourlyoutput', 'FilterHourlyOutput')->name('filter.hourlyoutput');
-    });
-});
 
 // Route::get('/export-excel', [PDHourlyOutputController::class, 'ExportExcel'] )->name('export.to.excel');
 
@@ -119,4 +107,88 @@ Route::controller(AdminController::class)->group(function() {
     Route::get('/edit/admin/{id}', 'EditAdmin')->name('edit.admin');
     Route::post('/update/admin/{id}', 'UpdateAdmin')->name('update.admin');
     Route::get('/delete/admin/{id}', 'DeleteAdmin')->name('delete.admin');
+});
+
+// Production Hourly Outpuy
+Route::middleware(['auth', 'roles:admin'])->group(function() {
+
+    Route::controller(PDHourlyOutputController::class)->group(function(){
+        Route::get('/production/hourlyoutput', 'PDHourlyOutput' )->name('production.hourlyoutput')->middleware('permission:hourlyoutput.menu');
+        Route::get('/add/hourlyoutput', 'AddHourlyOutput' )->name('add.hourlyoutput');
+        Route::post('/store/hourlyoutput', 'StoreHourlyOutput' )->name('store.hourlyoutput');
+        Route::get('/edit/hourlyoutput/{id}', 'EditHourlyOutput' )->name('edit.hourlyoutput');
+        Route::post('/update/hourlyoutput', 'UpdateHourlyOutput' )->name('update.hourlyoutput');
+        Route::get('/delete/hourlyoutput/{id}', 'DeleteHourlyoutput' )->name('delete.hourlyoutput');
+
+        //Production Hourly Ouput Export Excel
+        Route::get('/production/export-excel', 'ExportToExcel')->name('excel.export.file');
+        //Production Hourly Ouput Filter Data
+        Route::get('/filter/hourlyoutput', 'FilterHourlyOutput')->name('filter.hourlyoutput');
+    });
+});
+
+// Production Hourly Outpuy
+Route::middleware(['auth', 'roles:admin'])->group(function() {
+    Route::controller(ProcessModelController::class)->group(function(){
+        Route::get('/processmodel', 'ProcessModel' )->name('process.model');
+        Route::get('/add/processmodel', 'AddProcessModel' )->name('add.processmodel');
+        Route::post('/store/processmodel', 'StoreProcessModel' )->name('store.processmodel');
+        Route::get('/edit/processmodel/{id}', 'EditProcessModel' )->name('edit.processmodel');
+        Route::post('/update/processmodel', 'UpdateProcessModel' )->name('update.processmodel');
+        // Route::get('/delete/hourlyoutput/{id}', 'DeleteHourlyoutput' )->name('delete.hourlyoutput');
+    });
+});
+
+// Model Brewer
+Route::middleware(['auth', 'roles:admin'])->group(function() {
+    Route::controller(ModelBrewerController::class)->group(function(){
+        Route::get('/modelbrewer', 'ModelBrewer' )->name('model.brewer');
+        // Route::get('/add/processmodel', 'AddProcessModel' )->name('add.processmodel');
+        // Route::post('/store/processmodel', 'StoreProcessModel' )->name('store.processmodel');
+        // Route::get('/edit/processmodel/{id}', 'EditProcessModel' )->name('edit.processmodel');
+        // Route::post('/update/processmodel', 'UpdateProcessModel' )->name('update.processmodel');
+        // Route::get('/delete/hourlyoutput/{id}', 'DeleteHourlyoutput' )->name('delete.hourlyoutput');
+    });
+});
+
+// Process
+Route::middleware(['auth', 'roles:admin'])->group(function() {
+    Route::controller(ProcessController::class)->group(function(){
+        Route::get('/process', 'ProcessAll' )->name('process.all');
+        // Route::get('/add/processmodel', 'AddProcessModel' )->name('add.processmodel');
+        // Route::post('/store/processmodel', 'StoreProcessModel' )->name('store.processmodel');
+        // Route::get('/edit/processmodel/{id}', 'EditProcessModel' )->name('edit.processmodel');
+        // Route::post('/update/processmodel', 'UpdateProcessModel' )->name('update.processmodel');
+        // Route::get('/delete/hourlyoutput/{id}', 'DeleteHourlyoutput' )->name('delete.hourlyoutput');
+    });
+});
+
+// LOT
+Route::middleware(['auth', 'roles:admin'])->group(function() {
+    Route::controller(LotController::class)->group(function(){
+        Route::get('/lots', 'LotAll' )->name('lot.all');
+        // Route::get('/add/processmodel', 'AddProcessModel' )->name('add.processmodel');
+        // Route::post('/store/processmodel', 'StoreProcessModel' )->name('store.processmodel');
+        // Route::get('/edit/processmodel/{id}', 'EditProcessModel' )->name('edit.processmodel');
+        // Route::post('/update/processmodel', 'UpdateProcessModel' )->name('update.processmodel');
+        // Route::get('/delete/hourlyoutput/{id}', 'DeleteHourlyoutput' )->name('delete.hourlyoutput');
+    });
+});
+
+// Production Hourly Outpuy
+Route::middleware(['auth', 'roles:admin'])->group(function() {
+
+    Route::controller(SampleTestingRequisitionController::class)->group(function(){
+        Route::get('/qualitycontrol/sampletestingrequisition', 'SampleTestingRequisition' )->name('qualitycontrol.sampletestingrequisition');
+        Route::get('/add/sampletestingrequisition', 'AddSampleTestingRequisition' )->name('add.sampletestingrequisition');
+        Route::post('/store/sampletestingrequisition', 'StoreTesting' )->name('store.sampletestingrequisition');
+        // Route::get('/edit/hourlyoutput/{id}', 'EditHourlyOutput' )->name('edit.hourlyoutput');
+        // Route::post('/update/hourlyoutput', 'UpdateHourlyOutput' )->name('update.hourlyoutput');
+        // Route::get('/delete/hourlyoutput/{id}', 'DeleteHourlyoutput' )->name('delete.hourlyoutput');
+
+        //Production Hourly Ouput Export Excel
+        // Route::get('/production/export-excel', 'ExportToExcel')->name('excel.export.file');
+        //Production Hourly Ouput Filter Data
+        // Route::get('/filter/hourlyoutput', 'FilterHourlyOutput')->name('filter.hourlyoutput');
+    });
 });
