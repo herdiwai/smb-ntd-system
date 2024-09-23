@@ -54,7 +54,6 @@ class SampleTestingRequisitionController extends Controller
          
 
         // Request sample testing dengan status 'incomplete'
-        dd($request->all());
         SampleTestingRequisition::create([
             'user_id' => Auth::id(),
             'incomming_number' => $autoCode,
