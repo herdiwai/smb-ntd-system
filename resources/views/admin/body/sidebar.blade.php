@@ -113,6 +113,27 @@
             </div>
           </li>
 
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents2" role="button" aria-expanded="false" aria-controls="uiComponents2">
+              <i class="link-icon" data-feather="feather"></i>
+              <span class="link-title">Testing Report</span>
+              <i class="link-arrow" data-feather="chevron-down"></i>
+            </a>
+            <div class="collapse" id="uiComponents2">
+              <ul class="nav sub-menu">
+                
+                <li class="nav-item">
+                  <a href="{{ route('qualitycontrol.sampletestingreport') }}" class="nav-link">All Table</a>
+                </li>
+               
+                <li class="nav-item">
+                  <a href="" class="nav-link">Add</a>
+                </li>
+             
+              </ul>
+            </div>
+          </li>
+
          
 
           @if(Auth::user()->can('Sparepart.menu'))

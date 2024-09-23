@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class SampleTestingReport extends Model
+{
+    use HasFactory;
+    protected $table = 'sample_testing_report';
+    // protected $guarded = [];
+    protected $fillable = [
+        'summary_after',
+        'schedule_of_test',
+        'est_of_completion_date',
+        'report_no',
+        'result_test',
+        'remark_test',
+        'inspector',
+        'date',
+        'user_id',
+        'sample_testing_requisition_id',
+    ];
+
+    // Relasi to table SampleTestingRequisition
+    public function sampleRequisition()
+    {
+        return $this->belongsTo(SampleTestingRequisition::class);
+    }
+
+}

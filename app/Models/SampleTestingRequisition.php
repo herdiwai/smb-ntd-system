@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class SampleTestingRequisition extends Model
 {
     use HasFactory;
-    protected $table = 'sample_testing_requisition';
+    protected $table = 'sample_testing_requisitions';
     // protected $guarded = [];
     protected $fillable = [
             'user_id',
@@ -48,4 +48,10 @@ class SampleTestingRequisition extends Model
     {
         return $this->hasOne(Process::class,'id','processes_id');
     }
+    // Relasi to table SampleTestingReport
+    public function SampleReport()
+    {
+        return $this->hasMany(SampleTestingReport::class);
+    }
+
 }
