@@ -28,5 +28,10 @@ class SampleTestingReport extends Model
     {
         return $this->belongsTo(SampleTestingRequisition::class);
     }
+    // Mendapatkan user dari form pertama(SampleTestingRequisition)
+    public function user()
+    {
+        return $this->sampleRequisition->user;
+    }
 
 }

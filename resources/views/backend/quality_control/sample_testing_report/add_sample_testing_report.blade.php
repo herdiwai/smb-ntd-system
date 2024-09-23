@@ -11,7 +11,7 @@
                 <div class="card-body">
                     <h6 class="card-title">FORM EDIT SAMPLE TESTING REPORT </h6>
                 
-                    <form id="myForm" action="" method="POST">
+                    <form id="myForm" action="{{ route('store.sampletestingreport', $testinggetid->id) }}" method="POST">
                         @method('POST')
                         @csrf
                         <!-- Bagian return sample -->
@@ -55,7 +55,7 @@
                                         <label for="model" class="col-form-label">Model</label>
                                     </div>
                                     <div class="col">
-                                        <input type="text" class="form-control" value="{{ old('model_id', $testinggetid->model_id) }}" id="model" readonly>
+                                        <input type="text" class="form-control" value="{{ old('mdoel_id', $testinggetid->modelBrewer->model)  }}" id="model" readonly>                             
                                     </div>
                                 </div>
                             </div>
@@ -150,7 +150,7 @@
                                         <label for="personInCharged" class="col-form-label">Person In Charged</label>
                                     </div>
                                     <div class="col">
-                                        <input type="text" value="{{ old('username', $profileData->username)  }}" class="form-control" id="personInCharged">
+                                        <input type="text" value="" class="form-control" id="personInCharged">
                                     </div>
                                 </div>
                             </div>
@@ -173,7 +173,7 @@
                             <div class="col-md-12 mb-3">
                                 <div class="form-row">
                                     <label for="reposrtNo">Test Item</label>
-                                    <input type="text" value="{{ old('test_purpose', $testinggetid->test_purpose)  }}" class="form-control" id="input6" placeholder="Data tidak ada" readonly>
+                                    <input type="text" value="{{ old('test_purpose', $testinggetid->test_purpose)  }}" class="form-control" id="input6" placeholder="Data not found" readonly>
                                 </div>
                             </div>
                         </div>
@@ -216,14 +216,14 @@
                                 <!-- Checkbox Group 1 -->                               
                                 <div class="col-md-6 d-flex align-items-center">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="quatationSample" value="Quatation Sample Test" name="testpurpose[]">
-                                        <label class="form-check-label me-2" for="quatationSample">PASS</label>
+                                        <input class="form-check-input" type="checkbox" id="pass" value="Pass" name="result_test[]">
+                                        <label class="form-check-label me-2" for="pass">PASS</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6 d-flex align-items-center">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="moldProcess" value="Mold/Tool Process Change Sample Test" name="testpurpose[]">
-                                        <label class="form-check-label me-2" for="moldProcess">Mold/Tool Process Change Sample Test</label>
+                                        <input class="form-check-input" type="checkbox" id="conditionalPass" value="Conditional Pass" name="result_test[]">
+                                        <label class="form-check-label me-2" for="conditionalPass">CONDITIONAL PASS</label>
                                     </div>
                                 </div>
                             </div>
@@ -232,14 +232,14 @@
                                 <!-- Checkbox Group 2 -->
                                 <div class="col-md-6 d-flex align-items-center">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="eppSample" value="EP/PP Sample Test" name="testpurpose[]">
-                                        <label class="form-check-label me-2" for="eppSample">EP/PP Sample Test</label>
+                                        <input class="form-check-input" type="checkbox" id="reserverd" value="Reserved" name="result_test[]">
+                                        <label class="form-check-label me-2" for="reserverd">RESERVED</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6 d-flex align-items-center">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="firstBatch" value="First Batch Production/Conversion Sample Test" name="testpurpose[]">
-                                        <label class="form-check-label me-2" for="firstBatch">First Batch Production/Conversion Sample Test</label>
+                                        <input class="form-check-input" type="checkbox" id="fail" value="fail" name="result_test[]">
+                                        <label class="form-check-label me-2" for="fail">FAIL</label>
                                     </div>
                                 </div>
                             </div>
@@ -248,40 +248,18 @@
                                 <!-- Checkbox Group 3 -->
                                 <div class="col-md-6 d-flex align-items-center">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="ssbApproves" value="The SSB approves the sample test" name="testpurpose[]">
-                                        <label class="form-check-label me-2" for="ssbApproves">The SSB approves the sample test</label>
+                                        <input class="form-check-input" type="checkbox" id="na" value="N/A" name="result_test[]">
+                                        <label class="form-check-label me-2" for="na">N/A</label>
                                     </div>
                                 </div>
-                                <div class="col-md-6 d-flex align-items-center">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="normalLife" value="Normal Life and Reliability Test" name="testpurpose[]">
-                                        <label class="form-check-label me-2" for="normalLife">Normal Life and Reliability Test</label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <!-- Checkbox Group 4 -->
-                                <div class="col-md-6 d-flex align-items-center">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="designChange" value="Design Change Sample Test" name="testpurpose[]">
-                                        <label class="form-check-label me-2" for="designChange">Design Change Sample Test</label>                       
-                                    </div>
-                                </div>
-                                <div class="col-md-6 d-flex align-items-center">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="presented" value="Presented to the Client for Approval of the Sample Test" name="testpurpose[]">
-                                        <label class="form-check-label me-2" for="presented">Presented to the Client for Approval of the Sample Test</label>
-                                    </div>
-                                </div>
-                            </div>
 
                             <div class="form-group mb-3" id="other_purpose">
-                                <label for="remarks">Other purpose/remarks:</label>
-                                <textarea class="form-control" id="remarks" name="test_purpose" rows="5" placeholder=""></textarea>
+                                <label for="remarks">Remarks:</label>
+                                <textarea class="form-control" id="remarks" name="remark_test" rows="5" placeholder=""></textarea>
                             </div>
                         </div>
 
+                        <hr>
 
 
 
@@ -292,270 +270,106 @@
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-3">
-                                                <label for="" class="col-form-label">Date</label>
+                                                <label for="" class="col-form-label">Schedule of Test</label>
                                             </div>
                                             <div class="col">
-                                                <input type="date" value="{{ old('date', $testinggetid->date) }}" name="date" id="" class="form-control" placeholder="Select date" data-input>
+                                                <input type="date" name="schedule_of_test" id="" class="form-control" placeholder="Select date" data-input>
                                             </div>
                                         </div>
                                     </div>                                   
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <div class="form-group">
-                                        <div class="form-row align-items-center">
-                                            <div class="col-sm-3">
-                                                <label for="lot" class="col-form-label">Lot</label>
-                                            </div>
-                                            <div class="col">
-                                                <select id="lot" name="lot_id" class="form-select">
-                                                    <option value="">Select Lot</option>
-                                                    @foreach($lot as $lots)
-                                                        <option value="{{ $lots->id }}" {{ $lots->id ==  old('lot_id', $testinggetid->lot_id) ? 'selected' : '' }}>
-                                                            {{ $lots->lot }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
-                       
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <div class="form-row align-items-center">
+                                            <div class="col-sm-3">
+                                                <label for="" class="col-form-label">Est of Completion Date</label>
+                                            </div>
+                                            <div class="col">
+                                                <input type="date" name="est_of_completion_date" id="" class="form-control" placeholder="Select date" data-input>
+                                            </div>
+                                        </div>
+                                    </div>                                   
+                                </div>
 
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <div class="form-group">
-                                        <div class="form-row align-items-center">
-                                            <div class="col-sm-3">
-                                                <label for="model" class="col-form-label">Model</label>
-                                            </div>
-                                            <div class="col">
-                                                <select id="model" name="model_id" class="form-select">
-                                                    <option value="">Select Model</option>
-                                                    @foreach($modelbrewer as $modelbrewers)
-                                                        <option value="{{ $modelbrewers->id }}" {{ $modelbrewers->id ==  old('model_id', $testinggetid->model_id) ? 'selected' : '' }}>
-                                                            {{ $modelbrewers->model }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>    
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <div class="form-group">
-                                        <div class="form-row align-items-center">
-                                            <div class="col-sm-3">
-                                                <label for="shift" class="col-form-label">Shift</label>
-                                            </div>
-                                            <div class="col">
-                                                <select id="shift" name="shift_id" class="form-select">
-                                                    <option value="">Select Shift</option>
-                                                    @foreach($shift as $shifts)
-                                                        <option value="{{ $shifts->id }}" {{ $shifts->id ==  old('shift_id', $testinggetid->shift_id) ? 'selected' : '' }}>
-                                                            {{ $shifts->shift }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>    
+                                <hr>
 
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-4 mb-4">
                                         <div class="form-row align-items-center">
-                                            <div class="col-sm-3">
-                                                <label for="series" class="col-form-label">Series</label>
+                                            <div class="col-sm-4">
+                                                <label for="model" class="col-form-label">Inspector</label>
                                             </div>
                                             <div class="col">
-                                                <input type="text" value="{{ old('series', $testinggetid->series) }}" class="form-control" id="series" placeholder="" name="series">
+                                                <input type="text" value="{{ $profileData->username }}" class="form-control" name="inspector" id="model" readonly>                             
+                                            </div>
+                                        </div>
+                                    </div>
+        
+                                    <div class="col-md-4 mb-4">
+                                        <div class="form-row align-items-center">
+                                            <div class="col-sm-6">
+                                                <label for="model" class="col-form-label">Review by Spv</label>
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" class="form-control" id="model" placeholder="">
+                                            </div>
+                                        </div>
+                                    </div>
+        
+                                    <div class="col-md-4 mb-4">
+                                        <div class="form-row align-items-center">
+                                            <div class="col-sm-6">
+                                                <label for="model" class="col-form-label">Approved by Manager</label>
+                                            </div>
+                                            <div class="col">
+                                                <input type="text"  class="form-control" id="model" readonly>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <div class="form-group">
-                                        <div class="form-row align-items-center">
-                                            <div class="col-sm-3">
-                                                <label for="noOfSample" class="col-form-label">No Of Sample</label>
-                                            </div>
-                                            <div class="col">
-                                                <input type="text" value="{{ old('no_of_sample', $testinggetid->no_of_sample) }}" class="form-control" id="noOfSample" placeholder="" name="no_of_sample">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>    
+                                {{-- end of row --}}
 
+                                <div class="row">
+                                    <div class="col-md-4 mb-4">
+                                        <div class="form-row align-items-center">
+                                            <div class="col-sm-4">
+                                                <label for="model" class="col-form-label">Date</label>
+                                            </div>
+                                            <div class="col">
+                                                <input type="date" class="form-control" name="date" id="model">                             
+                                            </div>
+                                        </div>
+                                    </div>
 
-                         
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <div class="form-group">
+                                    <div class="col-md-4 mb-4">
                                         <div class="form-row align-items-center">
-                                            <div class="col-sm-3">
-                                                <label for="cONo" class="col-form-label">C/O No.</label>
+                                            <div class="col-sm-4">
+                                                <label  class="col-form-label">Date</label>
                                             </div>
                                             <div class="col">
-                                                <input type="text" value="{{ old('co_no', $testinggetid->co_no) }}" class="form-control" id="co_no" placeholder="" name="co_no">
+                                                <input type="date" class="form-control">                             
                                             </div>
                                         </div>
-                                    </div>  
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <div class="form-group">
+                                    </div>
+
+                                    <div class="col-md-4 mb-4">
                                         <div class="form-row align-items-center">
-                                            <div class="col-sm-3">
-                                                <label for="" class="col-form-label">Do Number</label>
+                                            <div class="col-sm-4">
+                                                <label class="col-form-label">Date</label>
                                             </div>
                                             <div class="col">
-                                                <input type="text" value="{{ old('do_no', $testinggetid->do_no) }}" class="form-control" id="" placeholder="" name="do_no">
-                                            </div>
-                                        </div>
-                                    </div>  
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <div class="form-group">
-                                        <div class="form-row align-items-center">
-                                            <div class="col-sm-3">
-                                                <label for="process" class="col-form-label">Process</label>
-                                            </div>
-                                            <div class="col">
-                                                <select id="process" name="processes_id" class="form-select">
-                                                    <option value="">Select Process</option>
-                                                    @foreach($process as $processs)
-                                                        <option value="{{ $processs->id }}" {{ $processs->id ==  old('processes_id', $testinggetid->processes_id) ? 'selected' : '' }}>
-                                                            {{ $processs->process }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
+                                                <input type="date" class="form-control">                             
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <div class="form-group">
-                                        <div class="form-row align-items-center">
-                                            <div class="col-sm-3">
-                                                <label for="mfgSample" class="col-form-label">MFG Sample Date</label>
-                                            </div>
-                                            <div class="col">
-                                                <input type="date" value="{{ old('mfg_sample_date', $testinggetid->mfg_sample_date) }}" class="form-control" name="mfg_sample_date" id="mfgSample" placeholder="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>   
+                                {{-- End of row --}}
                             </div>
                         {{-- END --}}
 
-                        <div class="row">
-                                     
-                        </div>
-
-                        <hr/>
-
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <div class="form-group">
-                                    <div class="form-row align-items-center">
-                                        <div class="col-sm-5">
-                                            <label for="sampleSubmittedDate" class="col-form-label">Sample Submitted (Date)</label>
-                                        </div>
-                                        <div class="col">
-                                            <input type="date" value="{{ old('sample_subtmitted_date', $testinggetid->sample_subtmitted_date) }}" name="sample_subtmitted_date" id="sampleSubmittedDate" class="form-control" placeholder="Select date" data-input>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="form-group">
-                                    <div class="form-row align-items-center">
-                                        <div class="col-sm-3">
-                                            <label for="completionDate" class="col-form-label">Completion Date</label>
-                                        </div>
-                                        <div class="col">
-                                            <input type="date" value="{{ old('completion_date', $testinggetid->completion_date) }}" name="completion_date" id="completionDate" class="form-control" placeholder="Select date" data-input>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <div class="form-group">
-                                    <div class="form-row align-items-center">
-                                        <div class="col-sm-5">
-                                            <label for="traceabilityDate" class="col-form-label">Traceability (Date Code)</label>
-                                        </div>
-                                        <div class="col">
-                                            <input type="date" value="{{ old('tracebility_datecode', $testinggetid->tracebility_datecode) }}" name="tracebility_datecode" id="traceabilityDate" class="form-control" placeholder="Select date" data-input>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                            </div>             
-                        </div>
-                    <hr/>
-
-                        <!-- Test Purpose Section -->
-
-                        <div class="form-group mb-3">
-                            <label for="test-purpose" class="form-label">Test Purpose</label>
-
-                            <div class="row mb-3">
-                                <!-- Checkbox Group 1 -->                               
-                                @foreach($testpurpose as $testpurposes)
-                                    <div class="col-md-6 d-flex align-items-center">
-                                        <div class="form-check">
-                                                <input class="form-check-input" id="toggleCheckbox" type="checkbox" value="{{ $testpurposes }}" {{ $testpurposes == $testinggetid->testpurpose ? 'checked' : '' }}>
-                                                    {{ $testpurposes }}
-                                                </option>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-
-                            <div class="form-group mb-3" id="other_purpose">
-                                <label for="remarks">Other purpose/remarks:</label>
-                                <textarea class="form-control" value="{{ old('test_purpose', $testinggetid->test_purpose) }}" id="remarks" name="test_purpose" rows="5" placeholder=""></textarea>
-                            </div>
-                        </div>
-                        <!-- end class test purpose -->
-                        <hr />
-                       
-                        <div class="row">
-                            <div class="col-md-12 mb-6">
-                                <div class="form-group">
-                                    <div class="form-row">
-                                        <label for="qeReview" >Testing purpose</label>
-                                        <input type="text" value="{{ old('testing_purpose', $testinggetid->testing_purpose) }}" class="form-control" id="name" placeholder=""name="testing_purpose" >
-                                    </div>
-                                </div>
-                                &nbsp;  
-
-                                <div class="form-group">
-                                    <div class="form-row">
-                                        <label for="qeReview" >Summary</label>
-                                        <textarea class="form-control" id="summary" placeholder="" rows="5" name="summary">{{ old('summary', $testinggetid->summary) }}</textarea>
-                                    </div>
-                                </div>
-                                &nbsp;
-
-                                <div class="form-group">
-                                    <div class="form-row">
-                                        <label for="qeReview" >Person In Charged</label>
-                                        <input type="text" class="form-control" value="{{ $profileData->username }}" id="name" readonly>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <button class="btn btn-primary btn-sm" type="submit"><i data-feather="save"></i> SAVE</button>
+                    
+                        <button class="btn btn-primary btn-sm" type="submit"><i data-feather="save"></i> SUBMIT</button>
                         
                     </form>
                 </div>
@@ -563,123 +377,10 @@
         </div>
     </div>
 
-    <br/>
-    {{-- <div class="row">
-        <div class="col-md-12 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="mb-0"></h5>
-                
-                    <form action="" method="POST" enctype="multipart/form-data">
-                        @csrf
-
-                        <style>
-                            .form-row {
-                                display: flex;
-                                align-items: center; /* Agar label dan input sejajar secara vertikal */
-                            }
-                    
-                            .form-row label {
-                                margin-right: 10px; /* Jarak antara label dan input */
-                                min-width: 120px; /* Lebar minimal untuk label */
-                            }
-                    
-                            .form-row input {
-                                flex: 1; /* Input menyesuaikan lebar sisa ruang */
-                            }
-                        </style>
-
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <div class="form-row align-items-center">
-                                    <div class="col-sm-4">
-                                        <label for="qeReview" class="col-form-label">QE Review</label>
-                                    </div>
-                                    <div class="col">
-                                        <input type="text" class="form-control" id="qeReview" placeholder="">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="form-row align-items-center">
-                                    <div class="col-sm-4">
-                                        <label for="regAccept" class="col-form-label">Reg Accepted</label>
-                                    </div>
-                                    <div class="col-sm-10 d-flex align-items-center">
-                                        <div class="form-check me-3">
-                                            <input class="form-check-input" type="checkbox" value="yes" id="flexCheckYes1">
-                                            <label class="form-check-label" for="flexCheckYes1">Yes</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="no" id="flexCheckNo1">
-                                            <label class="form-check-label" for="flexCheckNo1">No</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    
-
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <div class="form-row align-items-center">
-                                    <div class="col-sm-4">
-                                        <label for="flatpickr-date" class="col-form-label">Schedule Of Test</label>
-                                    </div>
-                                    <div class="col" id="flatpickr-date">
-                                        <input type="date" value="" name="date" class="form-control" placeholder="Select date" data-input>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="form-row align-items-center">
-                                    <div class="col-sm-4">
-                                        <label for="flatpickr-date" class="col-form-label">Est Of Completion Date</label>
-                                    </div>
-                                    <div class="col" id="flatpickr-date">
-                                        <input type="date" value="" name="date" class="form-control" placeholder="Select date" data-input>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <div class="form-row align-items-center">
-                                    <div class="col-sm-4">
-                                        <label for="reportNo" class="col-form-label">Report No.</label>
-                                    </div>
-                                    <div class="col">
-                                        <input type="text" class="form-control" id="reportNo" placeholder="">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="form-row align-items-center">
-                                    <div class="col-sm-4">
-                                        <label for="testResults" class="col-form-label">Test Results :</label>
-                                    </div>
-                                    <div class="col">
-                                        <input type="text" class="form-control" id="testResults" placeholder="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <br/>
-
-                        <button class="btn btn-primary btn-sm" type="submit"><i data-feather="save"></i> SUBMIT</button>
-    
-                    </form>
-                        
-                </div>
-            </div>
-        </div>
-    </div> --}}
+  
 </div>
 
-<script type="text/javascript">
+{{-- <script type="text/javascript">
     $(document).ready(function (){
         $('#myForm').validate({
             rules: {
@@ -863,6 +564,6 @@
     // });
 
 
-</script>
+</script> --}}
 
 @endsection

@@ -54,4 +54,15 @@ class SampleTestingRequisition extends Model
         return $this->hasMany(SampleTestingReport::class);
     }
 
+    // Relasi ke user (satu form pertama diisi oleh satu user)
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    // Relasi ke form kedua (satu form pertama bisa terhubung ke banyak form kedua)
+    public function testingReport()
+    {
+        return $this->hasMany(SampleTestingReport::class);
+    }
+
 }

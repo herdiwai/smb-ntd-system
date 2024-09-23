@@ -40,6 +40,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    // Relasi ke form pertama (satu user bisa mengisi banyak form pertama)
+    public function testingRequisition()
+    {
+        return $this->hasMany(SampleTestingRequisition::class);
+    }
 
     public static function getpermissionGroups()
     {

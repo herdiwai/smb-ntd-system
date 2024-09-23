@@ -43,7 +43,11 @@
                                         <td>{{ $items->series }}</td>
                                         <td>{{ $items->no_of_sample }}</td>
                                         <td>
-                                            <span class="badge bg-danger"> {{ $items->status }} </span>
+                                            @if ($items->status == 'incomplete')
+                                                <span class="badge bg-danger">incomplete</span>
+                                            @else
+                                                <span class="badge bg-success"><b>complete</b></span>
+                                            @endif
                                         </td>   
                                         <td> 
                                             {{-- <a href="{{ route('edit.TestingRequisition', $items->id) }}" class="btn btn-inverse-warning btn-xs" title="Edit"><i data-feather="edit"></i></a> --}}
