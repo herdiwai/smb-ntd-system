@@ -33,6 +33,7 @@ class SampleTestingRequisition extends Model
             'testing_purpose', 
             'status',
             'testpurpose',
+            'summary',
     ];
 
     public function modelBrewer()

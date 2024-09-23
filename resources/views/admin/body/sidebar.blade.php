@@ -105,7 +105,6 @@
                   <a href="{{ route('qualitycontrol.sampletestingrequisition') }}" class="nav-link">All Table</a>
                 </li>
                
-      
                 <li class="nav-item">
                   <a href="{{ route('add.sampletestingrequisition') }}" class="nav-link">Add</a>
                 </li>

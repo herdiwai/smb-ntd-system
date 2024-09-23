@@ -46,7 +46,7 @@
                                             <span class="badge bg-danger"> {{ $items->status }} </span>
                                         </td>   
                                         <td> 
-                                            <a href="" class="btn btn-inverse-warning btn-xs" title="Edit"><i data-feather="edit"></i></a>
+                                            <a href="{{ route('edit.TestingRequisition', $items->id) }}" class="btn btn-inverse-warning btn-xs" title="Edit"><i data-feather="edit"></i></a>
                                             <a href="" class="btn btn-inverse-danger btn-sm" title="Delete"><i data-feather="trash-2"></i></a>
                                         </td> 
                                     </tr>

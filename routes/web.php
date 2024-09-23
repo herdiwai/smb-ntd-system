@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    // return redirect()->route('/admin/login');
     return view('welcome');
 });
 
@@ -41,6 +42,7 @@ require __DIR__.'/auth.php';
 
 // Admin Group Middleware
 Route::middleware(['auth', 'roles:admin'])->group(function() {
+    
     Route::get('/admin/dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');
     Route::get('/admin/logout', [AdminController::class, 'AdminLogout'])->name('admin.logout');
     Route::get('/admin/profile', [AdminController::class, 'AdminProfile'])->name('admin.profile');
@@ -56,6 +58,7 @@ Route::middleware(['auth', 'roles:ntd'])->group(function() {
 });
 
 Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login');
+
 // Route::get('/production/hourlyoutput', [PDHourlyOutputController::class, 'index'])->name('production.hourlyoutput');
 // Route::get('/production/output', [PDHourlyOutputController::class, 'index'])->name('production.hourlyoutput');
 
@@ -179,7 +182,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
         Route::get('/qualitycontrol/sampletestingrequisition', 'SampleTestingRequisition' )->name('qualitycontrol.sampletestingrequisition');
         Route::get('/add/sampletestingrequisition', 'AddSampleTestingRequisition' )->name('add.sampletestingrequisition');
         Route::post('/store/sampletestingrequisition', 'StoreTesting' )->name('store.sampletestingrequisition');
-        // Route::get('/edit/hourlyoutput/{id}', 'EditHourlyOutput' )->name('edit.hourlyoutput');
+        Route::get('/edit/sampletestingrequisition/{id}', 'EditTestingRequisition' )->name('edit.TestingRequisition');
         // Route::post('/update/hourlyoutput', 'UpdateHourlyOutput' )->name('update.hourlyoutput');
         // Route::get('/delete/hourlyoutput/{id}', 'DeleteHourlyoutput' )->name('delete.hourlyoutput');
 

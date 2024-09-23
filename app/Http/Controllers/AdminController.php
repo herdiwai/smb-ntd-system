@@ -28,7 +28,7 @@ class AdminController extends Controller
 
         $notification = array(
             'message' => 'Admin Logout Successfully',
-            'alert-type' => 'success'
+            'alert-type' => 'info'
         );
 
         return redirect('/admin/login')->with($notification);
