@@ -18,7 +18,7 @@ class SampleTestingReportContoller extends Controller
 {
     public function SampleTestingReport()
     {
-        $testingreport = SampleTestingReport::all();
+        // $testingreport = SampleTestingReport::all();
         $testingrequisition = SampleTestingRequisition::all();
         return view('backend.quality_control.sample_testing_report.sample_testing_report', compact('testingreport','testingrequisition'));
     }

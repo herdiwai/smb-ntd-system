@@ -36,12 +36,12 @@ class SampleTestingReport extends Model
     // Relasti ke table Approvals
     public function approval()
     {
-        return $this->hasOne(Approval::class);
+        return $this->hasOne(Approval::class,'sample_testing_reports');
     }
     // Relasi ke user (pengguna yang mengisi form sample report)
     public function user_report()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_id');
     }
 
 }

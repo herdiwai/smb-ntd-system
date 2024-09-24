@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Approval extends Model
 {
     use HasFactory;
-    protected $table = 'sample_testing_reports';
+    protected $table = 'approvals';
     protected $fillable = [
         'sample_testing_reports',
         'manager_id',
@@ -18,12 +18,12 @@ class Approval extends Model
     // Relasi ke sample testing report
     public function sampleTestingReport()
     {
-        return $this->belongsTo(SampleTestingReport::class);
+        return $this->belongsTo(SampleTestingReport::class,'id');
     }
     // Relasi ke user sebagai manager
     public function manager()
     {
-        return $this->belongsTo(User::class, 'manager_id');
+        return $this->belongsTo(User::class);
     }
 
 }
