@@ -24,7 +24,7 @@
           <li class="nav-item nav-category">PRODUCTION</li>
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#emails" role="button" aria-expanded="false" aria-controls="emails">
-              <i class="link-icon" data-feather="mail"></i>
+              <i class="link-icon" data-feather="clipboard"></i>
               <span class="link-title">Hourly Output</span>
               <i class="link-arrow" data-feather="chevron-down"></i>
             </a>
@@ -94,7 +94,7 @@
 
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents1" role="button" aria-expanded="false" aria-controls="uiComponents1">
-              <i class="link-icon" data-feather="feather"></i>
+              <i class="link-icon" data-feather="file"></i>
               <span class="link-title">Testing Requisition</span>
               <i class="link-arrow" data-feather="chevron-down"></i>
             </a>
@@ -114,21 +114,21 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents2" role="button" aria-expanded="false" aria-controls="uiComponents2">
-              <i class="link-icon" data-feather="feather"></i>
+            <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents01" role="button" aria-expanded="false" aria-controls="uiComponents01">
+              <i class="link-icon" data-feather="file-text"></i>
               <span class="link-title">Testing Report</span>
               <i class="link-arrow" data-feather="chevron-down"></i>
             </a>
-            <div class="collapse" id="uiComponents2">
+            <div class="collapse" id="uiComponents01">
               <ul class="nav sub-menu">
                 
                 <li class="nav-item">
                   <a href="{{ route('qualitycontrol.sampletestingreport') }}" class="nav-link">All Table</a>
                 </li>
                
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                   <a href="" class="nav-link">Add</a>
-                </li>
+                </li> --}}
              
               </ul>
             </div>
@@ -182,7 +182,7 @@
           <li class="nav-item nav-category">List</li>
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents2" role="button" aria-expanded="false" aria-controls="uiComponents2">
-              <i class="link-icon" data-feather="feather"></i>
+              <i class="link-icon" data-feather="table"></i>
               <span class="link-title">Model</span>
               <i class="link-arrow" data-feather="chevron-down"></i>
             </a>
@@ -200,7 +200,7 @@
 
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents3" role="button" aria-expanded="false" aria-controls="uiComponents3">
-              <i class="link-icon" data-feather="feather"></i>
+              <i class="link-icon" data-feather="table"></i>
               <span class="link-title">Process</span>
               <i class="link-arrow" data-feather="chevron-down"></i>
             </a>
@@ -218,7 +218,7 @@
 
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents4" role="button" aria-expanded="false" aria-controls="uiComponents4">
-              <i class="link-icon" data-feather="feather"></i>
+              <i class="link-icon" data-feather="table"></i>
               <span class="link-title">Lot</span>
               <i class="link-arrow" data-feather="chevron-down"></i>
             </a>
@@ -268,7 +268,7 @@
         @if(Auth::user()->can('manageadminuser.menu'))
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#admin" role="button" aria-expanded="false" aria-controls="admin">
-              <i class="link-icon" data-feather="anchor"></i>
+              <i class="link-icon" data-feather="users"></i>
               <span class="link-title">Manage Admin User</span>
               <i class="link-arrow" data-feather="chevron-down"></i>
             </a>
