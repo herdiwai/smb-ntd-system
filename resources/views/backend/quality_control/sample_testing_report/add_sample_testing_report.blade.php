@@ -122,7 +122,7 @@
 
                         <!-- class baris ketiga -->
                         <div class="row">
-                            <div class="col-md-4 mb-4">
+                            <div class="col-md-6 mb-3">
                                 <div class="form-row align-items-center">
                                     <div class="col-sm-4">
                                         <label for="noOfSample" class="col-form-label">No of Samples</label>
@@ -133,7 +133,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4 mb-4">
+                            <div class="col-md-6 mb-3">
                                 <div class="form-row align-items-center">
                                     <div class="col-sm-6">
                                         <label for="cO" class="col-form-label">C/O</label>
@@ -144,7 +144,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4 mb-4">
+                            {{-- <div class="col-md-4 mb-4">
                                 <div class="form-row align-items-center">
                                     <div class="col-sm-6">
                                         <label for="personInCharged" class="col-form-label">Person In Charged</label>
@@ -153,7 +153,7 @@
                                         <input type="text" value="" class="form-control" id="personInCharged">
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
                         </div>
                         {{-- endd of row --}}
