@@ -9,7 +9,7 @@
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h6 class="card-title">FORM EDIT SAMPLE TESTING REPORT </h6>
+                    <h6 class="card-title"><b>FORM EDIT SAMPLE TESTING REPORT </b></h6>
                 
                     <form id="myForm" action="{{ route('store.sampletestingreport', $testinggetid->id) }}" method="POST">
                         @method('POST')
@@ -39,20 +39,20 @@
                         <!-- end return sample-->
                         <input type="hidden" name="id" value="{{ $testinggetid->id }}">
                         
-                        <div class="row">
+                        {{-- <div class="row">
                             <div class="col-md-12 mb-3">
                                 <div class="form-row">
                                     <label for="reposrtNo">Report No.</label>
                                     <input type="text" name="report_no" class="form-control" id="input6" placeholder="">
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="row">
                             <div class="col-md-4 mb-4">
                                 <div class="form-row align-items-center">
                                     <div class="col-sm-4">
-                                        <label for="model" class="col-form-label">Model</label>
+                                        <label for="model" class="col-form-label"><b>Model</b></label>
                                     </div>
                                     <div class="col">
                                         <input type="text" class="form-control" value="{{ old('mdoel_id', $testinggetid->modelBrewer->model)  }}" id="model" readonly>                             
@@ -63,7 +63,7 @@
                             <div class="col-md-4 mb-4">
                                 <div class="form-row align-items-center">
                                     <div class="col-sm-6">
-                                        <label for="model" class="col-form-label">Tracebility (Date Code)</label>
+                                        <label for="model" class="col-form-label"><b>Tracebility (Date Code)</b></label>
                                     </div>
                                     <div class="col">
                                         <input type="text" value="{{ old('tracebility_datecode', $testinggetid->tracebility_datecode) }}" class="form-control" id="model" placeholder="">
@@ -74,7 +74,7 @@
                             <div class="col-md-4 mb-4">
                                 <div class="form-row align-items-center">
                                     <div class="col-sm-6">
-                                        <label for="model" class="col-form-label">Process</label>
+                                        <label for="model" class="col-form-label"><b>Process</b></label>
                                     </div>
                                     <div class="col">
                                         <input type="text" value="{{ old('process', $testinggetid->process)  }}" class="form-control" id="model" readonly>
@@ -88,7 +88,7 @@
                             <div class="col-md-4 mb-4">
                                 <div class="form-row align-items-center">
                                     <div class="col-sm-4">
-                                        <label for="seriesPN" class="col-form-label">Series / PN</label>
+                                        <label for="seriesPN" class="col-form-label"><b>Series / PN </b></label>
                                     </div>
                                     <div class="col">
                                         <input type="text" value="{{ old('series', $testinggetid->series)  }}" class="form-control" id="seriesPN" readonly>
@@ -99,7 +99,7 @@
                             <div class="col-md-4 mb-4">
                                 <div class="form-row align-items-center">
                                     <div class="col-sm-6">
-                                        <label for="receivedSampleData" class="col-form-label">Received Sample Date</label>
+                                        <label for="receivedSampleData" class="col-form-label"><b>Received Sample Date</b></label>
                                     </div>
                                     <div class="col" id="flatpickr-date">
                                         <input type="text" value="{{ old('sample_subtmitted_date', $testinggetid->sample_subtmitted_date)  }}" class="form-control" readonly>
@@ -110,7 +110,7 @@
                             <div class="col-md-4 mb-4">
                                 <div class="form-row align-items-center">
                                     <div class="col-sm-6">
-                                        <label for="mfgSampleDate" class="col-form-label">MFG Sample Date</label>
+                                        <label for="mfgSampleDate" class="col-form-label"><b>MFG Sample Date</b></label>
                                     </div>
                                     <div class="col" id="flatpickr-date">
                                             <input type="text" value="{{ old('mfg_sample_date', $testinggetid->mfg_sample_date)  }}" class="form-control" readonly>
@@ -125,7 +125,7 @@
                             <div class="col-md-6 mb-3">
                                 <div class="form-row align-items-center">
                                     <div class="col-sm-4">
-                                        <label for="noOfSample" class="col-form-label">No of Samples</label>
+                                        <label for="noOfSample" class="col-form-label"><b>No of Samples</b></label>
                                     </div>
                                     <div class="col">
                                         <input type="text" value="{{ old('no_of_sample', $testinggetid->no_of_sample)  }}" class="form-control" id="noOfSample" readonly>
@@ -136,7 +136,7 @@
                             <div class="col-md-6 mb-3">
                                 <div class="form-row align-items-center">
                                     <div class="col-sm-6">
-                                        <label for="cO" class="col-form-label">C/O</label>
+                                        <label for="cO" class="col-form-label"><b>C/O</b></label>
                                     </div>
                                     <div class="col">
                                         <input type="text" value="{{ old('co_no', $testinggetid->co_no)  }}" class="form-control" id="cO" readonly>
@@ -163,7 +163,7 @@
                         <div class="row">
                             <div class="col-md-12 mb-3">
                                 <div class="form-row">
-                                    <label for="reposrtNo">Testing Purpose</label>
+                                    <label for="reposrtNo"><b>Testing Purpose</b></label>
                                     <input type="text" value="{{ old('testpurpose', $testinggetid->testpurpose)  }}" class="form-control" id="input6" readonly>
                                 </div>
                             </div>
@@ -172,7 +172,7 @@
                         <div class="row">
                             <div class="col-md-12 mb-3">
                                 <div class="form-row">
-                                    <label for="reposrtNo">Test Item</label>
+                                    <label for="reposrtNo"><b>Test Item</b></label>
                                     <input type="text" value="{{ old('test_purpose', $testinggetid->test_purpose)  }}" class="form-control" id="input6" placeholder="Data not found" readonly>
                                 </div>
                             </div>
@@ -199,7 +199,7 @@
                             <div class="col-md-12 mb-3">
                                 <div class="form-row align-items-center">
                                     <div class="col-auto">
-                                        <label for="after" class="col-form-label">After :</label>
+                                        <label for="after" class="col-form-label"><b>After :</b></label>
                                     </div>
                                     <div class="col">
                                         <textarea name="summary_after" class="form-control" id="after" placeholder=""></textarea>
@@ -254,7 +254,7 @@
                                 </div>
 
                             <div class="form-group mb-3" id="other_purpose">
-                                <label for="remarks">Remarks:</label>
+                                <label for="remarks"><b>Remarks:</b></label>
                                 <textarea class="form-control" id="remarks" name="remark_test" rows="5" placeholder=""></textarea>
                             </div>
                         </div>
@@ -270,7 +270,7 @@
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-3">
-                                                <label for="" class="col-form-label">Schedule of Test</label>
+                                                <label for="" class="col-form-label"><b>Schedule of Test</b></label>
                                             </div>
                                             <div class="col">
                                                 <input type="date" name="schedule_of_test" id="" class="form-control" placeholder="Select date" data-input>
@@ -283,7 +283,7 @@
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-3">
-                                                <label for="" class="col-form-label">Est of Completion Date</label>
+                                                <label for="" class="col-form-label"><b>Est of Completion Date</b></label>
                                             </div>
                                             <div class="col">
                                                 <input type="date" name="est_of_completion_date" id="" class="form-control" placeholder="Select date" data-input>
@@ -298,7 +298,7 @@
                                     <div class="col-md-4 mb-4">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-4">
-                                                <label for="model" class="col-form-label">Inspector</label>
+                                                <label for="model" class="col-form-label"><b>Inspector</b></label>
                                             </div>
                                             <div class="col">
                                                 <input type="text" value="{{ $profileData->username }}" class="form-control" name="inspector" id="model" readonly>                             
@@ -309,7 +309,7 @@
                                     <div class="col-md-4 mb-4">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-6">
-                                                <label for="model" class="col-form-label">Review by Spv</label>
+                                                <label for="model" class="col-form-label"><b>Review by Spv</b></label>
                                             </div>
                                             <div class="col">
                                                 <input type="text" class="form-control" id="model" placeholder="">
@@ -320,7 +320,7 @@
                                     <div class="col-md-4 mb-4">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-6">
-                                                <label for="model" class="col-form-label">Approved by Manager</label>
+                                                <label for="model" class="col-form-label"><b>Approved by Manager</b></label>
                                             </div>
                                             <div class="col">
                                                 <input type="text"  class="form-control" id="model" readonly>
@@ -334,7 +334,7 @@
                                     <div class="col-md-4 mb-4">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-4">
-                                                <label for="model" class="col-form-label">Date</label>
+                                                <label for="model" class="col-form-label"><b>Date</b></label>
                                             </div>
                                             <div class="col">
                                                 <input type="date" class="form-control" name="date" id="model">                             
@@ -345,7 +345,7 @@
                                     <div class="col-md-4 mb-4">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-4">
-                                                <label  class="col-form-label">Date</label>
+                                                <label  class="col-form-label"><b>Date</b></label>
                                             </div>
                                             <div class="col">
                                                 <input type="date" class="form-control">                             
@@ -356,7 +356,7 @@
                                     <div class="col-md-4 mb-4">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-4">
-                                                <label class="col-form-label">Date</label>
+                                                <label class="col-form-label"><b>Date</b></label>
                                             </div>
                                             <div class="col">
                                                 <input type="date" class="form-control">                             

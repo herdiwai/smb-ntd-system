@@ -322,7 +322,7 @@
                         </div>
 
                         <!-- end class test purpose -->
-                        <hr />
+                        {{-- <hr /> --}}
                         {{-- <div class="row">
                             <div class="col-md-6 mb-3">
                                 <h6 class="card-title">Pilot Project</h6>
@@ -360,16 +360,17 @@
                                 <input type="text" class="form-control" id="input4" placeholder="">
                             </div>
                         </div> --}}
+                        
 
                         <div class="row">
                             <div class="col-md-12 mb-6">
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <div class="form-row">
                                         <label for="qeReview" >Testing purpose</label>
                                         <input type="text" class="form-control" id="name" placeholder=""name="testing_purpose" >
                                     </div>
                                 </div>
-                                &nbsp;  
+                                &nbsp;   --}}
 
                                 <div class="form-group">
                                     <div class="form-row">
