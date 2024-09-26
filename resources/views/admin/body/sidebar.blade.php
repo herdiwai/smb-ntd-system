@@ -144,11 +144,11 @@
           @endif
 
 
-          @if(Auth::user()->can('notyetappovals.menu'))
+          @if(Auth::user()->can('approved.menu'))
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents02" role="button" aria-expanded="false" aria-controls="uiComponents02">
               <i class="link-icon" data-feather="folder"></i>
-              <span class="link-title">Not yet Approvals</span>
+              <span class="link-title">Approved</span>
               <i class="link-arrow" data-feather="chevron-down"></i>
             </a>
             <div class="collapse" id="uiComponents02">
@@ -167,7 +167,8 @@
           </li>
           @endif
 
-          @if(Auth::user()->can('approved.menu'))
+         
+          @if(Auth::user()->can('notyetappovals.menu'))
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents04" role="button" aria-expanded="false" aria-controls="uiComponents04">
               <i class="link-icon" data-feather="folder"></i>

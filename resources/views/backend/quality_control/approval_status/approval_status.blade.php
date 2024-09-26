@@ -24,7 +24,7 @@
                                     <th>Est of Completion Date</th>
                                     <th>Result Test</th>
                                     <th>Approval Status</th>
-                                    <th>Action</th>
+                                    <th>View Detail</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -35,19 +35,18 @@
                                         <td>{{ $items->schedule_of_test }}</td>
                                         <td>{{ $items->est_of_completion_date }}</td>
                                         <td>{{ $items->result_test }}</td>
-                                        {{-- <td>{{ $items->approvals_status }}</td> --}}
-                                        <td>
+                                        {{-- <td>
                                             @if ($items->status_approvals == 'pending')
                                                 <span class="badge bg-danger">pending</span>
                                             @elseif ($items->status_approvals == 'rejected')
                                                 <span class="badge bg-warning">rejected</span>
                                             @else
-                                                {{-- <span class="badge bg-success"><b>approved</b></span> --}}
+                                                <span class="badge bg-success"><b>approved</b></span>
                                             @endif
-                                        </td>
+                                        </td> --}}
                                         <td>
                                             <!-- Form approval -->
-                                            {{-- @if($items->status_approvals == 'pending') --}}
+                                            @if($items->status_approvals == 'pending')
                                             <form action="{{ route('store.approvals', $items->id) }}" method="POST">
                                                 @csrf
                                                 <button class="btn btn-inverse-success btn-sm" type="submit" name="approvals_status" value="approved" title="Approved"><i data-feather="check-circle"></i></button>
@@ -62,9 +61,13 @@
                                                 <input type="text" class="form-control" name="notes" placeholder="Notes (opsional)">
                                                 <br>
                                                 <button class="btn btn-inverse-primary btn-sm" type="submit">submit</button> --}}
-                                                {{-- @else
-                                                <p>form telah di  {{ $items->approvals_status }}</p>
-                                                @endif --}}
+                                            </form>
+                                                @else
+                                                    <span class="badge bg-success"><b>approved</b></span>
+                                                @endif 
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-inverse-warning btn-sm" data-bs-toggle="modal" data-bs-target="#varyingModal" data-bs-whatever="@getbootstrap">View Details</button>
                                         </td>
                                         
                                         {{-- <td>  --}}
@@ -82,6 +85,24 @@
             </div>
         </div>
     </div>
+    
 
-</div>
+    {{-- MODAL --}}
+    <div class="modal fade" id="varyingModal" tabindex="-1" aria-labelledby="varyingModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="varyingModalLabel">New message</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
+          </div>
+          {{-- Content --}}
+          <div class="modal-body">
+                {{-- <label for=""> SUMMARY AFTER : {{ old('id', $testingreport->id) }}</label> --}}
+          </div>
+          {{-- END CONTENT --}}
+
+        </div>
+      </div>
+    </div>
+    {{-- END MODAL --}}
 @endsection

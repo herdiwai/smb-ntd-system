@@ -63,6 +63,13 @@ class ApprovalController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->route('approval.status')->with($notification);
+    }
 
+    public function show($id)
+    {
+        $details = SampleTestingReport::with('approval')->findOrFail($id);
+
+        // Return tampilan partial untuk modal (posts/details.blade.php)
+        return view('backend.quality_control.approval_status.show', compact('details'));
     }
 }

@@ -58,11 +58,17 @@
                                         {{-- </td>   --}}
 
                                         <td> 
-                                            {{-- <a href="{{ route('edit.TestingRequisition', $items->id) }}" class="btn btn-inverse-warning btn-xs" title="Edit"><i data-feather="edit"></i></a> --}}
-                                            <a href="{{ route('add.sampletestingreport', $items->id) }}" class="btn btn-inverse-info btn-sm" title="Add Report"><i data-feather="file-plus"></i></a>
-                                            @if(Auth::user()->can('delete.testingreport'))
-                                            <a href="" class="btn btn-inverse-danger btn-sm" title="Delete"><i data-feather="trash-2"></i></a>
+                                            @if($items->status == 'incomplete')
+                                                {{-- <a href="{{ route('edit.TestingRequisition', $items->id) }}" class="btn btn-inverse-warning btn-xs" title="Edit"><i data-feather="edit"></i></a> --}}
+                                                <a href="{{ route('add.sampletestingreport', $items->id) }}" class="btn btn-inverse-info btn-sm" title="Add Report"><i data-feather="file-plus"></i></a>
+                                            @else
+                                            <p>report has been completed</p>
                                             @endif
+                                                @if(Auth::user()->can('delete.testingreport'))
+                                                <a href="" class="btn btn-inverse-danger btn-sm" title="Delete"><i data-feather="trash-2"></i></a>
+                                                @endif
+
+                                            
                                         </td> 
                                     </tr>
                                 @endforeach
