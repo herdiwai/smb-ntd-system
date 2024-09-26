@@ -42,12 +42,19 @@
                                         </td>
                                         <td>{{ $items->series }}</td>
                                         <td>{{ $items->no_of_sample }}</td>
+                                        <td>{{ $items->sampleReport }}</td>
                                         <td>
-                                            <span class="badge bg-danger"> {{ $items->status }} </span>
+                                            @if($items->status == 'incomplete')
+                                                <span class="badge bg-danger"> {{ $items->status }} </span>
+                                            @else
+                                                <span class="badge bg-success"> {{ $items->status }} </span>
+                                            @endif
                                         </td>   
                                         <td> 
                                             <a href="{{ route('edit.TestingRequisition', $items->id) }}" class="btn btn-inverse-warning btn-xs" title="Edit"><i data-feather="edit"></i></a>
+                                            @if(Auth::user()->can('delete.testingreport'))
                                             <a href="" class="btn btn-inverse-danger btn-sm" title="Delete"><i data-feather="trash-2"></i></a>
+                                            @endif
                                         </td> 
                                     </tr>
                                 @endforeach

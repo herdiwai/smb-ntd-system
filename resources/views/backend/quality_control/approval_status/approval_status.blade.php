@@ -13,7 +13,7 @@
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h6 class="card-title">Sample Testing Report</h6>
+                    <h6 class="card-title">Sample Testing Report Approved</h6>
                     <div class="table-responsive">
                         <table id="dataTableExample" class="table">
                             <thead>
@@ -35,21 +35,36 @@
                                         <td>{{ $items->schedule_of_test }}</td>
                                         <td>{{ $items->est_of_completion_date }}</td>
                                         <td>{{ $items->result_test }}</td>
-                                        <td></td>
+                                        {{-- <td>{{ $items->approvals_status }}</td> --}}
+                                        <td>
+                                            @if ($items->status_approvals == 'pending')
+                                                <span class="badge bg-danger">pending</span>
+                                            @elseif ($items->status_approvals == 'rejected')
+                                                <span class="badge bg-warning">rejected</span>
+                                            @else
+                                                {{-- <span class="badge bg-success"><b>approved</b></span> --}}
+                                            @endif
+                                        </td>
                                         <td>
                                             <!-- Form approval -->
+                                            {{-- @if($items->status_approvals == 'pending') --}}
                                             <form action="{{ route('store.approvals', $items->id) }}" method="POST">
                                                 @csrf
-                                                @method('POST')
-
-                                                <select name="approvals_status" required>
-                                                    <option value="approved">Setujui</option>
-                                                    <option value="rejected">Tolak</option>
+                                                <button class="btn btn-inverse-success btn-sm" type="submit" name="approvals_status" value="approved" title="Approved"><i data-feather="check-circle"></i></button>
+                                                &nbsp;&nbsp;
+                                                <button class="btn btn-inverse-danger btn-sm" type="submit" name="approvals_status" value="rejected" title="Rejected"><i data-feather="x-circle"></i></button>
+                                                
+                                                {{-- <select class="form-select" name="approvals_status" required>
+                                                    <option value="approved">Approved</option>
+                                                    <option value="rejected">Rejected</option>
                                                 </select>
-                                                
-                                                <input type="text" name="notes" placeholder="Catatan (opsional)">
-                                                
-                                                <button type="submit">Simpan</button>
+                                                <br>
+                                                <input type="text" class="form-control" name="notes" placeholder="Notes (opsional)">
+                                                <br>
+                                                <button class="btn btn-inverse-primary btn-sm" type="submit">submit</button> --}}
+                                                {{-- @else
+                                                <p>form telah di  {{ $items->approvals_status }}</p>
+                                                @endif --}}
                                         </td>
                                         
                                         {{-- <td>  --}}

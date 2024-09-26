@@ -2,15 +2,21 @@
     <a href="#" class="sidebar-toggler">
         <i data-feather="menu"></i>
     </a>
+    @php
+        $id = Auth::user()->id;
+        $profileData = App\Models\User::find($id);
+    @endphp
     <div class="navbar-content">
         <form class="search-form">
             <div class="input-group">
               <div class="input-group-text">
+                <p>Login Account -- UserName : {{ $profileData->username  }} | BadgeID :  {{ $profileData->name }}</p>
                 {{-- <i data-feather="search"></i> --}}
               </div>
                   {{-- <input type="text" class="form-control" id="navbarForm" placeholder="Search here..."> --}}
               </div>
         </form>
+
         <ul class="navbar-nav">
             <li class="nav-item dropdown">
                 {{-- <a class="nav-link dropdown-toggle" href="#" id="appsDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

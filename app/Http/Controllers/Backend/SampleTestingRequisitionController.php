@@ -16,7 +16,7 @@ class SampleTestingRequisitionController extends Controller
 {
     public function SampleTestingRequisition()
     {
-        $testingrequisition = SampleTestingRequisition::all();
+        $testingrequisition = SampleTestingRequisition::with('sampleReport')->orderBy('sample_subtmitted_date','desc')->get();
         return view('backend.quality_control.sample_testing_requisition.sample_testing_requisition', compact('testingrequisition'));
     }
 

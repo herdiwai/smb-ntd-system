@@ -20,9 +20,9 @@ class ApprovalController extends Controller
     {
         // Ambil form testing yang belum disetujui
         // $forms = SampleTestingReport::whereHas('approval', function ($query) {
-        //     $query->where('approvals_status', 'pending');
+        //     $query->where('status_approvals', 'pending');
         // })->get();
-        $approval = Approval::all();
+        $approval = Approval::with('sampleTestingReport')->get();
         $testingreport = SampleTestingReport::with('approval','user_report')->get();
         // $testingreport = Approval::with('sampleTestingReport')->get();
         $testingrequisition = SampleTestingRequisition::all();
@@ -54,6 +54,10 @@ class ApprovalController extends Controller
             'approvals_status' => $request->approvals_status,
             'notes' => $request->notes,
         ]);
+        $reportesting = SampleTestingReport::findOrFail($id);
+        $reportesting->update(['status_approvals' => 'approved']);
+
+
         $notification = array(
             'message' => 'Approvals Successfully',
             'alert-type' => 'success'

@@ -49,9 +49,9 @@ class SampleTestingRequisition extends Model
         return $this->hasOne(Process::class,'id','processes_id');
     }
     // Relasi to table SampleTestingReport
-    public function SampleReport()
+    public function sampleReport()
     {
-        return $this->hasMany(SampleTestingReport::class);
+        return $this->belongsTo(SampleTestingReport::class,'id','sample_testing_requisition_id');
     }
 
     // Relasi ke user (satu form pertama diisi oleh satu user)

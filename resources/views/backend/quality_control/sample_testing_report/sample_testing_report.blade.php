@@ -17,15 +17,15 @@
                     <div class="table-responsive">
                         <table id="dataTableExample" class="table">
                             <thead>
-                            <tr>
+                                <tr>
                                     <th>No</th>
                                     <th>Sample Subtmitted Date</th>
                                     <th>Doc.No</th>
                                     <th>Series</th>
                                     <th>No of samples</th>
-                                    <th>status</th>
+                                    <th>status report</th>
                                     <th>Action</th>
-                            </tr>
+                                </tr>
                             </thead>
                             <tbody>
                                 @foreach ($testingrequisition as $key => $items)
@@ -48,11 +48,21 @@
                                             @else
                                                 <span class="badge bg-success"><b>complete</b></span>
                                             @endif
-                                        </td>   
+                                        </td> 
+                                        {{-- <td> {{ $items->approvalStatus->status_approvals }} --}}
+                                            {{-- @if ($items->status_approvals == 'approved')
+                                                <span class="badge bg-success">approved</span>
+                                            @else
+                                                <span class="badge bg-danger"><b>pending</b></span>
+                                            @endif --}}
+                                        {{-- </td>   --}}
+
                                         <td> 
                                             {{-- <a href="{{ route('edit.TestingRequisition', $items->id) }}" class="btn btn-inverse-warning btn-xs" title="Edit"><i data-feather="edit"></i></a> --}}
                                             <a href="{{ route('add.sampletestingreport', $items->id) }}" class="btn btn-inverse-info btn-sm" title="Add Report"><i data-feather="file-plus"></i></a>
+                                            @if(Auth::user()->can('delete.testingreport'))
                                             <a href="" class="btn btn-inverse-danger btn-sm" title="Delete"><i data-feather="trash-2"></i></a>
+                                            @endif
                                         </td> 
                                     </tr>
                                 @endforeach

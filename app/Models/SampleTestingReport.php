@@ -21,12 +21,13 @@ class SampleTestingReport extends Model
         'date',
         'user_id',
         'sample_testing_requisition_id',
+        'status_approvals',
     ];
 
     // Relasi to table SampleTestingRequisition
     public function sampleRequisition()
     {
-        return $this->belongsTo(SampleTestingRequisition::class);
+    return $this->hasMany(SampleTestingRequisition::class,'id');
     }
     // Mendapatkan user dari form pertama(SampleTestingRequisition)
     public function user()
@@ -37,6 +38,10 @@ class SampleTestingReport extends Model
     public function approval()
     {
         return $this->hasOne(Approval::class,'sample_testing_reports');
+    }
+    public function approvalStatus()
+    {
+        return $this->hasOne(Approval::class,'id','approval_id');
     }
     // Relasi ke user (pengguna yang mengisi form sample report)
     public function user_report()
