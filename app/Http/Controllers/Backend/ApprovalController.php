@@ -16,17 +16,19 @@ use Illuminate\Support\Facades\Auth;
 
 class ApprovalController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         // Ambil form testing yang belum disetujui
         // $forms = SampleTestingReport::whereHas('approval', function ($query) {
         //     $query->where('status_approvals', 'pending');
         // })->get();
+        // $reportesting = SampleTestingReport::findOrFail($id);
         $approval = Approval::with('sampleTestingReport')->get();
-        $testingreport = SampleTestingReport::with('approval','user_report')->get();
+        $testingreport = SampleTestingReport::all();
         // $testingreport = Approval::with('sampleTestingReport')->get();
-        $testingrequisition = SampleTestingRequisition::all();
-        return view('backend.quality_control.approval_status.approval_status', compact('approval','testingreport','testingrequisition'));
+        $testingrequisition = SampleTestingRequisition::with('sampleReport')->get();
+        $testing = SampleTestingReport::all();
+        return view('backend.quality_control.approval_status.approval_status', compact('testing','approval','testingreport','testingrequisition'));
 
     }
 
@@ -65,11 +67,12 @@ class ApprovalController extends Controller
         return redirect()->route('approval.status')->with($notification);
     }
 
-    public function show($id)
+    public function ShowDetail($id)
     {
-        $details = SampleTestingReport::with('approval')->findOrFail($id);
-
+        $details = SampleTestingRequisition::with('sampleReport')->findOrFail($id);
+        $approval = Approval::with('sampleTestingReport')->findOrFail($id);
+        $testingreport = SampleTestingReport::findOrFail($id);
         // Return tampilan partial untuk modal (posts/details.blade.php)
-        return view('backend.quality_control.approval_status.show', compact('details'));
+        return view('backend.quality_control.approval_status.show', compact('testingreport','details','approval'));
     }
 }

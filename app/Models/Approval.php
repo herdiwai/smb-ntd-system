@@ -18,7 +18,7 @@ class Approval extends Model
     // Relasi ke sample testing report
     public function sampleTestingReport()
     {
-        return $this->belongsTo(SampleTestingReport::class);
+        return $this->belongsTo(SampleTestingReport::class,'id');
     }
     // Relasi ke user sebagai manager
     public function manager()

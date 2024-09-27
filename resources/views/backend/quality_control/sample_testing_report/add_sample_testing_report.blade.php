@@ -317,7 +317,7 @@
                                         </div>
                                     </div>
         
-                                    <div class="col-md-4 mb-4">
+                                    {{-- <div class="col-md-4 mb-4">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-6">
                                                 <label for="model" class="col-form-label"><b>Approved by Manager</b></label>
@@ -326,7 +326,7 @@
                                                 <input type="text"  class="form-control" id="model" readonly>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 {{-- end of row --}}
 
@@ -353,7 +353,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-4 mb-4">
+                                    {{-- <div class="col-md-4 mb-4">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-4">
                                                 <label class="col-form-label"><b>Date</b></label>
@@ -362,7 +362,7 @@
                                                 <input type="date" class="form-control">                             
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 {{-- End of row --}}
                             </div>

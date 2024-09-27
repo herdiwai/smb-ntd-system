@@ -219,7 +219,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
         Route::get('/approvals', 'index' )->name('approval.status');
         // Route::get('/add/sampletestingreport/{id}', 'AddSampleTestingReport' )->name('add.sampletestingreport');
         Route::post('/store/approvals/{id}', 'StoreApprovals' )->name('store.approvals');
-        // Route::get('/edit/sampletestingrequisition/{id}', 'EditTestingRequisition' )->name('edit.TestingRequisition');
+        Route::get('/testing/{id}', 'ShowDetail' )->name('show.testing');
         // Route::post('/update/hourlyoutput', 'UpdateHourlyOutput' )->name('update.hourlyoutput');
         // Route::get('/delete/hourlyoutput/{id}', 'DeleteHourlyoutput' )->name('delete.hourlyoutput');
 

@@ -27,7 +27,7 @@ class SampleTestingReport extends Model
     // Relasi to table SampleTestingRequisition
     public function sampleRequisition()
     {
-    return $this->hasMany(SampleTestingRequisition::class,'id');
+    return $this->belongsTo(SampleTestingRequisition::class,'id');
     }
     // Mendapatkan user dari form pertama(SampleTestingRequisition)
     public function user()

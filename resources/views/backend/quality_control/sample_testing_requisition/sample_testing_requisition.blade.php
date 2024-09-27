@@ -24,7 +24,9 @@
                                     <th>Series</th>
                                     <th>No of samples</th>
                                     <th>status</th>
+                                    @if(Auth::user()->can('edit.testingrequisition'))
                                     <th>Action</th>
+                                    @endif
                             </tr>
                             </thead>
                             <tbody>
@@ -42,7 +44,7 @@
                                         </td>
                                         <td>{{ $items->series }}</td>
                                         <td>{{ $items->no_of_sample }}</td>
-                                        <td>{{ $items->sampleReport }}</td>
+                                        {{-- <td>{{ $items->sampleReport }}</td> --}}
                                         <td>
                                             @if($items->status == 'incomplete')
                                                 <span class="badge bg-danger"> {{ $items->status }} </span>
@@ -51,9 +53,11 @@
                                             @endif
                                         </td>   
                                         <td> 
-                                            <a href="{{ route('edit.TestingRequisition', $items->id) }}" class="btn btn-inverse-warning btn-xs" title="Edit"><i data-feather="edit"></i></a>
+                                            @if(Auth::user()->can('edit.testingrequisition'))
+                                                <a href="{{ route('edit.TestingRequisition', $items->id) }}" class="btn btn-inverse-warning btn-xs" title="Edit"><i data-feather="edit"></i></a>
+                                            @endif
                                             @if(Auth::user()->can('delete.testingreport'))
-                                            <a href="" class="btn btn-inverse-danger btn-sm" title="Delete"><i data-feather="trash-2"></i></a>
+                                                <a href="" class="btn btn-inverse-danger btn-sm" title="Delete"><i data-feather="trash-2"></i></a>
                                             @endif
                                         </td> 
                                     </tr>
