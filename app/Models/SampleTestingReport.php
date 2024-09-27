@@ -37,7 +37,7 @@ class SampleTestingReport extends Model
     // Relasti ke table Approvals
     public function approval()
     {
-        return $this->hasOne(Approval::class,'sample_testing_reports');
+        return $this->hasOne(Approval::class,'id','sample_testing_reports');
     }
     public function approvalStatus()
     {

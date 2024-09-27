@@ -237,7 +237,7 @@
                                             <label for="traceabilityDate" class="col-form-label">Traceability (Date Code)</label>
                                         </div>
                                         <div class="col">
-                                            <input type="date" name="tracebility_datecode" id="traceabilityDate" class="form-control" placeholder="Select date" data-input>
+                                            <input type="text" name="tracebility_datecode" class="form-control" >
                                         </div>
                                     </div>
                                 </div>
@@ -653,27 +653,28 @@
         });
     });
     
-    document.querySelectorAll('input[type="checkbox"]').forEach(function(checkbox) {
-        checkbox.addEventListener('change', function() {
-            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            const otherInput = document.getElementById('other_purpose');
-            let checked = false;
 
-            // Periksa jika ada checkbox yang dipilih
-            checkboxes.forEach(function(checkbox) {
-                if (checkbox.checked) {
-                    checked = true;
-                }
-            });
+    // document.querySelectorAll('input[type="checkbox"]').forEach(function(checkbox) {
+    //     checkbox.addEventListener('change', function() {
+    //         const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    //         const otherInput = document.getElementById('other_purpose');
+    //         let checked = false;
 
-            // Jika ada checkbox yang dipilih, sembunyikan textarea
-            if (checked) {
-                otherInput.style.display = 'none';
-            } else {
-                otherInput.style.display = 'block';
-            }
-        });
-    });
+    //         // Periksa jika ada checkbox yang dipilih
+    //         checkboxes.forEach(function(checkbox) {
+    //             if (checkbox.checked) {
+    //                 checked = true;
+    //             }
+    //         });
+
+    //         // Jika ada checkbox yang dipilih, sembunyikan textarea
+    //         if (checked) {
+    //             otherInput.style.display = 'none';
+    //         } else {
+    //             otherInput.style.display = 'block';
+    //         }
+    //     });
+    // });
 
 
 </script>

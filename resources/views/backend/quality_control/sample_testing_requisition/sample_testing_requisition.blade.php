@@ -23,6 +23,7 @@
                                     <th>Doc.No</th>
                                     <th>Series</th>
                                     <th>No of samples</th>
+                                    {{-- <th>Status Report</th> --}}
                                     <th>status</th>
                                     @if(Auth::user()->can('edit.testingrequisition'))
                                     <th>Action</th>
@@ -44,7 +45,11 @@
                                         </td>
                                         <td>{{ $items->series }}</td>
                                         <td>{{ $items->no_of_sample }}</td>
-                                        {{-- <td>{{ $items->sampleReport }}</td> --}}
+                                        {{-- <td>
+                                        @foreach ($testingrequisition->sampleReport as $testingreport)
+                                            {{ $testingreport->status_approvals }}
+                                        @endforeach
+                                        </td> --}}
                                         <td>
                                             @if($items->status == 'incomplete')
                                                 <span class="badge bg-danger"> {{ $items->status }} </span>

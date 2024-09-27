@@ -18,7 +18,7 @@ class SampleTestingReportContoller extends Controller
 {
     public function SampleTestingReport()
     {
-        $testingreport = SampleTestingReport::with('approvalStatus')->get();
+        $testingreport = SampleTestingReport::with('approval')->get();
         $testingrequisition = SampleTestingRequisition::orderBy('sample_subtmitted_date','desc')->get();
         return view('backend.quality_control.sample_testing_report.sample_testing_report', compact('testingreport','testingrequisition'));
     }

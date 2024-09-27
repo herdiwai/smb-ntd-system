@@ -24,7 +24,7 @@ class ApprovalController extends Controller
         // })->get();
         // $reportesting = SampleTestingReport::findOrFail($id);
         $approval = Approval::with('sampleTestingReport')->get();
-        $testingreport = SampleTestingReport::all();
+        $testingreport = SampleTestingReport::with('approval')->get();
         // $testingreport = Approval::with('sampleTestingReport')->get();
         $testingrequisition = SampleTestingRequisition::with('sampleReport')->get();
         $testing = SampleTestingReport::all();
@@ -50,7 +50,9 @@ class ApprovalController extends Controller
         //     $approval->manager_id = auth()->user()->id; // Manager yang melakukan persetujuan
         //     $approval->save();
         // }
-        Approval::create([
+        // $pid = $request->id;
+        // Approval::create([
+        Approval::findOrFail($id)->update([
             'manager_id' => Auth::id(),
             'sample_testing_reports' => $id,
             'approvals_status' => $request->approvals_status,

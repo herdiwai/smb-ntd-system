@@ -23,6 +23,7 @@
                                     <th>Doc.No</th>
                                     <th>Series</th>
                                     <th>No of samples</th>
+                                    {{-- <th>Status Approvals</th> --}}
                                     <th>status report</th>
                                     <th>Action</th>
                                 </tr>
@@ -42,6 +43,11 @@
                                         </td>
                                         <td>{{ $items->series }}</td>
                                         <td>{{ $items->no_of_sample }}</td>
+                                        {{-- <td>
+                                        @foreach ($items as $approval)
+                                            {{ $approval->approvals_status }}
+                                        @endforeach
+                                        </td> --}}
                                         <td>
                                             @if ($items->status == 'incomplete')
                                                 <span class="badge bg-danger">incomplete</span>
