@@ -23,21 +23,25 @@
                                     <th>Schedule of Test</th>
                                     <th>Est of Completion Date</th>
                                     <th>Result Test</th>
+                                    {{-- <th>status approvals</th> --}}
                                     <th>Approval Status</th>
                                     <th>Approval Status Action</th>
                                     <th>View Detail</th>
                             </tr>
                             </thead>
                             <tbody>
-                                @foreach ($approval as $key => $items)
+                                @foreach ($testingreport as $key => $items)
                                     <tr>
                                         <td>{{ $key+1 }}</td>
-                                        <td>{{ $items->sampleTestingReport->summary_after }}</td>
-                                        <td>{{ $items->sampleTestingReport->schedule_of_test }}</td>
-                                        <td>{{ $items->sampleTestingReport->est_of_completion_date }}</td>
-                                        <td>{{ $items->sampleTestingReport->result_test }}</td>
+                                        <td>{{ $items->summary_after }}</td>
+                                        <td>{{ $items->schedule_of_test }}</td>
+                                        <td>{{ $items->est_of_completion_date }}</td>
+                                        <td>{{ $items->result_test }}</td>
+                                        {{-- <td>{{ $items->sampleTestingReport->status_approvals }}</td> --}}
                                         <td>
-                                            @if($items->approvals_status == 'rejected')
+                                            @if($items->status_approvals == 'pending')
+                                                <span class="badge bg-warning"><b>pending</b></span>
+                                            @elseif($items->status_approvals == 'rejected')
                                                 <span class="badge bg-danger"><b>rejected</b></span>
                                             @else
                                                 <span class="badge bg-success"><b>approved</b></span>
@@ -59,7 +63,7 @@
                                         </td> --}}
                                         <td>
                                             <!-- Form approval -->
-                                            @if($items->approvals_status == 'rejected')
+                                            @if($items->status_approvals == 'pending')
                                             <form action="{{ route('store.approvals', $items->id) }}" method="POST">
                                                 @csrf
                                                 <button class="btn btn-inverse-success btn-sm" type="submit" name="approvals_status" value="approved" title="Approved"><i data-feather="check-circle"></i></button>

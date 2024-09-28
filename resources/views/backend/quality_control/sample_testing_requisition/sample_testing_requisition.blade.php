@@ -24,9 +24,13 @@
                                     <th>Series</th>
                                     <th>No of samples</th>
                                     {{-- <th>Status Report</th> --}}
-                                    <th>status</th>
+                                    <th>status report</th>
+                                    <th>status approvals manager</th>
+                                    @if(Auth::user()->can('actionApprovals.show'))
+                                        <th>action approvals</th>
+                                    @endif
                                     @if(Auth::user()->can('edit.testingrequisition'))
-                                    <th>Action</th>
+                                        <th>Action</th>
                                     @endif
                             </tr>
                             </thead>
@@ -57,6 +61,35 @@
                                                 <span class="badge bg-success"> {{ $items->status }} </span>
                                             @endif
                                         </td>   
+
+                                        <td>
+                                            @if($items->statusApprovals->status == 'pending')
+                                                <span class="badge bg-warning"> {{ $items->statusApprovals->status }}</span>
+                                            @elseif($items->statusApprovals->status == 'rejected')
+                                                <span class="badge bg-danger"> {{ $items->statusApprovals->status }} </span>
+                                            @else
+                                                <span class="badge bg-success"> {{ $items->statusApprovals->status }} </span>
+                                            @endif
+                                        </td> 
+
+                                        <td>
+                                            @if(Auth::user()->can('actionApprovals.show'))
+                                                @if($items->statusApprovals->status == 'pending')
+                                                <form action="{{ route('update.approvals', $items->id) }}" method="POST">
+                                                    @csrf
+                                                    <button class="btn btn-inverse-success btn-sm" type="submit" name="status_approvals_id" value="1" title="Approved"><i data-feather="check-circle"></i></button>
+                                                    &nbsp;&nbsp;
+                                                    <button class="btn btn-inverse-danger btn-sm" type="submit" name="status_approvals_id" value="2" title="Rejected"><i data-feather="x-circle"></i></button>
+                                                @elseif($items->statusApprovals->status == 'rejected')
+                                                    <button class="btn btn-inverse-success btn-sm" type="submit" name="status_approvals_id" value="1" title="Approved"><i data-feather="check-circle"></i></button>
+                                                    &nbsp;&nbsp;
+                                                    <button class="btn btn-inverse-danger btn-sm" type="submit" name="status_approvals_id" value="2" title="Rejected"><i data-feather="x-circle"></i></button>
+                                                @else
+                                                    <p>Approvals has been approved</p>
+                                                @endif 
+                                            @endif
+                                        </td>
+
                                         <td> 
                                             @if(Auth::user()->can('edit.testingrequisition'))
                                                 <a href="{{ route('edit.TestingRequisition', $items->id) }}" class="btn btn-inverse-warning btn-xs" title="Edit"><i data-feather="edit"></i></a>

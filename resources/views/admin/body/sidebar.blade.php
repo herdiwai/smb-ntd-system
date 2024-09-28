@@ -144,7 +144,7 @@
           @endif
 
 
-          @if(Auth::user()->can('approved.menu'))
+          {{-- @if(Auth::user()->can('approved.menu'))
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents02" role="button" aria-expanded="false" aria-controls="uiComponents02">
               <i class="link-icon" data-feather="folder"></i>
@@ -157,15 +157,11 @@
                 <li class="nav-item">
                   <a href="{{ route('approval.status') }}" class="nav-link">All Table</a>
                 </li>
-               
-                {{-- <li class="nav-item">
-                  <a href="" class="nav-link">Add</a>
-                </li> --}}
-             
+        
               </ul>
             </div>
           </li>
-          @endif
+          @endif --}}
 
          
           @if(Auth::user()->can('notyetappovals.menu'))
@@ -180,13 +176,9 @@
                 
                 @if(Auth::user()->can('all.testingreport'))
                 <li class="nav-item">
-                  <a href="{{ route('qualitycontrol.sampletestingreport') }}" class="nav-link">All Table</a>
+                  <a href="{{ route('qualitycontrol.sampletestingrequisition') }}" class="nav-link">All Table</a>
                 </li>
                @endif
-                {{-- <li class="nav-item">
-                  <a href="" class="nav-link">Add</a>
-                </li> --}}
-             
               </ul>
             </div>
           </li>

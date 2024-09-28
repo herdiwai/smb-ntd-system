@@ -23,8 +23,8 @@
                                     <th>Doc.No</th>
                                     <th>Series</th>
                                     <th>No of samples</th>
-                                    {{-- <th>Status Approvals</th> --}}
                                     <th>status report</th>
+                                    <th>Status Approvals</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -43,11 +43,6 @@
                                         </td>
                                         <td>{{ $items->series }}</td>
                                         <td>{{ $items->no_of_sample }}</td>
-                                        {{-- <td>
-                                        @foreach ($items as $approval)
-                                            {{ $approval->approvals_status }}
-                                        @endforeach
-                                        </td> --}}
                                         <td>
                                             @if ($items->status == 'incomplete')
                                                 <span class="badge bg-danger">incomplete</span>
@@ -55,26 +50,28 @@
                                                 <span class="badge bg-success"><b>complete</b></span>
                                             @endif
                                         </td> 
-                                        {{-- <td> {{ $items->approvalStatus->status_approvals }} --}}
-                                            {{-- @if ($items->status_approvals == 'approved')
-                                                <span class="badge bg-success">approved</span>
+                                        <td>
+                                            @if($items->statusApprovals->status == 'pending')
+                                                <span class="badge bg-warning"> {{ $items->statusApprovals->status }}</span>
+                                            @elseif($items->statusApprovals->status == 'rejected')
+                                                <span class="badge bg-danger"> {{ $items->statusApprovals->status }} </span>
                                             @else
-                                                <span class="badge bg-danger"><b>pending</b></span>
-                                            @endif --}}
-                                        {{-- </td>   --}}
+                                                <span class="badge bg-success"> {{ $items->statusApprovals->status }} </span>
+                                            @endif
+                                        </td> 
 
                                         <td> 
                                             @if($items->status == 'incomplete')
                                                 {{-- <a href="{{ route('edit.TestingRequisition', $items->id) }}" class="btn btn-inverse-warning btn-xs" title="Edit"><i data-feather="edit"></i></a> --}}
                                                 <a href="{{ route('add.sampletestingreport', $items->id) }}" class="btn btn-inverse-info btn-sm" title="Add Report"><i data-feather="file-plus"></i></a>
                                             @else
-                                            <p>report has been completed</p>
+                                                <p>report has been completed</p>
                                             @endif
-                                                @if(Auth::user()->can('delete.testingreport'))
-                                                <a href="" class="btn btn-inverse-danger btn-sm" title="Delete"><i data-feather="trash-2"></i></a>
-                                                @endif
 
-                                            
+                                            @if(Auth::user()->can('delete.testingreport'))
+                                                <a href="" class="btn btn-inverse-danger btn-sm" title="Delete"><i data-feather="trash-2"></i></a>
+                                            @endif
+
                                         </td> 
                                     </tr>
                                 @endforeach

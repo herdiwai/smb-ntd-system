@@ -23,12 +23,12 @@ class ApprovalController extends Controller
         //     $query->where('status_approvals', 'pending');
         // })->get();
         // $reportesting = SampleTestingReport::findOrFail($id);
-        $approval = Approval::with('sampleTestingReport')->get();
+        // $approval = Approval::with('sampleTestingReport')->get();
         $testingreport = SampleTestingReport::with('approval')->get();
         // $testingreport = Approval::with('sampleTestingReport')->get();
         $testingrequisition = SampleTestingRequisition::with('sampleReport')->get();
         $testing = SampleTestingReport::all();
-        return view('backend.quality_control.approval_status.approval_status', compact('testing','approval','testingreport','testingrequisition'));
+        return view('backend.quality_control.approval_status.approval_status', compact('testing','testingreport','testingrequisition'));
 
     }
 
@@ -59,7 +59,9 @@ class ApprovalController extends Controller
             'notes' => $request->notes,
         ]);
         $reportesting = SampleTestingReport::findOrFail($id);
-        $reportesting->update(['status_approvals' => 'approved']);
+        $reportesting->update([
+            'status_approvals' => 'approved',
+        ]);
 
 
         $notification = array(

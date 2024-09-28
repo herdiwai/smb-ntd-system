@@ -9,6 +9,7 @@ use App\Models\Process;
 use App\Models\SampleTestingReport;
 use App\Models\SampleTestingRequisition;
 use App\Models\Shift;
+use App\Models\StatusApprovals;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,7 +20,7 @@ class SampleTestingReportContoller extends Controller
     public function SampleTestingReport()
     {
         $testingreport = SampleTestingReport::with('approval')->get();
-        $testingrequisition = SampleTestingRequisition::orderBy('sample_subtmitted_date','desc')->get();
+        $testingrequisition = SampleTestingRequisition::with('statusApprovals')->orderBy('sample_subtmitted_date','desc')->get();
         return view('backend.quality_control.sample_testing_report.sample_testing_report', compact('testingreport','testingrequisition'));
     }
 
@@ -66,12 +67,14 @@ class SampleTestingReportContoller extends Controller
             'schedule_of_test' => $request->schedule_of_test,
             'est_of_completion_date' => $request->est_of_completion_date,
             'date' => $request->date,
-            'status_approvals' => 'pending',
         ]);
 
         // Update status Sample Testing Requisition to 'complete' after 2nd user insert data
         $requisition = SampleTestingRequisition::findOrFail($testinggetid);
-        $requisition->update(['status' => 'complete']);
+        $requisition->update([
+            'status' => 'complete',
+            'status_approvals_id' => $request->status_approvals_id
+        ]);
 
         $notification = array(
             'message' => 'Sample Testing Report Create Successfully',
@@ -79,5 +82,6 @@ class SampleTestingReportContoller extends Controller
         );
         return redirect()->route('qualitycontrol.sampletestingreport')->with($notification);
     }
+
 
 }

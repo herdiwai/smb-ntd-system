@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('approvals', function (Blueprint $table) {
-            $table->foreignId('shift_id')->constrained()->onDelete('cascade'); // Relasi to table shifts
+        Schema::table('sample_testing_requisitions', function (Blueprint $table) {
+            $table->foreignId('status_approvals_id')->constrained()->onDelete('no action');
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('approvals', function (Blueprint $table) {
-            $table->dropColumn('approvals');
+        Schema::table('sample_testing_requisitions', function (Blueprint $table) {
+            $table->dropColumn('sample_testing_requisition');
         });
     }
 };

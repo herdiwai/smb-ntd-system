@@ -186,6 +186,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
         Route::get('/add/sampletestingrequisition', 'AddSampleTestingRequisition' )->name('add.sampletestingrequisition');
         Route::post('/store/sampletestingrequisition', 'StoreTesting' )->name('store.sampletestingrequisition');
         Route::get('/edit/sampletestingrequisition/{id}', 'EditTestingRequisition' )->name('edit.TestingRequisition');
+        Route::post('/update/approvals/{id}', 'UpdateApprovals' )->name('update.approvals');
         // Route::post('/update/hourlyoutput', 'UpdateHourlyOutput' )->name('update.hourlyoutput');
         // Route::get('/delete/hourlyoutput/{id}', 'DeleteHourlyoutput' )->name('delete.hourlyoutput');
 
@@ -202,6 +203,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
         Route::get('/qualitycontrol/sampletestingreport', 'SampleTestingReport' )->name('qualitycontrol.sampletestingreport');
         Route::get('/add/sampletestingreport/{id}', 'AddSampleTestingReport' )->name('add.sampletestingreport');
         Route::post('/store/sampletestingreport/{id}', 'StoreTestingReport' )->name('store.sampletestingreport');
+        // Route::post('/update/approvals/{id}', 'UpdateApprovals' )->name('update.approvals');
         // Route::get('/edit/sampletestingrequisition/{id}', 'EditTestingRequisition' )->name('edit.TestingRequisition');
         // Route::post('/update/hourlyoutput', 'UpdateHourlyOutput' )->name('update.hourlyoutput');
         // Route::get('/delete/hourlyoutput/{id}', 'DeleteHourlyoutput' )->name('delete.hourlyoutput');

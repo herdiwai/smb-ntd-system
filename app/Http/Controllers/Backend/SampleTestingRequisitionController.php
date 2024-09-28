@@ -16,7 +16,7 @@ class SampleTestingRequisitionController extends Controller
 {
     public function SampleTestingRequisition()
     {
-        $testingrequisition = SampleTestingRequisition::with('sampleReport')->orderBy('sample_subtmitted_date','desc')->get();
+        $testingrequisition = SampleTestingRequisition::with('sampleReport','statusApprovals')->orderBy('sample_subtmitted_date','desc')->get();
         return view('backend.quality_control.sample_testing_requisition.sample_testing_requisition', compact('testingrequisition'));
     }
 
@@ -84,6 +84,7 @@ class SampleTestingRequisitionController extends Controller
             'summary' => $request->summary, 
             // 'testpurpose' => $selecttestpurpose, 
             'status' => 'incomplete',
+            'status_approvals_id' => 3,
         ]);
         if ($request->filled('test_purpose')) {
             $selecttestpurpose[] = $request->input('test_purpose');
@@ -108,6 +109,19 @@ class SampleTestingRequisitionController extends Controller
         $process = Process::all();
         $testpurpose = ['Quatation Sample Test','EP/PP Sample Test','The SSB approves the sample test','Design Change Sample Test','Mold/Tool Process Change Sample Test','First Batch Production/Conversion Sample Test','Normal Life and Reliability Test','Presented to the Client for Approval of the Sample Test'];
         return view('backend.quality_control.sample_testing_requisition.edit_sample_testing_requisition', compact('testpurpose','testinggetid','testingrequisition','profileData','lot','modelbrewer','shift','process'));
+    }
+
+    public function UpdateApprovals(Request $request,$id)
+    {
+        SampleTestingRequisition::findOrFail($id)->update([
+            'status_approvals_id' => $request->status_approvals_id,
+        ]);
+
+        $notification = array(
+            'message' => 'Approved Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('qualitycontrol.sampletestingrequisition')->with($notification);
     }
 
 

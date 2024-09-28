@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('sample_testing_requisition', function (Blueprint $table) {
-            $table->foreignId('approval_manager_id')->constrained()->onDelete('no action')->nullable(); // Relasi to table shifts
+        Schema::table('sample_testing_reports', function (Blueprint $table) {
+            $table->foreignId('status_approvals_id')->constrained()->onDelete('no action');
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('sample_testing_requisition', function (Blueprint $table) {
-            $table->dropColumn('sample_testing_requisition');
+        Schema::table('sample_testing_reports', function (Blueprint $table) {
+            $table->dropColumn('sample_testing_reports');
         });
     }
 };

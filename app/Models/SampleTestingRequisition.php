@@ -34,6 +34,7 @@ class SampleTestingRequisition extends Model
             'status',
             'testpurpose',
             'summary',
+            'status_approvals_id',
     ];
 
     public function modelBrewer()
@@ -63,6 +64,10 @@ class SampleTestingRequisition extends Model
     public function testingReport()
     {
         return $this->hasMany(SampleTestingReport::class);
+    }
+    public function statusApprovals()
+    {
+        return $this->hasOne(StatusApprovals::class,'id','status_approvals_id');
     }
 
 }

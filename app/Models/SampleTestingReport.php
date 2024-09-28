@@ -21,7 +21,7 @@ class SampleTestingReport extends Model
         'date',
         'user_id',
         'sample_testing_requisition_id',
-        'status_approvals',
+        'status_approvals_id',
     ];
 
     // Relasi to table SampleTestingRequisition
@@ -47,6 +47,10 @@ class SampleTestingReport extends Model
     public function user_report()
     {
         return $this->belongsTo(User::class,'user_id');
+    }
+    public function statusApprovals()
+    {
+        return $this->hasOne(StatusApprovals::class,'id','status_approvals_id');
     }
 
 }
