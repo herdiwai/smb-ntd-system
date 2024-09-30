@@ -16,7 +16,7 @@ class SampleTestingRequisitionController extends Controller
 {
     public function SampleTestingRequisition()
     {
-        $testingrequisition = SampleTestingRequisition::with('sampleReport','statusApprovals')->orderBy('sample_subtmitted_date','desc')->get();
+        $testingrequisition = SampleTestingRequisition::with('sampleReport')->orderBy('sample_subtmitted_date','desc')->get();
         return view('backend.quality_control.sample_testing_requisition.sample_testing_requisition', compact('testingrequisition'));
     }
 
@@ -124,5 +124,15 @@ class SampleTestingRequisitionController extends Controller
         return redirect()->route('qualitycontrol.sampletestingrequisition')->with($notification);
     }
 
+    public function ShowDetail($id)
+    {
+        // $details = SampleTestingRequisition::with('sampleReport')->findOrFail($id);
+        // $approval = Approval::with('sampleTestingReport')->findOrFail($id);
+        // $testingreport = SampleTestingReport::findOrFail($id);
+        // // Return tampilan partial untuk modal (posts/details.blade.php)
+        // return view('backend.quality_control.approval_status.show', compact('testingreport','details','approval'));
+        $testing = SampleTestingRequisition::with('sampleReport')->findOrFail($id);
+        return response()->json($testing);
+    }
 
 }

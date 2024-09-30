@@ -22,8 +22,12 @@
                                     <th>Sample Subtmitted Date</th>
                                     <th>Doc.No</th>
                                     <th>Series</th>
-                                    <th>No of samples</th>
-                                    {{-- <th>Status Report</th> --}}
+                                    <th hidden>No of samples</th>
+                                    <th hidden>Test Purpose</th>
+                                    <th hidden>Test_Purpose_remarks</th>
+                                    <th hidden>Summary Before</th>
+                                    <th hidden>shift</th>
+                                    <th hidden>check by</th>
                                     <th>status report</th>
                                     <th>status approvals manager</th>
                                     @if(Auth::user()->can('actionApprovals.show'))
@@ -36,24 +40,19 @@
                             </thead>
                             <tbody>
                                 @foreach ($testingrequisition as $key => $items)
+                                {{-- @foreach($items->sampleReport as $item) --}}
                                     <tr>
                                         <td>{{ $key+1 }}</td>
-                                        <td>{{ $items->sample_subtmitted_date }}</td>
-                                        <td>
-                                            {{ $items->process->process }}
-                                            /{{ $items->lot->lot }}
-                                            /{{ $items->modelBrewer->model }}
-                                            /{{ $items->date }}
-                                            /{{ $items->do_no }}
-                                            /{{ $items->incomming_number }} 
+                                        <td class="sample_subtmitted_date">{{ $items->sample_subtmitted_date }}</td>
+                                        <td class="doc_no">{{ $items->process->process }}/{{ $items->lot->lot }}/{{ $items->modelBrewer->model }}/{{ $items->date }}/{{ $items->do_no }}/{{ $items->incomming_number }} 
                                         </td>
-                                        <td>{{ $items->series }}</td>
-                                        <td>{{ $items->no_of_sample }}</td>
-                                        {{-- <td>
-                                        @foreach ($testingrequisition->sampleReport as $testingreport)
-                                            {{ $testingreport->status_approvals }}
-                                        @endforeach
-                                        </td> --}}
+                                        <td class="series">{{ $items->series }}</td>
+                                        <td class="no_of_sample" hidden>{{ $items->no_of_sample }}</td>
+                                        <td class="testpurpose" hidden>{{ $items->testpurpose }}</td>
+                                        <td class="test_purpose" hidden>{{ $items->test_purpose }}</td>
+                                        <td class="summary" hidden>{{ $items->summary }}</td>
+                                        <td class="shift" hidden>{{ $items->shift->shift }}</td>
+                                        <td class="check_by" hidden>{{ $items->check_by }}</td>
                                         <td>
                                             @if($items->status == 'incomplete')
                                                 <span class="badge bg-danger"> {{ $items->status }} </span>
@@ -91,6 +90,8 @@
                                         </td>
 
                                         <td> 
+                                            {{-- <button type="button" class="btn btn-inverse-primary btn-sm view-details" data-bs-toggle="modal" data-bs-target="#varyingModal" onclick="showPostDetails({{ $items->id }})" data-url="{{ route('show.testing', $items->id) }}" title="View Detail"><i data-feather="eye"></i></button> --}}
+                                            <button type="button" class="btn btn-inverse-primary btn-sm view-details" data-bs-toggle="modal" data-bs-target="#varyingModal" data-id="'.$items->id.'" title="View Detail"><i data-feather="eye"></i></button>
                                             @if(Auth::user()->can('edit.testingrequisition'))
                                                 <a href="{{ route('edit.TestingRequisition', $items->id) }}" class="btn btn-inverse-warning btn-xs" title="Edit"><i data-feather="edit"></i></a>
                                             @endif
@@ -100,6 +101,7 @@
                                         </td> 
                                     </tr>
                                 @endforeach
+                                {{-- @endforeach --}}
 
                             </tbody>
                         </table>
@@ -110,4 +112,216 @@
     </div>
 
 </div>
+
+{{-- MODAL --}}
+<div class="modal fade" id="varyingModal" tabindex="-1" aria-labelledby="varyingModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="varyingModalLabel">FORM DETAIL TESTING REQUISITION & TESTING REPORT</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
+        </div>
+        {{-- Content --}}
+        <div class="modal-body">
+          {{-- Data detail akan tampil di sini - {{ $items->summary_after }} --}}
+          <div class="row">
+              <div class="col-md-6 grid-margin stretch-card">
+                  <div class="card">
+                      <div class="card-body">
+
+                          <h6 class="card-title">Sample Testing Requisition Form  (1)</h6>
+                          {{-- <input type="hidden" class="form-control id"> --}}
+
+                          <form class="forms-sample">
+                              <div class="row mb-3">
+                                  <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Sample Submitted Date</label>
+                                  <div class="col-sm-9">
+                                      <input type="text" class="form-control submitedDate" value="" id="exampleInputUsername2" readonly>
+                                  </div>
+                              </div>
+                              <div class="row mb-3">
+                                  <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Doc.No</label>
+                                  <div class="col-sm-9">
+                                      <input type="text" class="form-control doc_no" id="exampleInputUsername2" readonly>
+                                  </div>
+                              </div>
+                              <div class="row mb-3">
+                                  <label for="exampleInputMobile" class="col-sm-3 col-form-label">Series</label>
+                                  <div class="col-sm-9">
+                                      <input type="text" class="form-control series" id="exampleInputMobile" readonly>
+                                  </div>
+                              </div>
+                              <div class="row mb-3">
+                                  <label for="exampleInputPassword2" class="col-sm-3 col-form-label">No Of Sample</label>
+                                  <div class="col-sm-9">
+                                      <input type="text" class="form-control no_of_sample" id="exampleInputPassword2" readonly>
+                                  </div>
+                              </div>
+                              <div class="row mb-3">
+                                  <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Test Purpose</label>
+                                  <div class="col-sm-9">
+                                      <input type="text" class="form-control testpurpose" id="exampleInputPassword2" readonly>
+                                  </div>
+                              </div>
+                              <div class="row mb-3">
+                                  <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Other purpose/remarks:</label>
+                                  <div class="col-sm-9">
+                                    <textarea class="form-control test_purpose" rows="5" readonly></textarea>
+                                  </div>
+                              </div>
+                              <div class="row mb-3">
+                                  <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Summary Before</label>
+                                  <div class="col-sm-9">
+                                      <textarea class="form-control summary" rows="5" readonly></textarea>
+                                  </div>
+                              </div>
+                              <div class="row mb-3">
+                                  <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Shift</label>
+                                  <div class="col-sm-9">
+                                      <input type="text" class="form-control shift" id="exampleInputPassword2" readonly>
+                                  </div>
+                              </div>
+                              <div class="row mb-3">
+                                  <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Check By</label>
+                                  <div class="col-sm-9">
+                                      <input type="text" class="form-control check_by" id="exampleInputPassword2" readonly>
+                                  </div>
+                              </div>
+
+                          </form>
+        </div>
+      </div>
+
+      {{-- Form Sample Testing Report --}}
+              </div>
+              <div class="col-md-6 grid-margin stretch-card">
+                  <div class="card">
+                      <div class="card-body">
+
+                          <h6 class="card-title">SAMPLE TESTING REPORT FORM (2)</h6>
+
+                          <form class="forms-sample">
+                              <div class="row mb-3">
+                                  <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Received Sample Date</label>
+                                  <div class="col-sm-9">
+                                      <input type="text" class="form-control" id="exampleInputUsername2" placeholder="27-09-2024">
+                                  </div>
+                              </div>
+                              <div class="row mb-3">
+                                  <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Summary After</label>
+                                  <div class="col-sm-9">
+                                      <textarea class="form-control" id="remarks" name="test_purpose" rows="5" placeholder="RUBBER OK"></textarea>
+                                  </div>
+                              </div>
+
+                              <div class="row mb-3">
+                                  <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Test Result</label>
+                                  <div class="col-sm-9">
+                                      <input type="email" class="form-control" id="exampleInputEmail2" autocomplete="off" placeholder="PASS">
+                                  </div>
+                              </div>
+                              <div class="row mb-3">
+                                  <label for="exampleInputMobile" class="col-sm-3 col-form-label">Schedule of Test</label>
+                                  <div class="col-sm-9">
+                                      <input type="text" class="form-control" id="exampleInputMobile" placeholder="27-09-2024">
+                                  </div>
+                              </div>
+                              <div class="row mb-3">
+                                  <label for="exampleInputMobile" class="col-sm-3 col-form-label">Est Of Completion Date</label>
+                                  <div class="col-sm-9">
+                                      <input type="text" class="form-control" id="exampleInputMobile" placeholder="28-09-2024">
+                                  </div>
+                              </div>
+                              <div class="row mb-3">
+                                  <label for="exampleInputMobile" class="col-sm-3 col-form-label">Inspector Name</label>
+                                  <div class="col-sm-9">
+                                      <input type="text" class="form-control" id="exampleInputMobile" placeholder="Habsyam">
+                                  </div>
+                              </div>
+                              
+                              <div class="row mb-3">
+                                  <label for="exampleInputMobile" class="col-sm-3 col-form-label">Date</label>
+                                  <div class="col-sm-9">
+                                      <input type="text" class="form-control" id="exampleInputMobile" placeholder="28-09-2924">
+                                  </div>
+                              </div>
+                              <div class="row mb-3">
+                                  <label for="exampleInputMobile" class="col-sm-3 col-form-label">Review by Spv</label>
+                                  <div class="col-sm-9">
+                                      <input type="text" class="form-control" id="exampleInputMobile" placeholder="Tirta">
+                                  </div>
+                              </div>
+                              <div class="row mb-3">
+                                  <label for="exampleInputMobile" class="col-sm-3 col-form-label">Date</label>
+                                  <div class="col-sm-9">
+                                      <input type="text" class="form-control" id="exampleInputMobile" placeholder="29-09-2924">
+                                  </div>
+                              </div>
+
+                              <div class="row mb-3">
+                                  <label for="exampleInputMobile" class="col-sm-3 col-form-label">Status</label>
+                                  <div class="col-sm-9">
+                                      <input type="text" class="form-control" id="exampleInputMobile" placeholder="Complete">
+                                  </div>
+                              </div>
+
+                          </form>
+
+                      </div>
+                  </div>
+              </div>
+
+      </div>
+        </div>
+        {{-- END CONTENT --}}
+
+      </div>
+    </div>
+  </div>
+  {{-- END MODAL --}}
+
+  {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+  <script>
+    $(document).on('click','.view-details', function(){
+        var _this = $(this).parents('tr');
+            $('.submitedDate').val(_this.find('.sample_subtmitted_date').text());
+            $('.doc_no').val(_this.find('.doc_no').text());
+            $('.series').val(_this.find('.series').text());
+            $('.no_of_sample').val(_this.find('.no_of_sample').text());
+            $('.testpurpose').val(_this.find('.testpurpose').text());
+            $('.test_purpose').val(_this.find('.test_purpose').text());
+            $('.summary').val(_this.find('.summary').text());
+            $('.shift').val(_this.find('.shift').text());
+            $('.check_by').val(_this.find('.check_by').text());
+    });
+  </script>
+  
+  {{-- <script>
+    function showPostDetails(id) {
+        var url = $(event.target).data('url');
+        $.ajax({
+            url: url,
+            // url: '/testing/' + id,
+            type: 'GET',
+            success: function(data) {
+                // Mengisi data ke modal
+                $('.submitedDate').text(data.sample_subtmitted_date);
+    
+                // Kosongkan list komentar sebelumnya
+                // $('#commentsList').empty();
+    
+                // Tambahkan komentar ke list
+                // data.comments.forEach(function(comment) {
+                //     $('#commentsList').append('<li>' + comment.body + '</li>');
+                // });
+    
+                // Tampilkan modal
+                $('#varyingModal').modal('show');
+            }
+        });
+    }
+    </script> --}}
+    
+
+
 @endsection

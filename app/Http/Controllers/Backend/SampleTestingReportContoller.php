@@ -19,7 +19,7 @@ class SampleTestingReportContoller extends Controller
 {
     public function SampleTestingReport()
     {
-        $testingreport = SampleTestingReport::with('approval')->get();
+        $testingreport = SampleTestingReport::with('sampleRequisition')->get();
         $testingrequisition = SampleTestingRequisition::with('statusApprovals')->orderBy('sample_subtmitted_date','desc')->get();
         return view('backend.quality_control.sample_testing_report.sample_testing_report', compact('testingreport','testingrequisition'));
     }
@@ -67,13 +67,13 @@ class SampleTestingReportContoller extends Controller
             'schedule_of_test' => $request->schedule_of_test,
             'est_of_completion_date' => $request->est_of_completion_date,
             'date' => $request->date,
+            'status_approvals_id' => $request->status_approvals_id,
         ]);
 
         // Update status Sample Testing Requisition to 'complete' after 2nd user insert data
         $requisition = SampleTestingRequisition::findOrFail($testinggetid);
         $requisition->update([
-            'status' => 'complete',
-            'status_approvals_id' => $request->status_approvals_id
+            'status' => 'complete'
         ]);
 
         $notification = array(

@@ -38,6 +38,7 @@
                         
                         <!-- end return sample-->
                         <input type="hidden" name="id" value="{{ $testinggetid->id }}">
+                        <input type="hidden" name="status_approvals_id" value="{{ $testinggetid->status_approvals_id }}">
                         
                         {{-- <div class="row">
                             <div class="col-md-12 mb-3">

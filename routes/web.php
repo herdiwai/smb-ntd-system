@@ -187,6 +187,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
         Route::post('/store/sampletestingrequisition', 'StoreTesting' )->name('store.sampletestingrequisition');
         Route::get('/edit/sampletestingrequisition/{id}', 'EditTestingRequisition' )->name('edit.TestingRequisition');
         Route::post('/update/approvals/{id}', 'UpdateApprovals' )->name('update.approvals');
+        Route::get('/testing/{id}', 'ShowDetail' )->name('show.testing');
         // Route::post('/update/hourlyoutput', 'UpdateHourlyOutput' )->name('update.hourlyoutput');
         // Route::get('/delete/hourlyoutput/{id}', 'DeleteHourlyoutput' )->name('delete.hourlyoutput');
 
