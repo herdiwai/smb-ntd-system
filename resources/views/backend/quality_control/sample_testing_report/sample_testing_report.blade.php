@@ -64,8 +64,10 @@
                                             @if($items->status == 'incomplete')
                                                 {{-- <a href="{{ route('edit.TestingRequisition', $items->id) }}" class="btn btn-inverse-warning btn-xs" title="Edit"><i data-feather="edit"></i></a> --}}
                                                 <a href="{{ route('add.sampletestingreport', $items->id) }}" class="btn btn-inverse-info btn-sm" title="Add Report"><i data-feather="file-plus"></i></a>
+                                            @elseif($items->statusApprovals->status == 'rejected')
+                                            <a href="{{ route('add.sampletestingreport', $items->id) }}" class="btn btn-inverse-info btn-sm" title="Add Report"><i data-feather="file-plus"></i></a>
                                             @else
-                                                <p>report has been completed</p>
+                                            <p>report has been completed</p>
                                             @endif
 
                                             @if(Auth::user()->can('delete.testingreport'))

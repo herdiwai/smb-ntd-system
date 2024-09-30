@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('sample_testing_reports', function (Blueprint $table) {
-            $table->foreignId('status_approvals_id')->constrained()->onDelete('no action');
+        Schema::table('sample_testing_requisitions', function (Blueprint $table) {
+            $table->foreignId('sample_testing_reports_id')->nullable()->constrained();
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('sample_testing_reports', function (Blueprint $table) {
-            $table->dropColumn('sample_testing_reports');
+        Schema::table('sample_testing_requisitions', function (Blueprint $table) {
+            $table->dropColumn('sample_testing_requisitions');
         });
     }
 };

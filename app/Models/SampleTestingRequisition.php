@@ -35,6 +35,7 @@ class SampleTestingRequisition extends Model
             'testpurpose',
             'summary',
             'status_approvals_id',
+            'sample_testing_reports_id',
     ];
 
     public function modelBrewer()
@@ -56,7 +57,7 @@ class SampleTestingRequisition extends Model
     // Relasi to table SampleTestingReport
     public function sampleReport()
     {
-        return $this->belongsTo(SampleTestingReport::class,'id','sample_testing_requisition_id');
+        return $this->hasOne(SampleTestingReport::class,'sample_testing_requisition_id');
     }
 
     // Relasi ke user (satu form pertama diisi oleh satu user)

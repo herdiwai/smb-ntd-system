@@ -73,7 +73,8 @@ class SampleTestingReportContoller extends Controller
         // Update status Sample Testing Requisition to 'complete' after 2nd user insert data
         $requisition = SampleTestingRequisition::findOrFail($testinggetid);
         $requisition->update([
-            'status' => 'complete'
+            'status' => 'complete',
+            'sample_testing_reports_id' => $request->$testinggetid,
         ]);
 
         $notification = array(
