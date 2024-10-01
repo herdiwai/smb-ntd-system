@@ -99,6 +99,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <title>Document</title>
 
     <style>
@@ -112,7 +113,7 @@
             width: auto;
             height: auto;
             position: absolute;
-            border: 1px solid;
+            border: 2px solid;
             padding-top: 30px;
             padding-left: 30px;
             padding-right: 30px;
@@ -124,13 +125,12 @@
     
 </head>
 <body>
-    <div class="halamana">
+    <div class="halaman">
         <table>
             <tr>
                 <td><center>
-                    <font size="4">PT SIMATELEX MANUFACTORY BATAM</font>
-                    <font size="5">PT SIMATELEX MANUFACTORY BATAM</font>
-                    <font size="2">PT SIMATELEX MANUFACTORY BATAM</font>
+                    <font size="4" style="color: orange;"><b>PT SIMATELEX MANUFACTORY BATAM <b></font><br>
+                    <font size="5">SAMPLE TESTING REQUISITION & SAMPLE TESTING REPORT FORM </font>
                 </td>
             </tr>
             <tr>
@@ -138,56 +138,210 @@
             </tr>
         </table>
         
-        <table width="470">
+        {{-- <table width="470">
             <center>
                 <font size="4">SAMPLE REQUISITION FORM & REPORT</font>
             </center><br>
-        </table>
+        </table> --}}
 
         <table>
             <tr>
-                <td>Yang bertandangan di sini :</td>
-            </tr>
-        
-
-        <table width="350">
-            <tr>
-                <td>Nama</td>
-                <td>:</td>
-                <td>Mr.Simatelex</td>
-            </tr>
-            <tr>
-                <td>Jabatan</td>
-                <td>:</td>
-                <td>Technician NTD</td>
+                <td><b>SAMPLE TESTING REQUISITION FORM<b></td>
             </tr><br>
         </table>
-        <tr>
-            <td>Menyatakan dengan sebenarnya</td>
-        </tr>
-    </table>
 
-    <table width="260">
-        {{-- @foreach ($collection as $item) --}}
+        <table width="450">
+            <tr>
+                <td>SAMPLE SUBMITED DATE</td>
+                <td>:</td>
+                <td><input type="text" value="{{ $sampleRequisition->sample_subtmitted_date }}" class="form-control" ></td>
+                {{-- <td>{{ $sampleRequisition->sample_subtmitted_date }}</td> --}}
+            </tr>
+            {{-- <div class="form-group">
+                <div class="form-row">
+                    <label for="qeReview" >Check By</label>
+                    <input type="text" value="{{ $sampleRequisition->process->process }}" class="form-control" id="name" placeholder=""name="check_by">
+                </div>
+            </div> --}}
+            <tr>
+                <td>PROCESS</td>
+                <td>:</td>
+                <td><input type="text" value="{{ $sampleRequisition->process->process }}" class="form-control" ></td>
+            </tr>
+            <tr>
+                <td>LOT</td>
+                <td>:</td>
+                <td><input type="text" value="{{ $sampleRequisition->lot->lot }}" class="form-control" ></td>
+                {{-- <td>{{ $sampleRequisition->lot->lot }}</td> --}}
+            </tr>
+            <tr>
+                <td>SHIFT</td>
+                <td>:</td>
+                <td><input type="text" value="{{ $sampleRequisition->shift->shift }}" class="form-control" ></td>
+                {{-- <td>{{ $sampleRequisition->shift->shift }}</td> --}}
+            </tr>
+            <tr>
+                <td>MODEL</td>
+                <td>:</td>
+                <td><input type="text" value="{{ $sampleRequisition->modelBrewer->model }}" class="form-control" ></td>
+                {{-- <td>{{ $sampleRequisition->modelBrewer->model }}</td> --}}
+            </tr>
+            <tr>
+                <td>DO.NUMBER</td>
+                <td>:</td>
+                <td><input type="text" value="{{ $sampleRequisition->do_no }}" class="form-control" ></td>
+                {{-- <td>{{ $sampleRequisition->do_no }}</td> --}}
+            </tr>
+            <tr>
+                <td>SERIES</td>
+                <td>:</td>
+                <td><input type="text" value="{{ $sampleRequisition->series }}" class="form-control" ></td>
+                {{-- <td>{{ $sampleRequisition->series }}</td> --}}
+            </tr>
+            <tr>
+                <td>NO OF SAMPPLE</td>
+                <td>:</td>
+                <td><input type="text" value="{{ $sampleRequisition->no_of_sample }}" class="form-control" ></td>
+                {{-- <td>{{ $sampleRequisition->no_of_sample }}</td> --}}
+            </tr>
+            <tr>
+                <td>TEST PURPOSE</td>
+                <td>:</td>
+                <td><input type="text" value="{{ $sampleRequisition->testpurpose }}" class="form-control" ></td>
+                {{-- <td>{{ $sampleRequisition->testpurpose }}</td> --}}
+            </tr>
+            <tr>
+                <td>OTHER PURPOSE/REMARKS</td>
+                <td>:</td>
+                <td><textarea class="form-control" rows="2" >{{ $sampleRequisition->test_purpose }}</textarea></td>
+                {{-- <td><input type="text" value="{{ $sampleRequisition->test_purpose }}" class="form-control" ></td> --}}
+                {{-- <td>{{ $sampleRequisition->test_purpose }}</td> --}}
+            </tr>
+            <tr>
+                <td>SUMMARY BEFORE</td>
+                <td>:</td>
+                <td><input type="text" value="{{ $sampleRequisition->summary }}" class="form-control" ></td>
+                {{-- <td>{{ $sampleRequisition->summary }}</td> --}}
+            </tr>
+            <tr>
+                <td>CHECK BY</td>
+                <td>:</td>
+                <td><input type="text" value="{{ $sampleRequisition->check_by }}" class="form-control" ></td>
+                {{-- <td>{{ $sampleRequisition->check_by }}</td> --}}
+            </tr>
+
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+            <div class="halaman">
+                <table>
+                    <tr>
+                        <td><center>
+                            <font size="4" style="color: orange;"><b>PT SIMATELEX MANUFACTORY BATAM<b></font><br>
+                            <font size="5">SAMPLE TESTING REQUISITION & SAMPLE TESTING REPORT FORM</font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="7"><hr></td>
+                    </tr>
+                </table>
+
+            <table>
+                <tr>
+                    <td><b>SAMPLE TESTING REPORT FORM</b></td>
+                </tr><br>
+            </table>
+    
+            <table width="450">
+                <tr>
+                    <td>RECEIVED SAMPLE DATE</td>
+                    <td>:</td>
+                    <td><input type="text" value="{{ $sampleRequisition->sample_subtmitted_date }}" class="form-control" ></td>
+                    {{-- <td>{{ $sampleRequisition->sample_subtmitted_date }}</td> --}}
+                </tr>
+                <tr>
+                    <td>SUMMARY AFTER</td>
+                    <td>:</td>
+                    <td><textarea class="form-control" rows="2" >{{ $sampleRequisition->sampleReport->remark_test }}</textarea></td>
+                    {{-- <td>{{ $sampleRequisition->process->process }}/{{ $sampleRequisition->incomming_number }}</td> --}}
+                </tr>
+                <tr>
+                    <td>TEST RESULT</td>
+                    <td>:</td>
+                    <td><input type="text" value="{{ $sampleRequisition->sampleReport->result_test }}" class="form-control" ></td>
+                    {{-- <td>{{ $sampleRequisition->lot->lot }}</td> --}}
+                </tr>
+                <tr>
+                    <td>SCHEDULE OF TEST</td>
+                    <td>:</td>
+                    <td><input type="text" value="{{ $sampleRequisition->sampleReport->schedule_of_test }}" class="form-control" ></td>
+                    {{-- <td>{{ $sampleRequisition->shift->shift }}</td> --}}
+                </tr>
+                <tr>
+                    <td>EST OF COMPLETION DATE</td>
+                    <td>:</td>
+                    <td><input type="text" value="{{ $sampleRequisition->sampleReport->est_of_completion_date }}" class="form-control" ></td>
+                    {{-- <td>{{ $sampleRequisition->modelBrewer->model }}</td> --}}
+                </tr>
+                <tr>
+                    <td>INSPECTOR NAME</td>
+                    <td>:</td>
+                    <td><input type="text" value="{{ $sampleRequisition->sampleReport->inspector }}" class="form-control" ></td>
+                    {{-- <td>{{ $sampleRequisition->do_no }}</td> --}}
+                </tr>
+                <tr>
+                    <td>DATE CHECK</td>
+                    <td>:</td>
+                    <td><input type="text" value="{{ $sampleRequisition->sampleReport->date }}" class="form-control" ></td>
+                    {{-- <td>{{ $sampleRequisition->series }}</td> --}}
+                </tr>
+                <tr>
+                    <td>STATUS REPORT</td>
+                    <td>:</td>
+                    <td><input type="text" value="{{ $sampleRequisition->status }}" class="form-control" ></td>
+                    {{-- <td>{{ $sampleRequisition->no_of_sample }}</td> --}}
+                </tr>
+                <tr>
+                    <td>STATUS APPROVALS MANAGER</td>
+                    <td>:</td>
+                    <td><input type="text" value="{{ $sampleRequisition->statusApprovals->status }}" class="form-control" ></td>
+                    {{-- <td>{{ $sampleRequisition->no_of_sample }}</td> --}}
+                </tr>
+
+            </table>
+
+        {{-- </table>
+            <tr>
+                <td>Menyatakan dengan sebenarnya</td>
+            </tr>
+        </table> --}}
+
+    {{-- <table width="260">
+        @foreach ($collection as $item)
             <tr>
                 <td>NTD</td>
                 <td>:</td>
-                {{-- <td>{{  }}</td> --}}
+                <td>{{  }}</td>
             </tr>
             <tr>
                 <td>Nama</td>
                 <td>:</td>
-                {{-- <td>{{  }}</td> --}}
+                <td>{{  }}</td>
             </tr>
             <tr>
                 <td>Angkatan</td>
                 <td>:</td>
-                {{-- <td>{{  }}</td> --}}
+                <td>{{  }}</td>
             </tr>
-        {{-- @endforeach --}}
-    </table><br>
+        @endforeach
+    </table><br> --}}
 
-        <table>
+        {{-- <table>
             <tr>
                 <td>Adalah bener telah menyatakan surat ini</td>
             </tr>
@@ -198,7 +352,9 @@
             Yang Bertanda Tangan,
         </div>
         <br><br><br><br><br>
-        <div style="width: 32%; text-align: left; float: right;">Technician NTD</div>
+        <div style="width: 32%; text-align: left; float: right;">Technician NTD</div> --}}
+
+
 
     </div>
 </body>

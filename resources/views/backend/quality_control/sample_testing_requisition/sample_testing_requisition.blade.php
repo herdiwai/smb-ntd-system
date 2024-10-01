@@ -5,7 +5,7 @@
   
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
-             <a href="{{ route('add.sampletestingrequisition') }}" class="btn btn-inverse-info btn-sm"><i data-feather="plus-square"></i> Add Requistion Form</a>
+             <a href="{{ route('add.sampletestingrequisition') }}" class="btn btn-inverse-info btn-sm"><i data-feather="plus-circle"></i> ADD REQUISITION FORM</a>
         </ol>
     </nav>
 
@@ -41,6 +41,7 @@
                                         @if(Auth::user()->can('actionApprovals.show'))
                                             <th>action approvals</th>
                                         @endif
+                                        <th>View Details</th>
                                         @if(Auth::user()->can('edit.testingrequisition'))
                                             <th>Action</th>
                                         @endif

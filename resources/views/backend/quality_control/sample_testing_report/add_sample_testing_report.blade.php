@@ -307,7 +307,7 @@
                                         </div>
                                     </div>
         
-                                    <div class="col-md-4 mb-4">
+                                    {{-- <div class="col-md-4 mb-4">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-6">
                                                 <label for="model" class="col-form-label"><b>Review by Spv</b></label>
@@ -315,7 +315,7 @@
                                             <div class="col">
                                                 <input type="text" class="form-control" id="model" placeholder="">
                                             </div>
-                                        </div>
+                                        </div> --}}
                                     </div>
         
                                     {{-- <div class="col-md-4 mb-4">
@@ -343,7 +343,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-4 mb-4">
+                                    {{-- <div class="col-md-4 mb-4">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-4">
                                                 <label  class="col-form-label"><b>Date</b></label>
@@ -352,7 +352,7 @@
                                                 <input type="date" class="form-control">                             
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     {{-- <div class="col-md-4 mb-4">
                                         <div class="form-row align-items-center">
@@ -370,7 +370,7 @@
                         {{-- END --}}
 
                     
-                        <button class="btn btn-primary btn-sm" type="submit"><i data-feather="save"></i> SUBMIT</button>
+                        <button class="btn btn-primary btn-sm" type="submit"><i data-feather="send"></i> SUBMIT</button>
                         
                     </form>
                 </div>

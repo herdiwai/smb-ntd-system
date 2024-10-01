@@ -126,16 +126,16 @@ class SampleTestingRequisitionController extends Controller
 
     public function generatePdf($id)
     {
-        $sampleRequisition = SampleTestingRequisition::with('sampleReport')->findOrFail($id);
+        $sampleRequisition = SampleTestingRequisition::with('sampleReport','modelBrewer','lot','process','statusApprovals')->findOrFail($id);
         $testinggetid = SampleTestingRequisition::findOrFail($id);
         // $data = [
         //     'title' => 'Sample Testing Requisition FORM',
         //     'date' => date('m/d/Y'),
         //     'requisition' => $sampleRequisition,
         // ];
-        // $pdf = Pdf::loadView('backend.quality_control.sample_testing_requisition.generate-requisition-pdf', compact('testinggetid','sampleRequisition'));
-        // return $pdf->download('sample-testing.pdf');
-        return view('backend.quality_control.sample_testing_requisition.generate-requisition-pdf', compact('testinggetid','sampleRequisition'));
+        $pdf = Pdf::loadView('backend.quality_control.sample_testing_requisition.generate-requisition-pdf', compact('testinggetid','sampleRequisition'));
+        return $pdf->download('sample-testing-requisition-report.pdf');
+        // return view('backend.quality_control.sample_testing_requisition.generate-requisition-pdf', compact('testinggetid','sampleRequisition'));
     }
 
     // public function ShowDetail($id)

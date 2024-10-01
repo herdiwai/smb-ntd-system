@@ -69,7 +69,7 @@
                                             @else
                                             <p>report has been completed</p>
                                             @endif
-
+                                                
                                             @if(Auth::user()->can('delete.testingreport'))
                                                 <a href="" class="btn btn-inverse-danger btn-sm" title="Delete"><i data-feather="trash-2"></i></a>
                                             @endif

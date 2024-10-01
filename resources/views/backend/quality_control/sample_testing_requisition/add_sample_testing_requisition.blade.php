@@ -9,7 +9,7 @@
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h6 class="card-title">FORM INPUT SAMPLE TESTING REQUISITION </h6>
+                    <h6 class="card-title"><b>FORM INPUT SAMPLE TESTING REQUISITION </b></h6>
                 
                     <form id="myForm" action="{{ route('store.sampletestingrequisition') }}" method="POST">
                         @method('POST')
@@ -56,7 +56,7 @@
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-3">
-                                                <label for="lot" class="col-form-label">Lot</label>
+                                                <label for="lot" class="col-form-label"><b>Lot</b></label>
                                             </div>
                                             <div class="col">
                                                 <select id="lot" name="lot_id" class="form-select">
@@ -73,7 +73,7 @@
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-3">
-                                                <label for="model" class="col-form-label">Model</label>
+                                                <label for="model" class="col-form-label"><b>Model</b></label>
                                             </div>
                                             <div class="col">
                                                 <select id="model" name="model_id" class="form-select">
@@ -97,7 +97,7 @@
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-3">
-                                                <label for="shift" class="col-form-label">Shift</label>
+                                                <label for="shift" class="col-form-label"><b>Shift</b></label>
                                             </div>
                                             <div class="col">
                                                 <select id="shift" name="shift_id" class="form-select">
@@ -115,7 +115,7 @@
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-3">
-                                                <label for="series" class="col-form-label">Series</label>
+                                                <label for="series" class="col-form-label"><b>Series</b></label>
                                             </div>
                                             <div class="col">
                                                 <input type="text" class="form-control" id="series" name="series">
@@ -131,7 +131,7 @@
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-3">
-                                                <label for="noOfSample" class="col-form-label">No Of Sample</label>
+                                                <label for="noOfSample" class="col-form-label"><b>No Of Sample</b></label>
                                             </div>
                                             <div class="col">
                                                 <input type="text" class="form-control" id="noOfSample" name="no_of_sample">
@@ -143,7 +143,7 @@
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-3">
-                                                <label for="cONo" class="col-form-label">C/O No.</label>
+                                                <label for="cONo" class="col-form-label"><b>C/O No.</b></label>
                                             </div>
                                             <div class="col">
                                                 <input type="text" class="form-control" id="co_no" placeholder="" name="co_no">
@@ -161,7 +161,7 @@
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-3">
-                                                <label for="" class="col-form-label">Do Number</label>
+                                                <label for="" class="col-form-label"><b>Do Number</b></label>
                                             </div>
                                             <div class="col">
                                                 <input type="text" class="form-control" id="" placeholder="" name="do_no">
@@ -173,7 +173,7 @@
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-3">
-                                                <label for="process" class="col-form-label">Process</label>
+                                                <label for="process" class="col-form-label"><b>Process</b></label>
                                             </div>
                                             <div class="col">
                                                 <select id="process" name="processes_id" class="form-select">
@@ -191,7 +191,7 @@
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-3">
-                                                <label for="mfgSample" class="col-form-label">MFG Sample Date</label>
+                                                <label for="mfgSample" class="col-form-label"><b>MFG Sample Date</b></label>
                                             </div>
                                             <div class="col">
                                                 <input type="date" class="form-control" name="mfg_sample_date" id="mfgSample" placeholder="">
@@ -213,7 +213,7 @@
                                 <div class="form-group">
                                     <div class="form-row align-items-center">
                                         <div class="col-sm-5">
-                                            <label for="sampleSubmittedDate" class="col-form-label">Sample Submitted (Date)</label>
+                                            <label for="sampleSubmittedDate" class="col-form-label"><b>Sample Submitted (Date)</b></label>
                                         </div>
                                         <div class="col">
                                             <input type="date" name="sample_subtmitted_date" id="sampleSubmittedDate" class="form-control" placeholder="Select date" data-input>
@@ -225,7 +225,7 @@
                                 <div class="form-group">
                                     <div class="form-row align-items-center">
                                         <div class="col-sm-3">
-                                            <label for="completionDate" class="col-form-label">Completion Date</label>
+                                            <label for="completionDate" class="col-form-label"><b>Completion Date</b></label>
                                         </div>
                                         <div class="col">
                                             <input type="date" name="completion_date" id="completionDate" class="form-control" placeholder="Select date" data-input>
@@ -240,7 +240,7 @@
                                 <div class="form-group">
                                     <div class="form-row align-items-center">
                                         <div class="col-sm-5">
-                                            <label for="traceabilityDate" class="col-form-label">Traceability (Date Code)</label>
+                                            <label for="traceabilityDate" class="col-form-label"><b>Traceability (Date Code)</b></label>
                                         </div>
                                         <div class="col">
                                             <input type="text" name="tracebility_datecode" class="form-control" >
@@ -255,7 +255,7 @@
                         <!-- Test Purpose Section -->
 
                         <div class="form-group mb-3">
-                            <label for="test-purpose" class="form-label">Test Purpose</label>
+                            <label for="test-purpose" class="form-label"><b>Test Purpose</b></label>
 
                             <div class="row mb-3">
                                 <!-- Checkbox Group 1 -->                               
@@ -322,7 +322,7 @@
                             </div>
 
                             <div class="form-group mb-3" id="other_purpose">
-                                <label for="remarks">Other purpose/remarks:</label>
+                                <label for="remarks"><b>Other purpose/remarks:</b></label>
                                 <textarea class="form-control" id="remarks" name="test_purpose" rows="5" placeholder=""></textarea>
                             </div>
                         </div>
@@ -380,7 +380,7 @@
 
                                 <div class="form-group">
                                     <div class="form-row">
-                                        <label for="qeReview" >Summary</label>
+                                        <label for="qeReview"><b>Summary</b></label>
                                         <textarea class="form-control" id="summary" placeholder="" rows="5" name="summary"></textarea>
                                     </div>
                                 </div>
@@ -388,7 +388,7 @@
 
                                 <div class="form-group">
                                     <div class="form-row">
-                                        <label for="qeReview" >Check By</label>
+                                        <label for="qeReview"><b>Check By</b></label>
                                         {{-- <input type="text" class="form-control" value="{{ $profileData->username }}" id="name" placeholder=""name="check_by" readonly> --}}
                                         <input type="text" class="form-control" id="name" placeholder=""name="check_by">
                                     </div>
@@ -396,7 +396,7 @@
                             </div>
                         </div>
 
-                        <button class="btn btn-primary btn-sm" type="submit"><i data-feather="save"></i> SAVE</button>
+                        <button class="btn btn-primary btn-sm" type="submit"><i data-feather="send"></i> SAVE</button>
                         
                     </form>
                 </div>
