@@ -9,6 +9,7 @@ use App\Models\Process;
 use App\Models\SampleTestingRequisition;
 use App\Models\Shift;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,7 +17,7 @@ class SampleTestingRequisitionController extends Controller
 {
     public function SampleTestingRequisition()
     {
-        $testingrequisition = SampleTestingRequisition::with('sampleReport')->orderBy('incomming_number','desc')->get();
+        $testingrequisition = SampleTestingRequisition::with('sampleReport','statusApprovals')->orderBy('incomming_number','desc')->get();
         return view('backend.quality_control.sample_testing_requisition.sample_testing_requisition', compact('testingrequisition'));
     }
 
@@ -121,6 +122,20 @@ class SampleTestingRequisitionController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->route('qualitycontrol.sampletestingrequisition')->with($notification);
+    }
+
+    public function generatePdf($id)
+    {
+        $sampleRequisition = SampleTestingRequisition::with('sampleReport')->findOrFail($id);
+        $testinggetid = SampleTestingRequisition::findOrFail($id);
+        // $data = [
+        //     'title' => 'Sample Testing Requisition FORM',
+        //     'date' => date('m/d/Y'),
+        //     'requisition' => $sampleRequisition,
+        // ];
+        // $pdf = Pdf::loadView('backend.quality_control.sample_testing_requisition.generate-requisition-pdf', compact('testinggetid','sampleRequisition'));
+        // return $pdf->download('sample-testing.pdf');
+        return view('backend.quality_control.sample_testing_requisition.generate-requisition-pdf', compact('testinggetid','sampleRequisition'));
     }
 
     // public function ShowDetail($id)

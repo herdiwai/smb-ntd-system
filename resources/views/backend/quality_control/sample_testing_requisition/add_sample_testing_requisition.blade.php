@@ -40,18 +40,18 @@
 
                         
                             <div class="row">
-                                <div class="col-md-6 mb-3">
+                                {{-- <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-3">
-                                                <label for="" class="col-form-label">Date</label>
+                                                <label for="date" class="col-form-label">Date</label>
                                             </div>
                                             <div class="col">
-                                                <input type="date" name="date" id="" class="form-control" placeholder="Select date" data-input>
+                                                <input type="date" name="date" id="date" class="form-control" placeholder="Select date" data-input>
                                             </div>
                                         </div>
                                     </div>                                   
-                                </div>
+                                </div> --}}
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
@@ -69,11 +69,6 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                       
-
-                            <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
@@ -84,13 +79,20 @@
                                                 <select id="model" name="model_id" class="form-select">
                                                     <option value="">Select Model</option>
                                                     @foreach($modelbrewer as $models)
-                                                        <option value="{{ $models->id }}">{{ $models->model }}</option>
+                                                        {{-- <option value="{{ $models->id }}">{{ $models->model }}</option> --}}
+                                                        <option value="{{ $models->id }}" {{ old('modelbrewer') == $models->id ? 'selected' : '' }}>{{ $models->model }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                         </div>
                                     </div>    
                                 </div>
+                            </div>
+
+                       
+
+                            <div class="row">
+                                
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
@@ -101,16 +103,14 @@
                                                 <select id="shift" name="shift_id" class="form-select">
                                                     <option value="">Select Shift</option>
                                                     @foreach($shift as $shifts)
-                                                        <option value="{{ $shifts->id }}">{{ $shifts->shift }}</option>
+                                                        {{-- <option value="{{ $shifts->id }}">{{ $shifts->shift }}</option> --}}
+                                                        <option value="{{ $shifts->id }}" {{ old('shift') == $shifts->id ? 'selected' : '' }}>{{ $shifts->shift }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>    
-
-                            <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
@@ -118,11 +118,15 @@
                                                 <label for="series" class="col-form-label">Series</label>
                                             </div>
                                             <div class="col">
-                                                <input type="text" class="form-control" id="series" placeholder="" name="series">
+                                                <input type="text" class="form-control" id="series" name="series">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                            </div>    
+
+                            <div class="row">
+                               
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
@@ -130,16 +134,11 @@
                                                 <label for="noOfSample" class="col-form-label">No Of Sample</label>
                                             </div>
                                             <div class="col">
-                                                <input type="text" class="form-control" id="noOfSample" placeholder="" name="no_of_sample">
+                                                <input type="text" class="form-control" id="noOfSample" name="no_of_sample">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>    
-
-
-                         
-                            <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
@@ -152,6 +151,12 @@
                                         </div>
                                     </div>  
                                 </div>
+                            </div>    
+
+
+                         
+                            <div class="row">
+                               
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
@@ -174,7 +179,8 @@
                                                 <select id="process" name="processes_id" class="form-select">
                                                     <option value="">Select Process</option>
                                                     @foreach($process as $processs)
-                                                        <option value="{{ $processs->id }}">{{ $processs->process }}</option>
+                                                        {{-- <option value="{{ $processs->id }}">{{ $processs->process }}</option> --}}
+                                                        <option value="{{ $processs->id }}" {{ old('process') == $processs ? 'selected' : '' }}>{{ $processs->process }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -383,7 +389,8 @@
                                 <div class="form-group">
                                     <div class="form-row">
                                         <label for="qeReview" >Check By</label>
-                                        <input type="text" class="form-control" value="{{ $profileData->username }}" id="name" placeholder=""name="check_by" readonly>
+                                        {{-- <input type="text" class="form-control" value="{{ $profileData->username }}" id="name" placeholder=""name="check_by" readonly> --}}
+                                        <input type="text" class="form-control" id="name" placeholder=""name="check_by">
                                     </div>
                                 </div>
                             </div>
@@ -517,125 +524,95 @@
     $(document).ready(function (){
         $('#myForm').validate({
             rules: {
-                lot: {
+                lot_id: {
                     required : true,
                 }, 
-                model: {
+                model_id: {
                     required : true,
                 }, 
-                shift: {
+                shift_id: {
                     required : true,
                 }, 
                 series: {
                     required : true,
                 }, 
-                noOfSample: {
+                no_of_sample: {
                     required : true,
                 }, 
-                cONo: {
+                co_no: {
                     required : true,
                 }, 
-                process: {
+                do_no: {
+                    required : true,
+                }, 
+                processes_id: {
                     required : true,
                 },
-                mfgSample: {
+                mfg_sample_date: {
                     required : true,
                 },
-                sampleSubmittedDate: {
+                sample_subtmitted_date: {
                     required : true,
                 },
-                completionDate: {
+                completion_date: {
                     required : true,
                 },
-                traceabilityDate: {
+                tracebility_datecode: {
                     required : true,
                 },
-                quatationSample: {
+                summary: {
                     required : true,
                 },
-                moldProcess: {
+                check_by: {
                     required : true,
                 },
-                epPPSample: {
-                    required : true,
-                },
-                firstBatch: {
-                    required : true,
-                },
-                ssbApproves: {
-                    required : true,
-                },
-                normalLife: {
-                    required : true,
-                },
-                designChange: {
-                    required : true,
-                },
-                presented: {
-                    required : true,
-                },
-                name: {
+                testpurpose: {
                     required : true,
                 },
                 
             },
             messages :{
-                lot: {
+                lot_id: {
                     required : 'Please Enter Lot Name',
                 }, 
-                model: {
+                model_id: {
                     required : 'Please Enter Model Name',
                 }, 
-                shift: {
+                shift_id: {
                     required : 'Please Enter Shift Name',
                 }, 
                 series: {
-                    required : 'Please Series Name',
+                    required : 'Please Enter Series Name',
                 }, 
-                noOfSample: {
+                no_of_sample: {
                     required : 'Please Enter No of Sample',
                 }, 
-                cONo: {
+                co_no: {
                     required : 'Please Enter C/O No',
                 }, 
-                process: {
+                do_no: {
+                    required : 'Please Enter D.O Number',
+                }, 
+                processes_id: {
                     required : 'Please Enter Process',
                 },
-                mfgSample: {
+                mfg_sample_date: {
                     required : 'Please Enter MFG Sample',
                 },  
-                sampleSubmittedDate: {
+                sample_subtmitted_date: {
                     required : 'Please Select Sample Submited Date',
                 },  
-                completionDate: {
+                completion_date: {
                     required : 'Please Select Completion Date',
                 }, 
-                traceabilityDate: {
+                tracebility_datecode: {
                     required : 'Please Select Traceability Date',
                 },
-                quatationSample: {
-                    required : 'Please Enter Select Test Purpose',
+                summary: {
+                    required : 'Please Enter Summary',
                 },
-                moldProcess: {
-                    required : '',
-                },
-                epPPSample: {
-                    required : '',
-                },
-                firstBatch: {
-                    required : '',
-                },
-                ssbApproves: {
-                    required : '',
-                },
-                normalLife: {
-                    required : '',
-                },
-                designChange: {
-                    required : '',
-                },
-                presented: {
-                    required : '',
+                check_by: {
+                    required : 'Please Enter Your Name',
                 },
                  
             },

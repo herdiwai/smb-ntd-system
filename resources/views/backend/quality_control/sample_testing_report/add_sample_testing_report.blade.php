@@ -189,7 +189,7 @@
                                         <label for="before" class="col-form-label">Before :</label>
                                     </div>
                                     <div class="col">
-                                        <textarea class="form-control" id="before" readonly>{{ old('summary', $testinggetid->summary) }}</textarea>
+                                        <textarea class="form-control" id="before" rows="5" readonly>{{ old('summary', $testinggetid->summary) }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -203,7 +203,7 @@
                                         <label for="after" class="col-form-label"><b>After :</b></label>
                                     </div>
                                     <div class="col">
-                                        <textarea name="summary_after" class="form-control" id="after" placeholder=""></textarea>
+                                        <textarea name="summary_after" class="form-control" id="after" rows="5" placeholder=""></textarea>
                                     </div>
                                 </div>
                             </div>

@@ -188,6 +188,8 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
         Route::get('/edit/sampletestingrequisition/{id}', 'EditTestingRequisition' )->name('edit.TestingRequisition');
         Route::post('/update/approvals/{id}', 'UpdateApprovals' )->name('update.approvals');
         Route::get('/testing/{id}', 'ShowDetail' )->name('show.testing');
+        // Route::get('/generate-pdf', 'generatePdf' )->name('generate.pdf');
+        Route::get('/requisition/{id}/export-pdf', 'generatePdf' )->name('requisition.export-pdf');
         // Route::post('/update/hourlyoutput', 'UpdateHourlyOutput' )->name('update.hourlyoutput');
         // Route::get('/delete/hourlyoutput/{id}', 'DeleteHourlyoutput' )->name('delete.hourlyoutput');
 

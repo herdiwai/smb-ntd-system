@@ -74,7 +74,7 @@ class SampleTestingReportContoller extends Controller
         $requisition = SampleTestingRequisition::findOrFail($testinggetid);
         $requisition->update([
             'status' => 'complete',
-            'sample_testing_reports_id' => $request->$testinggetid,
+            // 'sample_testing_reports_id' => $request->$testinggetid,
         ]);
 
         $notification = array(

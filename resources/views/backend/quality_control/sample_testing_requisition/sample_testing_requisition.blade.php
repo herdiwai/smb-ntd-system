@@ -17,28 +17,35 @@
                     <div class="table-responsive">
                         <table id="dataTableExample" class="table">
                             <thead>
-                            <tr>
-                                    <th>No</th>
-                                    <th>Sample Subtmitted Date</th>
-                                    <th>Doc.No</th>
-                                    <th>Series</th>
-                                    <th hidden>No of samples</th>
-                                    <th hidden>Test Purpose</th>
-                                    <th hidden>Test_Purpose_remarks</th>
-                                    <th hidden>Summary Before</th>
-                                    <th hidden>shift</th>
-                                    <th hidden>check by</th>
-                                    {{-- <th>summary_report</th> --}}
-                                    <th>status report</th>
-                                    <th>status approvals manager</th>
-                                    @if(Auth::user()->can('actionApprovals.show'))
-                                        <th>action approvals</th>
-                                    @endif
-                                    @if(Auth::user()->can('edit.testingrequisition'))
-                                        <th>Action</th>
-                                    @endif
-
-                            </tr>
+                                <tr>
+                                        <th>No</th>
+                                        <th>Sample Subtmitted Date</th>
+                                        <th>Doc.No</th>
+                                        <th>Series</th>
+                                        <th hidden>No of samples</th>
+                                        <th hidden>Test Purpose</th>
+                                        <th hidden>Test_Purpose_remarks</th>
+                                        <th hidden>Summary Before</th>
+                                        <th hidden>shift</th>
+                                        <th hidden>check by</th>
+                                        <th hidden>summary_report</th>
+                                        <th hidden>received sample date</th>
+                                        <th hidden>result_test</th>
+                                        <th hidden>schedule_of_test</th>
+                                        <th hidden>est_of_completion_date</th>
+                                        <th hidden>inspector_name</th>
+                                        <th hidden>date</th>
+                                        <th>status report</th>
+                                        <th>status approvals manager</th>
+                                        <th hidden>status approvals manager</th>
+                                        @if(Auth::user()->can('actionApprovals.show'))
+                                            <th>action approvals</th>
+                                        @endif
+                                        @if(Auth::user()->can('edit.testingrequisition'))
+                                            <th>Action</th>
+                                        @endif
+                                        <th>Export to PDF</th>
+                                </tr>
                             </thead>
                             <tbody>
                                 @foreach ($testingrequisition as $key => $items)
@@ -46,8 +53,7 @@
                                     <tr>
                                         <td>{{ $key+1 }}</td>
                                         <td class="sample_subtmitted_date">{{ $items->sample_subtmitted_date }}</td>
-                                        <td class="doc_no">{{ $items->process->process }}/{{ $items->lot->lot }}/{{ $items->modelBrewer->model }}/{{ $items->date }}/{{ $items->do_no }}/{{ $items->incomming_number }} 
-                                        </td>
+                                        <td class="doc_no">{{ $items->process->process }}/{{ $items->lot->lot }}/{{ $items->modelBrewer->model }}/{{ $items->date }}/{{ $items->do_no }}/{{ $items->incomming_number }}</td>
                                         <td class="series">{{ $items->series }}</td>
                                         <td class="no_of_sample" hidden>{{ $items->no_of_sample }}</td>
                                         <td class="testpurpose" hidden>{{ $items->testpurpose }}</td>
@@ -55,10 +61,17 @@
                                         <td class="summary" hidden>{{ $items->summary }}</td>
                                         <td class="shift" hidden>{{ $items->shift->shift }}</td>
                                         <td class="check_by" hidden>{{ $items->check_by }}</td>
-                                        {{-- <td class="summary_after">@if($items->sampleReport == '')<p style="color:red">Report not completed</p>@else{{ $items->sampleReport->summary_after }}@endif --}}
-                                        {{-- </td> --}}
+                                        <td class="summary_after" hidden>@if($items->sampleReport == '')<p style="color:red">Report not completed</p>@else{{ $items->sampleReport->summary_after }}@endif</td>
+                                        <td class="received_sample_date" hidden>{{ $items->sample_subtmitted_date }}</td>
+                                        <td class="result_test" hidden>@if($items->sampleReport == '')<p style="color:red">Report not completed</p>@else{{ $items->sampleReport->result_test }}@endif</td>
+                                        <td class="schdule_test" hidden>@if($items->sampleReport == '')<p style="color:red">Report not completed</p>@else{{ $items->sampleReport->schedule_of_test }}@endif</td>
+                                        <td class="completion_date" hidden>@if($items->sampleReport == '')<p style="color:red">Report not completed</p>@else{{ $items->sampleReport->est_of_completion_date }}@endif</td>
+                                        <td class="inspector_name" hidden>@if($items->sampleReport == '')<p style="color:red">Report not completed</p>@else{{ $items->sampleReport->inspector }}@endif</td>
+                                        <td class="date" hidden>@if($items->sampleReport == '')<p style="color:red">Report not completed</p>@else{{ $items->sampleReport->date }}@endif</td>
+                                        <td class="status_report" hidden>@if($items->status == '')<p style="color:red">Report not completed</p>@else{{ $items->status }}@endif</td>
                                         <td>
                                             @if($items->status == 'incomplete')
+                                                {{-- <p style="color:red">{{ $items->status }}</p> --}}
                                                 <span class="badge bg-danger"> {{ $items->status }} </span>
                                             @else
                                                 <span class="badge bg-success"> {{ $items->status }} </span>
@@ -75,16 +88,16 @@
                                             @endif
                                         </td> 
                                         {{-- jika status pending/rejected makan tombol action tetap ada --}}
-                                        
-                                        
-                                        @if($items->statusApprovals->status === 'rejected' OR $items->statusApprovals->status === 'pending')
+                                        @if($items->statusApprovals->status == 'rejected' OR $items->statusApprovals->status == 'pending')
                                         <td>
                                             <form action="{{ route('update.approvals', $items->id) }}" method="POST">
                                                 @csrf
                                                 <button class="btn btn-inverse-success btn-sm" type="submit" name="status_approvals_id" value="1" title="Approved"><i data-feather="check-circle"></i></button>
                                                 &nbsp;&nbsp;
                                                 <button class="btn btn-inverse-danger btn-sm" type="submit" name="status_approvals_id" value="2" title="Rejected"><i data-feather="x-circle"></i></button>
-                                        </td>
+                                        {{-- @elseif($items->statusApprovals->status == 'approved')
+                                        <p>Approvals has been approved</p> --}}
+                                            </td>
                                             @endif
                                         @if($items->statusApprovals->status == 'approved')
                                             <td>
@@ -119,6 +132,7 @@
                                                 <a href="" class="btn btn-inverse-danger btn-sm" title="Delete"><i data-feather="trash-2"></i></a>
                                             @endif
                                         </td> 
+                                        <td><a href="{{ route('requisition.export-pdf', $items->id ) }}" class="btn btn-inverse-danger btn-sm" title="Export-PDF"><i data-feather="download"></i></a></td>
                                     </tr>
                                 @endforeach
                                 {{-- @endforeach --}}
@@ -224,7 +238,7 @@
                               <div class="row mb-3">
                                   <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Received Sample Date</label>
                                   <div class="col-sm-9">
-                                      <input type="text" class="form-control" id="exampleInputUsername2" placeholder="27-09-2024">
+                                      <input type="text" class="form-control received_sample_date" id="exampleInputUsername2" readonly>
                                   </div>
                               </div>
                               <div class="row mb-3">
@@ -235,53 +249,47 @@
                               </div>
 
                               <div class="row mb-3">
-                                  <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Test Result</label>
+                                  <label for="result_test" class="col-sm-3 col-form-label">Test Result</label>
                                   <div class="col-sm-9">
-                                      <input type="email" class="form-control" id="exampleInputEmail2" autocomplete="off" placeholder="PASS">
+                                      <input type="email" class="form-control result_test" id="result_test">
                                   </div>
                               </div>
                               <div class="row mb-3">
                                   <label for="scheduletest" class="col-sm-3 col-form-label">Schedule of Test</label>
                                   <div class="col-sm-9">
-                                      <input type="text" class="form-control" id="scheduletest" placeholder="27-09-2024">
+                                      <input type="text" class="form-control schdule_test" id="scheduletest" readonly>
                                   </div>
                               </div>
                               <div class="row mb-3">
                                   <label for="esofdate" class="col-sm-3 col-form-label">Est Of Completion Date</label>
                                   <div class="col-sm-9">
-                                      <input type="text" class="form-control" id="esofdate" placeholder="28-09-2024">
+                                      <input type="text" class="form-control completion_date" id="esofdate" readonly>
                                   </div>
                               </div>
                               <div class="row mb-3">
                                   <label for="inspectorname" class="col-sm-3 col-form-label">Inspector Name</label>
                                   <div class="col-sm-9">
-                                      <input type="text" class="form-control" id="inspectorname" placeholder="Habsyam">
+                                      <input type="text" class="form-control inspector_name" id="inspectorname" readonly>
                                   </div>
                               </div>
                               
                               <div class="row mb-3">
                                   <label for="date" class="col-sm-3 col-form-label">Date</label>
                                   <div class="col-sm-9">
-                                      <input type="text" class="form-control" id="date" placeholder="28-09-2924">
+                                      <input type="text" class="form-control date" id="date" readonly>
                                   </div>
                               </div>
-                              <div class="row mb-3">
+                              {{-- <div class="row mb-3">
                                   <label for="reviewby" class="col-sm-3 col-form-label">Review by Spv</label>
                                   <div class="col-sm-9">
-                                      <input type="text" class="form-control" id="reviewby" placeholder="Tirta">
+                                      <input type="text" class="form-control" id="reviewby">
                                   </div>
-                              </div>
-                              <div class="row mb-3">
-                                  <label for="dateofreview" class="col-sm-3 col-form-label">Date</label>
-                                  <div class="col-sm-9">
-                                      <input type="text" class="form-control" id="dateofreview" placeholder="29-09-2924">
-                                  </div>
-                              </div>
+                              </div> --}}
 
                               <div class="row mb-3">
                                   <label for="status" class="col-sm-3 col-form-label">Status</label>
                                   <div class="col-sm-9">
-                                      <input type="text" class="form-control" id="status" placeholder="Complete">
+                                      <input type="text" class="form-control status_report" id="status" readonly>
                                   </div>
                               </div>
 
@@ -314,6 +322,13 @@
             $('.shift').val(_this.find('.shift').text());
             $('.check_by').val(_this.find('.check_by').text());
             $('.summary_after').val(_this.find('.summary_after').text());
+            $('.received_sample_date').val(_this.find('.received_sample_date').text());
+            $('.result_test').val(_this.find('.result_test').text());
+            $('.schdule_test').val(_this.find('.schdule_test').text());
+            $('.completion_date').val(_this.find('.completion_date').text());
+            $('.inspector_name').val(_this.find('.inspector_name').text());
+            $('.date').val(_this.find('.date').text());
+            $('.status_report').val(_this.find('.status_report').text());
     });
   </script>
   
