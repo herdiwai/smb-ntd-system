@@ -56,7 +56,7 @@
                                         <label for="model" class="col-form-label"><b>Model</b></label>
                                     </div>
                                     <div class="col">
-                                        <input type="text" class="form-control" value="{{ old('mdoel_id', $testinggetid->modelBrewer->model)  }}" id="model" readonly>                             
+                                        <input type="text" class="form-control" value="{{ old('mdoel_id', $testinggetid->modelBrewer->model)  }}" id="model" disabled>                             
                                     </div>
                                 </div>
                             </div>
@@ -67,7 +67,7 @@
                                         <label for="model" class="col-form-label"><b>Tracebility (Date Code)</b></label>
                                     </div>
                                     <div class="col">
-                                        <input type="text" value="{{ old('tracebility_datecode', $testinggetid->tracebility_datecode) }}" class="form-control" id="model" placeholder="">
+                                        <input type="text" value="{{ old('tracebility_datecode', $testinggetid->tracebility_datecode) }}" class="form-control" id="model" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -78,7 +78,7 @@
                                         <label for="model" class="col-form-label"><b>Process</b></label>
                                     </div>
                                     <div class="col">
-                                        <input type="text" value="{{ old('process', $testinggetid->process)  }}" class="form-control" id="model" readonly>
+                                        <input type="text" value="{{ old('process', $testinggetid->process)  }}" class="form-control" id="model" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -92,7 +92,7 @@
                                         <label for="seriesPN" class="col-form-label"><b>Series / PN </b></label>
                                     </div>
                                     <div class="col">
-                                        <input type="text" value="{{ old('series', $testinggetid->series)  }}" class="form-control" id="seriesPN" readonly>
+                                        <input type="text" value="{{ old('series', $testinggetid->series)  }}" class="form-control" id="seriesPN" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -103,7 +103,7 @@
                                         <label for="receivedSampleData" class="col-form-label"><b>Received Sample Date</b></label>
                                     </div>
                                     <div class="col" id="flatpickr-date">
-                                        <input type="text" value="{{ old('sample_subtmitted_date', $testinggetid->sample_subtmitted_date)  }}" class="form-control" readonly>
+                                        <input type="text" value="{{ old('sample_subtmitted_date', $testinggetid->sample_subtmitted_date)  }}" class="form-control" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -114,7 +114,7 @@
                                         <label for="mfgSampleDate" class="col-form-label"><b>MFG Sample Date</b></label>
                                     </div>
                                     <div class="col" id="flatpickr-date">
-                                            <input type="text" value="{{ old('mfg_sample_date', $testinggetid->mfg_sample_date)  }}" class="form-control" readonly>
+                                            <input type="text" value="{{ old('mfg_sample_date', $testinggetid->mfg_sample_date)  }}" class="form-control" disabled>
                                     </div>
                                 </div>
                             </div> 
@@ -129,7 +129,7 @@
                                         <label for="noOfSample" class="col-form-label"><b>No of Samples</b></label>
                                     </div>
                                     <div class="col">
-                                        <input type="text" value="{{ old('no_of_sample', $testinggetid->no_of_sample)  }}" class="form-control" id="noOfSample" readonly>
+                                        <input type="text" value="{{ old('no_of_sample', $testinggetid->no_of_sample)  }}" class="form-control" id="noOfSample" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -140,7 +140,7 @@
                                         <label for="cO" class="col-form-label"><b>C/O</b></label>
                                     </div>
                                     <div class="col">
-                                        <input type="text" value="{{ old('co_no', $testinggetid->co_no)  }}" class="form-control" id="cO" readonly>
+                                        <input type="text" value="{{ old('co_no', $testinggetid->co_no)  }}" class="form-control" id="cO" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -165,7 +165,7 @@
                             <div class="col-md-12 mb-3">
                                 <div class="form-row">
                                     <label for="reposrtNo"><b>Testing Purpose</b></label>
-                                    <input type="text" value="{{ old('testpurpose', $testinggetid->testpurpose)  }}" class="form-control" id="input6" readonly>
+                                    <input type="text" value="{{ old('testpurpose', $testinggetid->testpurpose)  }}" class="form-control" id="input6" disabled>
                                 </div>
                             </div>
                         </div>
@@ -174,7 +174,7 @@
                             <div class="col-md-12 mb-3">
                                 <div class="form-row">
                                     <label for="reposrtNo"><b>Test Item</b></label>
-                                    <input type="text" value="{{ old('test_purpose', $testinggetid->test_purpose)  }}" class="form-control" id="input6" placeholder="Data not found" readonly>
+                                    <input type="text" value="{{ old('test_purpose', $testinggetid->test_purpose)  }}" class="form-control" id="input6" placeholder="Data not found" disabled>
                                 </div>
                             </div>
                         </div>
@@ -189,7 +189,7 @@
                                         <label for="before" class="col-form-label">Before :</label>
                                     </div>
                                     <div class="col">
-                                        <textarea class="form-control" id="before" rows="5" readonly>{{ old('summary', $testinggetid->summary) }}</textarea>
+                                        <textarea class="form-control" id="before" rows="5" disabled>{{ old('summary', $testinggetid->summary) }}</textarea>
                                     </div>
                                 </div>
                             </div>

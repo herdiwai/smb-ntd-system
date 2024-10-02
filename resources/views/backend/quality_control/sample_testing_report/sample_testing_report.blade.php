@@ -15,7 +15,7 @@
                 <div class="card-body">
                     <h6 class="card-title">Sample Testing Report</h6>
                     <div class="table-responsive">
-                        <table id="dataTableExample" class="table">
+                        <table id="serverside" class="table">
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -29,7 +29,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($testingrequisition as $key => $items)
+                                {{-- @foreach ($testingrequisition as $key => $items)
                                     <tr>
                                         <td>{{ $key+1 }}</td>
                                         <td>{{ $items->sample_subtmitted_date }}</td>
@@ -62,12 +62,11 @@
 
                                         <td> 
                                             @if($items->status == 'incomplete')
-                                                {{-- <a href="{{ route('edit.TestingRequisition', $items->id) }}" class="btn btn-inverse-warning btn-xs" title="Edit"><i data-feather="edit"></i></a> --}}
                                                 <a href="{{ route('add.sampletestingreport', $items->id) }}" class="btn btn-inverse-info btn-sm" title="Add Report"><i data-feather="file-plus"></i></a>
                                             @elseif($items->statusApprovals->status == 'rejected')
                                             <a href="{{ route('add.sampletestingreport', $items->id) }}" class="btn btn-inverse-info btn-sm" title="Add Report"><i data-feather="file-plus"></i></a>
                                             @else
-                                            <p>report has been completed</p>
+                                            <p style="color: rgb(4, 189, 4)">report has been completed</p>
                                             @endif
                                                 
                                             @if(Auth::user()->can('delete.testingreport'))
@@ -76,7 +75,7 @@
 
                                         </td> 
                                     </tr>
-                                @endforeach
+                                @endforeach --}}
 
                             </tbody>
                         </table>
@@ -85,6 +84,73 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+        $(document).ready( function() {
+            loadData();
+        });
+        function loadData() {
+            $('#serverside').DataTable({
+                pageLength: 5,
+                lengthMenu: [ [5, 10, 25, 50, -1], [5, 10, 25, 50, "All"] ],
+                processing:true,
+                pagination:true,
+                responsive:true,
+                serverSide:true,
+                searching:true,
+                ordering:false,
+                columnDefs: [ 
+                    {
+                        "targets": 0, // Menargetkan kolom pertama untuk nomor urut
+                        "searchable": false,
+                        "orderable": false,
+                        "render": function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    }
+                ],
+                ajax:{
+                    url:"{{ route('qualitycontrol.sampletestingreport') }}",
+                },
+                columns:[
+                    {
+                        data: 'no',
+                        name: 'no',
+                    },
+                    {
+                        data: 'Sample Submitted Date',
+                        name: 'sample_submitted_date',
+                    },
+                    {
+                        data: 'Doc.No',
+                        name: 'doc_no',
+                    },
+                    {
+                        data: 'series',
+                        name: 'series',
+                    },
+                    {
+                        data: 'no_of_sample',
+                        name: 'no_of_sample',
+                    },
+                    {
+                        data: 'status_report',
+                        name: 'status_report',
+                    },
+                    {
+                        data: 'status_approvals',
+                        name: 'status_approvals',
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                    },
+                ],
+            });
+        }
+
+    </script>
+
 
 </div>
 @endsection

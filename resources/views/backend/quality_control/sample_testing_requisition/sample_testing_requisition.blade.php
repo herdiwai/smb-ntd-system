@@ -5,7 +5,9 @@
   
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
+            @if(Auth::user()->can('add.testingrequisition'))
              <a href="{{ route('add.sampletestingrequisition') }}" class="btn btn-inverse-info btn-sm"><i data-feather="plus-circle"></i> ADD REQUISITION FORM</a>
+            @endif
         </ol>
     </nav>
 
@@ -37,7 +39,6 @@
                                         <th hidden>date</th>
                                         <th>status report</th>
                                         <th>status approvals manager</th>
-                                        <th hidden>status approvals manager</th>
                                         @if(Auth::user()->can('actionApprovals.show'))
                                             <th>action approvals</th>
                                         @endif
@@ -46,6 +47,7 @@
                                             <th>Action</th>
                                         @endif
                                         <th>Export to PDF</th>
+                                        <th hidden>Export to PDF</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -78,7 +80,6 @@
                                                 <span class="badge bg-success"> {{ $items->status }} </span>
                                             @endif
                                         </td>   
-
                                         <td>
                                             @if($items->statusApprovals->status == 'pending')
                                                 <span class="badge bg-warning"> {{ $items->statusApprovals->status }}</span>
@@ -89,43 +90,28 @@
                                             @endif
                                         </td> 
                                         {{-- jika status pending/rejected makan tombol action tetap ada --}}
+                                        @if(Auth::user()->can('actionApprovals.show'))
                                         @if($items->statusApprovals->status == 'rejected' OR $items->statusApprovals->status == 'pending')
                                         <td>
                                             <form action="{{ route('update.approvals', $items->id) }}" method="POST">
-                                                @csrf
+                                            @csrf
                                                 <button class="btn btn-inverse-success btn-sm" type="submit" name="status_approvals_id" value="1" title="Approved"><i data-feather="check-circle"></i></button>
                                                 &nbsp;&nbsp;
                                                 <button class="btn btn-inverse-danger btn-sm" type="submit" name="status_approvals_id" value="2" title="Rejected"><i data-feather="x-circle"></i></button>
-                                        {{-- @elseif($items->statusApprovals->status == 'approved')
-                                        <p>Approvals has been approved</p> --}}
-                                            </td>
-                                            @endif
-                                        @if($items->statusApprovals->status == 'approved')
-                                            <td>
-                                                <p>Approvals has been approved</p>
-                                            </td>
+                                        </td>
                                         @endif
-                                           
-                                        {{-- @if($items->statusApprovals->status == 'rejected')
-                                        <td>
-                                            @if(Auth::user()->can('actionApprovals.show'))
-                                                @if($items->statusApprovals->status == 'pending')
-                                                <form action="{{ route('update.approvals', $items->id) }}" method="POST">
-                                                    @csrf
-                                                    <button class="btn btn-inverse-success btn-sm" type="submit" name="status_approvals_id" value="1" title="Approved"><i data-feather="check-circle"></i></button>
-                                                    &nbsp;&nbsp;
-                                                    @else
-                                                    <button class="btn btn-inverse-danger btn-sm" type="submit" name="status_approvals_id" value="2" title="Rejected"><i data-feather="x-circle"></i></button>
-                                               @endif
-                                                </td>
-                                                    @else
+                                            @if($items->statusApprovals->status == 'approved')
                                                 <td>
                                                     <p>Approvals has been approved</p>
                                                 </td>
-                                        @endif --}}
+                                            @endif
+                                        @endif
+                                        
+                                        <td><button type="button" class="btn btn-inverse-primary btn-sm view-details" data-bs-toggle="modal" data-bs-target="#varyingModal" data-id="'.$items->id.'" title="View Detail"><i data-feather="eye"></i></button></td>
+                                        @if(Auth::user()->can('edit.testingrequisition'))
                                         <td> 
                                             {{-- <button type="button" class="btn btn-inverse-primary btn-sm view-details" data-bs-toggle="modal" data-bs-target="#varyingModal" onclick="showPostDetails({{ $items->id }})" data-url="{{ route('show.testing', $items->id) }}" title="View Detail"><i data-feather="eye"></i></button> --}}
-                                            <button type="button" class="btn btn-inverse-primary btn-sm view-details" data-bs-toggle="modal" data-bs-target="#varyingModal" data-id="'.$items->id.'" title="View Detail"><i data-feather="eye"></i></button>
+                                            {{-- <button type="button" class="btn btn-inverse-primary btn-sm view-details" data-bs-toggle="modal" data-bs-target="#varyingModal" data-id="'.$items->id.'" title="View Detail"><i data-feather="eye"></i></button> --}}
                                             @if(Auth::user()->can('edit.testingrequisition'))
                                                 <a href="{{ route('edit.TestingRequisition', $items->id) }}" class="btn btn-inverse-warning btn-xs" title="Edit"><i data-feather="edit"></i></a>
                                             @endif
@@ -133,6 +119,7 @@
                                                 <a href="" class="btn btn-inverse-danger btn-sm" title="Delete"><i data-feather="trash-2"></i></a>
                                             @endif
                                         </td> 
+                                        @endif
                                         <td><a href="{{ route('requisition.export-pdf', $items->id ) }}" class="btn btn-inverse-danger btn-sm" title="Export-PDF"><i data-feather="download"></i></a></td>
                                     </tr>
                                 @endforeach
@@ -171,55 +158,55 @@
                               <div class="row mb-3">
                                   <label for="samplesubmitted" class="col-sm-3 col-form-label">Sample Submitted Date</label>
                                   <div class="col-sm-9">
-                                      <input type="text" class="form-control submitedDate" value="" id="samplesubmitted" readonly>
+                                      <input type="text" class="form-control submitedDate" value="" id="samplesubmitted" disabled>
                                   </div>
                               </div>
                               <div class="row mb-3">
                                   <label for="docno" class="col-sm-3 col-form-label">Doc.No</label>
                                   <div class="col-sm-9">
-                                      <input type="text" class="form-control doc_no" id="docno" readonly>
+                                      <input type="text" class="form-control doc_no" id="docno" disabled>
                                   </div>
                               </div>
                               <div class="row mb-3">
                                   <label for="exampleInputMobile" class="col-sm-3 col-form-label">Series</label>
                                   <div class="col-sm-9">
-                                      <input type="text" class="form-control series" id="exampleInputMobile" readonly>
+                                      <input type="text" class="form-control series" id="exampleInputMobile" disabled>
                                   </div>
                               </div>
                               <div class="row mb-3">
                                   <label for="noofsample" class="col-sm-3 col-form-label">No Of Sample</label>
                                   <div class="col-sm-9">
-                                      <input type="text" class="form-control no_of_sample" id="noofsample" readonly>
+                                      <input type="text" class="form-control no_of_sample" id="noofsample" disabled>
                                   </div>
                               </div>
                               <div class="row mb-3">
                                   <label for="testpurpose" class="col-sm-3 col-form-label">Test Purpose</label>
                                   <div class="col-sm-9">
-                                      <input type="text" class="form-control testpurpose" id="testpurpose" readonly>
+                                      <input type="text" class="form-control testpurpose" id="testpurpose" disabled>
                                   </div>
                               </div>
                               <div class="row mb-3">
                                   <label for="otherpurpose" class="col-sm-3 col-form-label">Other purpose/remarks:</label>
                                   <div class="col-sm-9">
-                                    <textarea class="form-control test_purpose" id="otherpurpose" rows="5" readonly></textarea>
+                                    <textarea class="form-control test_purpose" id="otherpurpose" rows="5" disabled></textarea>
                                   </div>
                               </div>
                               <div class="row mb-3">
                                   <label for="summarybefore" class="col-sm-3 col-form-label">Summary Before</label>
                                   <div class="col-sm-9">
-                                      <textarea class="form-control summary" id="summarybefore" rows="5" readonly></textarea>
+                                      <textarea class="form-control summary" id="summarybefore" rows="5" disabled></textarea>
                                   </div>
                               </div>
                               <div class="row mb-3">
                                   <label for="shift" class="col-sm-3 col-form-label">Shift</label>
                                   <div class="col-sm-9">
-                                      <input type="text" class="form-control shift" id="shift" readonly>
+                                      <input type="text" class="form-control shift" id="shift" disabled>
                                   </div>
                               </div>
                               <div class="row mb-3">
                                   <label for="checkby" class="col-sm-3 col-form-label">Check By</label>
                                   <div class="col-sm-9">
-                                      <input type="text" class="form-control check_by" id="checkby" readonly>
+                                      <input type="text" class="form-control check_by" id="checkby" disabled>
                                   </div>
                               </div>
 
@@ -239,45 +226,45 @@
                               <div class="row mb-3">
                                   <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Received Sample Date</label>
                                   <div class="col-sm-9">
-                                      <input type="text" class="form-control received_sample_date" id="exampleInputUsername2" readonly>
+                                      <input type="text" class="form-control received_sample_date" id="exampleInputUsername2" disabled>
                                   </div>
                               </div>
                               <div class="row mb-3">
                                   <label for="summaryafter" class="col-sm-3 col-form-label">Summary After</label>
                                   <div class="col-sm-9">
-                                      <textarea class="form-control summary_after" id="summaryafter" rows="5" readonly></textarea>
+                                      <textarea class="form-control summary_after" id="summaryafter" rows="5" disabled></textarea>
                                   </div>
                               </div>
 
                               <div class="row mb-3">
                                   <label for="result_test" class="col-sm-3 col-form-label">Test Result</label>
                                   <div class="col-sm-9">
-                                      <input type="email" class="form-control result_test" id="result_test">
+                                      <input type="email" class="form-control result_test" id="result_test" disabled>
                                   </div>
                               </div>
                               <div class="row mb-3">
                                   <label for="scheduletest" class="col-sm-3 col-form-label">Schedule of Test</label>
                                   <div class="col-sm-9">
-                                      <input type="text" class="form-control schdule_test" id="scheduletest" readonly>
+                                      <input type="text" class="form-control schdule_test" id="scheduletest" disabled>
                                   </div>
                               </div>
                               <div class="row mb-3">
                                   <label for="esofdate" class="col-sm-3 col-form-label">Est Of Completion Date</label>
                                   <div class="col-sm-9">
-                                      <input type="text" class="form-control completion_date" id="esofdate" readonly>
+                                      <input type="text" class="form-control completion_date" id="esofdate" disabled>
                                   </div>
                               </div>
                               <div class="row mb-3">
                                   <label for="inspectorname" class="col-sm-3 col-form-label">Inspector Name</label>
                                   <div class="col-sm-9">
-                                      <input type="text" class="form-control inspector_name" id="inspectorname" readonly>
+                                      <input type="text" class="form-control inspector_name" id="inspectorname" disabled>
                                   </div>
                               </div>
                               
                               <div class="row mb-3">
                                   <label for="date" class="col-sm-3 col-form-label">Date</label>
                                   <div class="col-sm-9">
-                                      <input type="text" class="form-control date" id="date" readonly>
+                                      <input type="text" class="form-control date" id="date" disabled>
                                   </div>
                               </div>
                               {{-- <div class="row mb-3">
@@ -290,7 +277,7 @@
                               <div class="row mb-3">
                                   <label for="status" class="col-sm-3 col-form-label">Status</label>
                                   <div class="col-sm-9">
-                                      <input type="text" class="form-control status_report" id="status" readonly>
+                                      <input type="text" class="form-control status_report" id="status" disabled>
                                   </div>
                               </div>
 
