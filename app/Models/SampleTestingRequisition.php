@@ -35,6 +35,7 @@ class SampleTestingRequisition extends Model
             'testpurpose',
             'summary',
             'status_approvals_id',
+            'status_approvals_id_spv',
             'sample_testing_reports_id',
     ];
 

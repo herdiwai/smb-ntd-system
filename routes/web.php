@@ -187,11 +187,12 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
         Route::post('/store/sampletestingrequisition', 'StoreTesting' )->name('store.sampletestingrequisition');
         Route::get('/edit/sampletestingrequisition/{id}', 'EditTestingRequisition' )->name('edit.TestingRequisition');
         Route::post('/update/approvals/{id}', 'UpdateApprovals' )->name('update.approvals');
+        Route::post('/update/approvals-spv/{id}', 'UpdateApprovalsSpv' )->name('update.approvalsspv');
         Route::get('/testing/{id}', 'ShowDetail' )->name('show.testing');
         // Route::get('/generate-pdf', 'generatePdf' )->name('generate.pdf');
         Route::get('/requisition/{id}/export-pdf', 'generatePdf' )->name('requisition.export-pdf');
+        Route::get('/delete/sampletestingrequisition/{id}', 'DeleteRequisition' )->name('delete.requisition');
         // Route::post('/update/hourlyoutput', 'UpdateHourlyOutput' )->name('update.hourlyoutput');
-        // Route::get('/delete/hourlyoutput/{id}', 'DeleteHourlyoutput' )->name('delete.hourlyoutput');
 
         //Production Hourly Ouput Export Excel
         // Route::get('/production/export-excel', 'ExportToExcel')->name('excel.export.file');

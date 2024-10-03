@@ -168,13 +168,33 @@
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents04" role="button" aria-expanded="false" aria-controls="uiComponents04">
               <i class="link-icon" data-feather="folder"></i>
-              <span class="link-title">Approved</span>
+              <span class="link-title">Approved Manager</span>
               <i class="link-arrow" data-feather="chevron-down"></i>
             </a>
             <div class="collapse" id="uiComponents04">
               <ul class="nav sub-menu">
                 
                 @if(Auth::user()->can('all.testingreport'))
+                <li class="nav-item">
+                  <a href="{{ route('qualitycontrol.sampletestingrequisition') }}" class="nav-link">All Table</a>
+                </li>
+               @endif
+              </ul>
+            </div>
+          </li>
+          @endif
+
+          @if(Auth::user()->can('approvalsspv.menu'))
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents05" role="button" aria-expanded="false" aria-controls="uiComponents05">
+              <i class="link-icon" data-feather="folder"></i>
+              <span class="link-title">Approved Spv</span>
+              <i class="link-arrow" data-feather="chevron-down"></i>
+            </a>
+            <div class="collapse" id="uiComponents05">
+              <ul class="nav sub-menu">
+                
+                @if(Auth::user()->can('all.approvalsspv'))
                 <li class="nav-item">
                   <a href="{{ route('qualitycontrol.sampletestingrequisition') }}" class="nav-link">All Table</a>
                 </li>

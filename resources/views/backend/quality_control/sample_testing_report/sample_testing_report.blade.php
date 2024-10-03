@@ -2,7 +2,6 @@
 @section('admin')
 
 <div class="page-content">
-  
     {{-- <nav class="page-breadcrumb">
         <ol class="breadcrumb">
              <a href="" class="btn btn-inverse-info btn-sm"><i data-feather="plus-square"></i> Add Report Form</a>
@@ -86,6 +85,9 @@
     </div>
 
     <script type="text/javascript">
+    // $('#serverside tbody').on('click', 'tr', function() {
+    //     $(this).toggleClass('selected');  // Tambahkan kelas 'selected' pada baris yang dipilih
+    // });
         $(document).ready( function() {
             loadData();
         });

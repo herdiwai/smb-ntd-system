@@ -9,7 +9,7 @@
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h6 class="card-title"><b>FORM EDIT SAMPLE TESTING REPORT </b></h6>
+                    <h6 class="card-title"><b>FORM SAMPLE TESTING REPORT </b></h6>
                 
                     <form id="myForm" action="{{ route('store.sampletestingreport', $testinggetid->id) }}" method="POST">
                         @method('POST')
@@ -39,6 +39,8 @@
                         <!-- end return sample-->
                         <input type="hidden" name="id" value="{{ $testinggetid->id }}">
                         <input type="hidden" name="status_approvals_id" value="{{ $testinggetid->status_approvals_id }}">
+                        <input type="hidden" name="status_approvals" value="{{ $testinggetid->status_approvals_id_spv }}">
+                        <input type="hidden" name="report_no" value="{{ $testinggetid->incomming_number }}">
                         
                         {{-- <div class="row">
                             <div class="col-md-12 mb-3">
@@ -299,10 +301,10 @@
                                     <div class="col-md-4 mb-4">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-4">
-                                                <label for="model" class="col-form-label"><b>Inspector</b></label>
+                                                <label for="model" class="col-form-label"><b>Inspector Name</b></label>
                                             </div>
                                             <div class="col">
-                                                <input type="text" value="{{ $profileData->username }}" class="form-control" name="inspector" id="model" readonly>                             
+                                                <input type="text" class="form-control" name="inspector" id="model">                             
                                             </div>
                                         </div>
                                     </div>

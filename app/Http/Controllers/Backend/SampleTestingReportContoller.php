@@ -33,7 +33,7 @@ class SampleTestingReportContoller extends Controller
                 return $testingrequisition->sample_subtmitted_date;
             })
             ->addColumn('Doc.No', function($testingrequisition) {
-                return $testingrequisition->process->process. '/' .$testingrequisition->lot->lot. '/' .$testingrequisition->modelBrewer->model. '/' .$testingrequisition->date. '/' .$testingrequisition->do_no. '/' .$testingrequisition->incomming_number; 
+                return $testingrequisition->process->process. '/' .$testingrequisition->lot->lot. '/' .$testingrequisition->modelBrewer->model. '/' .$testingrequisition->sample_subtmitted_date. '/' .$testingrequisition->do_no. '/' .$testingrequisition->incomming_number; 
             })
             ->addColumn('series', function($testingrequisition) {
                 return $testingrequisition->series;
@@ -64,7 +64,7 @@ class SampleTestingReportContoller extends Controller
                 }elseif($testingrequisition->statusApprovals->status == 'rejected') {
                     return '<a href="'.route('add.sampletestingreport', $testingrequisition->id).'" class="btn btn-inverse-info btn-sm" title="Add Report"><i data-feather="file-plus"></i>Add Report</a>';
                 }else{
-                    return '<p style="color: rgb(4, 189, 4)">report has been completed</p>';
+                    return '<p style="color: rgb(4, 189, 4)">report completed</p>';
                 }
             })
             ->rawColumns(['status_report','status_approvals','action'])
@@ -118,13 +118,15 @@ class SampleTestingReportContoller extends Controller
             'est_of_completion_date' => $request->est_of_completion_date,
             'date' => $request->date,
             'status_approvals_id' => $request->status_approvals_id,
+            'status_approvals' => $request->status_approvals,
+            'report_no' => $request->report_no,
         ]);
 
         // Update status Sample Testing Requisition to 'complete' after 2nd user insert data
         $requisition = SampleTestingRequisition::findOrFail($testinggetid);
         $requisition->update([
             'status' => 'complete',
-            // 'sample_testing_reports_id' => $request->$testinggetid,
+            // 'sample_testing_reports_id' => $testinggetid,
         ]);
 
         $notification = array(

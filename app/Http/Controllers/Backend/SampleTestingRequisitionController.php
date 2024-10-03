@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Lot;
 use App\Models\ModelBrewer;
 use App\Models\Process;
+use App\Models\SampleTestingReport;
 use App\Models\SampleTestingRequisition;
 use App\Models\Shift;
 use App\Models\User;
@@ -17,7 +18,7 @@ class SampleTestingRequisitionController extends Controller
 {
     public function SampleTestingRequisition()
     {
-        $testingrequisition = SampleTestingRequisition::with('sampleReport','statusApprovals')->orderBy('incomming_number','desc')->get();
+        $testingrequisition = SampleTestingRequisition::with('sampleReport','statusApprovals')->orderBy('incomming_number','asc')->get();
         return view('backend.quality_control.sample_testing_requisition.sample_testing_requisition', compact('testingrequisition'));
     }
 
@@ -85,6 +86,7 @@ class SampleTestingRequisitionController extends Controller
             // 'testpurpose' => $selecttestpurpose, 
             'status' => 'incomplete',
             'status_approvals_id' => 3,
+            'status_approvals_id_spv' => 3,
         ]);
         if ($request->filled('test_purpose')) {
             $selecttestpurpose[] = $request->input('test_purpose');
@@ -124,6 +126,19 @@ class SampleTestingRequisitionController extends Controller
         return redirect()->route('qualitycontrol.sampletestingrequisition')->with($notification);
     }
 
+    public function UpdateApprovalsSpv(Request $request,$id)
+    {
+        SampleTestingRequisition::findOrFail($id)->update([
+            'status_approvals_id_spv' => $request->status_approvals_id_spv,
+        ]);
+
+        $notification = array(
+            'message' => 'Approved Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('qualitycontrol.sampletestingrequisition')->with($notification);
+    }
+
     public function generatePdf($id)
     {
         $sampleRequisition = SampleTestingRequisition::with('sampleReport','modelBrewer','lot','process','statusApprovals')->findOrFail($id);
@@ -148,5 +163,26 @@ class SampleTestingRequisitionController extends Controller
     //     $testing = SampleTestingRequisition::with('sampleReport')->findOrFail($id);
     //     return response()->json($testing);
     // }
+
+    public function DeleteRequisition($id) 
+    {
+        // Cari data berdasarkan ID yang ingin dihapus
+        $requisition = SampleTestingRequisition::find($id);
+
+        // Hapus semua data yang berelasi di tabel sample_testing_reports
+        $requisition->sampleReport()->delete();
+
+        // Setelah data relasi dihapus, hapus data utama
+        $requisition->delete();
+        // $testing = SampleTestingRequisition::with('sampleReport')->findOrFail($id);
+        // $testing->delete();
+
+        $notification = array(
+            'message' => 'Deleted Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('qualitycontrol.sampletestingrequisition')->with($notification);
+
+    }
 
 }

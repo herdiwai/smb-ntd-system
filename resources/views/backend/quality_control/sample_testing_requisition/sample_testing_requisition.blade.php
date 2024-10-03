@@ -38,9 +38,17 @@
                                         <th hidden>inspector_name</th>
                                         <th hidden>date</th>
                                         <th>status report</th>
+                                        @if(Auth::user()->can('statusapprovalsmanager.column'))
                                         <th>status approvals manager</th>
-                                        @if(Auth::user()->can('actionApprovals.show'))
-                                            <th>action approvals</th>
+                                        @endif
+                                        @if(Auth::user()->can('statusapprovalsspv.column'))
+                                        <th>status approvals spv</th>
+                                        @endif
+                                        @if(Auth::user()->can('actionApprovals.column'))
+                                            <th>action approvals manager</th>
+                                        @endif
+                                        @if(Auth::user()->can('actionapprovalsspv.show'))
+                                            <th>action approvals spv</th>
                                         @endif
                                         <th>View Details</th>
                                         @if(Auth::user()->can('edit.testingrequisition'))
@@ -56,7 +64,7 @@
                                     <tr>
                                         <td>{{ $key+1 }}</td>
                                         <td class="sample_subtmitted_date">{{ $items->sample_subtmitted_date }}</td>
-                                        <td class="doc_no">{{ $items->process->process }}/{{ $items->lot->lot }}/{{ $items->modelBrewer->model }}/{{ $items->date }}/{{ $items->do_no }}/{{ $items->incomming_number }}</td>
+                                        <td class="doc_no">{{ $items->process->process }}/{{ $items->lot->lot }}/{{ $items->modelBrewer->model }}/{{ $items->sample_subtmitted_date }}/{{ $items->do_no }}/{{ $items->incomming_number }}</td>
                                         <td class="series">{{ $items->series }}</td>
                                         <td class="no_of_sample" hidden>{{ $items->no_of_sample }}</td>
                                         <td class="testpurpose" hidden>{{ $items->testpurpose }}</td>
@@ -80,6 +88,8 @@
                                                 <span class="badge bg-success"> {{ $items->status }} </span>
                                             @endif
                                         </td>   
+                                        {{-- status approval manager --}}
+                                        @if(Auth::user()->can('statusapprovalmanager.column'))
                                         <td>
                                             @if($items->statusApprovals->status == 'pending')
                                                 <span class="badge bg-warning"> {{ $items->statusApprovals->status }}</span>
@@ -89,9 +99,25 @@
                                                 <span class="badge bg-success"> {{ $items->statusApprovals->status }} </span>
                                             @endif
                                         </td> 
-                                        {{-- jika status pending/rejected makan tombol action tetap ada --}}
+                                        @endif
+                                        {{-- status approval SPV --}}
+                                        @if(Auth::user()->can('statusapprovalspv.column'))
+                                        <td>
+                                            @if($items->status_approvals_id_spv == '1')
+                                            <span class="badge bg-success"> approved </span>
+                                            @elseif($items->status_approvals_id_spv == 2)
+                                                <span class="badge bg-danger"> rejected </span>
+                                            @else
+                                                <span class="badge bg-warning"> pending </span>
+                                            @endif
+                                        </td> 
+                                        @endif
+
+                                        {{-- jika status pending/rejected makan tombol action tetap ada Manager--}}
                                         @if(Auth::user()->can('actionApprovals.show'))
-                                        @if($items->statusApprovals->status == 'rejected' OR $items->statusApprovals->status == 'pending')
+                                        @if($items->status == 'incomplete')
+                                        <td><p style="color: red">status report not completed</p></td>
+                                        @elseif($items->statusApprovals->status == 'rejected' OR $items->statusApprovals->status == 'pending' && $items->status == 'complete')
                                         <td>
                                             <form action="{{ route('update.approvals', $items->id) }}" method="POST">
                                             @csrf
@@ -99,13 +125,34 @@
                                                 &nbsp;&nbsp;
                                                 <button class="btn btn-inverse-danger btn-sm" type="submit" name="status_approvals_id" value="2" title="Rejected"><i data-feather="x-circle"></i></button>
                                         </td>
+                                        @elseif($items->statusApprovals->status == 'approved')
+                                        <td>
+                                            <p style="color: green">APPROVED</p>
+                                        </td>
                                         @endif
-                                            @if($items->statusApprovals->status == 'approved')
-                                                <td>
-                                                    <p>Approvals has been approved</p>
-                                                </td>
-                                            @endif
                                         @endif
+
+                                        {{-- jika status pending/rejected makan tombol action tetap ada SPV--}}
+                                        @if(Auth::user()->can('actionapprovalsspv.show'))
+                                        @if($items->status == 'incomplete')
+                                        <td><p style="color: red">status report not completed</p></td>
+                                        @elseif($items->status_approvals_id_spv == '3' OR $items->status_approvals_id_spv == '2' && $items->status_approvals_id_spv == '')
+                                        <td>
+                                            <form action="{{ route('update.approvalsspv', $items->id) }}" method="POST">
+                                            @csrf
+                                                <button class="btn btn-inverse-success btn-sm" type="submit" name="status_approvals_id_spv" value="1" title="Approved"><i data-feather="check-circle"></i></button>
+                                                &nbsp;&nbsp;
+                                                <button class="btn btn-inverse-danger btn-sm" type="submit" name="status_approvals_id_spv" value="2" title="Rejected"><i data-feather="x-circle"></i></button>
+                                        </td>
+                                        {{-- @elseif($items->statusApprovals->status == 'approved') --}}
+                                        @elseif($items->status_approvals_id_spv == '1')
+                                        <td>
+                                            <p style="color: green">APPROVED nih</p>
+                                        </td>
+                                        @endif
+                                        @endif
+
+
                                         
                                         <td><button type="button" class="btn btn-inverse-primary btn-sm view-details" data-bs-toggle="modal" data-bs-target="#varyingModal" data-id="'.$items->id.'" title="View Detail"><i data-feather="eye"></i></button></td>
                                         @if(Auth::user()->can('edit.testingrequisition'))
@@ -116,11 +163,17 @@
                                                 <a href="{{ route('edit.TestingRequisition', $items->id) }}" class="btn btn-inverse-warning btn-xs" title="Edit"><i data-feather="edit"></i></a>
                                             @endif
                                             @if(Auth::user()->can('delete.testingreport'))
-                                                <a href="" class="btn btn-inverse-danger btn-sm" title="Delete"><i data-feather="trash-2"></i></a>
+                                                <a href="{{ route('delete.requisition', $items->id) }}" class="btn btn-inverse-danger btn-sm" title="Delete"><i data-feather="trash-2"></i></a>
                                             @endif
                                         </td> 
                                         @endif
-                                        <td><a href="{{ route('requisition.export-pdf', $items->id ) }}" class="btn btn-inverse-danger btn-sm" title="Export-PDF"><i data-feather="download"></i></a></td>
+                                        @if($items->status == 'incomplete')
+                                        <td>
+                                            <p style="color: red">status report not completed</p>
+                                        </td>
+                                        @else
+                                            <td><a href="{{ route('requisition.export-pdf', $items->id ) }}" class="btn btn-inverse-danger btn-sm" title="Export-PDF"><i data-feather="download"></i></a></td>
+                                        @endif
                                     </tr>
                                 @endforeach
                                 {{-- @endforeach --}}

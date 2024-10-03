@@ -22,6 +22,7 @@ class SampleTestingReport extends Model
         'user_id',
         'sample_testing_requisition_id',
         'status_approvals_id',
+        'report_no',
     ];
 
     // Relasi to table SampleTestingRequisition
