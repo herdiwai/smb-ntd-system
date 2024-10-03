@@ -10,7 +10,7 @@
         <form class="search-form">
             <div class="input-group">
               <div class="input-group-text">
-                <p>Login Account -- UserName : {{ $profileData->username  }} | BadgeID :  {{ $profileData->name }}</p>&nbsp;&nbsp;
+                <p>LOGIN ACCOUNT -- LEVEL : {{ $profileData->username  }} | BadgeID :  {{ $profileData->name }}</p>&nbsp;&nbsp;
                 <a href="{{ route('admin.logout') }}" class="btn btn-inverse-danger btn-sm "><i data-feather="log-out"></i>&nbsp;Logout</a>
                 {{-- <i data-feather="search"></i> --}}
               </div>
@@ -204,7 +204,7 @@
                         </div>
                         <div class="text-center">
                             <p class="tx-16 fw-bolder">{{ $profileData->name }}</p>
-                            <p class="tx-12 text-muted">{{ $profileData->email }}</p>
+                            {{-- <p class="tx-12 text-muted">{{ $profileData->email }}</p> --}}
                         </div>
                     </div>
     <ul class="list-unstyled p-1">
@@ -214,18 +214,20 @@
           <span>Profile</span>
         </a>
       </li>
+      @if(Auth::user()->can('menu.changepassword'))
       <li class="dropdown-item py-2">
         <a href="{{ route('admin.change.password') }}" class="text-body ms-0">
           <i class="me-2 icon-md" data-feather="edit"></i>
           <span>Change Password</span>
         </a>
       </li>
-      <li class="dropdown-item py-2">
+      @endif
+      {{-- <li class="dropdown-item py-2">
         <a href="javascript:;" class="text-body ms-0">
           <i class="me-2 icon-md" data-feather="repeat"></i>
           <span>Switch User</span>
         </a>
-      </li>
+      </li> --}}
       <li class="dropdown-item py-2">
         <a href="{{ route('admin.logout') }}" class="text-body ms-0">
           <i class="me-2 icon-md" data-feather="log-out"></i>

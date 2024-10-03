@@ -1,7 +1,7 @@
 <nav class="sidebar">
     <div class="sidebar-header">
       <a href="#" class="sidebar-brand">
-        BTM-<span>System</span>
+        BTM-<span style="color: orange">SYSTEM</span>
       </a>
       <div class="sidebar-toggler not-active">
         <span></span>

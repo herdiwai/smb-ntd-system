@@ -13,12 +13,184 @@ use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Facades\DataTables;
+
+use function PHPUnit\Framework\returnSelf;
 
 class SampleTestingRequisitionController extends Controller
 {
-    public function SampleTestingRequisition()
+    public function SampleTestingRequisition(Request $request)
     {
         $testingrequisition = SampleTestingRequisition::with('sampleReport','statusApprovals')->orderBy('incomming_number','asc')->get();
+
+        // if($request->ajax()) {
+        //     $testingrequisition = SampleTestingRequisition::with('sampleReport','statusApprovals')->orderBy('incomming_number','asc')->get();
+
+        //     return DataTables::of($testingrequisition)
+        //     ->addIndexColumn()
+        //     ->addColumn('Sample Submitted Date', function($testingrequisition) {
+        //         return $testingrequisition->sample_subtmitted_date;
+        //     })
+        //     ->addColumn('Doc.No', function($testingrequisition) {
+        //         return $testingrequisition->process->process. '/' .$testingrequisition->lot->lot. '/' .$testingrequisition->modelBrewer->model. '/' .$testingrequisition->sample_subtmitted_date. '/' .$testingrequisition->do_no. '/' .$testingrequisition->incomming_number; 
+        //     })
+        //     ->addColumn('series', function($testingrequisition) {
+        //         return $testingrequisition->series;
+        //     })
+        //     ->addColumn('no_of_sample', function($testingrequisition) {
+        //         return $testingrequisition->no_of_sample;
+        //     })
+        //     ->addColumn('testpurpose', function($testingrequisition) {
+        //         return $testingrequisition->testpurpose;
+        //     })
+        //     ->addColumn('test_purpose_remark', function($testingrequisition) {
+        //         return $testingrequisition->test_purpose;
+        //     })
+        //     ->addColumn('summary_before', function($testingrequisition) {
+        //         return $testingrequisition->summary;
+        //     })
+        //     ->addColumn('shift', function($testingrequisition) {
+        //         return $testingrequisition->shift->shift;
+        //     })
+        //     ->addColumn('check_by', function($testingrequisition) {
+        //         return $testingrequisition->check_by;
+        //     })
+        //     ->addColumn('summary_report', function($testingrequisition) {
+        //         if($testingrequisition->sampleReport == '') {
+        //             return '<p style="color:red">Report not completed</p>';
+        //         }else {
+        //             return $testingrequisition->sampleReport->summary_after;
+        //         }
+        //     })
+        //     ->addColumn('Received Submitted Date', function($testingrequisition) {
+        //         return $testingrequisition->sample_subtmitted_date;
+        //     })
+        //     ->addColumn('result_test', function($testingrequisition) {
+        //         if($testingrequisition->sampleReport == '')
+        //             return '<p style="color:red">Report not completed</p>';
+        //         else {
+        //             return $testingrequisition->sampleReport->result_test;
+        //         }
+        //     })
+        //     ->addColumn('schedule_of_test', function($testingrequisition) {
+        //         if($testingrequisition->sampleReport == '')
+        //             return '<p style="color:red">Report not completed</p>';
+        //         else {
+        //             return $testingrequisition->sampleReport->schedule_of_test; 
+        //         }
+        //     })
+        //     ->addColumn('est_of_complation_date', function($testingrequisition) {
+        //         if($testingrequisition->sampleReport == '')
+        //             return '<p style="color:red">Report not completed</p>';
+        //         else {
+        //             return $testingrequisition->sampleReport->est_of_completion_date; 
+        //         }
+        //     })
+        //     ->addColumn('inspector_name', function($testingrequisition) {
+        //         if($testingrequisition->sampleReport == '')
+        //             return '<p style="color:red">Report not completed</p>';
+        //         else {
+        //             return $testingrequisition->sampleReport->inspector; 
+        //         }
+        //     })
+        //     ->addColumn('date', function($testingrequisition) {
+        //         if($testingrequisition->sampleReport == '')
+        //             return '<p style="color:red">Report not completed</p>';
+        //         else {
+        //             return $testingrequisition->sampleReport->date; 
+        //         }
+        //     })
+        //     ->addColumn('status_report', function($testingrequisition) {
+        //         if($testingrequisition->status == '')
+        //             return '<p style="color:red">Report not completed</p>';
+        //         else {
+        //             return $testingrequisition->status; 
+        //         }
+        //     })
+        //     ->addColumn('status_approvals_spv', function($testingrequisition) {
+        //         if($testingrequisition->status_approvals_id_spv == '')
+        //             return '<p style="color:red">Report not completed</p>';
+        //         else {
+        //             return '<span>Approved</span>';
+        //         }
+        //     })
+        //     ->addColumn('status_approvals_manager', function($testingrequisition) {
+        //         if($testingrequisition->statusApprovals->status == '3' OR $testingrequisition->statusApprovals->status == '2')
+        //             return '<p style="color:red">Report not completed</p>';
+        //         else {
+        //             return $testingrequisition->statusApprovals->status;
+        //         }
+        //     })
+        //     ->addColumn('status approvals manager', function($testingrequisition) {
+        //         if($testingrequisition->status == 'incomplete')
+        //             return '<span class="badge bg-danger"> '.$testingrequisition->status.'  </span>';
+        //         else {
+        //             return '<span class="badge bg-success"> '.$testingrequisition->status.'  </span>';
+        //         }
+        //     })
+        //     ->addColumn('status approvals spv', function($testingrequisition) {
+        //         if($testingrequisition->statusApprovals->status == 'pending')
+        //             return '<span class="badge bg-warning">'.$testingrequisition->statusApprovals->status.'</span>';
+        //         elseif($testingrequisition->statusApprovals->status == 'rejected') {
+        //             return '<span class="badge bg-danger">'.$testingrequisition->statusApprovals->status.'</span>';
+        //         }else {
+        //             return '<span class="badge bg-success"> '.$testingrequisition->status.'  </span>';
+        //         }
+        //     })
+        //     ->addColumn('action_approvals_manager', function($testingrequisition) {
+        //         if($testingrequisition->status == 'incomplete')
+        //             return '<p style="color: red">status report not completed</p>';
+        //         elseif($testingrequisition->statusApprovals->status == 'rejected' OR $testingrequisition->statusApprovals->status == 'pending' && $testingrequisition->status == 'complete') {
+        //             return '<form action="'.route('update.approvals', $testingrequisition->id).'" method="POST">
+        //             @csrf
+        //                 <button class="btn btn-inverse-success btn-sm" type="submit" name="status_approvals_id" value="1" title="Approved"><i data-feather="check-circle"></i></button>
+        //                 &nbsp;&nbsp;
+        //                 <button class="btn btn-inverse-danger btn-sm" type="submit" name="status_approvals_id" value="2" title="Rejected"><i data-feather="x-circle"></i></button>';
+        //         }elseif($testingrequisition->statusApprovals->status == 'approved') {
+        //             return '<p style="color: green">APPROVED</p>';
+        //         }
+        //     })
+        //     ->addColumn('action_approvals_spv', function($testingrequisition) {
+        //         if($testingrequisition->status == 'incomplete')
+        //             return '<p style="color: red">status report not completed</p>';
+        //         elseif($testingrequisition->statusApprovals->status == 'pending') {
+        //             return '<p style="color: rgb(255, 234, 0)">waiting spv to approvals</p>';
+        //         }elseif($testingrequisition->status_approvals_id_spv == '3' OR $testingrequisition->status_approvals_id_spv == '2' && $testingrequisition->status_approvals_id_spv == '') {
+
+        //             return '<form action="'.route('update.approvalsspv', $testingrequisition->id).'" method="POST">
+        //             @csrf
+        //                 <button class="btn btn-inverse-success btn-sm" type="submit" name="status_approvals_id_spv" value="1" title="Approved"><i data-feather="check-circle"></i></button>
+        //                 &nbsp;&nbsp;
+        //                 <button class="btn btn-inverse-danger btn-sm" type="submit" name="status_approvals_id_spv" value="2" title="Rejected"><i data-feather="x-circle"></i></button>';
+        //         }elseif($testingrequisition->statusApprovals->status == 'approved') {
+        //             return '<p style="color: green">APPROVED</p>';
+        //         }elseif($testingrequisition->status_approvals_id_spv == '1') {
+        //             return '<p style="color: green">APPROVED</p>';
+        //         }
+        //     })
+
+        //     ->addColumn('view_details', function($testingrequisition) {
+        //         return '<button type="button" class="btn btn-inverse-primary btn-xs view-details" data-bs-toggle="modal" data-bs-target="#varyingModal" data-id="'.$testingrequisition->id.'" title="View Detail"><i data-feather="eye"></i></button>';
+        //     })
+        //     ->addColumn('export_to_pdf', function($testingrequisition) {
+        //         return '<a href="'.route('edit.TestingRequisition', $testingrequisition->id).'" class="btn btn-inverse-warning btn-xs" title="Edit"><i data-feather="edit"></i></a>
+        //         <a href="'.route('delete.requisition', $testingrequisition->id).'" class="btn btn-inverse-danger btn-xs" title="Delete"><i data-feather="trash-2"></i></a>
+        //         ';
+        //     })
+        //     ->addColumn('export_to_pdf', function($testingrequisition) {
+        //         if($testingrequisition->status == 'incomplete') {
+        //             return '<p style="color: red">status report not completed</p>';
+        //         }else {
+        //             return '<a href="'.route('requisition.export-pdf', $testingrequisition->id).'" class="btn btn-inverse-danger btn-xs" title="Export-PDF"><i data-feather="download"></i></a>';
+        //         }
+        //     })
+            
+        //     ->rawColumns(['result_test','schedule_of_test','est_of_complation_date','inspector','date','status_report','status_approvals_spv','status_approvals_manager','status approvals manager','status approvals spv','action_approvals_manager','action_approvals_spv','view_details','export_to_pdf','export_to_pdf'])
+        //     ->make(true);
+        // }
+
+
+
         return view('backend.quality_control.sample_testing_requisition.sample_testing_requisition', compact('testingrequisition'));
     }
 

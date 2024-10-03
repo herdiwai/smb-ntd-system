@@ -38,18 +38,22 @@
                                         <th hidden>inspector_name</th>
                                         <th hidden>date</th>
                                         <th>status report</th>
-                                        @if(Auth::user()->can('statusapprovalsmanager.column'))
+                                        <th hidden>status_approvals_spv</th>
+                                        <th hidden>status_approvals_manager</th>
+                                        @if(Auth::user()->can('statusapprovalsspv.column'))
                                         <th>status approvals manager</th>
                                         @endif
-                                        @if(Auth::user()->can('statusapprovalsspv.column'))
+                                        @if(Auth::user()->can('statusapprovalsmanager.column'))
                                         <th>status approvals spv</th>
                                         @endif
-                                        @if(Auth::user()->can('actionApprovals.column'))
+                                        {{-- @if(Auth::user()->can('actionApprovals.column')) --}}
                                             <th>action approvals manager</th>
-                                        @endif
-                                        @if(Auth::user()->can('actionapprovalsspv.show'))
+                                        {{-- @endif --}}
+                                        {{-- @if(Auth::user()->can('actionapprovalsspv.show')) --}}
+                                        @if(Auth::user()->can('actionApprovals.column'))
                                             <th>action approvals spv</th>
-                                        @endif
+                                            @endif
+                                        {{-- @endif --}}
                                         <th>View Details</th>
                                         @if(Auth::user()->can('edit.testingrequisition'))
                                             <th>Action</th>
@@ -80,6 +84,8 @@
                                         <td class="inspector_name" hidden>@if($items->sampleReport == '')<p style="color:red">Report not completed</p>@else{{ $items->sampleReport->inspector }}@endif</td>
                                         <td class="date" hidden>@if($items->sampleReport == '')<p style="color:red">Report not completed</p>@else{{ $items->sampleReport->date }}@endif</td>
                                         <td class="status_report" hidden>@if($items->status == '')<p style="color:red">Report not completed</p>@else{{ $items->status }}@endif</td>
+                                        <td class="status_approvals_spv" hidden>@if($items->status_approvals_id_spv == '')<p style="color:red">Report not completed</p>@else<span>Approved</span>@endif</td>
+                                        <td class="status_approvals_manager" hidden>@if($items->statusApprovals->status == '3' OR $items->statusApprovals->status == '2' )<p style="color:red">Report not completed</p>@else{{ $items->statusApprovals->status }}@endif</td>
                                         <td>
                                             @if($items->status == 'incomplete')
                                                 {{-- <p style="color:red">{{ $items->status }}</p> --}}
@@ -88,8 +94,8 @@
                                                 <span class="badge bg-success"> {{ $items->status }} </span>
                                             @endif
                                         </td>   
-                                        {{-- status approval manager --}}
-                                        @if(Auth::user()->can('statusapprovalmanager.column'))
+                                        {{-- status approval spv --}}
+                                        @if(Auth::user()->can('statusapprovalspv.column'))
                                         <td>
                                             @if($items->statusApprovals->status == 'pending')
                                                 <span class="badge bg-warning"> {{ $items->statusApprovals->status }}</span>
@@ -100,8 +106,8 @@
                                             @endif
                                         </td> 
                                         @endif
-                                        {{-- status approval SPV --}}
-                                        @if(Auth::user()->can('statusapprovalspv.column'))
+                                        {{-- status approval manager --}}
+                                        @if(Auth::user()->can('statusapprovalmanager.column'))
                                         <td>
                                             @if($items->status_approvals_id_spv == '1')
                                             <span class="badge bg-success"> approved </span>
@@ -113,8 +119,8 @@
                                         </td> 
                                         @endif
 
-                                        {{-- jika status pending/rejected makan tombol action tetap ada Manager--}}
-                                        @if(Auth::user()->can('actionApprovals.show'))
+                                        {{-- jika status pending/rejected makan tombol action tetap ada SPV--}}
+                                        @if(Auth::user()->can('actionapprovalsspv.show'))
                                         @if($items->status == 'incomplete')
                                         <td><p style="color: red">status report not completed</p></td>
                                         @elseif($items->statusApprovals->status == 'rejected' OR $items->statusApprovals->status == 'pending' && $items->status == 'complete')
@@ -132,10 +138,12 @@
                                         @endif
                                         @endif
 
-                                        {{-- jika status pending/rejected makan tombol action tetap ada SPV--}}
-                                        @if(Auth::user()->can('actionapprovalsspv.show'))
+                                        {{-- jika status pending/rejected makan tombol action tetap ada Manager--}}
+                                        @if(Auth::user()->can('actionApprovals.show'))
                                         @if($items->status == 'incomplete')
-                                        <td><p style="color: red">status report not completed</p></td>
+                                            <td><p style="color: red">status report not completed</p></td>
+                                        @elseif($items->statusApprovals->status == 'pending')
+                                            <td><p style="color: rgb(255, 234, 0)">waiting spv to approvals</p></td>
                                         @elseif($items->status_approvals_id_spv == '3' OR $items->status_approvals_id_spv == '2' && $items->status_approvals_id_spv == '')
                                         <td>
                                             <form action="{{ route('update.approvalsspv', $items->id) }}" method="POST">
@@ -147,14 +155,12 @@
                                         {{-- @elseif($items->statusApprovals->status == 'approved') --}}
                                         @elseif($items->status_approvals_id_spv == '1')
                                         <td>
-                                            <p style="color: green">APPROVED nih</p>
+                                            <p style="color: green">APPROVED</p>
                                         </td>
                                         @endif
                                         @endif
 
-
-                                        
-                                        <td><button type="button" class="btn btn-inverse-primary btn-sm view-details" data-bs-toggle="modal" data-bs-target="#varyingModal" data-id="'.$items->id.'" title="View Detail"><i data-feather="eye"></i></button></td>
+                                        <td><button type="button" class="btn btn-inverse-primary btn-xs view-details" data-bs-toggle="modal" data-bs-target="#varyingModal" data-id="'.$items->id.'" title="View Detail"><i data-feather="eye"></i></button></td>
                                         @if(Auth::user()->can('edit.testingrequisition'))
                                         <td> 
                                             {{-- <button type="button" class="btn btn-inverse-primary btn-sm view-details" data-bs-toggle="modal" data-bs-target="#varyingModal" onclick="showPostDetails({{ $items->id }})" data-url="{{ route('show.testing', $items->id) }}" title="View Detail"><i data-feather="eye"></i></button> --}}
@@ -163,7 +169,7 @@
                                                 <a href="{{ route('edit.TestingRequisition', $items->id) }}" class="btn btn-inverse-warning btn-xs" title="Edit"><i data-feather="edit"></i></a>
                                             @endif
                                             @if(Auth::user()->can('delete.testingreport'))
-                                                <a href="{{ route('delete.requisition', $items->id) }}" class="btn btn-inverse-danger btn-sm" title="Delete"><i data-feather="trash-2"></i></a>
+                                                <a href="{{ route('delete.requisition', $items->id) }}" class="btn btn-inverse-danger btn-xs" title="Delete"><i data-feather="trash-2"></i></a>
                                             @endif
                                         </td> 
                                         @endif
@@ -172,7 +178,7 @@
                                             <p style="color: red">status report not completed</p>
                                         </td>
                                         @else
-                                            <td><a href="{{ route('requisition.export-pdf', $items->id ) }}" class="btn btn-inverse-danger btn-sm" title="Export-PDF"><i data-feather="download"></i></a></td>
+                                            <td><a href="{{ route('requisition.export-pdf', $items->id ) }}" class="btn btn-inverse-danger btn-xs" title="Export-PDF"><i data-feather="download"></i></a></td>
                                         @endif
                                     </tr>
                                 @endforeach
@@ -328,9 +334,21 @@
                               </div> --}}
 
                               <div class="row mb-3">
-                                  <label for="status" class="col-sm-3 col-form-label">Status</label>
+                                  <label for="status" class="col-sm-3 col-form-label">Status Report</label>
                                   <div class="col-sm-9">
                                       <input type="text" class="form-control status_report" id="status" disabled>
+                                  </div>
+                              </div>
+                              <div class="row mb-3">
+                                  <label for="status_approvals_spv" class="col-sm-3 col-form-label">Approvals Spv</label>
+                                  <div class="col-sm-9">
+                                      <input type="text" class="form-control status_approvals_spv" id="status_approvals_spv" disabled>
+                                  </div>
+                              </div>
+                              <div class="row mb-3">
+                                  <label for="status_approvals_manager" class="col-sm-3 col-form-label">Approvals Manager</label>
+                                  <div class="col-sm-9">
+                                      <input type="text" class="form-control status_approvals_manager" id="status_approvals_manager" disabled>
                                   </div>
                               </div>
 
@@ -370,33 +388,155 @@
             $('.inspector_name').val(_this.find('.inspector_name').text());
             $('.date').val(_this.find('.date').text());
             $('.status_report').val(_this.find('.status_report').text());
+            $('.status_approvals_spv').val(_this.find('.status_approvals_spv').text());
+            $('.status_approvals_manager').val(_this.find('.status_approvals_manager').text());
     });
   </script>
   
-  {{-- <script>
-    function showPostDetails(id) {
-        var url = $(event.target).data('url');
-        $.ajax({
-            url: url,
-            // url: '/testing/' + id,
-            type: 'GET',
-            success: function(data) {
-                // Mengisi data ke modal
-                $('.submitedDate').text(data.sample_subtmitted_date);
-    
-                // Kosongkan list komentar sebelumnya
-                // $('#commentsList').empty();
-    
-                // Tambahkan komentar ke list
-                // data.comments.forEach(function(comment) {
-                //     $('#commentsList').append('<li>' + comment.body + '</li>');
-                // });
-    
-                // Tampilkan modal
-                $('#varyingModal').modal('show');
-            }
+  {{-- <script type="text/javascript">
+    // $('#serverside tbody').on('click', 'tr', function() {
+    //     $(this).toggleClass('selected');  // Tambahkan kelas 'selected' pada baris yang dipilih
+    // });
+        $(document).ready( function() {
+            loadData();
         });
-    }
+        function loadData() {
+            $('#serverside').DataTable({
+                pageLength: 5,
+                lengthMenu: [ [5, 10, 25, 50, -1], [5, 10, 25, 50, "All"] ],
+                processing:true,
+                pagination:true,
+                responsive:true,
+                serverSide:true,
+                searching:true,
+                ordering:false,
+                columnDefs: [ 
+                    {
+                        "targets": 0, // Menargetkan kolom pertama untuk nomor urut
+                        "searchable": false,
+                        "orderable": false,
+                        "render": function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    }
+                ],
+                ajax:{
+                    url:"{{ route('qualitycontrol.sampletestingrequisition') }}",
+                },
+                columns:[
+                    {
+                        data: 'no',
+                        name: 'no',
+                    },
+                    {
+                        data: 'Sample Submitted Date',
+                        name: 'sample_subtmitted_date',
+                    },
+                    {
+                        data: 'Doc.No',
+                        name: 'doc_no',
+                    },
+                    {
+                        data: 'series',
+                        name: 'series',
+                    },
+                    {
+                        data: 'no_of_sample',visible: false,
+                        name: 'no_of_sample',
+                    },
+                    {
+                        data: 'testpurpose',visible: false,
+                        name: 'testpurpose',
+                    },
+                    {
+                        data: 'test_purpose_remark',visible: false,
+                        name: 'test_purpose',
+                    },
+                    {
+                        data: 'summary_before',visible: false,
+                        name: 'summary',
+                    },
+                    {
+                        data: 'shift',visible: false,
+                        name: 'shift',
+                    },
+                    {
+                        data: 'check_by',visible: false,
+                        name: 'check_by',
+                    },
+                    {
+                        data: 'summary_report',visible: false,
+                        name: 'summary_after',
+                    },
+                    {
+                        data: 'Received Submitted Date',visible: false,
+                        name: 'sample_subtmitted_date',
+                    },
+                    {
+                        data: 'result_test',visible: false,
+                        name: 'result_test',
+                    },
+                    {
+                        data: 'schedule_of_test',visible: false,
+                        name: 'schedule_of_test',
+                    },
+                    {
+                        data: 'est_of_completion_date',visible: false,
+                        name: 'est_of_completion_date',
+                    },
+                    {
+                        data: 'inspector_name',visible: false,
+                        name: 'inspector',
+                    },
+                    {
+                        data: 'date',visible: false,
+                        name: 'date',
+                    },{
+                        data: 'status_report',
+                        name: 'status',
+                    },
+                    {
+                        data: 'status_approvals_spv',visible: false,
+                        name: 'status_approvals_id_spv',
+                    },
+                    {
+                        data: 'status_approvals_manager',visible: false,
+                        name: 'status_approvals_id',
+                    },
+                    {
+                        data: 'status approvals manager',
+                        name: 'status',
+                    },
+                    {
+                        data: 'status approvals spv',
+                        name: 'status_approvals_id',
+                    },
+                    
+                    {
+                        data: 'action_approvals_manager',
+                        name: 'status_approvals_id',
+                    },
+                    {
+                        data: 'action_approvals_spv',
+                        name: 'status_approvals_id_spv',
+                    },
+                    {
+                        data: 'view_details',
+                        name: 'view_details',
+                    },
+                    {
+                        data: 'export_to_pdf',
+                        name: 'action',
+                    },
+                    {
+                        data: 'export_to_pdf',visible: false,
+                        name: 'action',
+                    },
+                    
+                ],
+            });
+        }
+
     </script> --}}
     
 
