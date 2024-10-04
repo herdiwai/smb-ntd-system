@@ -24,7 +24,8 @@
                                     <th>No of samples</th>
                                     <th>status report</th>
                                     <th>Status Approvals</th>
-                                    <th>Action</th>
+                                    <th>Action Report</th>
+                                    <th>action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -89,32 +90,8 @@
     //     $(this).toggleClass('selected');  // Tambahkan kelas 'selected' pada baris yang dipilih
     // });
         $(document).ready( function() {
-            loadData();
-        });
-        function loadData() {
-            $('#serverside').DataTable({
-                pageLength: 5,
-                lengthMenu: [ [5, 10, 25, 50, -1], [5, 10, 25, 50, "All"] ],
-                processing:true,
-                pagination:true,
-                responsive:true,
-                serverSide:true,
-                searching:true,
-                ordering:false,
-                columnDefs: [ 
-                    {
-                        "targets": 0, // Menargetkan kolom pertama untuk nomor urut
-                        "searchable": false,
-                        "orderable": false,
-                        "render": function (data, type, row, meta) {
-                            return meta.row + meta.settings._iDisplayStart + 1;
-                        }
-                    }
-                ],
-                ajax:{
-                    url:"{{ route('qualitycontrol.sampletestingreport') }}",
-                },
-                columns:[
+            var canDelete = {{ Auth::user()->can('column.delete') ? 'visible: false' : 'false' }};
+            var columns = [
                     {
                         data: 'no',
                         name: 'no',
@@ -144,12 +121,39 @@
                         name: 'status_approvals',
                     },
                     {
-                        data: 'action',
-                        name: 'action',
+                        data: 'action_report',
+                        name: 'action_report',
                     },
+                    ];
+                    if(canDelete) {
+                        columns.push({ data: 'action', name: 'action', orderable: false, searchable: false });
+                    }
+                    
+            $('#serverside').DataTable({
+                pageLength: 5,
+                lengthMenu: [ [5, 10, 25, 50, -1], [5, 10, 25, 50, "All"] ],
+                processing:true,
+                pagination:true,
+                responsive:true,
+                serverSide:true,
+                searching:true,
+                ordering:false,
+                columnDefs: [ 
+                    {
+                        "targets": 0, // Menargetkan kolom pertama untuk nomor urut
+                        "searchable": false,
+                        "orderable": false,
+                        "render": function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    }
                 ],
+                ajax:{
+                    url:"{{ route('qualitycontrol.sampletestingreport') }}",
+                },
+                columns:columns
             });
-        }
+        });
 
     </script>
 

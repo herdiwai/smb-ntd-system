@@ -47,13 +47,13 @@
                                         <th>status approvals spv</th>
                                         @endif
                                         {{-- @if(Auth::user()->can('actionApprovals.column')) --}}
-                                            <th>action approvals manager</th>
-                                        {{-- @endif --}}
-                                        {{-- @if(Auth::user()->can('actionapprovalsspv.show')) --}}
                                         @if(Auth::user()->can('actionApprovals.column'))
-                                            <th>action approvals spv</th>
-                                            @endif
+                                            <th>action approvals manager</th>
+                                        @endif
                                         {{-- @endif --}}
+                                        @if(Auth::user()->can('actionapprovalsspv.show'))
+                                            <th>action approvals spv</th>
+                                        @endif
                                         <th>View Details</th>
                                         @if(Auth::user()->can('edit.testingrequisition'))
                                             <th>Action</th>
