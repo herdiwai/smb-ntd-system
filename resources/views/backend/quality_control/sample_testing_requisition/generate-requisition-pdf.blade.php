@@ -207,7 +207,7 @@
             <tr>
                 <td>TEST PURPOSE</td>
                 <td>:</td>
-                <td><input type="text" value="{{ $sampleRequisition->testpurpose }}" class="form-control" ></td>
+                <td><textarea class="form-control" rows="2">{{ $sampleRequisition->testpurpose }}</textarea</td>
                 {{-- <td>{{ $sampleRequisition->testpurpose }}</td> --}}
             </tr>
             <tr>

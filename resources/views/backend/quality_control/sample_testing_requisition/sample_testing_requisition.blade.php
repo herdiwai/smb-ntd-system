@@ -17,7 +17,8 @@
                 <div class="card-body">
                     <h6 class="card-title">Sample Testing Requisition</h6>
                     <div class="table-responsive">
-                        <table id="dataTableExample" class="table">
+                        {{-- id="dataTableExample" --}}
+                        <table class="table">
                             <thead>
                                 <tr>
                                         <th>No</th>
@@ -64,7 +65,6 @@
                             </thead>
                             <tbody>
                                 @foreach ($testingrequisition as $key => $items)
-                                {{-- @foreach($items->sampleReport as $item) --}}
                                     <tr>
                                         <td>{{ $key+1 }}</td>
                                         <td class="sample_subtmitted_date">{{ $items->sample_subtmitted_date }}</td>
@@ -88,12 +88,11 @@
                                         <td class="status_approvals_manager" hidden>@if($items->statusApprovals->status == '3' OR $items->statusApprovals->status == '2' )<p style="color:red">Report not completed</p>@else{{ $items->statusApprovals->status }}@endif</td>
                                         <td>
                                             @if($items->status == 'incomplete')
-                                                {{-- <p style="color:red">{{ $items->status }}</p> --}}
                                                 <span class="badge bg-danger"> {{ $items->status }} </span>
                                             @else
                                                 <span class="badge bg-success"> {{ $items->status }} </span>
                                             @endif
-                                        </td>   
+                                        </td>
                                         {{-- status approval spv --}}
                                         @if(Auth::user()->can('statusapprovalspv.column'))
                                         <td>
@@ -123,17 +122,17 @@
                                         @if(Auth::user()->can('actionapprovalsspv.show'))
                                         @if($items->status == 'incomplete')
                                         <td><p style="color: red">status report not completed</p></td>
-                                        @elseif($items->statusApprovals->status == 'rejected' OR $items->statusApprovals->status == 'pending' && $items->status == 'complete')
+                                        @elseif($items->statusApprovals->status == 'rejected' OR $items->statusApprovals->status == 'pending')
                                         <td>
                                             <form action="{{ route('update.approvals', $items->id) }}" method="POST">
                                             @csrf
-                                                <button class="btn btn-inverse-success btn-sm" type="submit" name="status_approvals_id" value="1" title="Approved"><i data-feather="check-circle"></i></button>
+                                                <button class="btn btn-inverse-success btn-sm" type="submit" name="status_approvals_id_spv" value="1" title="Review"><i data-feather="check-circle"></i></button>
                                                 &nbsp;&nbsp;
-                                                <button class="btn btn-inverse-danger btn-sm" type="submit" name="status_approvals_id" value="2" title="Rejected"><i data-feather="x-circle"></i></button>
+                                                <button class="btn btn-inverse-danger btn-sm" type="submit" name="status_approvals_id_spv" value="2" title="Rejected"><i data-feather="x-circle"></i></button>
                                         </td>
                                         @elseif($items->statusApprovals->status == 'approved')
                                         <td>
-                                            <p style="color: green">APPROVED</p>
+                                            <p style="color: green">REVIEW</p>
                                         </td>
                                         @endif
                                         @endif
@@ -148,11 +147,10 @@
                                         <td>
                                             <form action="{{ route('update.approvalsspv', $items->id) }}" method="POST">
                                             @csrf
-                                                <button class="btn btn-inverse-success btn-sm" type="submit" name="status_approvals_id_spv" value="1" title="Approved"><i data-feather="check-circle"></i></button>
+                                                <button class="btn btn-inverse-success btn-sm" type="submit" name="status_approvals_id" value="1" title="Approved"><i data-feather="check-circle"></i></button>
                                                 &nbsp;&nbsp;
-                                                <button class="btn btn-inverse-danger btn-sm" type="submit" name="status_approvals_id_spv" value="2" title="Rejected"><i data-feather="x-circle"></i></button>
+                                                <button class="btn btn-inverse-danger btn-sm" type="submit" name="status_approvals_id" value="2" title="Rejected"><i data-feather="x-circle"></i></button>
                                         </td>
-                                        {{-- @elseif($items->statusApprovals->status == 'approved') --}}
                                         @elseif($items->status_approvals_id_spv == '1')
                                         <td>
                                             <p style="color: green">APPROVED</p>
@@ -161,10 +159,9 @@
                                         @endif
 
                                         <td><button type="button" class="btn btn-inverse-primary btn-xs view-details" data-bs-toggle="modal" data-bs-target="#varyingModal" data-id="'.$items->id.'" title="View Detail"><i data-feather="eye"></i></button></td>
+                                       
                                         @if(Auth::user()->can('edit.testingrequisition'))
                                         <td> 
-                                            {{-- <button type="button" class="btn btn-inverse-primary btn-sm view-details" data-bs-toggle="modal" data-bs-target="#varyingModal" onclick="showPostDetails({{ $items->id }})" data-url="{{ route('show.testing', $items->id) }}" title="View Detail"><i data-feather="eye"></i></button> --}}
-                                            {{-- <button type="button" class="btn btn-inverse-primary btn-sm view-details" data-bs-toggle="modal" data-bs-target="#varyingModal" data-id="'.$items->id.'" title="View Detail"><i data-feather="eye"></i></button> --}}
                                             @if(Auth::user()->can('edit.testingrequisition'))
                                                 <a href="{{ route('edit.TestingRequisition', $items->id) }}" class="btn btn-inverse-warning btn-xs" title="Edit"><i data-feather="edit"></i></a>
                                             @endif
@@ -181,11 +178,11 @@
                                             <td><a href="{{ route('requisition.export-pdf', $items->id ) }}" class="btn btn-inverse-danger btn-xs" title="Export-PDF"><i data-feather="download"></i></a></td>
                                         @endif
                                     </tr>
-                                @endforeach
-                                {{-- @endforeach --}}
+                                @endforeach 
 
                             </tbody>
                         </table>
+                        {{ $testingrequisition->links('pagination::bootstrap-5') }}
                     </div>
                 </div>
             </div>
@@ -205,14 +202,14 @@
         {{-- Content --}}
         <div class="modal-body">
           {{-- Data detail akan tampil di sini - {{ $items->summary_after }} --}}
+            <p id="modal-contentt"></p>
           <div class="row">
               <div class="col-md-6 grid-margin stretch-card">
                   <div class="card">
-                      <div class="card-body">
+                      <div class="card-body" id="detailContent">
 
                           <h6 class="card-title">Sample Testing Requisition Form  (1)</h6>
                           {{-- <input type="hidden" class="form-control id"> --}}
-
                           <form class="forms-sample">
                               <div class="row mb-3">
                                   <label for="samplesubmitted" class="col-sm-3 col-form-label">Sample Submitted Date</label>
@@ -393,152 +390,221 @@
     });
   </script>
   
-  {{-- <script type="text/javascript">
+  <script type="text/javascript">
     // $('#serverside tbody').on('click', 'tr', function() {
     //     $(this).toggleClass('selected');  // Tambahkan kelas 'selected' pada baris yang dipilih
     // });
-        $(document).ready( function() {
-            loadData();
-        });
-        function loadData() {
-            $('#serverside').DataTable({
-                pageLength: 5,
-                lengthMenu: [ [5, 10, 25, 50, -1], [5, 10, 25, 50, "All"] ],
-                processing:true,
-                pagination:true,
-                responsive:true,
-                serverSide:true,
-                searching:true,
-                ordering:false,
-                columnDefs: [ 
-                    {
-                        "targets": 0, // Menargetkan kolom pertama untuk nomor urut
-                        "searchable": false,
-                        "orderable": false,
-                        "render": function (data, type, row, meta) {
-                            return meta.row + meta.settings._iDisplayStart + 1;
-                        }
-                    }
-                ],
-                ajax:{
-                    url:"{{ route('qualitycontrol.sampletestingrequisition') }}",
-                },
-                columns:[
-                    {
-                        data: 'no',
-                        name: 'no',
-                    },
-                    {
-                        data: 'Sample Submitted Date',
-                        name: 'sample_subtmitted_date',
-                    },
-                    {
-                        data: 'Doc.No',
-                        name: 'doc_no',
-                    },
-                    {
-                        data: 'series',
-                        name: 'series',
-                    },
-                    {
-                        data: 'no_of_sample',visible: false,
-                        name: 'no_of_sample',
-                    },
-                    {
-                        data: 'testpurpose',visible: false,
-                        name: 'testpurpose',
-                    },
-                    {
-                        data: 'test_purpose_remark',visible: false,
-                        name: 'test_purpose',
-                    },
-                    {
-                        data: 'summary_before',visible: false,
-                        name: 'summary',
-                    },
-                    {
-                        data: 'shift',visible: false,
-                        name: 'shift',
-                    },
-                    {
-                        data: 'check_by',visible: false,
-                        name: 'check_by',
-                    },
-                    {
-                        data: 'summary_report',visible: false,
-                        name: 'summary_after',
-                    },
-                    {
-                        data: 'Received Submitted Date',visible: false,
-                        name: 'sample_subtmitted_date',
-                    },
-                    {
-                        data: 'result_test',visible: false,
-                        name: 'result_test',
-                    },
-                    {
-                        data: 'schedule_of_test',visible: false,
-                        name: 'schedule_of_test',
-                    },
-                    {
-                        data: 'est_of_completion_date',visible: false,
-                        name: 'est_of_completion_date',
-                    },
-                    {
-                        data: 'inspector_name',visible: false,
-                        name: 'inspector',
-                    },
-                    {
-                        data: 'date',visible: false,
-                        name: 'date',
-                    },{
-                        data: 'status_report',
-                        name: 'status',
-                    },
-                    {
-                        data: 'status_approvals_spv',visible: false,
-                        name: 'status_approvals_id_spv',
-                    },
-                    {
-                        data: 'status_approvals_manager',visible: false,
-                        name: 'status_approvals_id',
-                    },
-                    {
-                        data: 'status approvals manager',
-                        name: 'status',
-                    },
-                    {
-                        data: 'status approvals spv',
-                        name: 'status_approvals_id',
-                    },
+        // $(document).ready( function() {
+        //     var columns = [
+        //             {
+        //                 data: 'no',
+        //                 name: 'no',
+        //             },
+        //             {
+        //                 data: 'Sample Submitted Date',
+        //                 name: 'sample_subtmitted_date',
+        //             },
+        //             {
+        //                 data: 'Doc.No',
+        //                 name: 'doc_no',
+        //             },
+        //             {
+        //                 data: 'series',
+        //                 name: 'series',
+        //             },
+        //             {
+        //                 data: 'no_of_sample',visible: false,
+        //                 name: 'no_of_sample',
+        //             },
+        //             {
+        //                 data: 'testpurpose',visible: false,
+        //                 name: 'testpurpose',
+        //             },
+        //             {
+        //                 data: 'test_purpose_remark',visible: false,
+        //                 name: 'test_purpose',
+        //             },
+        //             {
+        //                 data: 'summary_before',visible: false,
+        //                 name: 'summary',
+        //             },
+        //             {
+        //                 data: 'shift',visible: false,
+        //                 name: 'shift',
+        //             },
+        //             {
+        //                 data: 'check_by',visible: false,
+        //                 name: 'check_by',
+        //             },
+        //             {
+        //                 data: 'summary_report',visible: false,
+        //                 name: 'summary_after',
+        //             },
+        //             {
+        //                 data: 'Received Submitted Date',visible: false,
+        //                 name: 'sample_subtmitted_date',
+        //             },
+        //             {
+        //                 data: 'result_test',visible: false,
+        //                 name: 'result_test',
+        //             },
+        //             {
+        //                 data: 'schedule_of_test',visible: false,
+        //                 name: 'schedule_of_test',
+        //             },
+        //             {
+        //                 data: 'est_of_completion_date',visible: false,
+        //                 name: 'est_of_completion_date',
+        //             },
+        //             {
+        //                 data: 'inspector_name',visible: false,
+        //                 name: 'inspector',
+        //             },
+        //             {
+        //                 data: 'date',visible: false,
+        //                 name: 'date',
+        //             },{
+        //                 data: 'status_report',
+        //                 name: 'status',
+        //             },
+        //             {
+        //                 data: 'status_approvals_spv',visible: false,
+        //                 name: 'status_approvals_id_spv',
+        //             },
+        //             {
+        //                 data: 'status_approvals_manager',visible: false,
+        //                 name: 'status_approvals_id',
+        //             },
+        //             {
+        //                 data: 'status approvals manager',
+        //                 name: 'status',
+        //             },
+        //             {
+        //                 data: 'status approvals spv',
+        //                 name: 'status_approvals_id',
+        //             },
                     
-                    {
-                        data: 'action_approvals_manager',
-                        name: 'status_approvals_id',
-                    },
-                    {
-                        data: 'action_approvals_spv',
-                        name: 'status_approvals_id_spv',
-                    },
-                    {
-                        data: 'view_details',
-                        name: 'view_details',
-                    },
-                    {
-                        data: 'export_to_pdf',
-                        name: 'action',
-                    },
-                    {
-                        data: 'export_to_pdf',visible: false,
-                        name: 'action',
-                    },
-                    
-                ],
-            });
-        }
+        //             {
+        //                 data: 'action_approvals_manager',
+        //                 name: 'status_approvals_id',
+        //             },
+        //             {
+        //                 data: 'action_approvals_spv',
+        //                 name: 'status_approvals_id_spv',
+        //             },
+        //             {
+        //                 data: 'view_details',
+        //                 name: 'view_details',
+        //             },
+        //             {
+        //                 data: 'export_to_pdf',
+        //                 name: 'action',
+        //             },
+        //             {
+        //                 data: 'export_to_pdf',visible: false,
+        //                 name: 'action',
+        //             },
+        //     ];
+        
+        //     var table = $('#serverside').DataTable({
+        //         pageLength: 5,
+        //         lengthMenu: [ [5, 10, 25, 50, -1], [5, 10, 25, 50, "All"] ],
+        //         processing:true,
+        //         pagination:true,
+        //         responsive:true,
+        //         serverSide:true,
+        //         searching:true,
+        //         ordering:false,
+        //         columnDefs: [ 
+        //             {
+        //                 "targets": 0, // Menargetkan kolom pertama untuk nomor urut
+        //                 "searchable": false,
+        //                 "orderable": false,
+        //                 "render": function (data, type, row, meta) {
+        //                     return meta.row + meta.settings._iDisplayStart + 1;
+        //                 }
+        //             }
+        //         ],
+        //         ajax:{
+        //             url:"{{ route('qualitycontrol.sampletestingrequisition') }}",
+        //         },
+        //         columns:columns
+        //     });
 
-    </script> --}}
+            // Capture click event on any row
+    // $('#serverside tbody').on('click', 'tr', function() {
+    //     var data = table.row(this).data();
+    //     var id = data.id; // Assuming the row has an 'id' field
+
+        // Fetch detail using AJAX
+    //     $.ajax({
+    //         url: '/show.testing/' + id,
+    //         type: 'GET',
+    //         success: function(response) {
+    //             // Assuming response contains the detail HTML
+    //             $('#detailContent').html(response);
+    //             $('#varyingModal').modal('show'); // Show the modal
+    //         },
+    //         error: function(xhr, status, error) {
+    //             console.log(error);
+    //         }
+    //     });
+    // });
+
+            // Ketika tombol View diklik
+    // $('#serverside').on('click', '.view-details', function() {
+    //     var id = $(this).data('id');
+    //     // Lakukan AJAX untuk mengambil data detail dari server
+    //     if(id){ 
+    //         $.ajax({
+    //         url: '/show.testing/' + id,
+    //         type: 'GET',
+    //         success: function(response) {
+    //             if(response.data) {
+    //                 $('#varyingModal').modal('show'); // Tampilkan modal
+    //                 $('#modal-contentt').text(response.data.id);
+    //             } else {
+    //                 console.log("Data tidak ditemukan.");
+    //             }
+    //         },
+    //         error: function(xhr, status, error) {
+    //             console.error("Error: " + error);
+    //         }
+    //     });
+    //     } else {
+    //         console.error('ID tidak valid atau tidak ditemukan.');
+    //     }
+        
+    // });
+
+    // Ketika tombol View diklik
+    // $('#serverside').on('click', '.view-details', function() {
+    //     var id = $(this).data('id');
+    //     // Lakukan AJAX untuk mengambil data detail dari server
+    //     $.ajax({
+    //         url: "/testing/" + id,
+    //         type: "GET",
+    //         success: function(response) {
+    //             // Isi modal dengan data yang diambil
+    //              // Sesuaikan dengan data yang diambil
+    //              $('#modal-content').text(response.data.detail);
+    //             $('#varyingModal').modal('show'); // Tampilkan modal
+    //         },
+    //         error: function(xhr) {
+    //             alert('Terjadi kesalahan!');
+    //         }
+    //     });
+    // });
+
+    // $('#serverside').on('click', '.view-details', function() {
+    //     var useURL = $(this).data('url');
+    //     $.get(useURL, function(data) {
+    //         $('#varyingModal').modal('show');
+    //         $('#test').text(data.id)
+    //     })
+    // });
+
+// });
+// {{-- </script>
     
-
-
 @endsection

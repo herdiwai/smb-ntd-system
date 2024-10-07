@@ -25,7 +25,9 @@
                                     <th>status report</th>
                                     <th>Status Approvals</th>
                                     <th>Action Report</th>
+                                    @if(Auth::user()->can('column.delete'))
                                     <th>action</th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody>
@@ -90,7 +92,7 @@
     //     $(this).toggleClass('selected');  // Tambahkan kelas 'selected' pada baris yang dipilih
     // });
         $(document).ready( function() {
-            var canDelete = {{ Auth::user()->can('column.delete') ? 'visible: false' : 'false' }};
+            var canDelete = {{ Auth::user()->can('column.delete') ? 'true' : 'false' }};
             var columns = [
                     {
                         data: 'no',
@@ -126,7 +128,7 @@
                     },
                     ];
                     if(canDelete) {
-                        columns.push({ data: 'action', name: 'action', orderable: false, searchable: false });
+                        columns.push({ data: 'action', name: 'action'});
                     }
                     
             $('#serverside').DataTable({

@@ -21,7 +21,7 @@ class SampleTestingRequisitionController extends Controller
 {
     public function SampleTestingRequisition(Request $request)
     {
-        $testingrequisition = SampleTestingRequisition::with('sampleReport','statusApprovals')->orderBy('incomming_number','asc')->get();
+        $testingrequisition = SampleTestingRequisition::with('sampleReport','statusApprovals')->orderBy('incomming_number','asc')->paginate(5);
 
         // if($request->ajax()) {
         //     $testingrequisition = SampleTestingRequisition::with('sampleReport','statusApprovals')->orderBy('incomming_number','asc')->get();
@@ -170,7 +170,7 @@ class SampleTestingRequisitionController extends Controller
         //     })
 
         //     ->addColumn('view_details', function($testingrequisition) {
-        //         return '<button type="button" class="btn btn-inverse-primary btn-xs view-details" data-bs-toggle="modal" data-bs-target="#varyingModal" data-id="'.$testingrequisition->id.'" title="View Detail"><i data-feather="eye"></i></button>';
+        //         return '<button type="button" class="btn btn-inverse-primary btn-xs view-details" data-bs-toggle="modal" data-bs-target="#varyingModal" data-url="'.route('show.testing', $testingrequisition->id).'" data-id="'.$testingrequisition->id.'" title="View Detail"><i data-feather="eye"></i>view</button>';
         //     })
         //     ->addColumn('export_to_pdf', function($testingrequisition) {
         //         return '<a href="'.route('edit.TestingRequisition', $testingrequisition->id).'" class="btn btn-inverse-warning btn-xs" title="Edit"><i data-feather="edit"></i></a>
@@ -181,15 +181,13 @@ class SampleTestingRequisitionController extends Controller
         //         if($testingrequisition->status == 'incomplete') {
         //             return '<p style="color: red">status report not completed</p>';
         //         }else {
-        //             return '<a href="'.route('requisition.export-pdf', $testingrequisition->id).'" class="btn btn-inverse-danger btn-xs" title="Export-PDF"><i data-feather="download"></i></a>';
+        //             return '<a href="'.route('requisition.export-pdf', $testingrequisition->id).'" class="btn btn-inverse-danger btn-xs" title="Export-PDF"><i data-feather="download"></i>export pdf</a>';
         //         }
         //     })
             
         //     ->rawColumns(['result_test','schedule_of_test','est_of_complation_date','inspector','date','status_report','status_approvals_spv','status_approvals_manager','status approvals manager','status approvals spv','action_approvals_manager','action_approvals_spv','view_details','export_to_pdf','export_to_pdf'])
         //     ->make(true);
         // }
-
-
 
         return view('backend.quality_control.sample_testing_requisition.sample_testing_requisition', compact('testingrequisition'));
     }
@@ -325,7 +323,7 @@ class SampleTestingRequisitionController extends Controller
         // return view('backend.quality_control.sample_testing_requisition.generate-requisition-pdf', compact('testinggetid','sampleRequisition'));
     }
 
-    // public function ShowDetail($id)
+    // public function ShowDetails($id)
     // {
     //     // $details = SampleTestingRequisition::with('sampleReport')->findOrFail($id);
     //     // $approval = Approval::with('sampleTestingReport')->findOrFail($id);
@@ -333,7 +331,12 @@ class SampleTestingRequisitionController extends Controller
     //     // // Return tampilan partial untuk modal (posts/details.blade.php)
     //     // return view('backend.quality_control.approval_status.show', compact('testingreport','details','approval'));
     //     $testing = SampleTestingRequisition::with('sampleReport')->findOrFail($id);
-    //     return response()->json($testing);
+    //     if ($testing) {
+    //         return view('view_detail', compact('testing')); // Return detail view
+    //     } else {
+    //         return response()->json(['message' => 'Data not found'], 404);
+    //     }
+
     // }
 
     public function DeleteRequisition($id) 

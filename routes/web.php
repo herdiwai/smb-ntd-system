@@ -188,7 +188,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
         Route::get('/edit/sampletestingrequisition/{id}', 'EditTestingRequisition' )->name('edit.TestingRequisition');
         Route::post('/update/approvals/{id}', 'UpdateApprovals' )->name('update.approvals');
         Route::post('/update/approvals-spv/{id}', 'UpdateApprovalsSpv' )->name('update.approvalsspv');
-        Route::get('/testing/{id}', 'ShowDetail' )->name('show.testing');
+        Route::get('/testing/{id}', 'ShowDetails' )->name('show.testing');
         // Route::get('/generate-pdf', 'generatePdf' )->name('generate.pdf');
         Route::get('/requisition/{id}/export-pdf', 'generatePdf' )->name('requisition.export-pdf');
         Route::get('/delete/sampletestingrequisition/{id}', 'DeleteRequisition' )->name('delete.requisition');
