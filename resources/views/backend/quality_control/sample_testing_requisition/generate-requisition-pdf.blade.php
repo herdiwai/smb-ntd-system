@@ -124,6 +124,7 @@
 
     
 </head>
+
 <body>
     <div class="halaman">
         <table>
@@ -359,3 +360,249 @@
     </div>
 </body>
 </html>
+
+
+{{-- -------------------------------------------------------------- --}}
+
+
+
+
+
+
+{{-- 
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Form</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+                * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 50px;
+}
+
+.pdf-container {
+    padding: 20px;
+    border: 2px solid black; /* Garis di setiap sisi kertas */
+    height: 100vh; /* Menyebar sepanjang halaman */
+    position: relative;
+}
+
+h1 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    font-size: 16px;
+    color: #333;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+textarea {
+    height: 100px;
+    resize: none;
+}
+
+/* Menambahkan garis tepi yang tebal */
+body::before, body::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 5px solid black;
+    pointer-events: none;
+    z-index: -1;
+}
+    </style
+
+</head>
+<body>
+    <div class="pdf-container">
+        <h1>Formulir Data Pengguna</h1>
+        <form>
+            <div class="form-group">
+                <label for="name">Nama Lengkap:</label>
+                <input type="text" id="name" name="name">
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email">
+            </div>
+            <div class="form-group">
+                <label for="address">Alamat:</label>
+                <textarea id="address" name="address"></textarea>
+            </div>
+        </form>
+    </div>
+</body>
+</html> --}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{-- <script src="{{ asset('backend/assets/vendors/jquery-ajax/jquery.min.js') }}"></script>
+
+<style>
+    html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+        align-items: center;
+    }
+
+    .center-page {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .page-content {
+        width: 80%; /* Adjust the width as needed */
+        padding: 20px;
+        background-color: #0e0d0d;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .inspection-sheet table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    .inspection-sheet table th, 
+    .inspection-sheet table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+    }
+
+    .inspection-sheet .header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .remark p {
+        margin: 5px 0;
+    }
+</style>
+<div class="center-page">
+    <div class="page-content">
+        <div class="row">
+            <div class="col-md-12 grid-margin stretch-card">
+                <form action="" method="POST">
+                    @method('POST')
+                    @csrf
+                    <div class="inspection-sheet">
+                        <div class="header">
+                            <h2>IN-PROCESS PATROL AND MATERIAL INSPECTION RECORD</h2>
+                            <p>SIMATELLEX MANUFACTORY COMPANY LIMITED</p>
+                        </div>
+                    
+                        <table>
+                            <tr>
+                                <td>Model</td>
+                                <td>asdads</td>
+                                <td>Frequency of Inspection</td>
+                                <td>asdasd</td>
+                                <td>Date</td>
+                                <td>{{ now()->format('Y-m-d') }}</td>
+                               
+                            </tr>
+                            <tr>
+                                <td>Product Name</td>
+                                <td>asdasd</td>
+                                <td>Inspection Standard</td>
+                                <td>asdasd</td>
+                                <td>Inspected By</td>
+                                <td>asdadas</td>
+                               
+                                
+                            </tr>
+                            <tr>
+                                <td>Production Unit</td>
+                                <td>asdas</td>
+                                <td></td>
+                                <td></td>
+                               
+                                <td>Review By</td>
+                                <td>asdads</td>
+                               
+                            </tr>
+                        </table>
+                    
+                        <table>
+                            <tr>
+                                <th>Inspection Item</th>
+                                <th>Sample No (PCS)</th>
+                                <th>Defect Grade</th>
+                                <th>Inspection Time</th>
+                                <th>Remark</th>
+                                <th>Material Name</th>
+                                <th>Test Result</th>
+                                <th>Decision</th>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    
+                        <div class="remark">
+                            <p><strong>Remark:</strong></p>
+                            <p>1. Please check the contents of the inspection checklist with reference to the inspection items.</p>
+                            <p>2. If the inspection result meets the specifications, the decision is OK, otherwise the NG is determined.</p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> --}}
+
+
+
+
+
+

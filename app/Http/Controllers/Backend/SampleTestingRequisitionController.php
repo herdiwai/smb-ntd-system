@@ -318,8 +318,8 @@ class SampleTestingRequisitionController extends Controller
         //     'date' => date('m/d/Y'),
         //     'requisition' => $sampleRequisition,
         // ];
-        $pdf = Pdf::loadView('backend.quality_control.sample_testing_requisition.generate-requisition-pdf', compact('testinggetid','sampleRequisition'));
-        return $pdf->download('sample-testing-requisition-report.pdf');
+        $pdf = Pdf::loadView('backend.quality_control.sample_testing_requisition.generate-pdf-report', compact('testinggetid','sampleRequisition'));
+        return $pdf->stream('sample-testing-requisition-report.pdf');
         // return view('backend.quality_control.sample_testing_requisition.generate-requisition-pdf', compact('testinggetid','sampleRequisition'));
     }
 
