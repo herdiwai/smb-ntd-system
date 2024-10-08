@@ -286,14 +286,17 @@ class SampleTestingRequisitionController extends Controller
     public function UpdateApprovals(Request $request,$id)
     {
         SampleTestingRequisition::findOrFail($id)->update([
-            'status_approvals_id' => $request->status_approvals_id,
+            'status_approvals_id_spv' => $request->status_approvals_id_spv,
+            'notes_spv' => $request->notes_spv,
         ]);
+        // dd($id, $request->all());
 
         $notification = array(
             'message' => 'Approved Successfully',
             'alert-type' => 'success'
         );
         return redirect()->route('qualitycontrol.sampletestingrequisition')->with($notification);
+
     }
 
     public function UpdateApprovalsSpv(Request $request,$id)

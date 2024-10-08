@@ -37,6 +37,7 @@ class SampleTestingRequisition extends Model
             'status_approvals_id',
             'status_approvals_id_spv',
             'sample_testing_reports_id',
+            'notes_spv',
     ];
 
     public function modelBrewer()

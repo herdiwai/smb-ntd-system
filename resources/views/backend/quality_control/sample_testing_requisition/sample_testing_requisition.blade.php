@@ -1,6 +1,14 @@
 @extends('admin.admin_dashboard')
 @section('admin')
 
+<style>
+    .table .form-control,
+    .table .form-select {
+    width: auto; /* Agar input dan select tidak memakan seluruh lebar */
+    margin-right: 10px; /* Jarak antara elemen */
+    }
+</style>
+
 <div class="page-content">
   
     <nav class="page-breadcrumb">
@@ -122,15 +130,41 @@
                                         @if(Auth::user()->can('actionapprovalsspv.show'))
                                         @if($items->status == 'incomplete')
                                         <td><p style="color: red">status report not completed</p></td>
-                                        @elseif($items->statusApprovals->status == 'rejected' OR $items->statusApprovals->status == 'pending')
+                                        @elseif($items->status_approvals_id_spv == '2' OR $items->status_approvals_id_spv == '3')
                                         <td>
                                             <form action="{{ route('update.approvals', $items->id) }}" method="POST">
                                             @csrf
-                                                <button class="btn btn-inverse-success btn-sm" type="submit" name="status_approvals_id_spv" value="1" title="Review"><i data-feather="check-circle"></i></button>
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                  <div class="mb-3">
+                                                    <select name="status_approvals_id_spv" class="form-select form-select-sm mb-2" required>
+                                                        <option value="1" >approved</option>
+                                                        <option value="2" >rejected</option>
+                                                    </select>
+                                                  </div>
+                                                </div><!-- Col -->
+                                                <div class="col-sm-4">
+                                                  <div class="mb-3">
+                                                    <input type="text" style="margin-left: 25px; width: 280%;" name="notes_spv" class="form-control" placeholder="notes">
+                                                  </div>
+                                                </div><!-- Col -->
+                                            </div>
+                                                {{-- <div class="col-lg-4">
+                                                  <div class="mb-3"> --}}
+                                                    <button type="submit" class="btn btn-inverse-info btn-sm">save</button>
+                                                  {{-- </div>
+                                                </div><!-- Col -->
+                                              </div><!-- Row --> --}}
+                                                
+                                                {{-- <input name="notes_spv" class="form-control-sm"></input>
+                                                <button type="submit" class="btn btn-inverse-info btn-sm"><i data-feather="save"></i></button> --}}
+
+                                                {{-- <button class="btn btn-inverse-success btn-sm" type="submit" name="status_approvals_id_spv" value="1" title="Review"><i data-feather="check-circle"></i></button>
                                                 &nbsp;&nbsp;
-                                                <button class="btn btn-inverse-danger btn-sm" type="submit" name="status_approvals_id_spv" value="2" title="Rejected"><i data-feather="x-circle"></i></button>
-                                        </td>
-                                        @elseif($items->statusApprovals->status == 'approved')
+                                                <button class="btn btn-inverse-danger btn-sm" type="submit" name="status_approvals_id_spv" value="2" title="Rejected"><i data-feather="x-circle"></i></button> --}}
+                                            </form>
+                                            </td>
+                                        @elseif($items->status_approvals_id_spv == '1')
                                         <td>
                                             <p style="color: green">REVIEW</p>
                                         </td>
@@ -150,6 +184,7 @@
                                                 <button class="btn btn-inverse-success btn-sm" type="submit" name="status_approvals_id" value="1" title="Approved"><i data-feather="check-circle"></i></button>
                                                 &nbsp;&nbsp;
                                                 <button class="btn btn-inverse-danger btn-sm" type="submit" name="status_approvals_id" value="2" title="Rejected"><i data-feather="x-circle"></i></button>
+                                            </form>
                                         </td>
                                         @elseif($items->status_approvals_id_spv == '1')
                                         <td>

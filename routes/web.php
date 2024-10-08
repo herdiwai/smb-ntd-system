@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\LotController;
 use App\Http\Controllers\Backend\ModelBrewerController;
 use App\Http\Controllers\Backend\ProcessController;
 use App\Http\Controllers\Backend\ProcessModelController;
+use App\Http\Controllers\Backend\ReviewApprovalController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\SampleTestingReportContoller;
 use App\Http\Controllers\Backend\SampleTestingRequisitionController;
@@ -235,3 +236,8 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
         // Route::get('/filter/hourlyoutput', 'FilterHourlyOutput')->name('filter.hourlyoutput');
     });
 });
+
+
+Route::get('/review', [ReviewApprovalController::class, 'index'])->name('review.index');
+Route::get('/review/{id}', [ReviewApprovalController::class, 'show'])->name('review.show');
+Route::post('/review/{id}', [ReviewApprovalController::class, 'submit'])->name('review.submit');
