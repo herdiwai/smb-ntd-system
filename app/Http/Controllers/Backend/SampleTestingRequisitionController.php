@@ -192,6 +192,29 @@ class SampleTestingRequisitionController extends Controller
         return view('backend.quality_control.sample_testing_requisition.sample_testing_requisition', compact('testingrequisition'));
     }
 
+    public function filterSample(Request $request) 
+    {
+        $lot = Lot::all();
+        $testingrequisition = SampleTestingRequisition::with('sampleReport','statusApprovals')->orderBy('incomming_number','asc')->get();
+        // $query = SampleTestingRequisition::with('sampleReport','statusApprovals','modelBrewer','lot','process')->get();
+        // Filter by Date
+        // if ($request->has('date') && $request->date) {
+        //     $testingrequisition->where('date', $request->date);
+        // }
+        if ($request->has('from_date') && $request->has('to_date')) {
+            $testingrequisition->whereBetween('created_at', [$request->from_date, $request->to_date]);
+        }
+    
+        // Filter by Lot
+        if ($request->has('lot') && $request->lot) {
+            $testingrequisition->where('lot', 'like', '%' . $request->lot . '%');
+        }
+        // Ambil hasil query dengan paginasi
+        $results = $testingrequisition;
+
+        return view('backend.quality_control.sample_testing_requisition.sample_testing_requisition', compact('results','lot','testingrequisition'));
+    }
+
     public function AddSampleTestingRequisition()
     {
         $id = Auth::user()->id;
@@ -257,6 +280,7 @@ class SampleTestingRequisitionController extends Controller
             'status' => 'incomplete',
             'status_approvals_id' => 3,
             'status_approvals_id_spv' => 3,
+            'status_approvals_id_qe' => 3,
         ]);
         if ($request->filled('test_purpose')) {
             $selecttestpurpose[] = $request->input('test_purpose');
@@ -282,29 +306,43 @@ class SampleTestingRequisitionController extends Controller
         $testpurpose = ['Quatation Sample Test','EP/PP Sample Test','The SSB approves the sample test','Design Change Sample Test','Mold/Tool Process Change Sample Test','First Batch Production/Conversion Sample Test','Normal Life and Reliability Test','Presented to the Client for Approval of the Sample Test'];
         return view('backend.quality_control.sample_testing_requisition.edit_sample_testing_requisition', compact('testpurpose','testinggetid','testingrequisition','profileData','lot','modelbrewer','shift','process'));
     }
-
-    public function UpdateApprovals(Request $request,$id)
+    // Approvals Spv Sample Requisition
+    public function UpdateApprovalsSpv(Request $request,$id)
     {
         SampleTestingRequisition::findOrFail($id)->update([
             'status_approvals_id_spv' => $request->status_approvals_id_spv,
             'notes_spv' => $request->notes_spv,
         ]);
         // dd($id, $request->all());
-
         $notification = array(
             'message' => 'Approved Successfully',
             'alert-type' => 'success'
         );
         return redirect()->route('qualitycontrol.sampletestingrequisition')->with($notification);
-
     }
-
-    public function UpdateApprovalsSpv(Request $request,$id)
+    // Approvals QE Sample Requisition
+    public function UpdateApprovalsQe(Request $request,$id)
     {
         SampleTestingRequisition::findOrFail($id)->update([
-            'status_approvals_id_spv' => $request->status_approvals_id_spv,
+            'status_approvals_id_qe' => $request->status_approvals_id_qe,
+            'notes_qe' => $request->notes_qe,
         ]);
+        // dd($id, $request->all());
+        $notification = array(
+            'message' => 'Approved Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('qualitycontrol.sampletestingrequisition')->with($notification);
+    }
 
+    // Approvals Manager Sample Requisition
+    public function UpdateApprovalsManager(Request $request,$id)
+    {
+        SampleTestingRequisition::findOrFail($id)->update([
+            'status_approvals_id' => $request->status_approvals_id,
+            'notes_manager' => $request->notes_manager,
+        ]);
+        // dd($id, $request->all());
         $notification = array(
             'message' => 'Approved Successfully',
             'alert-type' => 'success'

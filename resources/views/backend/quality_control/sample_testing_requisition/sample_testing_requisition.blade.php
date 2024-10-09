@@ -16,8 +16,110 @@
             @if(Auth::user()->can('add.testingrequisition'))
              <a href="{{ route('add.sampletestingrequisition') }}" class="btn btn-inverse-info btn-sm"><i data-feather="plus-circle"></i> ADD REQUISITION FORM</a>
             @endif
+
         </ol>
     </nav>
+
+    <div class="row">
+<!-- Form filter -->
+    <form action="{{ route('filter.sample') }}" method="GET" class="mb-3">
+        @csrf
+        <div class="row">
+            <!-- Filter by Date -->
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="date">From Date:</label>
+                    <input type="date" name="from_date" id="date" class="form-control" value="{{ request('from_date') }}">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="date">To Date:</label>
+                    <input type="date" name="to_date" id="date" class="form-control" value="{{ request('to_date') }}">
+                </div>
+            </div>
+
+            <!-- Filter by DO Number -->
+            {{-- <div class="col-md-3">
+                <div class="form-group">
+                    <label for="text">Do.Number:</label>
+                    <input type="text" name="text" id="text" class="form-control" value="{{ request()->get('date') }}">
+                </div>
+            </div> --}}
+
+            <!-- Filter by Process QCA/IQC -->
+            {{-- <div class="col-md-3">
+                <div class="form-group">
+                    <label for="processs">Process:</label>
+                    <select name="process" id="process" class="form-control">
+                        <option value="">-- Select Process --</option>
+                        <option value="1" {{ request()->get('process') == '1' ? 'selected' : '' }}>QCA</option>
+                        <option value="2" {{ request()->get('process') == '2' ? 'selected' : '' }}>IQC</option>
+                    </select>
+                </div>
+            </div> --}}
+
+            <!-- Filter by Series -->
+            {{-- <div class="col-md-3">
+                <div class="form-group">
+                    <label for="series">Series:</label>
+                    <select name="series" id="series" class="form-control">
+                        <option value="">-- Select series --</option>
+                        <option value="1" {{ request()->get('series') == '1' ? 'selected' : '' }}>RRU172337901DST</option>
+                        <option value="2" {{ request()->get('series') == '2' ? 'selected' : '' }}>RRU1234523sERSR</option>
+                    </select>
+                </div>
+            </div> --}}
+
+            <!-- Filter by Model -->
+            {{-- <div class="col-md-3">
+                <div class="form-group">
+                    <label for="model">Model:</label>
+                    <select name="model" id="model" class="form-control">
+                        <option value="">-- Select model --</option>
+                        <option value="1" {{ request()->get('model') == '1' ? 'selected' : '' }}>Kslim</option>
+                        <option value="2" {{ request()->get('model') == '2' ? 'selected' : '' }}>OPP</option>
+                    </select>
+                </div>
+            </div> --}}
+
+            <!-- Filter by Lot -->
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="lot">Lot:</label>
+                    <select name="lot" id="lot" class="form-control">
+                        {{-- <option value="">Select Lot</option> --}}
+                            {{-- @foreach($lot as $lots)
+                                <option value="{{ $lots->id }}" {{ request()->get('lot') == '1' ? 'selected' : '' }}>{{ $lots->lot }}</option>
+                            @endforeach --}}
+                        <option value="">-- Select lot --</option>
+                        <option value="1" {{ request()->get('lot') == '1' ? 'selected' : '' }}>lot B</option>
+                        <option value="2" {{ request()->get('lot') == '2' ? 'selected' : '' }}>lot C</option>
+                        <option value="3" {{ request()->get('lot') == '3' ? 'selected' : '' }}>lot D</option>
+                        <option value="4" {{ request()->get('lot') == '3' ? 'selected' : '' }}>lot E</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Filter by Shift -->
+            {{-- <div class="col-md-3">
+                <div class="form-group">
+                    <label for="shift">Shift:</label>
+                    <select name="shift" id="shift" class="form-control">
+                        <option value="">-- Select Shift --</option>
+                        <option value="1" {{ request()->get('shift') == '1' ? 'selected' : '' }}>Shift 1</option>
+                        <option value="2" {{ request()->get('shift') == '2' ? 'selected' : '' }}>Shift 2</option>
+                        <option value="3" {{ request()->get('shift') == '3' ? 'selected' : '' }}>Shift 3</option>
+                    </select>
+                </div>
+            </div> --}}
+            
+            <div class="col-md-2 align-self-end">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </div>
+    </form>
+    </div>
 
     <div class="row">
         <div class="col-md-12 grid-margin stretch-card">
@@ -46,14 +148,16 @@
                                         <th hidden>est_of_completion_date</th>
                                         <th hidden>inspector_name</th>
                                         <th hidden>date</th>
-                                        <th>status report</th>
-                                        <th hidden>status_approvals_spv</th>
+                                        <th>status approvals spv</th>
+                                        <th>status approvals QE</th>
+                                        <th>status testing report</th>
+                                        <th hidden>statusapprovals_spv</th>
                                         <th hidden>status_approvals_manager</th>
                                         @if(Auth::user()->can('statusapprovalsspv.column'))
                                         <th>status approvals manager</th>
                                         @endif
                                         @if(Auth::user()->can('statusapprovalsmanager.column'))
-                                        <th>status approvals spv</th>
+                                            <th>status approvals manager</th>
                                         @endif
                                         {{-- @if(Auth::user()->can('actionApprovals.column')) --}}
                                         @if(Auth::user()->can('actionApprovals.column'))
@@ -62,6 +166,9 @@
                                         {{-- @endif --}}
                                         @if(Auth::user()->can('actionapprovalsspv.show'))
                                             <th>action approvals spv</th>
+                                        @endif
+                                        @if(Auth::user()->can('column.action.approvalsQE'))
+                                            <th>action approvals QE</th>
                                         @endif
                                         <th>View Details</th>
                                         @if(Auth::user()->can('edit.testingrequisition'))
@@ -91,6 +198,26 @@
                                         <td class="completion_date" hidden>@if($items->sampleReport == '')<p style="color:red">Report not completed</p>@else{{ $items->sampleReport->est_of_completion_date }}@endif</td>
                                         <td class="inspector_name" hidden>@if($items->sampleReport == '')<p style="color:red">Report not completed</p>@else{{ $items->sampleReport->inspector }}@endif</td>
                                         <td class="date" hidden>@if($items->sampleReport == '')<p style="color:red">Report not completed</p>@else{{ $items->sampleReport->date }}@endif</td>
+                                        {{-- status approvals by spv --}}
+                                        @if($items->status_approvals_id_spv == '3')
+                                            <td><span class="badge bg-warning">pending</span></td>
+                                        @elseif($items->status_approvals_id_spv == '2')
+                                            <td><span class="badge bg-danger">rejected</span></td>
+                                        @elseif($items->status_approvals_id_spv == '1')
+                                            <td><span class="badge bg-success">review</span></td>
+                                        @endif
+                                        {{-- End status approvals by spv --}}
+
+                                        {{-- Status approvals by QE --}}
+                                        @if($items->status_approvals_id_qe == '3' OR $items->status_approvals_id_qe == '')
+                                            <td class="qe_review"><span class="badge bg-warning">pending</span></td>
+                                        @elseif($items->status_approvals_id_qe == '2')
+                                            <td class="qe_review"><span class="badge bg-danger">rejected</span></td>
+                                        @elseif($items->status_approvals_id_qe == '1')
+                                            <td class="qe_review"><span class="badge bg-success">review</span></td>
+                                        @endif
+                                        {{-- End Status by QE --}}
+
                                         <td class="status_report" hidden>@if($items->status == '')<p style="color:red">Report not completed</p>@else{{ $items->status }}@endif</td>
                                         <td class="status_approvals_spv" hidden>@if($items->status_approvals_id_spv == '')<p style="color:red">Report not completed</p>@else<span>Approved</span>@endif</td>
                                         <td class="status_approvals_manager" hidden>@if($items->statusApprovals->status == '3' OR $items->statusApprovals->status == '2' )<p style="color:red">Report not completed</p>@else{{ $items->statusApprovals->status }}@endif</td>
@@ -116,9 +243,9 @@
                                         {{-- status approval manager --}}
                                         @if(Auth::user()->can('statusapprovalmanager.column'))
                                         <td>
-                                            @if($items->status_approvals_id_spv == '1')
-                                            <span class="badge bg-success"> approved </span>
-                                            @elseif($items->status_approvals_id_spv == 2)
+                                            @if($items->status_approvals_id == '1')
+                                                <span class="badge bg-success"> approved </span>
+                                            @elseif($items->status_approvals_id == '2')
                                                 <span class="badge bg-danger"> rejected </span>
                                             @else
                                                 <span class="badge bg-warning"> pending </span>
@@ -129,72 +256,68 @@
                                         {{-- jika status pending/rejected makan tombol action tetap ada SPV--}}
                                         @if(Auth::user()->can('actionapprovalsspv.show'))
                                         @if($items->status == 'incomplete')
-                                        <td><p style="color: red">status report not completed</p></td>
-                                        @elseif($items->status_approvals_id_spv == '2' OR $items->status_approvals_id_spv == '3')
+                                            <td><p style="color: red">status report not completed</p></td>
+                                        @elseif($items->status_approvals_id_spv == '2' OR $items->status_approvals_id_spv == '')
                                         <td>
-                                            <form action="{{ route('update.approvals', $items->id) }}" method="POST">
-                                            @csrf
-                                            <div class="row">
-                                                <div class="col-sm-4">
-                                                  <div class="mb-3">
-                                                    <select name="status_approvals_id_spv" class="form-select form-select-sm mb-2" required>
-                                                        <option value="1" >approved</option>
-                                                        <option value="2" >rejected</option>
-                                                    </select>
-                                                  </div>
-                                                </div><!-- Col -->
-                                                <div class="col-sm-4">
-                                                  <div class="mb-3">
-                                                    <input type="text" style="margin-left: 25px; width: 280%;" name="notes_spv" class="form-control" placeholder="notes">
-                                                  </div>
-                                                </div><!-- Col -->
-                                            </div>
-                                                {{-- <div class="col-lg-4">
-                                                  <div class="mb-3"> --}}
-                                                    <button type="submit" class="btn btn-inverse-info btn-sm">save</button>
-                                                  {{-- </div>
-                                                </div><!-- Col -->
-                                              </div><!-- Row --> --}}
-                                                
-                                                {{-- <input name="notes_spv" class="form-control-sm"></input>
-                                                <button type="submit" class="btn btn-inverse-info btn-sm"><i data-feather="save"></i></button> --}}
-
-                                                {{-- <button class="btn btn-inverse-success btn-sm" type="submit" name="status_approvals_id_spv" value="1" title="Review"><i data-feather="check-circle"></i></button>
-                                                &nbsp;&nbsp;
-                                                <button class="btn btn-inverse-danger btn-sm" type="submit" name="status_approvals_id_spv" value="2" title="Rejected"><i data-feather="x-circle"></i></button> --}}
-                                            </form>
+                                            <button type="button" class="btn btn-inverse-success btn-xs" data-bs-toggle="modal" data-bs-target="#approvalModal" onclick="openApprovalModal({{ $items->id }})" title="Approvals">
+                                                <i data-feather="check-square"></i>
+                                                </button>
+                                            </td>
+                                        @elseif($items->status_approvals_id_spv == '')
+                                            <td>
+                                                <p style="color: rgb(238, 38, 12)">please review first</p>
                                             </td>
                                         @elseif($items->status_approvals_id_spv == '1')
-                                        <td>
-                                            <p style="color: green">REVIEW</p>
-                                        </td>
+                                            <td>
+                                                <p style="color: green">REVIEW</p>
+                                            </td>
                                         @endif
                                         @endif
 
-                                        {{-- jika status pending/rejected makan tombol action tetap ada Manager--}}
+                                        {{-- Button approvals by manager--}}
                                         @if(Auth::user()->can('actionApprovals.show'))
-                                        @if($items->status == 'incomplete')
-                                            <td><p style="color: red">status report not completed</p></td>
-                                        @elseif($items->statusApprovals->status == 'pending')
-                                            <td><p style="color: rgb(255, 234, 0)">waiting spv to approvals</p></td>
-                                        @elseif($items->status_approvals_id_spv == '3' OR $items->status_approvals_id_spv == '2' && $items->status_approvals_id_spv == '')
+                                        @if($items->status_approvals_id_spv == '3' OR $items->status_approvals_id_spv == '2' OR $items->status_approvals_id_qe == '3' OR $items->status_approvals_id_qe == '2')
+                                            <td><p style="color: rgb(255, 234, 0)">waiting spv/qe to review</p></td>
+                                        @elseif($items->status_approvals_id_spv == '1' OR $items->status_approvals_id_qe == '1' OR $items->status_approvals_id == '3' OR $items->status_approvals_id == '2')
                                         <td>
-                                            <form action="{{ route('update.approvalsspv', $items->id) }}" method="POST">
-                                            @csrf
-                                                <button class="btn btn-inverse-success btn-sm" type="submit" name="status_approvals_id" value="1" title="Approved"><i data-feather="check-circle"></i></button>
-                                                &nbsp;&nbsp;
-                                                <button class="btn btn-inverse-danger btn-sm" type="submit" name="status_approvals_id" value="2" title="Rejected"><i data-feather="x-circle"></i></button>
-                                            </form>
+                                            <button type="button" class="btn btn-inverse-success btn-xs" data-bs-toggle="modal" data-bs-target="#approvalModalManager" onclick="openApprovalModalManager({{ $items->id }})" title="Approvals">
+                                                Approved/Rejected
+                                            </button>
                                         </td>
-                                        @elseif($items->status_approvals_id_spv == '1')
+                                        @elseif($items->status_approvals_id === '1')
                                         <td>
                                             <p style="color: green">APPROVED</p>
                                         </td>
                                         @endif
                                         @endif
+                                        {{-- End button approvals by manager --}}
 
+                                        {{-- Button Action Approval by QE --}}
+                                        @if(Auth::user()->can('action.approvalQE'))
+                                        @if($items->status == 'incomplete')
+                                            <td><p style="color: red">status report not completed</p></td>
+                                        @elseif($items->status_approvals_id_qe == '2' OR $items->status_approvals_id_qe == '')
+                                        <td>
+                                            <button type="button" class="btn btn-inverse-success btn-xs" data-bs-toggle="modal" data-bs-target="#approvalModalQe" onclick="openApprovalModalQe({{ $items->id }})" title="Approvals">
+                                                <i data-feather="check-square"></i>
+                                            </button>
+                                        </td>
+                                        @elseif($items->status_approvals_id_qe == '')
+                                            <td>
+                                                <p style="color: rgb(238, 38, 12)">please review first</p>
+                                            </td>
+                                        @elseif($items->status_approvals_id_qe == '1')
+                                            <td>
+                                                <p style="color: green">REVIEW</p>
+                                            </td>
+                                        @endif
+                                        @endif
+                                        {{-- End button approvals by QE --}}
+
+                                        {{-- Button view details --}}
                                         <td><button type="button" class="btn btn-inverse-primary btn-xs view-details" data-bs-toggle="modal" data-bs-target="#varyingModal" data-id="'.$items->id.'" title="View Detail"><i data-feather="eye"></i></button></td>
-                                       
+                                        {{-- End button view details --}}
+
                                         @if(Auth::user()->can('edit.testingrequisition'))
                                         <td> 
                                             @if(Auth::user()->can('edit.testingrequisition'))
@@ -205,9 +328,12 @@
                                             @endif
                                         </td> 
                                         @endif
-                                        @if($items->status == 'incomplete')
+                                        @if($items->status == 'incomplete' || 
+                                        in_array($items->status_approvals_id, [2, 3]) ||
+                                        in_array($items->status_approvals_id_spv, [2, 3]) || 
+                                        in_array($items->status_approvals_id_qe, [2, 3]))
                                         <td>
-                                            <p style="color: red">status report not completed</p>
+                                            <p style="color: red">can't download pdf/form status not complete</p>
                                         </td>
                                         @else
                                             <td><a href="{{ route('requisition.export-pdf', $items->id ) }}" class="btn btn-inverse-danger btn-xs" title="Export-PDF"><i data-feather="download"></i></a></td>
@@ -226,7 +352,121 @@
 
 </div>
 
-{{-- MODAL --}}
+{{-- MODAL APPROVALS BY MANAGER --}}
+<!-- Modal -->
+<div class="modal fade" id="approvalModalManager" tabindex="-1" role="dialog" aria-labelledby="approvalModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="approvalModalLabel">Approval Forms</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
+          {{-- <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"> --}}
+            {{-- <span aria-hidden="true">&times;</span> --}}
+          </button>
+        </div>
+        <form id="approvalFormManager" action="" method="POST">
+          @csrf
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="approval_status">Approval Status</label>
+              <select name="status_approvals_id" id="approval_status" class="form-control">
+                <option value="1">Approved</option>
+                <option value="2">Rejected</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="notes">Notes</label>
+              <textarea name="notes_manager" id="notes" class="form-control" rows="4" placeholder="Optional"></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
+            <button type="submit" class="btn btn-inverse-info btn-xs"><i data-feather="send"></i> Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{{-- END MODAL APPROVALS BY MANAGER--}}
+
+
+{{-- MODAL APPROVALS BY QE --}}
+<!-- Modal -->
+<div class="modal fade" id="approvalModalQe" tabindex="-1" role="dialog" aria-labelledby="approvalModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="approvalModalLabel">Approval Forms</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
+          {{-- <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"> --}}
+            {{-- <span aria-hidden="true">&times;</span> --}}
+          </button>
+        </div>
+        <form id="approvalFormQe" action="" method="POST">
+          @csrf
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="approval_status">Approval Status</label>
+              <select name="status_approvals_id_qe" id="approval_status" class="form-control">
+                <option value="1">Approved</option>
+                <option value="2">Rejected</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="notes">Notes</label>
+              <textarea name="notes_qe" id="notes" class="form-control" rows="4" placeholder="Optional"></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
+            <button type="submit" class="btn btn-inverse-info btn-xs"><i data-feather="send"></i> Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{{-- END MODAL APPROVALS BY QE--}}
+
+
+{{-- MODAL APPROVALS BY SPV --}}
+<!-- Modal -->
+<div class="modal fade" id="approvalModal" tabindex="-1" role="dialog" aria-labelledby="approvalModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="approvalModalLabel">Approval Form</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
+          {{-- <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"> --}}
+            {{-- <span aria-hidden="true">&times;</span> --}}
+          </button>
+        </div>
+        <form id="approvalForm" action="" method="POST">
+          @csrf
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="approval_status">Approval Status</label>
+              <select name="status_approvals_id_spv" id="approval_status" class="form-control">
+                <option value="1">Approved</option>
+                <option value="2">Rejected</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="notes">Notes</label>
+              <textarea name="notes_spv" id="notes" class="form-control" rows="4" placeholder="Optional"></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
+            <button type="submit" class="btn btn-inverse-info btn-xs"><i data-feather="send"></i> Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{{-- END MODAL APPROVALS BY SPV--}}
+
+
+{{-- MODAL VIEW --}}
 <div class="modal fade" id="varyingModal" tabindex="-1" aria-labelledby="varyingModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
@@ -298,6 +538,13 @@
                                   <label for="checkby" class="col-sm-3 col-form-label">Check By</label>
                                   <div class="col-sm-9">
                                       <input type="text" class="form-control check_by" id="checkby" disabled>
+                                  </div>
+                              </div>
+
+                              <div class="row mb-3">
+                                  <label for="qe_review" class="col-sm-3 col-form-label">QE Review</label>
+                                  <div class="col-sm-9">
+                                      <input type="text" class="form-control qe_review" id="qe_review" disabled>
                                   </div>
                               </div>
 
@@ -401,6 +648,48 @@
 
   {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
   <script>
+    // modal approvals Manager
+    function openApprovalModalManager(itemId) {
+        // Set the form action dynamically based on the item ID
+        var actionUrl = "{{ route('update.approvalsmanager', ':id') }}";
+        actionUrl = actionUrl.replace(':id', itemId);
+        $('#approvalFormManager').attr('action', actionUrl);
+        // Optionally reset the form fields when modal is opened
+        // $('#approval_status').val('approved'); // default status
+        // $('#notes').val('');
+        
+        // Show the modal
+        $('#approvalModalManager').modal('show');
+    }
+
+    // modal approvals spv
+    function openApprovalModal(itemId) {
+        // Set the form action dynamically based on the item ID
+    var actionUrl = "{{ route('update.approvalsspv', ':id') }}";
+        actionUrl = actionUrl.replace(':id', itemId);
+        $('#approvalForm').attr('action', actionUrl);
+        // Optionally reset the form fields when modal is opened
+        // $('#approval_status').val('approved'); // default status
+        // $('#notes').val('');
+        
+        // Show the modal
+        $('#approvalModal').modal('show');
+    }
+    // modal approvals QE
+    function openApprovalModalQe(itemId) {
+        // Set the form action dynamically based on the item ID
+        var actionUrl = "{{ route('update.approvalsqe', ':id') }}";
+        actionUrl = actionUrl.replace(':id', itemId);
+        $('#approvalFormQe').attr('action', actionUrl);
+        // Optionally reset the form fields when modal is opened
+        // $('#approval_status').val('approved'); // default status
+        // $('#notes').val('');
+        
+        // Show the modal
+        $('#approvalModalQe').modal('show');
+    }
+
+
     $(document).on('click','.view-details', function(){
         var _this = $(this).parents('tr');
             $('.submitedDate').val(_this.find('.sample_subtmitted_date').text());
@@ -422,6 +711,7 @@
             $('.status_report').val(_this.find('.status_report').text());
             $('.status_approvals_spv').val(_this.find('.status_approvals_spv').text());
             $('.status_approvals_manager').val(_this.find('.status_approvals_manager').text());
+            $('.qe_review').val(_this.find('.qe_review').text());
     });
   </script>
   

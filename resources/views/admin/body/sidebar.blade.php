@@ -203,6 +203,31 @@
             </div>
           </li>
           @endif
+
+          {{-- Menu Approvals QE --}}
+          @if(Auth::user()->can('menu.approvalsQE'))
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents06" role="button" aria-expanded="false" aria-controls="uiComponents06">
+              <i class="link-icon" data-feather="folder"></i>
+              <span class="link-title">QE Review</span>
+              <i class="link-arrow" data-feather="chevron-down"></i>
+            </a>
+            <div class="collapse" id="uiComponents06">
+              <ul class="nav sub-menu">
+                
+                @if(Auth::user()->can('all.approvalsQE'))
+                <li class="nav-item">
+                  <a href="{{ route('qualitycontrol.sampletestingrequisition') }}" class="nav-link">All Table</a>
+                </li>
+                @endif
+             
+              </ul>
+            </div>
+          </li>
+          @endif
+          {{-- End Approvals QE --}}
+
+
          
 
           @if(Auth::user()->can('Sparepart.menu'))
