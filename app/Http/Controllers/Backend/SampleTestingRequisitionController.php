@@ -9,10 +9,13 @@ use App\Models\Process;
 use App\Models\SampleTestingReport;
 use App\Models\SampleTestingRequisition;
 use App\Models\Shift;
+use App\Models\StatusApprovals;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 use function PHPUnit\Framework\returnSelf;
@@ -22,6 +25,13 @@ class SampleTestingRequisitionController extends Controller
     public function SampleTestingRequisition(Request $request)
     {
         $testingrequisition = SampleTestingRequisition::with('sampleReport','statusApprovals')->orderBy('incomming_number','asc')->paginate(5);
+        // $formDate = Carbon::parse($request->input('from_date'))->format('Y-m-d');
+        // $toDate = Carbon::parse($request->input('to_date'))->format('Y-m-d');
+
+        // $query = DB::table('sample_testing_requisitions')->select()
+        //         ->where('date', '>=', $formDate)
+        //         ->where('date', '<=', $toDate)
+        //         ->get();
 
         // if($request->ajax()) {
         //     $testingrequisition = SampleTestingRequisition::with('sampleReport','statusApprovals')->orderBy('incomming_number','asc')->get();
@@ -188,31 +198,34 @@ class SampleTestingRequisitionController extends Controller
         //     ->rawColumns(['result_test','schedule_of_test','est_of_complation_date','inspector','date','status_report','status_approvals_spv','status_approvals_manager','status approvals manager','status approvals spv','action_approvals_manager','action_approvals_spv','view_details','export_to_pdf','export_to_pdf'])
         //     ->make(true);
         // }
-
-        return view('backend.quality_control.sample_testing_requisition.sample_testing_requisition', compact('testingrequisition'));
+        $lot = Lot::all();
+        $modelbrewer = ModelBrewer::all();
+        $status = StatusApprovals::all();
+        return view('backend.quality_control.sample_testing_requisition.sample_testing_requisition', compact('status','modelbrewer','lot','testingrequisition'));
     }
 
     public function filterSample(Request $request) 
     {
-        $lot = Lot::all();
-        $testingrequisition = SampleTestingRequisition::with('sampleReport','statusApprovals')->orderBy('incomming_number','asc')->get();
-        // $query = SampleTestingRequisition::with('sampleReport','statusApprovals','modelBrewer','lot','process')->get();
-        // Filter by Date
-        // if ($request->has('date') && $request->date) {
-        //     $testingrequisition->where('date', $request->date);
-        // }
-        if ($request->has('from_date') && $request->has('to_date')) {
-            $testingrequisition->whereBetween('created_at', [$request->from_date, $request->to_date]);
-        }
-    
-        // Filter by Lot
-        if ($request->has('lot') && $request->lot) {
-            $testingrequisition->where('lot', 'like', '%' . $request->lot . '%');
-        }
-        // Ambil hasil query dengan paginasi
-        $results = $testingrequisition;
+        $fromDate = $request->input('from_date');
+        $toDate = $request->input('to_date');
+        $lot_id = $request->input('lot_id');
+        $model_id = $request->input('model_id');
+        $status_approvals_id = $request->input('status_approvals_id');
 
-        return view('backend.quality_control.sample_testing_requisition.sample_testing_requisition', compact('results','lot','testingrequisition'));
+        $lot = Lot::all();
+        $modelbrewer = ModelBrewer::all();
+        $status = StatusApprovals::all();
+    
+        $testingrequisition = SampleTestingRequisition::with('sampleReport','statusApprovals','modelBrewer','lot','process')
+                        ->orderBy('incomming_number','asc')
+                        ->whereBetween('sample_subtmitted_date', [$fromDate, $toDate])
+                        // ->where('lot_id', [$lot_id])
+                        // ->where('model_id', [$model_id])
+                        ->where('status_approvals_id', [$status_approvals_id])
+                        ->paginate(10);
+    // dd($data);
+
+        return view('backend.quality_control.sample_testing_requisition.sample_testing_requisition', compact('status','modelbrewer','lot','testingrequisition'));
     }
 
     public function AddSampleTestingRequisition()

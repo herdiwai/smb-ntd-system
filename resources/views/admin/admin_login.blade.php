@@ -79,7 +79,7 @@
                                 </label>
                             </div> --}}
                             <div>
-                                <button type="submit" class="btn btn-outline-primary btn-icon-text mb-2 mb-md-0">Login</button>
+                                <button type="submit" class="btn btn-outline-primary btn-icon-text mb-2 mb-md-0"><i data-feather="log-in" style="width: 17px; height: 17px;"></i> Login</button>
                             </div>
                             {{-- <a href="register.html" class="d-block mt-3 text-muted">Not a user? Sign up</a> --}}
                         </form>

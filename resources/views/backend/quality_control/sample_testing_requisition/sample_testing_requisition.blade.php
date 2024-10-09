@@ -14,7 +14,7 @@
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
             @if(Auth::user()->can('add.testingrequisition'))
-             <a href="{{ route('add.sampletestingrequisition') }}" class="btn btn-inverse-info btn-sm"><i data-feather="plus-circle"></i> ADD REQUISITION FORM</a>
+             <a href="{{ route('add.sampletestingrequisition') }}" class="btn btn-inverse-info btn-xs"><i data-feather="file-plus" style="width: 16px; height: 16px;"></i> ADD REQUISITION FORM</a>
             @endif
 
         </ol>
@@ -24,18 +24,19 @@
 <!-- Form filter -->
     <form action="{{ route('filter.sample') }}" method="GET" class="mb-3">
         @csrf
+        @method('GET')
         <div class="row">
             <!-- Filter by Date -->
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div class="form-group">
-                    <label for="date">From Date:</label>
-                    <input type="date" name="from_date" id="date" class="form-control" value="{{ request('from_date') }}">
+                    <label for="date">from date:</label>
+                    <input type="date" name="from_date" id="date" class="form-control form-control-xs">
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div class="form-group">
-                    <label for="date">To Date:</label>
-                    <input type="date" name="to_date" id="date" class="form-control" value="{{ request('to_date') }}">
+                    <label for="date">to date:</label>
+                    <input type="date" name="to_date" id="date" class="form-control form-control-xs">
                 </div>
             </div>
 
@@ -72,31 +73,40 @@
             </div> --}}
 
             <!-- Filter by Model -->
-            {{-- <div class="col-md-3">
+            {{-- <div class="col-md-2">
                 <div class="form-group">
                     <label for="model">Model:</label>
-                    <select name="model" id="model" class="form-control">
-                        <option value="">-- Select model --</option>
-                        <option value="1" {{ request()->get('model') == '1' ? 'selected' : '' }}>Kslim</option>
-                        <option value="2" {{ request()->get('model') == '2' ? 'selected' : '' }}>OPP</option>
+                    <select name="model_id" id="model" class="form-control form-control-xs">
+                        <option value="">--select model--</option>
+                        @foreach($modelbrewer as $models)
+                            <option value="{{ $models->id }}" {{ old('modelbrewer') == $models->id ? 'selected' : '' }}>{{ $models->model }}</option>
+                        @endforeach
                     </select>
                 </div>
             </div> --}}
 
             <!-- Filter by Lot -->
-            <div class="col-md-3">
+            {{-- <div class="col-md-2">
                 <div class="form-group">
                     <label for="lot">Lot:</label>
-                    <select name="lot" id="lot" class="form-control">
-                        {{-- <option value="">Select Lot</option> --}}
-                            {{-- @foreach($lot as $lots)
-                                <option value="{{ $lots->id }}" {{ request()->get('lot') == '1' ? 'selected' : '' }}>{{ $lots->lot }}</option>
-                            @endforeach --}}
-                        <option value="">-- Select lot --</option>
-                        <option value="1" {{ request()->get('lot') == '1' ? 'selected' : '' }}>lot B</option>
-                        <option value="2" {{ request()->get('lot') == '2' ? 'selected' : '' }}>lot C</option>
-                        <option value="3" {{ request()->get('lot') == '3' ? 'selected' : '' }}>lot D</option>
-                        <option value="4" {{ request()->get('lot') == '3' ? 'selected' : '' }}>lot E</option>
+                    <select name="lot_id" id="lot" class="form-control form-control-xs">
+                        <option value="">-select lot--</option>
+                        @foreach($lot as $lots)
+                            <option value="{{ $lots->id }}" {{ old('lot') == $lots->id ? 'selected' : '' }}>{{ $lots->lot }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div> --}}
+
+            <!-- Filter by status -->
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="lot">status:</label>
+                    <select name="status_approvals_id" id="status_approvals" class="form-control form-control-xs">
+                        <option value="">--select status--</option>
+                        @foreach($status as $status_approvals)
+                            <option value="{{ $status_approvals->id }}" {{ old('status') == $status_approvals->id ? 'selected' : '' }}>{{ $status_approvals->status }}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -115,8 +125,10 @@
             </div> --}}
             
             <div class="col-md-2 align-self-end">
-                <button type="submit" class="btn btn-primary">Search</button>
+                <button type="submit" class="btn btn-info btn-xs"><i data-feather="search" style="width: 16px; height: 16px;"></i> Search..</button>
+                <a href="{{ route('qualitycontrol.sampletestingrequisition') }}" class="btn btn-light btn-xs" style="position: absolute; margin-left:1%;"><i data-feather="refresh-ccw" style="width: 16px; height: 16px;"></i> Refresh</a>
             </div>
+        
         </div>
     </form>
     </div>
@@ -131,54 +143,59 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                        <th>No</th>
-                                        <th>Sample Subtmitted Date</th>
-                                        <th>Doc.No</th>
-                                        <th>Series</th>
-                                        <th hidden>No of samples</th>
-                                        <th hidden>Test Purpose</th>
-                                        <th hidden>Test_Purpose_remarks</th>
-                                        <th hidden>Summary Before</th>
-                                        <th hidden>shift</th>
-                                        <th hidden>check by</th>
-                                        <th hidden>summary_report</th>
-                                        <th hidden>received sample date</th>
-                                        <th hidden>result_test</th>
-                                        <th hidden>schedule_of_test</th>
-                                        <th hidden>est_of_completion_date</th>
-                                        <th hidden>inspector_name</th>
-                                        <th hidden>date</th>
-                                        <th>status approvals spv</th>
-                                        <th>status approvals QE</th>
-                                        <th>status testing report</th>
-                                        <th hidden>statusapprovals_spv</th>
-                                        <th hidden>status_approvals_manager</th>
-                                        @if(Auth::user()->can('statusapprovalsspv.column'))
+                                    <th>No</th>
+                                    <th>Sample Subtmitted Date</th>
+                                    <th>Doc.No</th>
+                                    <th>Series</th>
+                                    <th hidden>No of samples</th>
+                                    <th hidden>Test Purpose</th>
+                                    <th hidden>Test_Purpose_remarks</th>
+                                    <th hidden>Summary Before</th>
+                                    <th hidden>shift</th>
+                                    <th hidden>check by</th>
+                                    <th hidden>summary_report</th>
+                                    <th hidden>received sample date</th>
+                                    <th hidden>result_test</th>
+                                    <th hidden>schedule_of_test</th>
+                                    <th hidden>est_of_completion_date</th>
+                                    <th hidden>inspector_name</th>
+                                    <th hidden>date</th>
+                                    <th>status approvals spv</th>
+                                    <th>status approvals QE</th>
+                                    <th>status testing report</th>
+                                    <th hidden>statusapprovals_spv</th>
+                                    <th hidden>status_approvals_manager</th>
+                                    @if(Auth::user()->can('statusapprovalsspv.column'))
+                                    <th>status approvals manager</th>
+                                    @endif
+                                    @if(Auth::user()->can('statusapprovalsmanager.column'))
                                         <th>status approvals manager</th>
-                                        @endif
-                                        @if(Auth::user()->can('statusapprovalsmanager.column'))
-                                            <th>status approvals manager</th>
-                                        @endif
-                                        {{-- @if(Auth::user()->can('actionApprovals.column')) --}}
-                                        @if(Auth::user()->can('actionApprovals.column'))
-                                            <th>action approvals manager</th>
-                                        @endif
-                                        {{-- @endif --}}
-                                        @if(Auth::user()->can('actionapprovalsspv.show'))
-                                            <th>action approvals spv</th>
-                                        @endif
-                                        @if(Auth::user()->can('column.action.approvalsQE'))
-                                            <th>action approvals QE</th>
-                                        @endif
-                                        <th>View Details</th>
-                                        @if(Auth::user()->can('edit.testingrequisition'))
-                                            <th>Action</th>
-                                        @endif
-                                        <th>Export to PDF</th>
-                                        <th hidden>Export to PDF</th>
+                                    @endif
+                                    {{-- @if(Auth::user()->can('actionApprovals.column')) --}}
+                                    @if(Auth::user()->can('actionApprovals.column'))
+                                        <th>action approvals manager</th>
+                                    @endif
+                                    {{-- @endif --}}
+                                    @if(Auth::user()->can('actionapprovalsspv.show'))
+                                        <th>action approvals spv</th>
+                                    @endif
+                                    @if(Auth::user()->can('column.action.approvalsQE'))
+                                        <th>action approvals QE</th>
+                                    @endif
+                                    <th>View Details</th>
+                                    @if(Auth::user()->can('edit.testingrequisition'))
+                                        <th>Action</th>
+                                    @endif
+                                    <th>Export to PDF</th>
+                                    <th hidden>Export to PDF</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                    @if($testingrequisition->isEmpty())
+                                        <tr>
+                                            <td colspan="3">No data found for the selected date range.</td>
+                                        </tr>
+                                    @else
                                 @foreach ($testingrequisition as $key => $items)
                                     <tr>
                                         <td>{{ $key+1 }}</td>
@@ -293,13 +310,13 @@
                                         {{-- End button approvals by manager --}}
 
                                         {{-- Button Action Approval by QE --}}
-                                        @if(Auth::user()->can('action.approvalQE'))
+                                        @if(Auth::user()->can('action.approvalsQE'))
                                         @if($items->status == 'incomplete')
                                             <td><p style="color: red">status report not completed</p></td>
                                         @elseif($items->status_approvals_id_qe == '2' OR $items->status_approvals_id_qe == '')
                                         <td>
                                             <button type="button" class="btn btn-inverse-success btn-xs" data-bs-toggle="modal" data-bs-target="#approvalModalQe" onclick="openApprovalModalQe({{ $items->id }})" title="Approvals">
-                                                <i data-feather="check-square"></i>
+                                                <i data-feather="check-square" style="width: 16px; height: 16px;"></i>
                                             </button>
                                         </td>
                                         @elseif($items->status_approvals_id_qe == '')
@@ -315,16 +332,16 @@
                                         {{-- End button approvals by QE --}}
 
                                         {{-- Button view details --}}
-                                        <td><button type="button" class="btn btn-inverse-primary btn-xs view-details" data-bs-toggle="modal" data-bs-target="#varyingModal" data-id="'.$items->id.'" title="View Detail"><i data-feather="eye"></i></button></td>
+                                        <td><button type="button" class="btn btn-inverse-primary btn-xs view-details" data-bs-toggle="modal" data-bs-target="#varyingModal" data-id="'.$items->id.'" title="View Detail"><i data-feather="eye" style="width: 16px; height: 16px;"></i></button></td>
                                         {{-- End button view details --}}
 
                                         @if(Auth::user()->can('edit.testingrequisition'))
                                         <td> 
                                             @if(Auth::user()->can('edit.testingrequisition'))
-                                                <a href="{{ route('edit.TestingRequisition', $items->id) }}" class="btn btn-inverse-warning btn-xs" title="Edit"><i data-feather="edit"></i></a>
+                                                <a href="{{ route('edit.TestingRequisition', $items->id) }}" class="btn btn-inverse-warning btn-xs" title="Edit"><i data-feather="edit" style="width: 16px; height: 16px;"></i></a>
                                             @endif
                                             @if(Auth::user()->can('delete.testingreport'))
-                                                <a href="{{ route('delete.requisition', $items->id) }}" class="btn btn-inverse-danger btn-xs" title="Delete"><i data-feather="trash-2"></i></a>
+                                                <a href="{{ route('delete.requisition', $items->id) }}" class="btn btn-inverse-danger btn-xs" title="Delete"><i data-feather="trash-2" style="width: 16px; height: 16px;"></i></a>
                                             @endif
                                         </td> 
                                         @endif
@@ -336,10 +353,11 @@
                                             <p style="color: red">can't download pdf/form status not complete</p>
                                         </td>
                                         @else
-                                            <td><a href="{{ route('requisition.export-pdf', $items->id ) }}" class="btn btn-inverse-danger btn-xs" title="Export-PDF"><i data-feather="download"></i></a></td>
+                                            <td><a href="{{ route('requisition.export-pdf', $items->id ) }}" class="btn btn-inverse-danger btn-xs" title="Export-PDF"><i data-feather="download" style="width: 16px; height: 16px;"></i></a></td>
                                         @endif
                                     </tr>
                                 @endforeach 
+                                @endif
 
                             </tbody>
                         </table>
@@ -381,7 +399,7 @@
           </div>
           <div class="modal-footer">
             {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
-            <button type="submit" class="btn btn-inverse-info btn-xs"><i data-feather="send"></i> Submit</button>
+            <button type="submit" class="btn btn-inverse-info btn-xs"><i data-feather="send" style="width: 16px; height: 16px;"></i> Submit</button>
           </div>
         </form>
       </div>
@@ -419,7 +437,7 @@
           </div>
           <div class="modal-footer">
             {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
-            <button type="submit" class="btn btn-inverse-info btn-xs"><i data-feather="send"></i> Submit</button>
+            <button type="submit" class="btn btn-inverse-info btn-xs"><i data-feather="send" style="width: 16px; height: 16px;"></i> Submit</button>
           </div>
         </form>
       </div>
@@ -457,7 +475,7 @@
           </div>
           <div class="modal-footer">
             {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
-            <button type="submit" class="btn btn-inverse-info btn-xs"><i data-feather="send"></i> Submit</button>
+            <button type="submit" class="btn btn-inverse-info btn-xs"><i data-feather="send" style="width: 16px; height: 16px;"></i> Submit</button>
           </div>
         </form>
       </div>

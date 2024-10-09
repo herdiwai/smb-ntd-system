@@ -219,8 +219,8 @@ body::before, body::after {
 
         <div class="form-row">
             <div class="form-group">
-                <label for="name">Sample Submitted (Date)</label>
-                <input class="purposesize" type="text" id="name" name="name" value="2024-10-07">
+                <label for="name">Sample Submitteds (Date)</label>
+                <input class="purposesize" type="text" id="name" name="name" value="{{ $sampleRequisition->sample_subtmitted_date }}">
             </div>
         </div>
 

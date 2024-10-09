@@ -11,7 +11,7 @@
             <div class="input-group">
               <div class="input-group-text">
                 <p>LOGIN ACCOUNT -- LEVEL : {{ $profileData->username  }} | BadgeID :  {{ $profileData->name }}</p>&nbsp;&nbsp;
-                <a href="{{ route('admin.logout') }}" class="btn btn-inverse-danger btn-sm "><i data-feather="log-out"></i>&nbsp;Logout</a>
+                <a href="{{ route('admin.logout') }}" class="btn btn-inverse-danger btn-xs "><i data-feather="log-out" style="width: 16px; height: 16px;"></i>&nbsp;LOGOUT</a>
                 {{-- <i data-feather="search"></i> --}}
               </div>
                   {{-- <input type="text" class="form-control" id="navbarForm" placeholder="Search here..."> --}}
