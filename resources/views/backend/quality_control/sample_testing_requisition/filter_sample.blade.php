@@ -11,18 +11,18 @@
 
 <div class="page-content">
   
-    <nav class="page-breadcrumb">
+    {{-- <nav class="page-breadcrumb">
         <ol class="breadcrumb">
             @if(Auth::user()->can('add.testingrequisition'))
              <a href="{{ route('add.sampletestingrequisition') }}" class="btn btn-inverse-info btn-xs"><i data-feather="file-plus" style="width: 16px; height: 16px;"></i> ADD REQUISITION FORM</a>
             @endif
 
         </ol>
-    </nav>
+    </nav> --}}
 
-    {{-- <div class="row"> --}}
+    <div class="row">
 <!-- Form filter -->
-    {{-- <form action="{{ route('filter.sample') }}" method="GET" class="mb-3">
+    <form action="{{ route('filter.sample') }}" method="GET" class="mb-3">
         @csrf
         @method('GET')
         <div class="row">
@@ -38,18 +38,31 @@
                     <label for="date">to date:</label>
                     <input type="date" name="to_date" id="date" class="form-control form-control-xs">
                 </div>
-            </div> --}}
+            </div>
 
-            <!-- Filter by DO Number -->
-            {{-- <div class="col-md-3">
+            <!-- Filter by Model -->
+            <div class="col-md-2">
                 <div class="form-group">
-                    <label for="text">Do.Number:</label>
-                    <input type="text" name="text" id="text" class="form-control" value="{{ request()->get('date') }}">
+                    <label for="model">Model:</label>
+                    <select name="model_id" id="model" class="form-control form-control-xs">
+                        <option value="">--select model--</option>
+                        @foreach($modelbrewer as $models)
+                            <option value="{{ $models->id }}" {{ old('modelbrewer') == $models->id ? 'selected' : '' }}>{{ $models->model }}</option>
+                        @endforeach
+                    </select>
                 </div>
-            </div> --}}
+            </div>
+
+             <!-- Filter by Series -->
+             <div class="col-md-2">
+                <div class="form-group">
+                    <label for="text">series/pn:</label>
+                    <input type="text" name="series" id="text" class="form-control form-control-xs">
+                </div>
+            </div>
 
             <!-- Filter by Process QCA/IQC -->
-            {{-- <div class="col-md-2">
+            <div class="col-md-2">
                 <div class="form-group">
                     <label for="processs">Process:</label>
                     <select name="processes_id" id="process" class="form-control form-control-xs">
@@ -59,7 +72,41 @@
                         @endforeach
                     </select>
                 </div>
-            </div> --}}
+            </div>
+
+            <!-- Filter by Lot -->
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="lot">Lot:</label>
+                    <select name="lot_id" id="lot" class="form-control form-control-xs">
+                        <option value="">--select lot--</option>
+                        @foreach($lot as $lots)
+                            <option value="{{ $lots->id }}" {{ old('lot') == $lots->id ? 'selected' : '' }}>{{ $lots->lot }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <!-- Filter by shift -->
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="shift">shift:</label>
+                    <select name="shift_id" id="shift" class="form-control form-control-xs">
+                        <option value="">--select shift--</option>
+                        @foreach($shift as $shifts)
+                            <option value="{{ $shifts->id }}" {{ old('shift') == $shifts->id ? 'selected' : '' }}>{{ $shifts->shift }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <!-- Filter by DO Number -->
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="text">do.number:</label>
+                    <input type="text" name="do_no" id="text" class="form-control form-control-xs">
+                </div>
+            </div>
 
             <!-- Filter by Series -->
             {{-- <div class="col-md-3">
@@ -69,19 +116,6 @@
                         <option value="">-- Select series --</option>
                         <option value="1" {{ request()->get('series') == '1' ? 'selected' : '' }}>RRU172337901DST</option>
                         <option value="2" {{ request()->get('series') == '2' ? 'selected' : '' }}>RRU1234523sERSR</option>
-                    </select>
-                </div>
-            </div> --}}
-
-            <!-- Filter by Model -->
-            {{-- <div class="col-md-2">
-                <div class="form-group">
-                    <label for="model">Model:</label>
-                    <select name="model_id" id="model" class="form-control form-control-xs">
-                        <option value="">--select model--</option>
-                        @foreach($modelbrewer as $models)
-                            <option value="{{ $models->id }}" {{ old('modelbrewer') == $models->id ? 'selected' : '' }}>{{ $models->model }}</option>
-                        @endforeach
                     </select>
                 </div>
             </div> --}}
@@ -100,7 +134,7 @@
             </div> --}}
 
             <!-- Filter by status -->
-            {{-- <div class="col-md-2">
+            <div class="col-md-2">
                 <div class="form-group">
                     <label for="status">status:</label>
                     <select name="status_approvals_id" id="status_approvals" class="form-control form-control-xs">
@@ -110,7 +144,7 @@
                         @endforeach
                     </select>
                 </div>
-            </div> --}}
+            </div>
 
             <!-- Filter by Shift -->
             {{-- <div class="col-md-3">
@@ -125,15 +159,14 @@
                 </div>
             </div> --}}
             
-            {{-- <div class="col-md-2 align-self-end">
+            <div class="col-md-2 align-self-end">
                 <button type="submit" class="btn btn-info btn-xs"><i data-feather="search" style="width: 16px; height: 16px;"></i> Search..</button>
-                <a href="{{ route('qualitycontrol.sampletestingrequisition') }}" class="btn btn-light btn-xs" style="position: absolute; margin-left:1%;"><i data-feather="refresh-ccw" style="width: 16px; height: 16px;"></i> Refresh</a>
+                <a href="{{ route('filter.sample') }}" class="btn btn-light btn-xs" style="position: absolute; margin-left:1%;"><i data-feather="refresh-ccw" style="width: 16px; height: 16px;"></i> Refresh</a>
             </div>
         
         </div>
     </form>
-    </div> --}}
-    {{-- End Form Filter --}}
+    </div>
 
     <div class="row">
         <div class="col-md-12 grid-margin stretch-card">
@@ -165,8 +198,8 @@
                                     <th>status review QE-QCA</th>
                                     <th>status review QE-IQC</th>
                                     <th>status testing report</th>
-                                    <th hidden>status_approvals_manager</th>
                                     <th hidden>statusapprovals_spv</th>
+                                    <th hidden>status_approvals_manager</th>
                                     @if(Auth::user()->can('statusapprovalsspv.column'))
                                     <th>status approvals manager</th>
                                     @endif
@@ -195,7 +228,7 @@
                             <tbody>
                                     @if($testingrequisition->isEmpty())
                                         <tr>
-                                            <td colspan="3" style="color: red;">No data found for the selected.</td>
+                                            <td colspan="3" style="color: red;">No data found, please filter data first</td>
                                         </tr>
                                     @else
                                 @foreach ($testingrequisition as $key => $items)
@@ -217,15 +250,15 @@
                                         <td class="completion_date" hidden>@if($items->sampleReport == '')<p style="color:red">Report not completed</p>@else{{ $items->sampleReport->est_of_completion_date }}@endif</td>
                                         <td class="inspector_name" hidden>@if($items->sampleReport == '')<p style="color:red">Report not completed</p>@else{{ $items->sampleReport->inspector }}@endif</td>
                                         <td class="date" hidden>@if($items->sampleReport == '')<p style="color:red">Report not completed</p>@else{{ $items->sampleReport->date }}@endif</td>
-                                        {{-- status approvals by spv --}}
+                                        {{-- status approvals by QE-QCA --}}
                                         @if($items->status_approvals_id_spv == '3')
                                             <td><span class="badge bg-warning">pending</span></td>
                                         @elseif($items->status_approvals_id_spv == '2')
                                             <td><span class="badge bg-danger">rejected</span></td>
                                         @elseif($items->status_approvals_id_spv == '1')
-                                            <td><span class="badge bg-success">review</span></td>
+                                        <td class="qe_review"><p style="color: green;">Dian</p></td>
                                         @endif
-                                        {{-- End status approvals by spv --}}
+                                        {{-- End status approvals by QE-QCA --}}
 
                                         {{-- Status approvals by QE-IQC --}}
                                         @if($items->status_approvals_id_qe == '' OR $items->status_approvals_id_qe == '3')
@@ -233,7 +266,7 @@
                                         @elseif($items->status_approvals_id_qe == '2')
                                             <td class="qe_review"><span class="badge bg-danger">rejected</span></td>
                                         @elseif($items->status_approvals_id_qe == '1')
-                                            <td class="qe_review"><span class="badge bg-success">review</span></td>
+                                            <td class="qe_review"><p style="color: green;">Nel Hendri</p></td>
                                         @endif
                                         {{-- End Status by QE --}}
 
@@ -263,7 +296,7 @@
                                         @if(Auth::user()->can('statusapprovalmanager.column'))
                                         <td>
                                             @if($items->status_approvals_id == '1')
-                                                <span class="badge bg-success"> approved </span>
+                                                <p style="color: green;">Andri</p>
                                             @elseif($items->status_approvals_id == '2')
                                                 <span class="badge bg-danger"> rejected </span>
                                             @else

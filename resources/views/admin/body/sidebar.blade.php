@@ -227,6 +227,28 @@
           @endif
           {{-- End Approvals QE --}}
 
+          {{-- Menu Filter Sample Requisition and Report --}}
+          @if(Auth::user()->can('menu.filterSample'))
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents07" role="button" aria-expanded="false" aria-controls="uiComponents07">
+              <i class="link-icon" data-feather="filter"></i>
+              <span class="link-title">Filter Sample</span>
+              <i class="link-arrow" data-feather="chevron-down"></i>
+            </a>
+            <div class="collapse" id="uiComponents07">
+              <ul class="nav sub-menu">
+                
+                @if(Auth::user()->can('all.filterSample'))
+                <li class="nav-item">
+                  <a href="{{ route('filter.sample') }}" class="nav-link">All Table</a>
+                </li>
+                @endif
+             
+              </ul>
+            </div>
+          </li>
+          @endif
+          {{-- End Approvals QE --}}
 
          
 

@@ -83,9 +83,9 @@ class SampleTestingReportContoller extends Controller
             })
             ->addColumn('action_report', function($testingrequisition) {
                 if($testingrequisition->status == 'incomplete') {
-                    return '<a href="'.route('add.sampletestingreport', $testingrequisition->id).'" class="btn btn-inverse-info btn-sm" title="Add Report"><i data-feather="file-plus"></i>Add Report</a>';
+                    return '<a href="'.route('add.sampletestingreport', $testingrequisition->id).'" class="btn btn-inverse-info btn-xs" title="Add Report"><i data-feather="file-plus" style="width: 16px; height: 16px;"></i>Add Report</a>';
                 }elseif($testingrequisition->statusApprovals->status == 'rejected') {
-                    return '<a href="'.route('add.sampletestingreport', $testingrequisition->id).'" class="btn btn-inverse-info btn-sm" title="Add Report"><i data-feather="file-plus"></i>Add Report</a>';
+                    return '<a href="'.route('add.sampletestingreport', $testingrequisition->id).'" class="btn btn-inverse-info btn-xs" title="Add Report"><i data-feather="file-plus" style="width: 16px; height: 16px;"></i>Add Report</a>';
                 }else{
                     return '<p style="color: rgb(4, 189, 4)">report completed</p>';
                 }
@@ -93,7 +93,7 @@ class SampleTestingReportContoller extends Controller
             ->addColumn('action', function() {
                 $actionBtn = '';
                 if(Gate::allows('column.delete')) {
-                    $actionBtn .= '<a href="" class="btn btn-inverse-danger btn-sm" title="Delete"><i data-feather="trash-2"></i>delete</a>';
+                    $actionBtn .= '<a href="" class="btn btn-inverse-danger btn-xs" title="Delete"><i data-feather="trash-2"></i>delete</a>';
                 }
                 return $actionBtn;
             })

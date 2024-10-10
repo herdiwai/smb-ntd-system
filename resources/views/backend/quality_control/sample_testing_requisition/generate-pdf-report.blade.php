@@ -175,7 +175,7 @@ body::before, body::after {
 .doc-number {
     text-align: right;
     font-size: 13px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 
@@ -339,7 +339,7 @@ body::before, body::after {
 
     {{-- SAMPLE TESTING REPORT --}}
 
-    <div class="pdf-container">
+    {{-- <div class="pdf-container">
         <h1>PT SIMATELEX MANUFACTORY BATAM</h1>
         <h2>SAMPLE TESTING REPORT</h2>
         <div class="form-row">
@@ -355,14 +355,6 @@ body::before, body::after {
                 <label style="margin-right: 300px;" for="name">No of Sample</label>
                 <input style="width:15%; padding:3px;" type="text" id="name" name="name" value="2pcs">
             </div>
-            {{-- <div class="form-group">
-                <label class="email" for="email">Series</label>
-                <input type="email" id="email" name="email">
-            </div> --}}
-            {{-- <div class="form-group">
-                <label for="address">Alamat</label>
-                <textarea id="address" name="address"></textarea>
-            </div> --}}
         </div>
         <br>
 
@@ -471,7 +463,7 @@ body::before, body::after {
         <br>
         <br>
 
-    </div>
+    </div> --}}
 
 
     
