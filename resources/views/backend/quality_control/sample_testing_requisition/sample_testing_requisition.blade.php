@@ -49,16 +49,17 @@
             </div> --}}
 
             <!-- Filter by Process QCA/IQC -->
-            {{-- <div class="col-md-3">
+            <div class="col-md-2">
                 <div class="form-group">
                     <label for="processs">Process:</label>
-                    <select name="process" id="process" class="form-control">
-                        <option value="">-- Select Process --</option>
-                        <option value="1" {{ request()->get('process') == '1' ? 'selected' : '' }}>QCA</option>
-                        <option value="2" {{ request()->get('process') == '2' ? 'selected' : '' }}>IQC</option>
+                    <select name="processes_id" id="process" class="form-control form-control-xs">
+                        <option value="">--select Process--</option>
+                        @foreach($process as $processes)
+                            <option value="{{ $processes->id }}" {{ old('process') == $processes->id ? 'selected' : '' }}>{{ $processes->process }}</option>
+                        @endforeach
                     </select>
                 </div>
-            </div> --}}
+            </div>
 
             <!-- Filter by Series -->
             {{-- <div class="col-md-3">
@@ -101,7 +102,7 @@
             <!-- Filter by status -->
             <div class="col-md-2">
                 <div class="form-group">
-                    <label for="lot">status:</label>
+                    <label for="status">status:</label>
                     <select name="status_approvals_id" id="status_approvals" class="form-control form-control-xs">
                         <option value="">--select status--</option>
                         @foreach($status as $status_approvals)
@@ -160,8 +161,8 @@
                                     <th hidden>est_of_completion_date</th>
                                     <th hidden>inspector_name</th>
                                     <th hidden>date</th>
-                                    <th>status approvals spv</th>
-                                    <th>status approvals QE</th>
+                                    <th>status review QE-QCA</th>
+                                    <th>status review QE-IQC</th>
                                     <th>status testing report</th>
                                     <th hidden>statusapprovals_spv</th>
                                     <th hidden>status_approvals_manager</th>
@@ -177,10 +178,10 @@
                                     @endif
                                     {{-- @endif --}}
                                     @if(Auth::user()->can('actionapprovalsspv.show'))
-                                        <th>action approvals spv</th>
+                                        <th>action approvals QE-QCA</th>
                                     @endif
                                     @if(Auth::user()->can('column.action.approvalsQE'))
-                                        <th>action approvals QE</th>
+                                        <th>action approvals QE-IQC</th>
                                     @endif
                                     <th>View Details</th>
                                     @if(Auth::user()->can('edit.testingrequisition'))
@@ -193,7 +194,7 @@
                             <tbody>
                                     @if($testingrequisition->isEmpty())
                                         <tr>
-                                            <td colspan="3">No data found for the selected date range.</td>
+                                            <td colspan="3" style="color: red;">No data found for the selected.</td>
                                         </tr>
                                     @else
                                 @foreach ($testingrequisition as $key => $items)
@@ -225,8 +226,8 @@
                                         @endif
                                         {{-- End status approvals by spv --}}
 
-                                        {{-- Status approvals by QE --}}
-                                        @if($items->status_approvals_id_qe == '3' OR $items->status_approvals_id_qe == '')
+                                        {{-- Status approvals by QE-IQC --}}
+                                        @if($items->status_approvals_id_qe == '' OR $items->status_approvals_id_qe == '3')
                                             <td class="qe_review"><span class="badge bg-warning">pending</span></td>
                                         @elseif($items->status_approvals_id_qe == '2')
                                             <td class="qe_review"><span class="badge bg-danger">rejected</span></td>
@@ -270,23 +271,25 @@
                                         </td> 
                                         @endif
 
-                                        {{-- jika status pending/rejected makan tombol action tetap ada SPV--}}
+                                        {{-- jika status pending/rejected makan tombol action tetap ada QE-QCA--}}
                                         @if(Auth::user()->can('actionapprovalsspv.show'))
-                                        @if($items->status == 'incomplete')
-                                            <td><p style="color: red">status report not completed</p></td>
-                                        @elseif($items->status_approvals_id_spv == '2' OR $items->status_approvals_id_spv == '')
+                                        {{-- @if($items->status == 'incomplete')
+                                            <td><p style="color: red">status report not completed</p></td> --}}
+                                        @if($items->status_approvals_id_spv == '1')
+                                            <td>
+                                                <p style="color: green">REVIEW</p>
+                                            </td>
+                                        @elseif($items->status_approvals_id_qe == '' OR $items->status == 'incomplete')
+                                            <td><p style="color: yellow">waiting review QE-IQC</p></td>
+                                        @elseif($items->status_approvals_id_qe == '1' OR $items->status_approvals_id_qe == '2' OR $items->status_approvals_id_spv == '2')
                                         <td>
                                             <button type="button" class="btn btn-inverse-success btn-xs" data-bs-toggle="modal" data-bs-target="#approvalModal" onclick="openApprovalModal({{ $items->id }})" title="Approvals">
-                                                <i data-feather="check-square"></i>
-                                                </button>
+                                                <i data-feather="check-square" style="width: 16px; height: 16px;"></i>
+                                            </button>
                                             </td>
                                         @elseif($items->status_approvals_id_spv == '')
                                             <td>
                                                 <p style="color: rgb(238, 38, 12)">please review first</p>
-                                            </td>
-                                        @elseif($items->status_approvals_id_spv == '1')
-                                            <td>
-                                                <p style="color: green">REVIEW</p>
                                             </td>
                                         @endif
                                         @endif
@@ -294,14 +297,14 @@
                                         {{-- Button approvals by manager--}}
                                         @if(Auth::user()->can('actionApprovals.show'))
                                         @if($items->status_approvals_id_spv == '3' OR $items->status_approvals_id_spv == '2' OR $items->status_approvals_id_qe == '3' OR $items->status_approvals_id_qe == '2')
-                                            <td><p style="color: rgb(255, 234, 0)">waiting spv/qe to review</p></td>
-                                        @elseif($items->status_approvals_id_spv == '1' OR $items->status_approvals_id_qe == '1' OR $items->status_approvals_id == '3' OR $items->status_approvals_id == '2')
+                                            <td><p style="color: rgb(255, 234, 0)">waiting QE to review</p></td>
+                                        @elseif($items->status_approvals_id == '3' OR $items->status_approvals_id == '2')
                                         <td>
                                             <button type="button" class="btn btn-inverse-success btn-xs" data-bs-toggle="modal" data-bs-target="#approvalModalManager" onclick="openApprovalModalManager({{ $items->id }})" title="Approvals">
                                                 Approved/Rejected
                                             </button>
                                         </td>
-                                        @elseif($items->status_approvals_id === '1')
+                                        @elseif($items->status_approvals_id == '1')
                                         <td>
                                             <p style="color: green">APPROVED</p>
                                         </td>
@@ -313,7 +316,18 @@
                                         @if(Auth::user()->can('action.approvalsQE'))
                                         @if($items->status == 'incomplete')
                                             <td><p style="color: red">status report not completed</p></td>
-                                        @elseif($items->status_approvals_id_qe == '2' OR $items->status_approvals_id_qe == '')
+                                        @elseif($items->status_approvals_id_qe == '2' OR $items->status_approvals_id_qe == '3')
+                                            <td>
+                                                <button type="button" class="btn btn-inverse-success btn-xs" data-bs-toggle="modal" data-bs-target="#approvalModalQe" onclick="openApprovalModalQe({{ $items->id }})" title="Approvals">
+                                                    <i data-feather="check-square" style="width: 16px; height: 16px;"></i>
+                                                </button>
+                                            </td>
+                                        @elseif($items->status_approvals_id_qe == '1' OR $items->status == 'complete' OR $items->status_approvals_id == '1')
+                                            <td>
+                                                <p style="color: green">REVIEW</p>
+                                            </td>
+
+                                        {{-- @elseif($items->status_approvals_id_qe == '2' OR $items->status_approvals_id_qe == '')
                                         <td>
                                             <button type="button" class="btn btn-inverse-success btn-xs" data-bs-toggle="modal" data-bs-target="#approvalModalQe" onclick="openApprovalModalQe({{ $items->id }})" title="Approvals">
                                                 <i data-feather="check-square" style="width: 16px; height: 16px;"></i>
@@ -327,6 +341,7 @@
                                             <td>
                                                 <p style="color: green">REVIEW</p>
                                             </td>
+                                        @endif --}}
                                         @endif
                                         @endif
                                         {{-- End button approvals by QE --}}

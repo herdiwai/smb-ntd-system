@@ -201,7 +201,8 @@ class SampleTestingRequisitionController extends Controller
         $lot = Lot::all();
         $modelbrewer = ModelBrewer::all();
         $status = StatusApprovals::all();
-        return view('backend.quality_control.sample_testing_requisition.sample_testing_requisition', compact('status','modelbrewer','lot','testingrequisition'));
+        $process = Process::all();
+        return view('backend.quality_control.sample_testing_requisition.sample_testing_requisition', compact('process','status','modelbrewer','lot','testingrequisition'));
     }
 
     public function filterSample(Request $request) 
@@ -210,22 +211,25 @@ class SampleTestingRequisitionController extends Controller
         $toDate = $request->input('to_date');
         $lot_id = $request->input('lot_id');
         $model_id = $request->input('model_id');
+        $processes_id = $request->input('processes_id');
         $status_approvals_id = $request->input('status_approvals_id');
 
         $lot = Lot::all();
         $modelbrewer = ModelBrewer::all();
         $status = StatusApprovals::all();
+        $process = Process::all();
     
         $testingrequisition = SampleTestingRequisition::with('sampleReport','statusApprovals','modelBrewer','lot','process')
                         ->orderBy('incomming_number','asc')
                         ->whereBetween('sample_subtmitted_date', [$fromDate, $toDate])
+                        ->where('processes_id', [$processes_id])
                         // ->where('lot_id', [$lot_id])
                         // ->where('model_id', [$model_id])
                         ->where('status_approvals_id', [$status_approvals_id])
                         ->paginate(10);
     // dd($data);
 
-        return view('backend.quality_control.sample_testing_requisition.sample_testing_requisition', compact('status','modelbrewer','lot','testingrequisition'));
+        return view('backend.quality_control.sample_testing_requisition.sample_testing_requisition', compact('process','status','modelbrewer','lot','testingrequisition'));
     }
 
     public function AddSampleTestingRequisition()
@@ -373,7 +377,9 @@ class SampleTestingRequisitionController extends Controller
         //     'requisition' => $sampleRequisition,
         // ];
         $pdf = Pdf::loadView('backend.quality_control.sample_testing_requisition.generate-pdf-report', compact('testinggetid','sampleRequisition'));
-        return $pdf->stream('sample-testing-requisition-report.pdf');
+        header('Content-Type: application/pdf');
+        header('Content-Disposition: inline; filename="sample-testing-requisition-report.pdf"');
+        return $pdf->stream('sample-testing-requisition-report.pdf', array("Attachment" => false));
         // return view('backend.quality_control.sample_testing_requisition.generate-requisition-pdf', compact('testinggetid','sampleRequisition'));
     }
 

@@ -20,7 +20,7 @@ body {
 }
 
 .pdf-container {
-    padding: 20px;
+    padding: 15px;
     border: 2px solid black; /* Garis di setiap sisi kertas */
     height: 100vh; /* Menyebar sepanjang halaman */
     position: relative;
@@ -34,7 +34,7 @@ h1 {
 h2 {
     text-align: center;
     font-size: 25px;
-    margin-bottom: 50px;
+    margin-bottom: 25px;
 }
 
 .form-row {
@@ -108,6 +108,16 @@ hr {
     font-size: 13px;
     width: 20%;
 }
+.test_result {
+    font-size: 13px;
+    width: 20%;
+    margin-right: 40px;
+}
+.check_by {
+    font-size: 13px;
+    width: 20%;
+    margin-right: 50px;
+}
 .estcompletiondate {
     font-size: 13px;
     width: 25%;
@@ -154,7 +164,7 @@ body::before, body::after {
     left: 0;
     right: 0;
     bottom: 0;
-    border: 5px solid black;
+    /* border: 5px solid black; */
     pointer-events: none;
     z-index: -1;
 }
@@ -162,15 +172,29 @@ body::before, body::after {
 .modelreport {
     font-size: 15px;
 }
+.doc-number {
+    text-align: right;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
 
 
 </style>
 
 </head>
 <body>
-    <div class="pdf-container">
         <h1>PT SIMATELEX MANUFACTORY BATAM</h1>
         <h2>SAMPLE TESTING REQUISITION</h2>
+        <div class="doc-number">
+            <strong>Doc No: </strong> {{ $sampleRequisition->process->process }}/
+            {{ $sampleRequisition->lot->lot }}/
+            {{ $sampleRequisition->modelBrewer->model }}/
+            {{ $sampleRequisition->sample_subtmitted_date }}/
+            {{ $sampleRequisition->do_no }}/
+            {{ $sampleRequisition->incomming_number }}
+        </div>
+    <div class="pdf-container">
+        
         <div class="form-row">
             <div class="form-group">
                 <label class="model" for="name">Model</label>
@@ -263,10 +287,15 @@ body::before, body::after {
             <label for="address">Other Purpose/Remarks</label>
             <textarea id="address" name="address">{{ $sampleRequisition->test_purpose }}</textarea>
         </div>
-        <br>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label class="check_by" for="name">Check By</label>
+                <input class="check_by" type="text" value="{{ $sampleRequisition->check_by }}">
+            </div>
+        </div>
         <br>
         <hr>
-        <br>
 
         <div class="form-row">
             <div class="form-group">
@@ -295,9 +324,14 @@ body::before, body::after {
                 <input class="estcompletiondate" type="text" id="name" name="name" value="{{ $sampleRequisition->sampleReport->est_of_completion_date }}">
             </div>
         </div>
+        <br>
+        <div class="form-row">
+            <div class="form-group">
+                <label class="test_result" for="name">Test Result:</label>
+                <input class="test_result" type="text" value="{{ $sampleRequisition->sampleReport->result_test }}">
+            </div>
+        </div>
 
-        <br>
-        <br>
 
     </div>
 

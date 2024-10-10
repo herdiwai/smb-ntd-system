@@ -50,6 +50,28 @@ class SampleTestingReportContoller extends Controller
                     return '<span class="badge bg-success">complete</span>';
                 }
             })
+            // status review by QE-IQC
+            ->addColumn('status_review_qe_iqc', function($testingrequisition) {
+                if($testingrequisition->status_approvals_id_qe == '3' OR $testingrequisition->status_approvals_id_qe == ''){
+                    return '<span class="badge bg-warning">pending</span>';
+                }elseif($testingrequisition->status_approvals_id_qe == '2'){
+                    return '<span class="badge bg-danger">rejected</span>';
+                }elseif($testingrequisition->status_approvals_id_qe == '1'){
+                    return '<span class="badge bg-success">review</span>';
+                }
+            })
+
+            // status review by QE-QCA
+            ->addColumn('status_review_qe_qca', function($testingrequisition) {
+                if($testingrequisition->status_approvals_id_spv == '3'){
+                    return '<span class="badge bg-warning">pending</span>';
+                }elseif($testingrequisition->status_approvals_id_spv == '2') {
+                    return '<span class="badge bg-danger">rejected</span>';
+                }else{
+                    return '<span class="badge bg-success">review</span>';
+                }
+            })
+            //status approvals by manager
             ->addColumn('status_approvals', function($testingrequisition) {
                 if($testingrequisition->statusApprovals->status == 'pending'){
                     return '<span class="badge bg-warning">'.$testingrequisition->statusApprovals->status.'</span>';
@@ -76,7 +98,7 @@ class SampleTestingReportContoller extends Controller
                 return $actionBtn;
             })
 
-            ->rawColumns(['status_report','status_approvals','action_report','action'])
+            ->rawColumns(['status_report','status_approvals','action_report','action','status_review_qe_iqc','status_review_qe_qca'])
             ->make(true);
         }
 

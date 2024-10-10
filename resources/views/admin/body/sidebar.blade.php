@@ -188,7 +188,7 @@
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents05" role="button" aria-expanded="false" aria-controls="uiComponents05">
               <i class="link-icon" data-feather="folder"></i>
-              <span class="link-title">Spv Review</span>
+              <span class="link-title">QE-QCA Review</span>
               <i class="link-arrow" data-feather="chevron-down"></i>
             </a>
             <div class="collapse" id="uiComponents05">
@@ -209,7 +209,7 @@
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents06" role="button" aria-expanded="false" aria-controls="uiComponents06">
               <i class="link-icon" data-feather="folder"></i>
-              <span class="link-title">QE Review</span>
+              <span class="link-title">QE-IQC Review</span>
               <i class="link-arrow" data-feather="chevron-down"></i>
             </a>
             <div class="collapse" id="uiComponents06">

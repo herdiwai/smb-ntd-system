@@ -20,7 +20,7 @@
             </div>
             
             <div class="mt-3">
-              <label class="tx-11 fw-bolder mb-0 text-uppercase">Name:</label>
+              <label class="tx-11 fw-bolder mb-0 text-uppercase">Badge ID:</label>
               <p class="text-muted">{{ $profileData->name }}</p>
             </div>
             <div class="mt-3">
@@ -69,7 +69,7 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Name</label>
+                            <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Badge ID</label>
                             <div class="col-sm-9">
                                 <input type="text" name="name" value="{{ $profileData->name }}" class="form-control" id="exampleInputEmail2" autocomplete="off">
                             </div>

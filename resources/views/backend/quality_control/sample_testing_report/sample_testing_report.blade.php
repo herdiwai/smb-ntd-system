@@ -23,7 +23,9 @@
                                     <th>Series</th>
                                     <th>No of samples</th>
                                     <th>status report</th>
-                                    <th>Status Approvals</th>
+                                    <th>status review QE-IQC</th>
+                                    <th>status review QE-QCA</th>
+                                    <th>Status Approvals Manager</th>
                                     <th>Action Report</th>
                                     @if(Auth::user()->can('column.delete'))
                                     <th>action</th>
@@ -117,6 +119,14 @@
                     {
                         data: 'status_report',
                         name: 'status_report',
+                    },
+                    {
+                        data: 'status_review_qe_iqc',
+                        name: 'status_review_qe_iqc',
+                    },
+                    {
+                        data: 'status_review_qe_qca',
+                        name: 'status_review_qe_qca',
                     },
                     {
                         data: 'status_approvals',
