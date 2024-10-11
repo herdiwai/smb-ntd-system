@@ -10,7 +10,7 @@
         <form class="search-form">
             <div class="input-group">
               <div class="input-group-text">
-                <p>LOGIN ACCOUNT -- LEVEL : {{ $profileData->username  }} | BadgeID :  {{ $profileData->name }}</p>&nbsp;&nbsp;
+                <p>LOGIN ACCOUNT : {{ $profileData->username  }}</p>&nbsp;&nbsp;
                 <a href="{{ route('admin.logout') }}" class="btn btn-inverse-danger btn-xs "><i data-feather="log-out" style="width: 16px; height: 16px;"></i>&nbsp;LOGOUT</a>
                 {{-- <i data-feather="search"></i> --}}
               </div>

@@ -287,7 +287,7 @@
                                         @elseif($items->status_approvals_id_qe == '1' OR $items->status_approvals_id_qe == '2' OR $items->status_approvals_id_spv == '2')
                                         <td>
                                             <button type="button" class="btn btn-inverse-success btn-xs" data-bs-toggle="modal" data-bs-target="#approvalModal" onclick="openApprovalModal({{ $items->id }})" title="Approvals">
-                                                <i data-feather="check-square" style="width: 16px; height: 16px;"></i>
+                                                <i data-feather="check-square" style="width: 16px; height: 16px;"></i> Approved/Rejected
                                             </button>
                                             </td>
                                         @elseif($items->status_approvals_id_spv == '')
@@ -304,7 +304,7 @@
                                         @elseif($items->status_approvals_id == '3' OR $items->status_approvals_id == '2')
                                         <td>
                                             <button type="button" class="btn btn-inverse-success btn-xs" data-bs-toggle="modal" data-bs-target="#approvalModalManager" onclick="openApprovalModalManager({{ $items->id }})" title="Approvals">
-                                                Approved/Rejected
+                                                <i data-feather="check-square" style="width: 16px; height: 16px;"></i> Approved/Rejected
                                             </button>
                                         </td>
                                         @elseif($items->status_approvals_id == '1')
@@ -317,15 +317,15 @@
 
                                         {{-- Button Action Approval by QE --}}
                                         @if(Auth::user()->can('action.approvalsQE'))
-                                        @if($items->status == 'incomplete')
-                                            <td><p style="color: red">status report not completed</p></td>
-                                        @elseif($items->status_approvals_id_qe == '2' OR $items->status_approvals_id_qe == '3')
+                                        {{-- @if($items->status_approvals_id_qe == '23')
+                                            <td><p style="color: red">status report not completed</p></td> --}}
+                                        @if($items->status == 'incomplete' OR $items->status_approvals_id_qe == '2' OR $items->status_approvals_id_qe == '')
                                             <td>
                                                 <button type="button" class="btn btn-inverse-success btn-xs" data-bs-toggle="modal" data-bs-target="#approvalModalQe" onclick="openApprovalModalQe({{ $items->id }})" title="Approvals">
-                                                    <i data-feather="check-square" style="width: 16px; height: 16px;"></i>
+                                                    <i data-feather="check-square" style="width: 16px; height: 16px;"></i> Approved/Rejected
                                                 </button>
                                             </td>
-                                        @elseif($items->status_approvals_id_qe == '1' OR $items->status == 'complete' OR $items->status_approvals_id == '1')
+                                        @elseif($items->status_approvals_id_qe == '1')
                                             <td>
                                                 <p style="color: green">REVIEW</p>
                                             </td>
@@ -368,22 +368,22 @@
                                         in_array($items->status_approvals_id_spv, [2, 3]) || 
                                         in_array($items->status_approvals_id_qe, [2, 3]))
                                         <td>
-                                            <p style="color: red">can't download pdf/form status not complete</p>
+                                            <p style="color: red">can't download pdf/incomplete form status</p>
                                         </td>
                                         @else
                                             <td><a href="{{ route('requisition.export-pdf', $items->id ) }}" class="btn btn-inverse-danger btn-xs" title="Export-PDF"><i data-feather="download" style="width: 16px; height: 16px;"></i></a></td>
                                         @endif
 
                                         {{-- status Notes QE-IQC  --}}
-                                        @if($items->status_approvals_id_qe == '3' OR $items->status_approvals_id_qe == '1')
-                                            <td class="notes_qe_iqc"> <p style="color: rgb(253, 253, 253)">tidak ada catatan</p></td>
+                                        @if($items->status_approvals_id_qe == '3' OR $items->status_approvals_id_qe == '1' OR $items->status_approvals_id_qe == '')
+                                            <td class="notes_qe_iqc"> <p style="color: rgb(253, 253, 253)">no record.</p></td>
                                         @elseif($items->status_approvals_id_qe == '2')
                                             <td class="notes_qe_iqc"> <p style="color: red;">{{ $items->notes_qe }}</p></td>
                                         @endif
 
                                         {{-- status Notes QE-QCA  --}}
-                                        @if($items->status_approvals_id_spv == '3' OR $items->status_approvals_id_spv == '1')
-                                            <td class="notes_qe_qca"> <p style="color: rgb(253, 253, 253)">tidak ada catatan</p></td>
+                                        @if($items->status_approvals_id_spv == '3' OR $items->status_approvals_id_spv == '1' OR $items->status_approvals_id_spv == '')
+                                            <td class="notes_qe_qca"> <p style="color: rgb(253, 253, 253)">no record.</p></td>
                                         @elseif($items->status_approvals_id_spv == '2')
                                             <td class="notes_qe_qca"> <p style="color: red;">{{ $items->notes_spv }}</p></td>
                                         @endif

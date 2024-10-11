@@ -17,6 +17,22 @@
             height: 100%;
             background-image: url({{ asset('upload/login.png') }});
         }
+
+        /* .color-changing-text {
+            font-size: 24px;
+            font-weight: bold;
+            animation: colorChange 3s infinite; /* Set animation to run infinitely */
+        } */
+
+        /* Define the color change animation */
+        /* @keyframes colorChange {
+            0% { color: red; }
+            25% { color: blue; }
+            50% { color: green; }
+            75% { color: orange; }
+            100% { color: purple; }
+        } */
+
     </style>
 
   <!-- Fonts -->
@@ -47,7 +63,6 @@
 	<div class="main-wrapper">
 		<div class="page-wrapper full-page">
 			<div class="page-content d-flex align-items-center justify-content-center">
-
                 <div class="row w-100 mx-0 auth-page">
                     <div class="col-md-8 col-xl-6 mx-auto">
                         <div class="card">
@@ -58,15 +73,16 @@
                 </div>
 
                 <div class="col-md-8 ps-md-0">
+                    {{-- <h4 style="margin-left: 120px;">PT SIMATELEX MANUFACTORY BATAM</h2> --}}
                     <div class="auth-form-wrapper px-4 py-5">
-                        <a href="#" class="noble-ui-logo logo-light d-block mb-2">BTM-<span style="color: orangered">System</span></a>
+                        <a href="#" class="noble-ui-logo logo-light d-block mb-2">BTM-<span style="color: rgb(238, 145, 47);">System</span></a>
                         {{-- <h5 class="text-muted fw-normal mb-4">Welcome back! Log in to your account.</h5> --}}
 
                         <form class="forms-sample" action="{{ route('login') }}" method="post">
                             @csrf
                             <div class="mb-3">
-                                <label for="login" class="form-label">Badge ID</label>
-                                <input type="text" name="login" class="form-control" id="login" placeholder="enter your badge_id number..">
+                                <label for="login" class="form-label">Email</label>
+                                <input type="email" name="login" class="form-control" id="login" placeholder="Btm-ntd@gmail.com">
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password</label>
@@ -82,9 +98,11 @@
                                 <button type="submit" class="btn btn-outline-primary btn-icon-text mb-2 mb-md-0"><i data-feather="log-in" style="width: 17px; height: 17px;"></i> Login</button>
                             </div>
                             {{-- <a href="register.html" class="d-block mt-3 text-muted">Not a user? Sign up</a> --}}
+                            
                         </form>
 
                     </div>
+                    <p class="color-changing-text" style="margin-left: 200px; margin-bottom: 20px; color:rgb(238, 145, 47);">PT SIMATELEX MANUFACTORY BATAM</p>
                 </div>
             </div>
 						</div>

@@ -30,6 +30,8 @@
                                     @if(Auth::user()->can('column.delete'))
                                     <th>action</th>
                                     @endif
+                                    {{-- <th>Notes QE-IQC</th> --}}
+                                    <th>Notes QE-QCA</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -135,6 +137,10 @@
                     {
                         data: 'action_report',
                         name: 'action_report',
+                    },
+                    {
+                        data: 'notes_qe_qca',
+                        name: 'notes_qe_qca',
                     },
                     ];
                     if(canDelete) {

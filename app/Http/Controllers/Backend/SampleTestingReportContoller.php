@@ -97,8 +97,26 @@ class SampleTestingReportContoller extends Controller
                 }
                 return $actionBtn;
             })
+            //status approved/rejected QE-IQC
+            // ->addColumn('notes_qe_iqc', function($testingrequisition) {
+            //     if($testingrequisition->status_approvals_id_qe == '3' OR $testingrequisition->status_approvals_id_qe == '1' OR $testingrequisition->status_approvals_id_qe == ''){
+            //         return '<p style="color: rgb(253, 253, 253)">no record.</p>';
+            //     }elseif($testingrequisition->status_approvals_id_qe == '2') {
+            //         return '<p style="color: red;">'.$testingrequisition->notes_qe.'</p>';
+                    
+            //     }
+            // })
+            //status approved/rejected QE-QCA
+            ->addColumn('notes_qe_qca', function($testingrequisition) {
+                if($testingrequisition->status_approvals_id_spv == '3' OR $testingrequisition->status_approvals_id_spv == '1' OR $testingrequisition->status_approvals_id_spv == ''){
+                    return '<p style="color: rgb(253, 253, 253)">no record.</p>';
+                }elseif($testingrequisition->status_approvals_id_spv == '2') {
+                    return '<p style="color: red;">'.$testingrequisition->notes_spv.'</p>';
+                    
+                }
+            })
 
-            ->rawColumns(['status_report','status_approvals','action_report','action','status_review_qe_iqc','status_review_qe_qca'])
+            ->rawColumns(['status_report','status_approvals','action_report','action','status_review_qe_iqc','status_review_qe_qca','notes_qe_qca'])
             ->make(true);
         }
 

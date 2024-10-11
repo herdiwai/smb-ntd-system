@@ -56,13 +56,14 @@
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-3">
-                                                <label for="lot" class="col-form-label col-form-label-sm"><b>Lot</b></label>
+                                                <label for="process" class="col-form-label col-form-label-sm"><b>Process</b></label>
                                             </div>
                                             <div class="col">
-                                                <select id="lot" name="lot_id" class="form-select form-select-sm">
-                                                    <option value="">Select Lot</option>
-                                                    @foreach($lot as $lots)
-                                                        <option value="{{ $lots->id }}">{{ $lots->lot }}</option>
+                                                <select id="process" name="processes_id" class="form-select form-select-sm">
+                                                    <option value="">Select Process</option>
+                                                    @foreach($process as $processs)
+                                                        {{-- <option value="{{ $processs->id }}">{{ $processs->process }}</option> --}}
+                                                        <option value="{{ $processs->id }}" {{ old('process') == $processs ? 'selected' : '' }}>{{ $processs->process }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -115,14 +116,20 @@
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-3">
-                                                <label for="series" class="col-form-label col-form-label-sm"><b>Series</b></label>
+                                                <label for="lot" class="col-form-label col-form-label-sm"><b>Lot</b></label>
                                             </div>
                                             <div class="col">
-                                                <input type="text" class="form-control form-control-sm" id="series" name="series">
+                                                <select id="lot" name="lot_id" class="form-select form-select-sm">
+                                                    <option value="">Select Lot</option>
+                                                    @foreach($lot as $lots)
+                                                        <option value="{{ $lots->id }}">{{ $lots->lot }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                
                             </div>    
 
                             <div class="row">
@@ -173,20 +180,15 @@
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-3">
-                                                <label for="process" class="col-form-label col-form-label-sm"><b>Process</b></label>
+                                                <label for="series" class="col-form-label col-form-label-sm"><b>Series</b></label>
                                             </div>
                                             <div class="col">
-                                                <select id="process" name="processes_id" class="form-select form-select-sm">
-                                                    <option value="">Select Process</option>
-                                                    @foreach($process as $processs)
-                                                        {{-- <option value="{{ $processs->id }}">{{ $processs->process }}</option> --}}
-                                                        <option value="{{ $processs->id }}" {{ old('process') == $processs ? 'selected' : '' }}>{{ $processs->process }}</option>
-                                                    @endforeach
-                                                </select>
+                                                <input type="text" class="form-control form-control-sm" id="series" name="series">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
@@ -228,7 +230,8 @@
                                             <label for="completionDate" class="col-form-label col-form-label-sm"><b>Completion Date</b></label>
                                         </div>
                                         <div class="col">
-                                            <input type="date" name="completion_date" id="completionDate" class="form-control form-control-sm" placeholder="Select date" data-input>
+                                            <input type="text" name="completion_date" class="form-control form-control-sm">
+                                            {{-- <input type="text" name="completion_date" id="completionDate" class="form-control form-control-sm" placeholder="Select date" data-input> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -243,7 +246,8 @@
                                             <label for="traceabilityDate" class="col-form-label col-form-label-sm"><b>Traceability (Date Code)</b></label>
                                         </div>
                                         <div class="col">
-                                            <input type="text" name="tracebility_datecode" class="form-control form-control-sm">
+                                            {{-- <input type="text" name="tracebility_datecode" class="form-control form-control-sm"> --}}
+                                            <input type="date" name="tracebility_datecode" id="completionDate" class="form-control form-control-sm" placeholder="Select date" data-input>
                                         </div>
                                     </div>
                                 </div>
