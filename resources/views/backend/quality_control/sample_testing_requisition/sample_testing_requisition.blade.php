@@ -190,6 +190,8 @@
                                     @endif
                                     <th>Export to PDF</th>
                                     <th hidden>Export to PDF</th>
+                                    <th>Notes QE-IQC</th>
+                                    <th>Notes QE-QCA</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -370,6 +372,20 @@
                                         </td>
                                         @else
                                             <td><a href="{{ route('requisition.export-pdf', $items->id ) }}" class="btn btn-inverse-danger btn-xs" title="Export-PDF"><i data-feather="download" style="width: 16px; height: 16px;"></i></a></td>
+                                        @endif
+
+                                        {{-- status Notes QE-IQC  --}}
+                                        @if($items->status_approvals_id_qe == '3' OR $items->status_approvals_id_qe == '1')
+                                            <td class="notes_qe_iqc"> <p style="color: rgb(253, 253, 253)">tidak ada catatan</p></td>
+                                        @elseif($items->status_approvals_id_qe == '2')
+                                            <td class="notes_qe_iqc"> <p style="color: red;">{{ $items->notes_qe }}</p></td>
+                                        @endif
+
+                                        {{-- status Notes QE-QCA  --}}
+                                        @if($items->status_approvals_id_spv == '3' OR $items->status_approvals_id_spv == '1')
+                                            <td class="notes_qe_qca"> <p style="color: rgb(253, 253, 253)">tidak ada catatan</p></td>
+                                        @elseif($items->status_approvals_id_spv == '2')
+                                            <td class="notes_qe_qca"> <p style="color: red;">{{ $items->notes_spv }}</p></td>
                                         @endif
                                     </tr>
                                 @endforeach 
@@ -576,12 +592,17 @@
                               </div>
 
                               <div class="row mb-3">
-                                  <label for="qe_review" class="col-sm-3 col-form-label">QE Review</label>
+                                  <label for="qe_review" class="col-sm-3 col-form-label">QE-IQC Review</label>
                                   <div class="col-sm-9">
-                                      <input type="text" class="form-control qe_review" id="qe_review" disabled>
+                                      <input type="text" class="form-control qe_review" id="qe_review" value="tidak ada" disabled>
                                   </div>
                               </div>
-
+                              <div class="row mb-3">
+                                  <label for="notes_qe_iqc" class="col-sm-3 col-form-label">Notes QE-IQC</label>
+                                  <div class="col-sm-9">
+                                      <input type="text" class="form-control notes_qe_iqc" id="notes_qe_iqc" disabled>
+                                  </div>
+                              </div>
                           </form>
         </div>
       </div>
@@ -652,18 +673,27 @@
                                       <input type="text" class="form-control status_report" id="status" disabled>
                                   </div>
                               </div>
+                              
                               <div class="row mb-3">
-                                  <label for="status_approvals_spv" class="col-sm-3 col-form-label">Approvals Spv</label>
-                                  <div class="col-sm-9">
-                                      <input type="text" class="form-control status_approvals_spv" id="status_approvals_spv" disabled>
-                                  </div>
-                              </div>
+                                <label for="status_approvals_spv" class="col-sm-3 col-form-label">QE-QCA Review</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control status_approvals_spv" id="status_approvals_spv" disabled>
+                                </div>
+                            </div>
+
                               <div class="row mb-3">
-                                  <label for="status_approvals_manager" class="col-sm-3 col-form-label">Approvals Manager</label>
-                                  <div class="col-sm-9">
-                                      <input type="text" class="form-control status_approvals_manager" id="status_approvals_manager" disabled>
-                                  </div>
-                              </div>
+                                <label for="notes_qe_qca" class="col-sm-3 col-form-label">Notes QE-QCA</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control notes_qe_qca" id="notes_qe_qca" disabled>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="status_approvals_manager" class="col-sm-3 col-form-label">Approvals Manager</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control status_approvals_manager" id="status_approvals_manager" disabled>
+                                </div>
+                            </div>
 
                           </form>
 
@@ -746,6 +776,8 @@
             $('.status_approvals_spv').val(_this.find('.status_approvals_spv').text());
             $('.status_approvals_manager').val(_this.find('.status_approvals_manager').text());
             $('.qe_review').val(_this.find('.qe_review').text());
+            $('.notes_qe_iqc').val(_this.find('.notes_qe_iqc').text());
+            $('.notes_qe_qca').val(_this.find('.notes_qe_qca').text());
     });
   </script>
   

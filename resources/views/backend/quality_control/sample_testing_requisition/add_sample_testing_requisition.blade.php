@@ -5,8 +5,8 @@
 
 <div class="page-content">
 
-    <div class="row">
-        <div class="col-md-12 grid-margin stretch-card">
+    <div class="row justify-content-center">
+        <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
                     <h6 class="card-title"><b>FORM INPUT SAMPLE TESTING REQUISITION </b></h6>
@@ -56,10 +56,10 @@
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-3">
-                                                <label for="lot" class="col-form-label"><b>Lot</b></label>
+                                                <label for="lot" class="col-form-label col-form-label-sm"><b>Lot</b></label>
                                             </div>
                                             <div class="col">
-                                                <select id="lot" name="lot_id" class="form-select">
+                                                <select id="lot" name="lot_id" class="form-select form-select-sm">
                                                     <option value="">Select Lot</option>
                                                     @foreach($lot as $lots)
                                                         <option value="{{ $lots->id }}">{{ $lots->lot }}</option>
@@ -73,10 +73,10 @@
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-3">
-                                                <label for="model" class="col-form-label"><b>Model</b></label>
+                                                <label for="model" class="col-form-label col-form-label-sm"><b>Model</b></label>
                                             </div>
                                             <div class="col">
-                                                <select id="model" name="model_id" class="form-select">
+                                                <select id="model" name="model_id" class="form-select form-select-sm">
                                                     <option value="">Select Model</option>
                                                     @foreach($modelbrewer as $models)
                                                         {{-- <option value="{{ $models->id }}">{{ $models->model }}</option> --}}
@@ -97,10 +97,10 @@
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-3">
-                                                <label for="shift" class="col-form-label"><b>Shift</b></label>
+                                                <label for="shift" class="col-form-label col-form-label-sm"><b>Shift</b></label>
                                             </div>
                                             <div class="col">
-                                                <select id="shift" name="shift_id" class="form-select">
+                                                <select id="shift" name="shift_id" class="form-select form-select-sm">
                                                     <option value="">Select Shift</option>
                                                     @foreach($shift as $shifts)
                                                         {{-- <option value="{{ $shifts->id }}">{{ $shifts->shift }}</option> --}}
@@ -115,10 +115,10 @@
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-3">
-                                                <label for="series" class="col-form-label"><b>Series</b></label>
+                                                <label for="series" class="col-form-label col-form-label-sm"><b>Series</b></label>
                                             </div>
                                             <div class="col">
-                                                <input type="text" class="form-control" id="series" name="series">
+                                                <input type="text" class="form-control form-control-sm" id="series" name="series">
                                             </div>
                                         </div>
                                     </div>
@@ -130,11 +130,11 @@
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
-                                            <div class="col-sm-3">
-                                                <label for="noOfSample" class="col-form-label"><b>No Of Sample</b></label>
+                                            <div class="col">
+                                                <label for="noOfSample" class="col-form-label col-form-label-sm"><b>No Of Sample</b></label>
                                             </div>
                                             <div class="col">
-                                                <input type="text" class="form-control" id="noOfSample" name="no_of_sample">
+                                                <input type="text" class="form-control form-control-sm" id="noOfSample" name="no_of_sample">
                                             </div>
                                         </div>
                                     </div>
@@ -143,10 +143,10 @@
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-3">
-                                                <label for="cONo" class="col-form-label"><b>C/O No.</b></label>
+                                                <label for="cONo" class="col-form-label col-form-label-sm"><b>C/O No.</b></label>
                                             </div>
                                             <div class="col">
-                                                <input type="text" class="form-control" id="co_no" placeholder="" name="co_no">
+                                                <input type="text" class="form-control form-control-sm" id="co_no" placeholder="" name="co_no">
                                             </div>
                                         </div>
                                     </div>  
@@ -160,11 +160,11 @@
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
-                                            <div class="col-sm-3">
-                                                <label for="" class="col-form-label"><b>Do Number</b></label>
+                                            <div class="col">
+                                                <label for="" class="col-form-label col-form-label-sm"><b>Do Number</b></label>
                                             </div>
                                             <div class="col">
-                                                <input type="text" class="form-control" id="" placeholder="" name="do_no">
+                                                <input type="text" class="form-control form-control-sm" id="" placeholder="" name="do_no">
                                             </div>
                                         </div>
                                     </div>  
@@ -173,10 +173,10 @@
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-3">
-                                                <label for="process" class="col-form-label"><b>Process</b></label>
+                                                <label for="process" class="col-form-label col-form-label-sm"><b>Process</b></label>
                                             </div>
                                             <div class="col">
-                                                <select id="process" name="processes_id" class="form-select">
+                                                <select id="process" name="processes_id" class="form-select form-select-sm">
                                                     <option value="">Select Process</option>
                                                     @foreach($process as $processs)
                                                         {{-- <option value="{{ $processs->id }}">{{ $processs->process }}</option> --}}
@@ -190,11 +190,11 @@
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
-                                            <div class="col-sm-3">
-                                                <label for="mfgSample" class="col-form-label"><b>MFG Sample Date</b></label>
+                                            <div class="col">
+                                                <label for="mfgSample" class="col-form-label col-form-label-sm"><b>MFG Sample Date</b></label>
                                             </div>
                                             <div class="col">
-                                                <input type="date" class="form-control" name="mfg_sample_date" id="mfgSample" placeholder="">
+                                                <input type="date" class="form-control form-control-sm" name="mfg_sample_date" id="mfgSample" placeholder="">
                                             </div>
                                         </div>
                                     </div>
@@ -212,11 +212,11 @@
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
                                     <div class="form-row align-items-center">
-                                        <div class="col-sm-5">
-                                            <label for="sampleSubmittedDate" class="col-form-label"><b>Sample Submitted (Date)</b></label>
+                                        <div class="col">
+                                            <label for="sampleSubmittedDate" class="col-form-label col-form-label-sm"><b>Sample Submitted (Date)</b></label>
                                         </div>
                                         <div class="col">
-                                            <input type="date" name="sample_subtmitted_date" id="sampleSubmittedDate" class="form-control" placeholder="Select date" data-input>
+                                            <input type="date" name="sample_subtmitted_date" id="sampleSubmittedDate" class="form-control form-control-sm" placeholder="Select date" data-input>
                                         </div>
                                     </div>
                                 </div>
@@ -224,11 +224,11 @@
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
                                     <div class="form-row align-items-center">
-                                        <div class="col-sm-3">
-                                            <label for="completionDate" class="col-form-label"><b>Completion Date</b></label>
+                                        <div class="col">
+                                            <label for="completionDate" class="col-form-label col-form-label-sm"><b>Completion Date</b></label>
                                         </div>
                                         <div class="col">
-                                            <input type="date" name="completion_date" id="completionDate" class="form-control" placeholder="Select date" data-input>
+                                            <input type="date" name="completion_date" id="completionDate" class="form-control form-control-sm" placeholder="Select date" data-input>
                                         </div>
                                     </div>
                                 </div>
@@ -239,11 +239,11 @@
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
                                     <div class="form-row align-items-center">
-                                        <div class="col-sm-5">
-                                            <label for="traceabilityDate" class="col-form-label"><b>Traceability (Date Code)</b></label>
+                                        <div class="col">
+                                            <label for="traceabilityDate" class="col-form-label col-form-label-sm"><b>Traceability (Date Code)</b></label>
                                         </div>
                                         <div class="col">
-                                            <input type="text" name="tracebility_datecode" class="form-control" >
+                                            <input type="text" name="tracebility_datecode" class="form-control form-control-sm">
                                         </div>
                                     </div>
                                 </div>
@@ -255,7 +255,7 @@
                         <!-- Test Purpose Section -->
 
                         <div class="form-group mb-3">
-                            <label for="test-purpose" class="form-label"><b>Test Purpose</b></label>
+                            <label for="test-purpose" class="form-label form-label-sm"><b>Test Purpose</b></label>
 
                             <div class="row mb-3">
                                 <!-- Checkbox Group 1 -->                               
@@ -385,19 +385,20 @@
                                     </div>
                                 </div>
                                 &nbsp;
-
-                                <div class="form-group">
-                                    <div class="form-row">
-                                        <label for="qeReview"><b>Check By</b></label>
-                                        {{-- <input type="text" class="form-control" value="{{ $profileData->username }}" id="name" placeholder=""name="check_by" readonly> --}}
-                                        <input type="text" class="form-control" id="name" placeholder=""name="check_by">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="form-row">
+                                            <label for="qeReview"><b>Check By</b></label>
+                                            {{-- <input type="text" class="form-control" value="{{ $profileData->username }}" id="name" placeholder=""name="check_by" readonly> --}}
+                                            <input type="text" class="form-control form-control-sm" id="name" placeholder=""name="check_by">
+                                        </div>
                                     </div>
+                                    <br>
+                                        <button class="btn btn-primary btn-sm" type="submit"><i data-feather="send" style="width: 16px; height: 16px;"></i> SAVE</button>
                                 </div>
                             </div>
                         </div>
 
-                        <button class="btn btn-primary btn-sm" type="submit"><i data-feather="send"></i> SAVE</button>
-                        
                     </form>
                 </div>
             </div>

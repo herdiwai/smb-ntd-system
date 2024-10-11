@@ -98,6 +98,9 @@ hr {
 .testpurpose {
     margin-right: 95px;
 }
+.test_item {
+    margin-right: 125px;
+}
 .regaccepted {
     margin-right: 50px;
 }
@@ -135,7 +138,7 @@ hr {
 
 textarea {
     width: 200%;
-    padding: 5px;
+    padding: 3px;
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 14px;
@@ -144,15 +147,16 @@ textarea {
 
 input {
     width: 25%;
-    padding: 10px;
-    border: 1px solid #ddd;
+    padding: 5px;
+    border: 1px solid #585454;
     border-radius: 2px;
     font-size: 14px;
     position: absolute;
 }
 
 textarea {
-    height: 100px;
+    height: 90px;
+    border: 1px solid #585454;
     resize: none;
 }
 
@@ -334,136 +338,177 @@ body::before, body::after {
 
 
     </div>
-
+<br>
+<br>
 
 
     {{-- SAMPLE TESTING REPORT --}}
 
-    {{-- <div class="pdf-container">
-        <h1>PT SIMATELEX MANUFACTORY BATAM</h1>
-        <h2>SAMPLE TESTING REPORT</h2>
-        <div class="form-row">
-            <div class="form-group">
-                <label class="modelreport" for="name">Model</label>
-                <input type="text" id="name" name="name" style="padding: 3px; width: 15%;" value="OPP">
-            </div>
-            <div class="form-group">
-                <label style="margin-left: -120px;" for="name">No of Sample</label>
-                <input style="width:15%; padding:3px;" type="text" id="name" name="name" value="2pcs">
-            </div>
-            <div class="form-group">
-                <label style="margin-right: 300px;" for="name">No of Sample</label>
-                <input style="width:15%; padding:3px;" type="text" id="name" name="name" value="2pcs">
-            </div>
-        </div>
-        <br>
-
-        <div class="form-row">
-            <div class="form-group">
-                <label class="series" for="name">Series</label>
-                <input type="text" id="name" name="name" value="RRU172337901DST">
-            </div>
-            <div class="form-group">
-                <label class="process" for="name">Process</label>
-                <input type="text" id="name" name="name" value="QCA">
-            </div>
-        </div>
-
-        <br>
-
-        <div class="form-row">
-            <div class="form-group">
-                <label for="name">C/O No</label>
-                <input type="text" id="name" name="name" value="N/A">
-            </div>
-            <div class="form-group">
-                <label class="mfg" for="name">MFG Sample Date</label>
-                <input type="text" id="name" name="name" value="2024-10-07">
-            </div>
-        </div>
-        <br>
-        <hr>
-        <br>
-
-        <div class="form-row">
-            <div class="form-group">
-                <label for="name">Received Sample (Date)</label>
-                <input class="purposesize" type="text" id="name" name="name" value="2024-10-07">
-            </div>
-        </div>
-
-        <br>
-
-        <div class="form-row">
-            <div class="form-group">
-                <label class="tracebilitydatecode" for="name">Tracebility (Date Code)</label>
-                <input class="purposesize" type="text" id="name" name="name" value="2024-10-07">
-            </div>
-        </div>
-
-        <br>
-
-        <div class="form-row">
-            <div class="form-group">
-                <label class="completiondate" for="name">Person in Charge</label>
-                <input class="purposesize" type="text" id="name" name="name" value="2024-10-07">
-            </div>
-        </div>
-        <br>
-        <hr>
-        <br>
-
-        <div class="form-row">
-            <div class="form-group">
-                <label class="testpurpose" for="name">Test Purpose</label>
-                <input class="purposesize" type="text" id="name" name="name" value="Normal Life and Realibity Test">
-            </div>
-        </div>
-        <br>
-        <div class="form-row">
-            <div class="form-group">
-                <label class="testpurpose" for="name">Test Item</label>
-                <input class="purposesize" type="text" id="name" name="name" value="Normal Life and Realibity Test">
-            </div>
-        </div>
-
-        <br>
-
-        <div class="form-group">
-            <label for="address">Summary</label>
-            <textarea id="address" name="address">Before :</textarea>
-        </div>
-        <hr>
-        <br>
-
-        <div class="form-row">
-            <div class="form-group">
-                <label class="qereview" for="name">QE Review</label>
-                <input class="qereview" type="text" id="name" name="name" value="Rino">
-            </div>
-            <div class="form-group">
-                <label class="regaccepted" for="name">Reg Accepted</label>
-                <input type="text" id="name" name="name" value="Yes">
-            </div>
-        </div>
-
-        <br>
-
-        <div class="form-row">
-            <div class="form-group">
-                <label class="scheduletest" for="name">Schedule of Test</label>
-                <input class="scheduletest" type="text" id="name" name="name" value="2024-10-07">
-            </div>
-            <div class="form-group">
-                <label class="estcompletiondate" for="name">Est of Completion Date</label>
-                <input class="estcompletiondate" type="text" id="name" name="name" value="2024-10-08">
-            </div>
-        </div>
-
-        <br>
-        <br>
-
+    <h1>PT SIMATELEX MANUFACTORY BATAM</h1>
+    <h2>SAMPLE TESTING REPORT</h2>
+    {{-- <div class="doc-number">
+        <strong>Doc No: </strong> {{ $sampleRequisition->process->process }}/
+        {{ $sampleRequisition->lot->lot }}/
+        {{ $sampleRequisition->modelBrewer->model }}/
+        {{ $sampleRequisition->sample_subtmitted_date }}/
+        {{ $sampleRequisition->do_no }}/
+        {{ $sampleRequisition->incomming_number }}
     </div> --}}
+<div class="pdf-container">
+    
+    <div class="form-row">
+        <div class="form-group">
+            <label class="model" for="name">Model</label>
+            <input type="text" id="name" name="name" value="{{ $sampleRequisition->modelBrewer->model }}">
+        </div>
+        <div class="form-group">
+            <label class="noofsample" for="name">No of Sample</label>
+            <input type="text" id="name" name="name" value="{{ $sampleRequisition->no_of_sample }}">
+        </div>
+        {{-- <div class="form-group">
+            <label class="email" for="email">Series</label>
+            <input type="email" id="email" name="email">
+        </div> --}}
+        {{-- <div class="form-group">
+            <label for="address">Alamat</label>
+            <textarea id="address" name="address"></textarea>
+        </div> --}}
+    </div>
+    <br>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label class="series" for="name">Series</label>
+            <input type="text" id="name" name="name" value="{{ $sampleRequisition->series }}">
+        </div>
+        <div class="form-group">
+            <label class="process" for="name">Process</label>
+            <input type="text" id="name" name="name" value="{{ $sampleRequisition->process->process }}">
+        </div>
+    </div>
+
+    <br>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label for="name">C/O No</label>
+            <input type="text" id="name" name="name" value="{{ $sampleRequisition->co_no }}">
+        </div>
+        <div class="form-group">
+            <label class="mfg" for="name">MFG Sample Date</label>
+            <input type="text" id="name" name="name" value="{{ $sampleRequisition->mfg_sample_date }}">
+        </div>
+    </div>
+
+    <br>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label for="name">Sample Submitted (Date)</label>
+            <input class="purposesize" type="text" id="name" name="name" value="{{ $sampleRequisition->sample_subtmitted_date }}">
+        </div>
+    </div>
+
+    <br>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label class="tracebilitydatecode" for="name">Tracebility (Date Code)</label>
+            <input class="purposesize" type="text" id="name" name="name" value="{{ $sampleRequisition->tracebility_datecode }}">
+        </div>
+    </div>
+
+    <br>
+
+    {{-- <div class="form-row">
+        <div class="form-group">
+            <label class="completiondate" for="name">Completion Date</label>
+            <input class="purposesize" type="text" id="name" name="name" value="{{ $sampleRequisition->completion_date }}">
+        </div>
+    </div> --}}
+    <hr>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label class="testpurpose" for="name">Test Purpose</label>
+            <input class="purposesize" type="text" id="name" name="name" value="{{ $sampleRequisition->testpurpose }}">
+        </div>
+    </div>
+    <br>
+    <div class="form-row">
+        <div class="form-group">
+            <label class="test_item" for="name">Test Item</label>
+            <input class="purposesize" type="text" id="name" name="name" value="{{ $sampleRequisition->test_purpose }}">
+        </div>
+    </div>
+    <br>
+    <div class="form-group">
+        <label for="address">Summary</label>
+        <textarea id="address" name="address">Before : {{ $sampleRequisition->test_purpose }}</textarea>
+    </div>
+    <br>
+    <div class="form-group">
+        <label for="address">Summary</label>
+        <textarea id="address" name="address">After : {{ $sampleRequisition->sampleReport->summary_after }}</textarea>
+    </div>
+
+    {{-- <div class="form-row">
+        <div class="form-group">
+            <label class="check_by" for="name">Check By</label>
+            <input class="check_by" type="text" value="{{ $sampleRequisition->check_by }}">
+        </div>
+    </div> --}}
+    <br>
+    
+
+    <div class="form-row">
+        <div class="form-group">
+            <label class="qereview" for="name">Result</label>
+                <input class="qereview" type="text" id="name" name="name" value="{{ $sampleRequisition->sampleReport->result_test }}">
+        </div>
+        <div class="form-group">
+            <label class="regaccepted" for="name">Remark</label>
+            <input type="text" id="name" name="name" value="{{ $sampleRequisition->sampleReport->remark_test }}">
+        </div>
+    </div>
+
+    <br>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label class="scheduletest" for="name">Inspector</label>
+            <input class="scheduletest" type="text" id="name" name="name" value="{{ $sampleRequisition->sampleReport->inspector }}">
+        </div>
+        <div class="form-group">
+            <label class="estcompletiondate" for="name">Date</label>
+            <input class="estcompletiondate" type="text" id="name" name="name" value="{{ $sampleRequisition->sampleReport->date }}">
+        </div>
+    </div>
+    <br>
+    <div class="form-row">
+        <div class="form-group">
+            <label class="scheduletest" for="name">Review</label>
+            <input class="scheduletest" type="text" id="name" name="name" value="Dian">
+        </div>
+        <div class="form-group">
+            <label class="estcompletiondate" for="name">Date</label>
+            <input class="estcompletiondate" type="text" id="name" name="name" value="{{ $sampleRequisition->sampleReport->date }}">
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label class="scheduletest" for="name">Approved</label>
+            <input class="scheduletest" type="text" id="name" name="name" value="Andri">
+        </div>
+        <div class="form-group">
+            <label class="estcompletiondate" for="name">Date</label>
+            <input class="estcompletiondate" type="text" id="name" name="name" value="20-10-2024">
+        </div>
+    </div>
+
+
+</div>
 
 
     

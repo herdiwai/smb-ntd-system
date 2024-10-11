@@ -5,8 +5,8 @@
 
 <div class="page-content">
 
-    <div class="row">
-        <div class="col-md-12 grid-margin stretch-card">
+    <div class="row justify-content-center">
+        <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
                     <h6 class="card-title"><b>FORM SAMPLE TESTING REPORT </b></h6>
@@ -54,33 +54,33 @@
                         <div class="row">
                             <div class="col-md-4 mb-4">
                                 <div class="form-row align-items-center">
-                                    <div class="col-sm-4">
-                                        <label for="model" class="col-form-label"><b>Model</b></label>
+                                    <div class="col">
+                                        <label for="model" class="col-form-label-sm"><b>Model</b></label>
                                     </div>
                                     <div class="col">
-                                        <input type="text" class="form-control" value="{{ old('mdoel_id', $testinggetid->modelBrewer->model)  }}" id="model" disabled>                             
+                                        <input type="text" class="form-control form-control-sm" value="{{ old('mdoel_id', $testinggetid->modelBrewer->model)  }}" id="model" disabled>                             
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-md-4 mb-4">
                                 <div class="form-row align-items-center">
-                                    <div class="col-sm-6">
-                                        <label for="model" class="col-form-label"><b>Tracebility (Date Code)</b></label>
+                                    <div class="col">
+                                        <label for="model" class="col-form-label-sm"><b>Tracebility (Date Code)</b></label>
                                     </div>
                                     <div class="col">
-                                        <input type="text" value="{{ old('tracebility_datecode', $testinggetid->tracebility_datecode) }}" class="form-control" id="model" disabled>
+                                        <input type="text" value="{{ old('tracebility_datecode', $testinggetid->tracebility_datecode) }}" class="form-control form-control-sm" id="model" disabled>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-md-4 mb-4">
                                 <div class="form-row align-items-center">
-                                    <div class="col-sm-6">
-                                        <label for="model" class="col-form-label"><b>Process</b></label>
+                                    <div class="col">
+                                        <label for="model" class="col-form-label-sm"><b>Process</b></label>
                                     </div>
                                     <div class="col">
-                                        <input type="text" value="{{ old('process', $testinggetid->process)  }}" class="form-control" id="model" disabled>
+                                        <input type="text" value="{{ old('process', $testinggetid->process)  }}" class="form-control form-control-sm" id="model" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -90,33 +90,33 @@
                         <div class="row">
                             <div class="col-md-4 mb-4">
                                 <div class="form-row align-items-center">
-                                    <div class="col-sm-4">
-                                        <label for="seriesPN" class="col-form-label"><b>Series / PN </b></label>
+                                    <div class="col">
+                                        <label for="seriesPN" class="col-form-label-sm"><b>Series / PN </b></label>
                                     </div>
                                     <div class="col">
-                                        <input type="text" value="{{ old('series', $testinggetid->series)  }}" class="form-control" id="seriesPN" disabled>
+                                        <input type="text" value="{{ old('series', $testinggetid->series)  }}" class="form-control form-control-sm" id="seriesPN" disabled>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-md-4 mb-4">
                                 <div class="form-row align-items-center">
-                                    <div class="col-sm-6">
-                                        <label for="receivedSampleData" class="col-form-label"><b>Received Sample Date</b></label>
+                                    <div class="col">
+                                        <label for="receivedSampleData" class="col-form-label-sm"><b>Received Sample Date</b></label>
                                     </div>
                                     <div class="col" id="flatpickr-date">
-                                        <input type="text" value="{{ old('sample_subtmitted_date', $testinggetid->sample_subtmitted_date)  }}" class="form-control" disabled>
+                                        <input type="text" value="{{ old('sample_subtmitted_date', $testinggetid->sample_subtmitted_date)  }}" class="form-control form-control-sm" disabled>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-md-4 mb-4">
                                 <div class="form-row align-items-center">
-                                    <div class="col-sm-6">
-                                        <label for="mfgSampleDate" class="col-form-label"><b>MFG Sample Date</b></label>
+                                    <div class="col">
+                                        <label for="mfgSampleDate" class="col-form-label-sm"><b>MFG Sample Date</b></label>
                                     </div>
                                     <div class="col" id="flatpickr-date">
-                                            <input type="text" value="{{ old('mfg_sample_date', $testinggetid->mfg_sample_date)  }}" class="form-control" disabled>
+                                            <input type="text" value="{{ old('mfg_sample_date', $testinggetid->mfg_sample_date)  }}" class="form-control form-control-sm" disabled>
                                     </div>
                                 </div>
                             </div> 
@@ -127,22 +127,22 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <div class="form-row align-items-center">
-                                    <div class="col-sm-4">
-                                        <label for="noOfSample" class="col-form-label"><b>No of Samples</b></label>
+                                    <div class="col">
+                                        <label for="noOfSample" class="col-form-label-sm"><b>No of Samples</b></label>
                                     </div>
                                     <div class="col">
-                                        <input type="text" value="{{ old('no_of_sample', $testinggetid->no_of_sample)  }}" class="form-control" id="noOfSample" disabled>
+                                        <input type="text" value="{{ old('no_of_sample', $testinggetid->no_of_sample)  }}" class="form-control form-control-sm" id="noOfSample" disabled>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-md-6 mb-3">
                                 <div class="form-row align-items-center">
-                                    <div class="col-sm-6">
-                                        <label for="cO" class="col-form-label"><b>C/O</b></label>
+                                    <div class="col">
+                                        <label for="cO" class="col-form-label-sm"><b>C/O</b></label>
                                     </div>
                                     <div class="col">
-                                        <input type="text" value="{{ old('co_no', $testinggetid->co_no)  }}" class="form-control" id="cO" disabled>
+                                        <input type="text" value="{{ old('co_no', $testinggetid->co_no)  }}" class="form-control form-control-sm" id="cO" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -188,7 +188,7 @@
                             <div class="col-md-12 mb-3">
                                 <div class="form-row align-items-center">
                                     <div class="col-auto">
-                                        <label for="before" class="col-form-label">Before :</label>
+                                        <label for="before" class="col-form-label"><b>Before :</label>
                                     </div>
                                     <div class="col">
                                         <textarea class="form-control" id="before" rows="5" disabled>{{ old('summary', $testinggetid->summary) }}</textarea>
@@ -196,7 +196,6 @@
                                 </div>
                             </div>
                         </div>
-                        <br/>
 
                         <div class="row">
                             <div class="col-md-12 mb-3">
@@ -264,19 +263,15 @@
 
                         <hr>
 
-
-
-
-
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
-                                            <div class="col-sm-3">
-                                                <label for="" class="col-form-label"><b>Schedule of Test</b></label>
+                                            <div class="col">
+                                                <label for="" class="col-form-label-sm"><b>Schedule of Test</b></label>
                                             </div>
                                             <div class="col">
-                                                <input type="date" name="schedule_of_test" id="" class="form-control" placeholder="Select date" data-input>
+                                                <input type="date" name="schedule_of_test" id="" class="form-control form-control-sm" placeholder="Select date" data-input>
                                             </div>
                                         </div>
                                     </div>                                   
@@ -285,29 +280,53 @@
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
-                                            <div class="col-sm-3">
-                                                <label for="" class="col-form-label"><b>Est of Completion Date</b></label>
+                                            <div class="col">
+                                                <label for="" class="col-form-label-sm"><b>Est of Completion Date</b></label>
                                             </div>
                                             <div class="col">
-                                                <input type="date" name="est_of_completion_date" id="" class="form-control" placeholder="Select date" data-input>
+                                                <input type="date" name="est_of_completion_date" id="" class="form-control form-control-sm" placeholder="Select date" data-input>
                                             </div>
                                         </div>
                                     </div>                                   
                                 </div>
-
                                 <hr>
 
-                                <div class="row">
-                                    <div class="col-md-4 mb-4">
+                                    <div class="col-md-6 mb-3">
                                         <div class="form-row align-items-center">
-                                            <div class="col-sm-4">
-                                                <label for="model" class="col-form-label"><b>Inspector Name</b></label>
+                                            <div class="col">
+                                                <label for="inspector" class="col-form-label-sm"><b>Inspector Name</b></label>
                                             </div>
                                             <div class="col">
-                                                <input type="text" class="form-control" name="inspector" id="model">                             
+                                                <input type="text" name="inspector" class="form-control form-control-sm" id="inspector">
                                             </div>
                                         </div>
                                     </div>
+        
+                                    <div class="col-md-6 mb-3">
+                                        <div class="form-row align-items-center">
+                                            <div class="col">
+                                                <label for="date" class="col-form-label-sm"><b>Date</b></label>
+                                            </div>
+                                            <div class="col">
+                                                <input type="date" name="date" id="" class="form-control form-control-sm" placeholder="Select date" data-input>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-primary btn-sm" type="submit"><i data-feather="send" style="width: 16px; height: 16px;"></i> SUBMIT</button>
+                                    </div>
+
+                                {{-- <div class="row">
+                                    <div class="col-md-4 mb-4">
+                                        <div class="form-row align-items-center">
+                                            <div class="col">
+                                                <label for="model" class="col-form-label-sm"><b>Inspector Name</b></label>
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" class="form-control form-control-sm" name="inspector" id="model">                             
+                                            </div>
+                                        </div>
+                                    </div> --}}
         
                                     {{-- <div class="col-md-4 mb-4">
                                         <div class="form-row align-items-center">
@@ -333,7 +352,7 @@
                                 </div>
                                 {{-- end of row --}}
 
-                                <div class="row">
+                                {{-- <div class="row">
                                     <div class="col-md-4 mb-4">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-4">
@@ -343,7 +362,7 @@
                                                 <input type="date" class="form-control" name="date" id="model">                             
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     {{-- <div class="col-md-4 mb-4">
                                         <div class="form-row align-items-center">
@@ -372,7 +391,7 @@
                         {{-- END --}}
 
                     
-                        <button class="btn btn-primary btn-sm" type="submit"><i data-feather="send"></i> SUBMIT</button>
+                        
                         
                     </form>
                 </div>

@@ -398,7 +398,7 @@ class SampleTestingRequisitionController extends Controller
         $pdf = Pdf::loadView('backend.quality_control.sample_testing_requisition.generate-pdf-report', compact('testinggetid','sampleRequisition'));
         // header('Content-Type: application/pdf');
         // header('Content-Disposition: inline; filename="sample-testing-requisition-report.pdf"');
-        return $pdf->stream('sample-testing-requisition-report.pdf');
+        return $pdf->stream('sample-testing-requisition-report.pdf', ['Attachment' => false]);
         // return view('backend.quality_control.sample_testing_requisition.generate-requisition-pdf', compact('testinggetid','sampleRequisition'));
     }
 
