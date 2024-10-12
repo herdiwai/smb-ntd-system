@@ -210,6 +210,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
         Route::get('/qualitycontrol/sampletestingreport', 'SampleTestingReport' )->name('qualitycontrol.sampletestingreport');
         Route::get('/add/sampletestingreport/{id}', 'AddSampleTestingReport' )->name('add.sampletestingreport');
         Route::post('/store/sampletestingreport/{id}', 'StoreTestingReport' )->name('store.sampletestingreport');
+        Route::post('/update/correction-form/{id}', 'actionCorrection' )->name('update.correction');
         // Route::post('/update/approvals/{id}', 'UpdateApprovals' )->name('update.approvals');
         // Route::get('/edit/sampletestingrequisition/{id}', 'EditTestingRequisition' )->name('edit.TestingRequisition');
         // Route::post('/update/hourlyoutput', 'UpdateHourlyOutput' )->name('update.hourlyoutput');

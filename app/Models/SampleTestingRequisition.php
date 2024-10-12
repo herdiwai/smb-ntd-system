@@ -41,6 +41,8 @@ class SampleTestingRequisition extends Model
             'status_approvals_id_qe',
             'notes_qe',
             'notes_manager',
+            'status_approvals_id_qc',
+            'notes_qc',
     ];
 
     public function modelBrewer()

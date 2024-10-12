@@ -192,6 +192,7 @@
                                     <th hidden>Export to PDF</th>
                                     <th>Notes QE-IQC</th>
                                     <th>Notes QE-QCA</th>
+                                    <th>Correction Tech Lifetest</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -319,11 +320,15 @@
                                         @if(Auth::user()->can('action.approvalsQE'))
                                         {{-- @if($items->status_approvals_id_qe == '23')
                                             <td><p style="color: red">status report not completed</p></td> --}}
-                                        @if($items->status == 'incomplete' OR $items->status_approvals_id_qe == '2' OR $items->status_approvals_id_qe == '')
+                                        @if($items->status == 'incomplete' OR $items->status_approvals_id_qe == '2')
                                             <td>
                                                 <button type="button" class="btn btn-inverse-success btn-xs" data-bs-toggle="modal" data-bs-target="#approvalModalQe" onclick="openApprovalModalQe({{ $items->id }})" title="Approvals">
-                                                    <i data-feather="check-square" style="width: 16px; height: 16px;"></i> Approved/Rejected
+                                                    approved/rejected
                                                 </button>
+                                            </td>
+                                        @elseif($items->status_approvals_id_qe == '3')
+                                            <td>
+                                                <p style="color: rgb(255, 255, 255)">belum direview</p>
                                             </td>
                                         @elseif($items->status_approvals_id_qe == '1')
                                             <td>
@@ -363,6 +368,7 @@
                                             @endif
                                         </td> 
                                         @endif
+                                        {{-- Status PDF --}}
                                         @if($items->status == 'incomplete' || 
                                         in_array($items->status_approvals_id, [2, 3]) ||
                                         in_array($items->status_approvals_id_spv, [2, 3]) || 
@@ -371,7 +377,7 @@
                                             <p style="color: red">can't download pdf/incomplete form status</p>
                                         </td>
                                         @else
-                                            <td><a href="{{ route('requisition.export-pdf', $items->id ) }}" class="btn btn-inverse-danger btn-xs" title="Export-PDF"><i data-feather="download" style="width: 16px; height: 16px;"></i></a></td>
+                                            <td><a href="{{ route('requisition.export-pdf', $items->id ) }}" class="btn btn-inverse-success btn-xs" title="Export-PDF"><i data-feather="download" style="width: 16px; height: 16px;"></i> PDF</a></td>
                                         @endif
 
                                         {{-- status Notes QE-IQC  --}}
@@ -387,6 +393,14 @@
                                         @elseif($items->status_approvals_id_spv == '2')
                                             <td class="notes_qe_qca"> <p style="color: red;">{{ $items->notes_spv }}</p></td>
                                         @endif
+
+                                        {{-- status Correction Technician Life Test  --}}
+                                        @if($items->status_approvals_id_qc == '3' OR $items->status_approvals_id_qc == '1' OR $items->status_approvals_id_qc == '')
+                                            <td class="notes_qe_qca"> <p style="color: rgb(253, 253, 253)">no record.</p></td>
+                                        @elseif($items->status_approvals_id_qc == '2')
+                                            <td class="notes_qe_qca"> <p style="color: red;">{{ $items->notes_qc }}</p></td>
+                                        @endif
+
                                     </tr>
                                 @endforeach 
                                 @endif

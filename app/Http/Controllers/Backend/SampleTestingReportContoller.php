@@ -53,7 +53,7 @@ class SampleTestingReportContoller extends Controller
             // status review by QE-IQC
             ->addColumn('status_review_qe_iqc', function($testingrequisition) {
                 if($testingrequisition->status_approvals_id_qe == '3' OR $testingrequisition->status_approvals_id_qe == ''){
-                    return '<span class="badge bg-warning">pending</span>';
+                    return '<span class="badge bg-info">pending</span>';
                 }elseif($testingrequisition->status_approvals_id_qe == '2'){
                     return '<span class="badge bg-danger">rejected</span>';
                 }elseif($testingrequisition->status_approvals_id_qe == '1'){
@@ -64,7 +64,7 @@ class SampleTestingReportContoller extends Controller
             // status review by QE-QCA
             ->addColumn('status_review_qe_qca', function($testingrequisition) {
                 if($testingrequisition->status_approvals_id_spv == '3'){
-                    return '<span class="badge bg-warning">pending</span>';
+                    return '<span class="badge bg-info">pending</span>';
                 }elseif($testingrequisition->status_approvals_id_spv == '2') {
                     return '<span class="badge bg-danger">rejected</span>';
                 }else{
@@ -74,13 +74,24 @@ class SampleTestingReportContoller extends Controller
             //status approvals by manager
             ->addColumn('status_approvals', function($testingrequisition) {
                 if($testingrequisition->statusApprovals->status == 'pending'){
-                    return '<span class="badge bg-warning">'.$testingrequisition->statusApprovals->status.'</span>';
+                    return '<span class="badge bg-info">'.$testingrequisition->statusApprovals->status.'</span>';
                 }elseif($testingrequisition->statusApprovals->status == 'rejected') {
                     return '<span class="badge bg-danger">'.$testingrequisition->statusApprovals->status.'</span>';
                 }else{
                     return '<span class="badge bg-success">'.$testingrequisition->statusApprovals->status.'</span>';
                 }
             })
+
+            ->addColumn('action_correction', function($testingrequisition) {
+                if($testingrequisition->status == 'incomplete') {
+                    return '<button type="button" class="btn btn-inverse-success btn-xs" data-bs-toggle="modal" data-bs-target="#correctionModal" onclick="openCorrectionForm('.$testingrequisition->id.')" title="Correction">
+                                <i data-feather="check-square" style="width: 16px; height: 16px;"></i> Correction
+                            </button>';
+                }elseif($testingrequisition->status == '') {
+                    return '<p style="color: rgb(4, 189, 4)">no recor.</p>';
+                }
+            })
+            
             ->addColumn('action_report', function($testingrequisition) {
                 if($testingrequisition->status == 'incomplete') {
                     return '<a href="'.route('add.sampletestingreport', $testingrequisition->id).'" class="btn btn-inverse-info btn-xs" title="Add Report"><i data-feather="file-plus" style="width: 16px; height: 16px;"></i>Add Report</a>';
@@ -116,11 +127,26 @@ class SampleTestingReportContoller extends Controller
                 }
             })
 
-            ->rawColumns(['status_report','status_approvals','action_report','action','status_review_qe_iqc','status_review_qe_qca','notes_qe_qca'])
+            ->rawColumns(['status_report','status_approvals','action_report','action','status_review_qe_iqc','status_review_qe_qca','notes_qe_qca','action_correction'])
             ->make(true);
         }
 
         return view('backend.quality_control.sample_testing_report.sample_testing_report', compact('testingreport','testingrequisition'));
+    }
+
+    // Correction Requisition Form by Technician LifeTest
+    public function actionCorrection(Request $request,$id)
+    {
+        SampleTestingRequisition::findOrFail($id)->update([
+            'status_approvals_id_qc' => $request->status_approvals_id_qc,
+            'notes_qc' => $request->notes_qc,
+        ]);
+        // dd($id, $request->all());
+        $notification = array(
+            'message' => 'Correction Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('qualitycontrol.sampletestingreport')->with($notification);
     }
 
     public function AddSampleTestingReport($id)

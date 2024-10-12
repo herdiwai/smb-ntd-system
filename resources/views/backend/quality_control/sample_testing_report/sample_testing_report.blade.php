@@ -26,6 +26,7 @@
                                     <th>status review QE-IQC</th>
                                     <th>status review QE-QCA</th>
                                     <th>Status Approvals Manager</th>
+                                    <th>Action Corection Form Requisition</th>
                                     <th>Action Report</th>
                                     @if(Auth::user()->can('column.delete'))
                                     <th>action</th>
@@ -91,7 +92,47 @@
         </div>
     </div>
 
-    <script type="text/javascript">
+{{-- MODAL CORECTION FORM REQUISITION --}}
+<!-- Modal -->
+<div class="modal fade" id="correctionModal" tabindex="-1" role="dialog" aria-labelledby="approvalModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="approvalModalLabel">Correction Form</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
+          {{-- <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"> --}}
+            {{-- <span aria-hidden="true">&times;</span> --}}
+          </button>
+        </div>
+        <form id="correctionFormModal" action="" method="POST">
+          @csrf
+          @method('POST')
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="approval_status">Correction Status</label>
+              <select name="status_approvals_id_qc" id="approval_status" class="form-control">
+                <option value="1">Approved</option>
+                <option value="2">Rejected</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="notes">Notes</label>
+              <textarea name="notes_qc" id="notes" class="form-control" rows="4" placeholder="Optional"></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
+            <button type="submit" class="btn btn-inverse-info btn-xs"><i data-feather="send" style="width: 16px; height: 16px;"></i> Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{{-- END MODAL CORECTION FORM REQUISITION--}}
+
+
+<script type="text/javascript">
+
     // $('#serverside tbody').on('click', 'tr', function() {
     //     $(this).toggleClass('selected');  // Tambahkan kelas 'selected' pada baris yang dipilih
     // });
@@ -135,6 +176,10 @@
                         name: 'status_approvals',
                     },
                     {
+                        data: 'action_correction',
+                        name: 'action_correction',
+                    },
+                    {
                         data: 'action_report',
                         name: 'action_report',
                     },
@@ -172,6 +217,21 @@
                 columns:columns
             });
         });
+
+         // modal Corection Form Requisition
+ function openCorrectionForm(itemId) {
+        // Set the form action dynamically based on the item ID
+        var actionUrl = "{{ route('update.correction', ':id') }}";
+        actionUrl = actionUrl.replace(':id', itemId);
+        $('#correctionFormModal').attr('action', actionUrl);
+        // Optionally reset the form fields when modal is opened
+        // $('#approval_status').val('approved'); // default status
+        // $('#notes').val('');
+        
+        // Show the modal
+        $('#correctionModal').modal('show');
+    }// End modal Corection Form Requisition
+
 
     </script>
 
