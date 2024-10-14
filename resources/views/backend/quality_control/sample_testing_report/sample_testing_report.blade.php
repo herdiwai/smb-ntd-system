@@ -28,6 +28,7 @@
                                     <th>Status Approvals Manager</th>
                                     <th>Action Corection Form Requisition</th>
                                     <th>Action Report</th>
+                                    <th>Edit Report</th>
                                     @if(Auth::user()->can('column.delete'))
                                     <th>action</th>
                                     @endif
@@ -184,9 +185,14 @@
                         name: 'action_report',
                     },
                     {
+                        data: 'edit_report',
+                        name: 'edit_report',
+                    },
+                    {
                         data: 'notes_qe_qca',
                         name: 'notes_qe_qca',
                     },
+                    
                     ];
                     if(canDelete) {
                         columns.push({ data: 'action', name: 'action'});

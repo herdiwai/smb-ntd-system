@@ -83,26 +83,37 @@ class SampleTestingReportContoller extends Controller
             })
 
             ->addColumn('action_correction', function($testingrequisition) {
-                if($testingrequisition->status_approvals_id_qc == '2') {
+                if($testingrequisition->status_approvals_id_qe == '3' OR $testingrequisition->status == 'incomplete') {
                     return '<button type="button" class="btn btn-inverse-success btn-xs" data-bs-toggle="modal" data-bs-target="#correctionModal" onclick="openCorrectionForm('.$testingrequisition->id.')" title="Correction">
                                 <i data-feather="check-square" style="width: 16px; height: 16px;"></i> Correction
                             </button>';
-                }elseif($testingrequisition->notes_qc == '' OR $testingrequisition->notes_qc == '1') {
+                }elseif($testingrequisition->notes_qc == '' OR $testingrequisition->status == 'complete' ) {
                     return '<p class="text-secondary">no correction.</p>';
                 }
             })
             
             ->addColumn('action_report', function($testingrequisition) {
                 if($testingrequisition->status_approvals_id_qe == '3') {
-                    return '<p style="color: red;">unchecked by qe iqc</p>';
+                    return '<p class="text-danger">unchecked by qe iqc</p>';
                 }elseif($testingrequisition->status == 'complete' OR $testingrequisition->status == 'complete'){
-                    return '<p style="color: rgb(4, 189, 4)">report completed</p>';
+                    return '<p class="text-success">report completed</p>';
                 }elseif($testingrequisition->status_approvals_id_spv == '2'){ //status QE (QCA LIFETEST)
                     return '<a href="'.route('add.sampletestingreport', $testingrequisition->id).'" class="btn btn-inverse-info btn-xs" title="Add Report"><i data-feather="file-plus" style="width: 16px; height: 16px;"></i>Add Report</a>';
                 }else {
                     return '<a href="'.route('add.sampletestingreport', $testingrequisition->id).'" class="btn btn-inverse-info btn-xs" title="Add Report"><i data-feather="file-plus" style="width: 16px; height: 16px;"></i>Add Report</a>';
                 }
               })
+
+              // Jika status approvals = 2/rejected maka tampilkan tombol button edit form report, selain itu tampilkan text (rep)
+            ->addColumn('edit_report', function($testingrequisition) {
+                if($testingrequisition->status_approvals_id_spv == '2') {
+                    return '<a href="'.route('edit.sampletestingreport', $testingrequisition->id).'" class="btn btn-inverse-primary btn-xs" title="Add Report"><i data-feather="file-plus" style="width: 16px; height: 16px;"></i>Edit Report</a>';
+                }elseif($testingrequisition->status_approvals_id_spv == '1' OR $testingrequisition->status_approvals_id_spv == '3'){
+                    return '<p class="text-secondary">nothing to edit</p>';
+                }
+              })
+
+
             ->addColumn('action', function() {
                 $actionBtn = '';
                 if(Gate::allows('column.delete')) {
@@ -119,7 +130,7 @@ class SampleTestingReportContoller extends Controller
                     
             //     }
             // })
-            //status approved/rejected QE-QCA
+            //status approved/rejected QE-QCA (NOTES QE-QCA)
             ->addColumn('notes_qe_qca', function($testingrequisition) {
                 if($testingrequisition->status_approvals_id_spv == '3' OR $testingrequisition->status_approvals_id_spv == '1' OR $testingrequisition->status_approvals_id_spv == ''){
                     return '<p class="text-secondary">no record.</p>';
@@ -129,7 +140,7 @@ class SampleTestingReportContoller extends Controller
                 }
             })
 
-            ->rawColumns(['status_report','status_approvals','action_report','action','status_review_qe_iqc','status_review_qe_qca','notes_qe_qca','action_correction'])
+            ->rawColumns(['status_report','status_approvals','action_report','action','status_review_qe_iqc','status_review_qe_qca','notes_qe_qca','action_correction','edit_report'])
             ->make(true);
         }
 
@@ -213,9 +224,26 @@ class SampleTestingReportContoller extends Controller
         return redirect()->route('qualitycontrol.sampletestingreport')->with($notification);
     }
 
-    public function updateReport() {
-        
+    public function EditTestingReport($id) 
+    {
+        $testingreport = SampleTestingReport::all();
+        // $testingreportgetid = SampleTestingReport::findOrFail($t);
+        $testinggetid = SampleTestingRequisition::with('sampleReport')->findOrFail($id);
+        $id = Auth::user()->id;
+        $profileData = User::find($id);
+        $testingrequisition = SampleTestingRequisition::with('modelBrewer','lot','process','sampleReport')->get();
+        $modelbrewer = ModelBrewer::all();
+        $lot = Lot::all();
+        $shift = Shift::all();
+        $process = Process::all();
+        $testpurpose = ['Quatation Sample Test','EP/PP Sample Test','The SSB approves the sample test','Design Change Sample Test','Mold/Tool Process Change Sample Test','First Batch Production/Conversion Sample Test','Normal Life and Reliability Test','Presented to the Client for Approval of the Sample Test'];
+        return view('backend.quality_control.sample_testing_report.edit_sample_testing_report', compact('testingreport','testpurpose','testinggetid','testingrequisition','profileData','lot','modelbrewer','shift','process'));
     }
+
+    // // public function UpdateTestingReport() 
+    // {
+        
+    // // }
 
 
 }

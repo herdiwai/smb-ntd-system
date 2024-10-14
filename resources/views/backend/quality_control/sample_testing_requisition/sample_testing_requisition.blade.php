@@ -320,20 +320,21 @@
                                         @if(Auth::user()->can('action.approvalsQE'))
                                         {{-- @if($items->status_approvals_id_qe == '23')
                                             <td><p style="color: red">status report not completed</p></td> --}}
-                                        @if($items->status_approvals_id_qe == '2')
+                                        @if($items->status_approvals_id_qe == '1')
+                                            <td>
+                                                <p style="color: green">REVIEW</p>
+                                            </td>
+                                        @elseif($items->status_approvals_id_qe == '2' OR $items->status_approvals_id_qe == '3' OR $items->status_approvals_id_qe == '' OR $items->status == 'incomplete')
                                             <td>
                                                 <button type="button" class="btn btn-inverse-success btn-xs" data-bs-toggle="modal" data-bs-target="#approvalModalQe" onclick="openApprovalModalQe({{ $items->id }})" title="Approvals">
                                                     approved/rejected
                                                 </button>
                                             </td>
-                                        @elseif($items->status_approvals_id_qe == '3')
+                                        {{-- @elseif()
                                             <td>
                                                 <p style="color: rgb(255, 255, 255)">belum direview</p>
-                                            </td>
-                                        @elseif($items->status_approvals_id_qe == '1')
-                                            <td>
-                                                <p style="color: green">REVIEW</p>
-                                            </td>
+                                            </td> --}}
+                                        
 
                                         {{-- @elseif($items->status_approvals_id_qe == '2' OR $items->status_approvals_id_qe == '')
                                         <td>
