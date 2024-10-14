@@ -187,6 +187,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
         Route::get('/add/sampletestingrequisition', 'AddSampleTestingRequisition' )->name('add.sampletestingrequisition');
         Route::post('/store/sampletestingrequisition', 'StoreTesting' )->name('store.sampletestingrequisition');
         Route::get('/edit/sampletestingrequisition/{id}', 'EditTestingRequisition' )->name('edit.TestingRequisition');
+        Route::post('/update/sampletestingrequisition', 'UpdateTestingRequisition' )->name('update.TestingRequisition');
         Route::post('/update/approvals-manager/{id}', 'UpdateApprovalsManager' )->name('update.approvalsmanager');
         Route::post('/update/approvals-spv/{id}', 'UpdateApprovalsSpv' )->name('update.approvalsspv');
         Route::post('/update/approvals-qe/{id}', 'UpdateApprovalsQe' )->name('update.approvalsqe');

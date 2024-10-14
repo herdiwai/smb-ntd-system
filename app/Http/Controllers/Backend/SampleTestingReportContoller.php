@@ -45,62 +45,64 @@ class SampleTestingReportContoller extends Controller
             ->addColumn('status_report', function($testingrequisition) {
                 // Logika jika status_report incomplete & complete
                 if($testingrequisition->status == 'incomplete') {
-                    return '<span class="badge bg-danger">incomplete</span>';
+                    return '<span class="badge bg-danger" style="color: black;">incomplete</span>';
                 }else {
-                    return '<span class="badge bg-success">complete</span>';
+                    return '<span class="badge bg-info" style="color: black;">complete</span>';
                 }
             })
             // status review by QE-IQC
             ->addColumn('status_review_qe_iqc', function($testingrequisition) {
                 if($testingrequisition->status_approvals_id_qe == '3' OR $testingrequisition->status_approvals_id_qe == ''){
-                    return '<span class="badge bg-info">pending</span>';
+                    return '<span class="badge bg-warning" style="color: black;">pending</span>';
                 }elseif($testingrequisition->status_approvals_id_qe == '2'){
-                    return '<span class="badge bg-danger">rejected</span>';
+                    return '<span class="badge bg-danger" style="color: black;">rejected</span>';
                 }elseif($testingrequisition->status_approvals_id_qe == '1'){
-                    return '<span class="badge bg-success">review</span>';
+                    return '<span class="badge bg-primary" style="color: black;">review</span>';
                 }
             })
 
             // status review by QE-QCA
             ->addColumn('status_review_qe_qca', function($testingrequisition) {
                 if($testingrequisition->status_approvals_id_spv == '3'){
-                    return '<span class="badge bg-info">pending</span>';
+                    return '<span class="badge bg-warning" style="color: black;">pending</span>';
                 }elseif($testingrequisition->status_approvals_id_spv == '2') {
-                    return '<span class="badge bg-danger">rejected</span>';
+                    return '<span class="badge bg-danger" style="color: black;">rejected</span>';
                 }else{
-                    return '<span class="badge bg-success">review</span>';
+                    return '<span class="badge bg-primary" style="color: black;">review</span>';
                 }
             })
             //status approvals by manager
             ->addColumn('status_approvals', function($testingrequisition) {
                 if($testingrequisition->statusApprovals->status == 'pending'){
-                    return '<span class="badge bg-info">'.$testingrequisition->statusApprovals->status.'</span>';
+                    return '<span class="badge bg-warning" style="color: black;">'.$testingrequisition->statusApprovals->status.'</span>';
                 }elseif($testingrequisition->statusApprovals->status == 'rejected') {
-                    return '<span class="badge bg-danger">'.$testingrequisition->statusApprovals->status.'</span>';
+                    return '<span class="badge bg-danger" style="color: black;">'.$testingrequisition->statusApprovals->status.'</span>';
                 }else{
-                    return '<span class="badge bg-success">'.$testingrequisition->statusApprovals->status.'</span>';
+                    return '<span class="badge bg-success" style="color: black;">'.$testingrequisition->statusApprovals->status.'</span>';
                 }
             })
 
             ->addColumn('action_correction', function($testingrequisition) {
-                if($testingrequisition->status == 'incomplete') {
+                if($testingrequisition->status_approvals_id_qc == '2') {
                     return '<button type="button" class="btn btn-inverse-success btn-xs" data-bs-toggle="modal" data-bs-target="#correctionModal" onclick="openCorrectionForm('.$testingrequisition->id.')" title="Correction">
                                 <i data-feather="check-square" style="width: 16px; height: 16px;"></i> Correction
                             </button>';
-                }elseif($testingrequisition->status == '') {
-                    return '<p style="color: rgb(4, 189, 4)">no recor.</p>';
+                }elseif($testingrequisition->notes_qc == '' OR $testingrequisition->notes_qc == '1') {
+                    return '<p class="text-secondary">no correction.</p>';
                 }
             })
             
             ->addColumn('action_report', function($testingrequisition) {
-                if($testingrequisition->status == 'incomplete') {
-                    return '<a href="'.route('add.sampletestingreport', $testingrequisition->id).'" class="btn btn-inverse-info btn-xs" title="Add Report"><i data-feather="file-plus" style="width: 16px; height: 16px;"></i>Add Report</a>';
-                }elseif($testingrequisition->statusApprovals->status == 'rejected') {
-                    return '<a href="'.route('add.sampletestingreport', $testingrequisition->id).'" class="btn btn-inverse-info btn-xs" title="Add Report"><i data-feather="file-plus" style="width: 16px; height: 16px;"></i>Add Report</a>';
-                }else{
+                if($testingrequisition->status_approvals_id_qe == '3') {
+                    return '<p style="color: red;">unchecked by qe iqc</p>';
+                }elseif($testingrequisition->status == 'complete' OR $testingrequisition->status == 'complete'){
                     return '<p style="color: rgb(4, 189, 4)">report completed</p>';
+                }elseif($testingrequisition->status_approvals_id_spv == '2'){ //status QE (QCA LIFETEST)
+                    return '<a href="'.route('add.sampletestingreport', $testingrequisition->id).'" class="btn btn-inverse-info btn-xs" title="Add Report"><i data-feather="file-plus" style="width: 16px; height: 16px;"></i>Add Report</a>';
+                }else {
+                    return '<a href="'.route('add.sampletestingreport', $testingrequisition->id).'" class="btn btn-inverse-info btn-xs" title="Add Report"><i data-feather="file-plus" style="width: 16px; height: 16px;"></i>Add Report</a>';
                 }
-            })
+              })
             ->addColumn('action', function() {
                 $actionBtn = '';
                 if(Gate::allows('column.delete')) {
@@ -120,7 +122,7 @@ class SampleTestingReportContoller extends Controller
             //status approved/rejected QE-QCA
             ->addColumn('notes_qe_qca', function($testingrequisition) {
                 if($testingrequisition->status_approvals_id_spv == '3' OR $testingrequisition->status_approvals_id_spv == '1' OR $testingrequisition->status_approvals_id_spv == ''){
-                    return '<p style="color: rgb(253, 253, 253)">no record.</p>';
+                    return '<p class="text-secondary">no record.</p>';
                 }elseif($testingrequisition->status_approvals_id_spv == '2') {
                     return '<p style="color: red;">'.$testingrequisition->notes_spv.'</p>';
                     
@@ -209,6 +211,10 @@ class SampleTestingReportContoller extends Controller
             'alert-type' => 'success'
         );
         return redirect()->route('qualitycontrol.sampletestingreport')->with($notification);
+    }
+
+    public function updateReport() {
+        
     }
 
 

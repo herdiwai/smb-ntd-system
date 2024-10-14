@@ -342,6 +342,46 @@ class SampleTestingRequisitionController extends Controller
         $testpurpose = ['Quatation Sample Test','EP/PP Sample Test','The SSB approves the sample test','Design Change Sample Test','Mold/Tool Process Change Sample Test','First Batch Production/Conversion Sample Test','Normal Life and Reliability Test','Presented to the Client for Approval of the Sample Test'];
         return view('backend.quality_control.sample_testing_requisition.edit_sample_testing_requisition', compact('testpurpose','testinggetid','testingrequisition','profileData','lot','modelbrewer','shift','process'));
     }
+
+    public function UpdateTestingRequisition(Request $request)
+    {
+        // Ambil pilihan test_purpose dari checkbox
+        $selecttestpurpose = $request->input('testpurpose', []);
+        $requisition_id = $request->id;
+        SampleTestingRequisition::findOrFail($requisition_id)->update([
+            'user_id' => Auth::id(),
+            'shift_id' => $request->shift_id,
+            'date' => $request->date,
+            'do_no' => $request->do_no,
+            'series' => $request->series,
+            'co_no' => $request->co_no,
+            'no_of_sample' => $request->no_of_sample,
+            'mfg_sample_date' => $request->mfg_sample_date,
+            'sample_subtmitted_date' => $request->sample_subtmitted_date,
+            'tracebility_datecode' => $request->tracebility_datecode,
+            'completion_date' => $request->completion_date,
+            'test_purpose' => $request->test_purpose, 
+            'testpurpose' => implode('testpurpose', $selecttestpurpose), 
+            'pilot_project' => $request->pilot_project,
+            'check_by' => $request->check_by,
+            'model_id' => $request->model_id,
+            'processes_id' => $request->processes_id,
+            'lot_id' => $request->lot_id, 
+            'testing_purpose' => $request->testing_purpose, 
+            'summary' => $request->summary, 
+        ]);
+        // if ($request->filled('test_purpose')) {
+        //     $selecttestpurpose[] = $request->input('test_purpose');
+        // }
+
+        $notification = array(
+            'message' => 'Sample Testing Requisition Updated Successfully',
+            'alert-type' => 'info'
+        );
+        return redirect()->route('qualitycontrol.sampletestingrequisition')->with($notification);
+    }
+
+
     // Approvals Spv Sample Requisition
     public function UpdateApprovalsSpv(Request $request,$id)
     {

@@ -3,6 +3,12 @@
 
 <script src="{{ asset('backend/assets/vendors/jquery-ajax/jquery.min.js') }}"></script>
 
+<style>
+    label {
+        font-weight: bold;
+    }
+</style>
+
 <div class="page-content">
 
     <div class="row justify-content-center">
@@ -11,7 +17,7 @@
                 <div class="card-body">
                     <h6 class="card-title">FORM EDIT SAMPLE TESTING REQUISITION </h6>
                 
-                    <form id="myForm" action="" method="POST">
+                    <form id="myForm" action="{{ route('update.TestingRequisition') }}" method="POST">
                         @method('POST')
                         @csrf
                         <!-- Bagian return sample -->
@@ -227,7 +233,7 @@
                                             <label for="completionDate" class="col-form-label-sm">Completion Date</label>
                                         </div>
                                         <div class="col">
-                                            <input type="date" value="{{ old('completion_date', $testinggetid->completion_date) }}" name="completion_date" id="completionDate" class="form-control form-control-sm" placeholder="Select date" data-input>
+                                            <input type="text" value="{{ old('completion_date', $testinggetid->completion_date) }}" name="completion_date" id="completionDate" class="form-control form-control-sm">
                                         </div>
                                     </div>
                                 </div>
@@ -261,7 +267,7 @@
                                 @foreach($testpurpose as $testpurposes)
                                     <div class="col-md-6 d-flex align-items-center">
                                         <div class="form-check">
-                                                <input class="form-check-input" id="toggleCheckbox" type="checkbox" value="{{ $testpurposes }}" {{ $testpurposes == $testinggetid->testpurpose ? 'checked' : '' }}>
+                                                <input class="form-check-input" name="testpurpose[]" id="toggleCheckbox" type="checkbox" value="{{ $testpurposes }}" {{ $testpurposes == $testinggetid->testpurpose ? 'checked' : '' }}>
                                                     {{ $testpurposes }}
                                                 </option>
                                         </div>
@@ -271,7 +277,7 @@
 
                             <div class="form-group mb-3" id="other_purpose">
                                 <label for="remarks">Other purpose/remarks:</label>
-                                <textarea class="form-control form-control-sm" value="{{ old('test_purpose', $testinggetid->test_purpose) }}" id="remarks" name="test_purpose" rows="5" placeholder=""></textarea>
+                                <textarea class="form-control form-control-sm" id="remarks" name="test_purpose" rows="5" placeholder="">{{ $testinggetid->test_purpose }}</textarea>
                             </div>
                         </div>
                         <!-- end class test purpose -->
@@ -279,13 +285,13 @@
                        
                         <div class="row">
                             <div class="col-md-12 mb-6">
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <div class="form-row">
                                         <label for="qeReview" >Testing purpose</label>
                                         <input type="text" value="{{ old('testing_purpose', $testinggetid->testing_purpose) }}" class="form-control form-control-sm" id="name" placeholder=""name="testing_purpose" >
                                     </div>
                                 </div>
-                                &nbsp;  
+                                &nbsp;   --}}
 
                                 <div class="form-group">
                                     <div class="form-row">
@@ -294,15 +300,16 @@
                                     </div>
                                 </div>
                                 &nbsp;
-
+                                <div class="col-md-6">
                                 <div class="form-group">
                                     <div class="form-row">
                                         <label for="qeReview" >Check By</label>
-                                        <input type="text" class="form-control form-control-sm" value="{{ $profileData->username }}" id="name" placeholder=""name="check_by" readonly>
+                                        <input type="text" class="form-control form-control-sm" value="{{ $testinggetid->check_by }}" id="name" placeholder=""name="check_by">
                                     </div>
                                 </div>
                                 <br>
-                                <button class="btn btn-primary btn-sm" type="submit"><i data-feather="save"></i> SAVE</button>
+                                <button class="btn btn-primary btn-sm" type="submit"><i data-feather="send" style="width: 16px; height: 16px;"></i> SAVE</button>
+                                </div>
                             </div>
                         </div>
 

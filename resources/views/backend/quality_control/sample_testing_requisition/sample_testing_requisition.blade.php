@@ -254,7 +254,7 @@
                                         @if(Auth::user()->can('statusapprovalspv.column'))
                                         <td>
                                             @if($items->statusApprovals->status == 'pending')
-                                                <span class="badge bg-warning"> {{ $items->statusApprovals->status }}</span>
+                                                <span class="badge bg-warning"> {{ $items->statusApprovals->status }}  gaga</span>
                                             @elseif($items->statusApprovals->status == 'rejected')
                                                 <span class="badge bg-danger"> {{ $items->statusApprovals->status }} </span>
                                             @else
@@ -320,7 +320,7 @@
                                         @if(Auth::user()->can('action.approvalsQE'))
                                         {{-- @if($items->status_approvals_id_qe == '23')
                                             <td><p style="color: red">status report not completed</p></td> --}}
-                                        @if($items->status == 'incomplete' OR $items->status_approvals_id_qe == '2')
+                                        @if($items->status_approvals_id_qe == '2')
                                             <td>
                                                 <button type="button" class="btn btn-inverse-success btn-xs" data-bs-toggle="modal" data-bs-target="#approvalModalQe" onclick="openApprovalModalQe({{ $items->id }})" title="Approvals">
                                                     approved/rejected
@@ -389,7 +389,7 @@
 
                                         {{-- status Notes QE-QCA  --}}
                                         @if($items->status_approvals_id_spv == '3' OR $items->status_approvals_id_spv == '1' OR $items->status_approvals_id_spv == '')
-                                            <td class="notes_qe_qca"> <p style="color: rgb(253, 253, 253)">no record.</p></td>
+                                            <td class="notes_qe_qca"> <p style="color: rgb(253, 253, 253)">no record.s</p></td>
                                         @elseif($items->status_approvals_id_spv == '2')
                                             <td class="notes_qe_qca"> <p style="color: red;">{{ $items->notes_spv }}</p></td>
                                         @endif

@@ -256,7 +256,7 @@
                                         @elseif($items->status_approvals_id_spv == '2')
                                             <td><span class="badge bg-danger">rejected</span></td>
                                         @elseif($items->status_approvals_id_spv == '1')
-                                        <td class="qe_review"><p style="color: green;">Dian</p></td>
+                                        <td class="qe_review"><p style="color: green;">Review</p></td>
                                         @endif
                                         {{-- End status approvals by QE-QCA --}}
 
@@ -266,7 +266,7 @@
                                         @elseif($items->status_approvals_id_qe == '2')
                                             <td class="qe_review"><span class="badge bg-danger">rejected</span></td>
                                         @elseif($items->status_approvals_id_qe == '1')
-                                            <td class="qe_review"><p style="color: green;">Nel Hendri</p></td>
+                                            <td class="qe_review"><p style="color: green;">Review</p></td>
                                         @endif
                                         {{-- End Status by QE --}}
 
@@ -296,7 +296,7 @@
                                         @if(Auth::user()->can('statusapprovalmanager.column'))
                                         <td>
                                             @if($items->status_approvals_id == '1')
-                                                <p style="color: green;">Andri</p>
+                                                <p style="color: green;">Approved</p>
                                             @elseif($items->status_approvals_id == '2')
                                                 <span class="badge bg-danger"> rejected </span>
                                             @else

@@ -193,8 +193,8 @@
                     }
                     
             $('#serverside').DataTable({
-                pageLength: 5,
-                lengthMenu: [ [5, 10, 25, 50, -1], [5, 10, 25, 50, "All"] ],
+                pageLength: 10,
+                lengthMenu: [ [5,10, 25, 50, -1], [5, 10, 25, 50, "All"] ],
                 processing:true,
                 pagination:true,
                 responsive:true,
