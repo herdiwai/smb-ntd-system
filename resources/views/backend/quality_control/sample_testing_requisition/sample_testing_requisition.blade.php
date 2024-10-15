@@ -222,21 +222,21 @@
                                         <td class="date" hidden>@if($items->sampleReport == '')<p style="color:red">Report not completed</p>@else{{ $items->sampleReport->date }}@endif</td>
                                         {{-- status approvals by spv --}}
                                         @if($items->status_approvals_id_spv == '3')
-                                            <td><span class="badge bg-warning">pending</span></td>
+                                            <td><span class="badge bg-warning" style="color: black;">pending</span></td>
                                         @elseif($items->status_approvals_id_spv == '2')
-                                            <td><span class="badge bg-danger">rejected</span></td>
+                                            <td><span class="badge bg-danger" style="color: black;">rejected</span></td>
                                         @elseif($items->status_approvals_id_spv == '1')
-                                            <td><span class="badge bg-success">review</span></td>
+                                            <td><span class="badge bg-primary" style="color: black;">review</span></td>
                                         @endif
                                         {{-- End status approvals by spv --}}
 
                                         {{-- Status approvals by QE-IQC --}}
                                         @if($items->status_approvals_id_qe == '' OR $items->status_approvals_id_qe == '3')
-                                            <td class="qe_review"><span class="badge bg-warning">pending</span></td>
+                                            <td class="qe_review"><span class="badge bg-warning" style="color: black;">pending</span></td>
                                         @elseif($items->status_approvals_id_qe == '2')
-                                            <td class="qe_review"><span class="badge bg-danger">rejected</span></td>
+                                            <td class="qe_review"><span class="badge bg-danger" style="color: black;">rejected</span></td>
                                         @elseif($items->status_approvals_id_qe == '1')
-                                            <td class="qe_review"><span class="badge bg-success">review</span></td>
+                                            <td class="qe_review"><span class="badge bg-primary" style="color: black;">review</span></td>
                                         @endif
                                         {{-- End Status by QE --}}
 
@@ -245,20 +245,20 @@
                                         <td class="status_approvals_manager" hidden>@if($items->statusApprovals->status == '3' OR $items->statusApprovals->status == '2' )<p style="color:red">Report not completed</p>@else{{ $items->statusApprovals->status }}@endif</td>
                                         <td>
                                             @if($items->status == 'incomplete')
-                                                <span class="badge bg-danger"> {{ $items->status }} </span>
+                                                <span class="badge bg-danger" style="color: black;"> {{ $items->status }} </span>
                                             @else
-                                                <span class="badge bg-success"> {{ $items->status }} </span>
+                                                <span class="badge bg-success" style="color: black;"> {{ $items->status }} </span>
                                             @endif
                                         </td>
                                         {{-- status approval spv --}}
                                         @if(Auth::user()->can('statusapprovalspv.column'))
                                         <td>
                                             @if($items->statusApprovals->status == 'pending')
-                                                <span class="badge bg-warning"> {{ $items->statusApprovals->status }}  gaga</span>
+                                                <span class="badge bg-warning" style="color: black;"> {{ $items->statusApprovals->status }} </span>
                                             @elseif($items->statusApprovals->status == 'rejected')
-                                                <span class="badge bg-danger"> {{ $items->statusApprovals->status }} </span>
+                                                <span class="badge bg-danger" style="color: black;"> {{ $items->statusApprovals->status }} </span>
                                             @else
-                                                <span class="badge bg-success"> {{ $items->statusApprovals->status }} </span>
+                                                <span class="badge bg-success" style="color: black;"> {{ $items->statusApprovals->status }} </span>
                                             @endif
                                         </td> 
                                         @endif
@@ -266,11 +266,11 @@
                                         @if(Auth::user()->can('statusapprovalmanager.column'))
                                         <td>
                                             @if($items->status_approvals_id == '1')
-                                                <span class="badge bg-success"> approved </span>
+                                                <span class="badge bg-success" style="color: black;"> approved </span>
                                             @elseif($items->status_approvals_id == '2')
-                                                <span class="badge bg-danger"> rejected </span>
+                                                <span class="badge bg-danger" style="color: black;"> rejected </span>
                                             @else
-                                                <span class="badge bg-warning"> pending </span>
+                                                <span class="badge bg-warning" style="color: black;"> pending </span>
                                             @endif
                                         </td> 
                                         @endif
@@ -281,19 +281,19 @@
                                             <td><p style="color: red">status report not completed</p></td> --}}
                                         @if($items->status_approvals_id_spv == '1')
                                             <td>
-                                                <p style="color: green">REVIEW</p>
+                                                <p class="text-success">REVIEW</p>
                                             </td>
-                                        @elseif($items->status_approvals_id_qe == '' OR $items->status == 'incomplete')
-                                            <td><p style="color: yellow">waiting review QE-IQC</p></td>
                                         @elseif($items->status_approvals_id_qe == '1' OR $items->status_approvals_id_qe == '2' OR $items->status_approvals_id_spv == '2')
-                                        <td>
-                                            <button type="button" class="btn btn-inverse-success btn-xs" data-bs-toggle="modal" data-bs-target="#approvalModal" onclick="openApprovalModal({{ $items->id }})" title="Approvals">
-                                                <i data-feather="check-square" style="width: 16px; height: 16px;"></i> Approved/Rejected
-                                            </button>
+                                            <td>
+                                                <button type="button" class="btn btn-inverse-success btn-xs" data-bs-toggle="modal" data-bs-target="#approvalModal" onclick="openApprovalModal({{ $items->id }})" title="Approvals">
+                                                    <i data-feather="check-square" style="width: 16px; height: 16px;"></i> Approved/Rejected
+                                                </button>
                                             </td>
+                                        @elseif($items->status_approvals_id_qe == '' OR $items->status == 'incomplete' OR $items->status_approvals_id_spv == '3')
+                                            <td><p class="text-warning">waiting review QE-IQC</p></td>
                                         @elseif($items->status_approvals_id_spv == '')
                                             <td>
-                                                <p style="color: rgb(238, 38, 12)">please review first</p>
+                                                <p class="text-danger">please review first</p>
                                             </td>
                                         @endif
                                         @endif
@@ -301,7 +301,7 @@
                                         {{-- Button approvals by manager--}}
                                         @if(Auth::user()->can('actionApprovals.show'))
                                         @if($items->status_approvals_id_spv == '3' OR $items->status_approvals_id_spv == '2' OR $items->status_approvals_id_qe == '3' OR $items->status_approvals_id_qe == '2')
-                                            <td><p style="color: rgb(255, 234, 0)">waiting QE to review</p></td>
+                                            <td><p class="text-warning">waiting QE to review</p></td>
                                         @elseif($items->status_approvals_id == '3' OR $items->status_approvals_id == '2')
                                         <td>
                                             <button type="button" class="btn btn-inverse-success btn-xs" data-bs-toggle="modal" data-bs-target="#approvalModalManager" onclick="openApprovalModalManager({{ $items->id }})" title="Approvals">
@@ -362,8 +362,13 @@
                                         @if(Auth::user()->can('edit.testingrequisition'))
                                         <td> 
                                             @if(Auth::user()->can('edit.testingrequisition'))
-                                                <a href="{{ route('edit.TestingRequisition', $items->id) }}" class="btn btn-inverse-warning btn-xs" title="Edit"><i data-feather="edit" style="width: 16px; height: 16px;"></i></a>
+                                                @if($items->status_approvals_id_qc == '2')
+                                                    <a href="{{ route('edit.TestingRequisition', $items->id) }}" class="btn btn-inverse-warning btn-xs" title="Edit"><i data-feather="edit" style="width: 16px; height: 16px;"></i></a>
+                                                @elseif($items->status_approvals_id_qc == '' OR $items->status_approvals_id_qc == '1')
+                                                    <p class="text-secondary">nothing to edit</p>
+                                                @endif
                                             @endif
+
                                             @if(Auth::user()->can('delete.testingreport'))
                                                 <a href="{{ route('delete.requisition', $items->id) }}" class="btn btn-inverse-danger btn-xs" title="Delete"><i data-feather="trash-2" style="width: 16px; height: 16px;"></i></a>
                                             @endif
@@ -383,21 +388,21 @@
 
                                         {{-- status Notes QE-IQC  --}}
                                         @if($items->status_approvals_id_qe == '3' OR $items->status_approvals_id_qe == '1' OR $items->status_approvals_id_qe == '')
-                                            <td class="notes_qe_iqc"> <p style="color: rgb(253, 253, 253)">no record.</p></td>
+                                            <td class="notes_qe_iqc"> <p class="text-secondary">no record.</p></td>
                                         @elseif($items->status_approvals_id_qe == '2')
                                             <td class="notes_qe_iqc"> <p style="color: red;">{{ $items->notes_qe }}</p></td>
                                         @endif
 
                                         {{-- status Notes QE-QCA  --}}
                                         @if($items->status_approvals_id_spv == '3' OR $items->status_approvals_id_spv == '1' OR $items->status_approvals_id_spv == '')
-                                            <td class="notes_qe_qca"> <p style="color: rgb(253, 253, 253)">no record.s</p></td>
+                                            <td class="notes_qe_qca"> <p class="text-secondary">no record.</p></td>
                                         @elseif($items->status_approvals_id_spv == '2')
                                             <td class="notes_qe_qca"> <p style="color: red;">{{ $items->notes_spv }}</p></td>
                                         @endif
 
                                         {{-- status Correction Technician Life Test  --}}
                                         @if($items->status_approvals_id_qc == '3' OR $items->status_approvals_id_qc == '1' OR $items->status_approvals_id_qc == '')
-                                            <td class="notes_qe_qca"> <p style="color: rgb(253, 253, 253)">no record.</p></td>
+                                            <td class="notes_qe_qca"> <p class="text-secondary">no record.</p></td>
                                         @elseif($items->status_approvals_id_qc == '2')
                                             <td class="notes_qe_qca"> <p style="color: red;">{{ $items->notes_qc }}</p></td>
                                         @endif

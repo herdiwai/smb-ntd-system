@@ -97,7 +97,7 @@
             <li class="nav-item">
               <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents1" role="button" aria-expanded="false" aria-controls="uiComponents1">
                 <i class="link-icon" data-feather="file"></i>
-                <span class="link-title">Testing Requisition</span>
+                <span class="link-title" style="font-size: 12.5px;">Sample Testing Requisition</span>
                 <i class="link-arrow" data-feather="chevron-down"></i>
               </a>
               <div class="collapse" id="uiComponents1">
@@ -122,7 +122,7 @@
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents01" role="button" aria-expanded="false" aria-controls="uiComponents01">
               <i class="link-icon" data-feather="file-text"></i>
-              <span class="link-title">Testing Report</span>
+              <span class="link-title">Sample Testing Report</span>
               <i class="link-arrow" data-feather="chevron-down"></i>
             </a>
             <div class="collapse" id="uiComponents01">
@@ -168,7 +168,7 @@
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents04" role="button" aria-expanded="false" aria-controls="uiComponents04">
               <i class="link-icon" data-feather="folder"></i>
-              <span class="link-title">Approved Manager</span>
+              <span class="link-title" style="font-size: 12.5px;">Sample Testing Requisition</span>
               <i class="link-arrow" data-feather="chevron-down"></i>
             </a>
             <div class="collapse" id="uiComponents04">
@@ -209,7 +209,7 @@
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents06" role="button" aria-expanded="false" aria-controls="uiComponents06">
               <i class="link-icon" data-feather="folder"></i>
-              <span class="link-title">QE-IQC Review</span>
+              <span class="link-title" style="font-size: 13.5px;">Sample Testing Requisition</span>
               <i class="link-arrow" data-feather="chevron-down"></i>
             </a>
             <div class="collapse" id="uiComponents06">
@@ -232,7 +232,7 @@
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents07" role="button" aria-expanded="false" aria-controls="uiComponents07">
               <i class="link-icon" data-feather="filter"></i>
-              <span class="link-title">Filter Sample</span>
+              <span class="link-title">Filter</span>
               <i class="link-arrow" data-feather="chevron-down"></i>
             </a>
             <div class="collapse" id="uiComponents07">

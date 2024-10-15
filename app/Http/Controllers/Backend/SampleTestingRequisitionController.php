@@ -24,7 +24,7 @@ class SampleTestingRequisitionController extends Controller
 {
     public function SampleTestingRequisition(Request $request)
     {
-        $testingrequisition = SampleTestingRequisition::with('sampleReport','statusApprovals')->orderBy('sample_subtmitted_date','desc')->paginate(20);
+        $testingrequisition = SampleTestingRequisition::with('sampleReport','statusApprovals')->orderBy('sample_subtmitted_date','desc')->paginate(10);
         // $formDate = Carbon::parse($request->input('from_date'))->format('Y-m-d');
         // $toDate = Carbon::parse($request->input('to_date'))->format('Y-m-d');
 

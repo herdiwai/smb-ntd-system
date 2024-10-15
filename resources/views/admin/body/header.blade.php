@@ -1,3 +1,11 @@
+{{-- <style>
+  .clock {
+      font-size: 20px;
+      font-weight: bold;
+      color: #f08811;
+      /* margin-top: 20px; */
+  }
+</style> --}}
 <nav class="navbar">
     <a href="#" class="sidebar-toggler">
         <i data-feather="menu"></i>
@@ -11,8 +19,10 @@
             <div class="input-group">
               <div class="input-group-text">
                 <p>LOGIN ACCOUNT : {{ $profileData->username  }}</p>&nbsp;&nbsp;
-                <a href="{{ route('admin.logout') }}" class="btn btn-inverse-danger btn-xs "><i data-feather="log-out" style="width: 16px; height: 16px;"></i>&nbsp;LOGOUT</a>
+                <a href="{{ route('admin.logout') }}" class="btn btn-inverse-danger btn-xs "><i data-feather="log-out" style="width: 14px; height: 14px;"></i>&nbsp;LOGOUT</a>
                 {{-- <i data-feather="search"></i> --}}
+                &nbsp; &nbsp;
+                <p style="font-weight: bold;">Time :&nbsp;&nbsp;</p><div class="clock" id="clock"></div>
               </div>
                   {{-- <input type="text" class="form-control" id="navbarForm" placeholder="Search here..."> --}}
               </div>
@@ -240,3 +250,20 @@
         </ul>
     </div>
 </nav>
+
+<script>
+  function updateClock() {
+      const clock = document.getElementById('clock');
+      const now = new Date();
+
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+
+      clock.textContent = `${hours}:${minutes}:${seconds}`;
+    }
+
+      // Update the clock every second
+      setInterval(updateClock, 1000);
+      // Initial call to display the clock immediately
+</script>

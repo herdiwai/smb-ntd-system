@@ -111,6 +111,35 @@ hr {
     font-size: 13px;
     width: 20%;
 }
+
+.inspector {
+    width: 25%;
+    margin-right: 40px;
+}
+.review {
+    width: 25%;
+    margin-right: 55px;
+}
+.result {
+    width: 25%;
+    margin-right: 60px;
+}
+.approved {
+    width: 25%;
+    margin-right: 40px;
+}
+.date {
+    width: 25%;
+    margin-right: 45px;
+    margin-left: 30px;
+}
+.remark {
+    width: 25%;
+    margin-right: 20px;
+    margin-left: 30px;
+}
+
+
 .test_result {
     font-size: 13px;
     width: 20%;
@@ -459,16 +488,37 @@ body::before, body::after {
         </div>
     </div> --}}
     <br>
-    
+    <br>
 
-    <div class="form-row">
+
+    {{-- <div class="form-row">
         <div class="form-group">
-            <label class="qereview" for="name">Result</label>
-                <input class="qereview" type="text" id="name" name="name" value="{{ $sampleRequisition->sampleReport->result_test }}">
+            <label class="model" for="name">Result</label>
+            <input type="text" id="name" name="name" value="{{ $sampleRequisition->sampleReport->result_test }}">
         </div>
         <div class="form-group">
-            <label class="regaccepted" for="name">Remark</label>
+            <label class="noofsample" for="name">Remark</label>
             <input type="text" id="name" name="name" value="{{ $sampleRequisition->sampleReport->remark_test }}">
+        </div> --}}
+        {{-- <div class="form-group">
+            <label class="email" for="email">Series</label>
+            <input type="email" id="email" name="email">
+        </div> --}}
+        {{-- <div class="form-group">
+            <label for="address">Alamat</label>
+            <textarea id="address" name="address"></textarea>
+        </div> --}}
+    {{-- </div>
+    <br> --}}
+
+    {{-- <div class="form-row">
+        <div class="form-group">
+            <label class="series" for="name">Inspector</label>
+            <input type="text" id="name" name="name" value="{{ $sampleRequisition->sampleReport->inspector }}">
+        </div>
+        <div class="form-group">
+            <label class="process" for="name">Date</label>
+            <input type="text" id="name" name="name" value="{{ $sampleRequisition->sampleReport->date }}">
         </div>
     </div>
 
@@ -476,34 +526,79 @@ body::before, body::after {
 
     <div class="form-row">
         <div class="form-group">
-            <label class="scheduletest" for="name">Inspector</label>
-            <input class="scheduletest" type="text" id="name" name="name" value="{{ $sampleRequisition->sampleReport->inspector }}">
+            <label for="name">Review</label>
+            <input type="text" id="name" name="name" value="{{ $sampleRequisition->sampleReport->date }}">
         </div>
         <div class="form-group">
-            <label class="estcompletiondate" for="name">Date</label>
-            <input class="estcompletiondate" type="text" id="name" name="name" value="{{ $sampleRequisition->sampleReport->date }}">
+            <label class="mfg" for="name">Date</label>
+            <input type="text" id="name" name="name" value="{{ $sampleRequisition->sampleReport->date }}">
+        </div>
+    </div>
+
+    <br>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label for="name">Approved</label>
+            <input type="text" id="name" name="name" value="{{ $sampleRequisition->statusApprovals->status }}">
+        </div>
+        <div class="form-group">
+            <label class="mfg" for="name">Date</label>
+            <input type="text" id="name" name="name" value="{{ $sampleRequisition->sampleReport->date }}">
+        </div>
+    </div>
+
+
+
+<br> --}}
+
+
+
+
+
+    <div class="form-row">
+        <div class="form-group">
+            <label class="result" for="name">Result</label>
+                <input class="result" type="text" id="name" name="name" value="{{ $sampleRequisition->sampleReport->result_test }}">
+        </div>
+        <div class="form-group">
+            <label class="remark" for="name">Remark</label>
+            <input class="remark" type="text" id="name" name="name" value="{{ $sampleRequisition->sampleReport->remark_test }}">
+        </div>
+    </div>
+
+    <br>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label class="inspector" for="name">Inspector</label>
+            <input class="inspector" type="text" id="name" name="name" value="{{ $sampleRequisition->sampleReport->inspector }}">
+        </div>
+        <div class="form-group">
+            <label class="date" for="name">Date</label>
+            <input class="date" type="text" id="name" name="name" value="{{ $sampleRequisition->sampleReport->date }}">
         </div>
     </div>
     <br>
     <div class="form-row">
         <div class="form-group">
-            <label class="scheduletest" for="name">Review</label>
-            <input class="scheduletest" type="text" id="name" name="name" value="Dian">
+            <label class="review" for="name">Review</label>
+            <input class="review" type="text" id="name" name="name" value="Dian">
         </div>
         <div class="form-group">
-            <label class="estcompletiondate" for="name">Date</label>
-            <input class="estcompletiondate" type="text" id="name" name="name" value="{{ $sampleRequisition->sampleReport->date }}">
+            <label class="date" for="name">Date</label>
+            <input class="date" type="text" id="name" name="name" value="{{ $sampleRequisition->sampleReport->date }}">
         </div>
     </div>
-
+<br>
     <div class="form-row">
         <div class="form-group">
-            <label class="scheduletest" for="name">Approved</label>
-            <input class="scheduletest" type="text" id="name" name="name" value="Andri">
+            <label class="approved" for="name">Approved</label>
+            <input class="approved" type="text" id="name" name="name" value="Andri">
         </div>
         <div class="form-group">
-            <label class="estcompletiondate" for="name">Date</label>
-            <input class="estcompletiondate" type="text" id="name" name="name" value="20-10-2024">
+            <label class="date" for="name">Date</label>
+            <input class="date" type="text" id="name" name="name" value="20-10-2024">
         </div>
     </div>
 

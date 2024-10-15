@@ -218,10 +218,10 @@
                                         <th>action approvals QE-IQC</th>
                                     @endif
                                     <th>View Details</th>
-                                    @if(Auth::user()->can('edit.testingrequisition'))
-                                        <th>Action</th>
-                                    @endif
                                     <th>Export to PDF</th>
+                                    @if(Auth::user()->can('edit.testingrequisition'))
+                                        <th hidden>Action</th>
+                                    @endif
                                     <th hidden>Export to PDF</th>
                                 </tr>
                             </thead>
@@ -252,21 +252,21 @@
                                         <td class="date" hidden>@if($items->sampleReport == '')<p style="color:red">Report not completed</p>@else{{ $items->sampleReport->date }}@endif</td>
                                         {{-- status approvals by QE-QCA --}}
                                         @if($items->status_approvals_id_spv == '3')
-                                            <td><span class="badge bg-warning">pending</span></td>
+                                            <td><span class="badge bg-warning" style="color: black;">pending</span></td>
                                         @elseif($items->status_approvals_id_spv == '2')
-                                            <td><span class="badge bg-danger">rejected</span></td>
+                                            <td><span class="badge bg-danger" style="color: black;">rejected</span></td>
                                         @elseif($items->status_approvals_id_spv == '1')
-                                        <td class="qe_review"><p style="color: green;">Review</p></td>
+                                        <td class="qe_review"><span class="badge bg-primary" style="color: black;">Review</span></td>
                                         @endif
                                         {{-- End status approvals by QE-QCA --}}
 
                                         {{-- Status approvals by QE-IQC --}}
                                         @if($items->status_approvals_id_qe == '' OR $items->status_approvals_id_qe == '3')
-                                            <td class="qe_review"><span class="badge bg-warning">pending</span></td>
+                                            <td class="qe_review"><span class="badge bg-warning" style="color: black;">pending</span></td>
                                         @elseif($items->status_approvals_id_qe == '2')
-                                            <td class="qe_review"><span class="badge bg-danger">rejected</span></td>
+                                            <td class="qe_review"><span class="badge bg-danger" style="color: black;">rejected</span></td>
                                         @elseif($items->status_approvals_id_qe == '1')
-                                            <td class="qe_review"><p style="color: green;">Review</p></td>
+                                            <td class="qe_review"><span class="badge bg-primary" style="color: black;">Review</span></td>
                                         @endif
                                         {{-- End Status by QE --}}
 
@@ -275,20 +275,20 @@
                                         <td class="status_approvals_manager" hidden>@if($items->statusApprovals->status == '3' OR $items->statusApprovals->status == '2' )<p style="color:red">Report not completed</p>@else{{ $items->statusApprovals->status }}@endif</td>
                                         <td>
                                             @if($items->status == 'incomplete')
-                                                <span class="badge bg-danger"> {{ $items->status }} </span>
+                                                <span class="badge bg-danger" style="color: black;"> {{ $items->status }} </span>
                                             @else
-                                                <span class="badge bg-success"> {{ $items->status }} </span>
+                                                <span class="badge bg-info" style="color: black;"> {{ $items->status }} </span>
                                             @endif
                                         </td>
                                         {{-- status approval spv --}}
                                         @if(Auth::user()->can('statusapprovalspv.column'))
                                         <td>
                                             @if($items->statusApprovals->status == 'pending')
-                                                <span class="badge bg-warning"> {{ $items->statusApprovals->status }}</span>
+                                                <span class="badge bg-warning" style="color: black;"> {{ $items->statusApprovals->status }}</span>
                                             @elseif($items->statusApprovals->status == 'rejected')
-                                                <span class="badge bg-danger"> {{ $items->statusApprovals->status }} </span>
+                                                <span class="badge bg-danger" style="color: black;"> {{ $items->statusApprovals->status }} </span>
                                             @else
-                                                <span class="badge bg-success"> {{ $items->statusApprovals->status }} </span>
+                                                <span class="badge bg-info" style="color: black;"> {{ $items->statusApprovals->status }} </span>
                                             @endif
                                         </td> 
                                         @endif
@@ -296,11 +296,11 @@
                                         @if(Auth::user()->can('statusapprovalmanager.column'))
                                         <td>
                                             @if($items->status_approvals_id == '1')
-                                                <p style="color: green;">Approved</p>
+                                                <span class="badge bg-success" style="color: black;">Approved</span>
                                             @elseif($items->status_approvals_id == '2')
-                                                <span class="badge bg-danger"> rejected </span>
+                                                <span class="badge bg-danger" style="color: black;"> rejected </span>
                                             @else
-                                                <span class="badge bg-warning"> pending </span>
+                                                <span class="badge bg-warning" style="color: black;"> pending </span>
                                             @endif
                                         </td> 
                                         @endif
@@ -331,7 +331,7 @@
                                         {{-- Button approvals by manager--}}
                                         @if(Auth::user()->can('actionApprovals.show'))
                                         @if($items->status_approvals_id_spv == '3' OR $items->status_approvals_id_spv == '2' OR $items->status_approvals_id_qe == '3' OR $items->status_approvals_id_qe == '2')
-                                            <td><p style="color: rgb(255, 234, 0)">waiting QE to review</p></td>
+                                            <td><p class="text-warning">waiting QE to review</p></td>
                                         @elseif($items->status_approvals_id == '3' OR $items->status_approvals_id == '2')
                                         <td>
                                             <button type="button" class="btn btn-inverse-success btn-xs" data-bs-toggle="modal" data-bs-target="#approvalModalManager" onclick="openApprovalModalManager({{ $items->id }})" title="Approvals">
@@ -340,7 +340,7 @@
                                         </td>
                                         @elseif($items->status_approvals_id == '1')
                                         <td>
-                                            <p style="color: green">APPROVED</p>
+                                            <p class="text-success">APPROVED</p>
                                         </td>
                                         @endif
                                         @endif
@@ -387,7 +387,7 @@
                                         @if(Auth::user()->can('edit.testingrequisition'))
                                         <td> 
                                             @if(Auth::user()->can('edit.testingrequisition'))
-                                                <a href="{{ route('edit.TestingRequisition', $items->id) }}" class="btn btn-inverse-warning btn-xs" title="Edit"><i data-feather="edit" style="width: 16px; height: 16px;"></i></a>
+                                                <a hidden href="{{ route('edit.TestingRequisition', $items->id) }}" class="btn btn-inverse-warning btn-xs" title="Edit"><i data-feather="edit" style="width: 16px; height: 16px;"></i></a>
                                             @endif
                                             @if(Auth::user()->can('delete.testingreport'))
                                                 <a href="{{ route('delete.requisition', $items->id) }}" class="btn btn-inverse-danger btn-xs" title="Delete"><i data-feather="trash-2" style="width: 16px; height: 16px;"></i></a>
@@ -399,7 +399,7 @@
                                         in_array($items->status_approvals_id_spv, [2, 3]) || 
                                         in_array($items->status_approvals_id_qe, [2, 3]))
                                         <td>
-                                            <p style="color: red">can't download pdf/form status not complete</p>
+                                            <p class="text-danger">can't download pdf/form status not complete</p>
                                         </td>
                                         @else
                                             <td><a href="{{ route('requisition.export-pdf', $items->id ) }}" class="btn btn-inverse-danger btn-xs" title="Export-PDF"><i data-feather="download" style="width: 16px; height: 16px;"></i></a></td>
