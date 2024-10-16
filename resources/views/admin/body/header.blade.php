@@ -18,11 +18,11 @@
         <form class="search-form">
             <div class="input-group">
               <div class="input-group-text">
-                <p>LOGIN ACCOUNT : {{ $profileData->username  }}</p>&nbsp;&nbsp;
+                <p>Login Account : {{ $profileData->username  }}</p>&nbsp;&nbsp;-&nbsp;
+                <p>Time :&nbsp;&nbsp;</p><div class="clock" id="clock"></div>&nbsp;&nbsp;
                 <a href="{{ route('admin.logout') }}" class="btn btn-inverse-danger btn-xs "><i data-feather="log-out" style="width: 14px; height: 14px;"></i>&nbsp;LOGOUT</a>
                 {{-- <i data-feather="search"></i> --}}
-                &nbsp; &nbsp;
-                <p style="font-weight: bold;">Time :&nbsp;&nbsp;</p><div class="clock" id="clock"></div>
+                
               </div>
                   {{-- <input type="text" class="form-control" id="navbarForm" placeholder="Search here..."> --}}
               </div>

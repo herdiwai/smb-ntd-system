@@ -179,7 +179,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
     });
 });
 
-// Production SampleTestingRequisition
+// Quality SampleTestingRequisition
 Route::middleware(['auth', 'roles:admin'])->group(function() {
 
     Route::controller(SampleTestingRequisitionController::class)->group(function(){
@@ -205,15 +205,17 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
     });
 });
 
-// Production SampleTestingReport
+// Quality SampleTestingReport
 Route::middleware(['auth', 'roles:admin'])->group(function() {
     Route::controller(SampleTestingReportContoller::class)->group(function(){
         Route::get('/qualitycontrol/sampletestingreport', 'SampleTestingReport' )->name('qualitycontrol.sampletestingreport');
         Route::get('/add/sampletestingreport/{id}', 'AddSampleTestingReport' )->name('add.sampletestingreport');
         Route::post('/store/sampletestingreport/{id}', 'StoreTestingReport' )->name('store.sampletestingreport');
         Route::get('/edit/sampletestingreport/{id}', 'EditTestingReport' )->name('edit.sampletestingreport');
-        Route::post('/update/sampletestingreport', 'UpdateTestingReport' )->name('update.sampletestingreport');
+        // Route::post('/update/sampletestingreport', 'UpdateTestingReport' )->name('update.sampletestingreport');
         Route::post('/update/correction-form/{id}', 'actionCorrection' )->name('update.correction');
+        Route::post('/update/sampletestingreport/{id}', 'UpdateTestingReport' )->name('update.sampletestingreport');
+        Route::post('/report/update/{id}', 'update' )->name('update.report');
         // Route::post('/update/approvals/{id}', 'UpdateApprovals' )->name('update.approvals');
         // Route::get('/edit/sampletestingrequisition/{id}', 'EditTestingRequisition' )->name('edit.TestingRequisition');
         // Route::post('/update/hourlyoutput', 'UpdateHourlyOutput' )->name('update.hourlyoutput');

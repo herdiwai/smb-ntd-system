@@ -34,6 +34,7 @@
                                     @endif
                                     {{-- <th>Notes QE-IQC</th> --}}
                                     <th>Notes QE-QCA</th>
+                                    <th><th>Notes Correction</th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -192,6 +193,10 @@
                         data: 'notes_qe_qca',
                         name: 'notes_qe_qca',
                     },
+                    {
+                        data: 'notes_correction',
+                        name: 'notes_correction',
+                    },
                     
                     ];
                     if(canDelete) {
@@ -217,6 +222,9 @@
                         }
                     }
                 ],
+                drawCallback: function() {
+                        feather.replace(); // Redraw icons after table update
+                    },
                 ajax:{
                     url:"{{ route('qualitycontrol.sampletestingreport') }}",
                 },
@@ -224,8 +232,8 @@
             });
         });
 
-         // modal Corection Form Requisition
- function openCorrectionForm(itemId) {
+    // modal Corection Form Requisition
+    function openCorrectionForm(itemId) {
         // Set the form action dynamically based on the item ID
         var actionUrl = "{{ route('update.correction', ':id') }}";
         actionUrl = actionUrl.replace(':id', itemId);
@@ -239,7 +247,7 @@
     }// End modal Corection Form Requisition
 
 
-    </script>
+</script>
 
 
 </div>

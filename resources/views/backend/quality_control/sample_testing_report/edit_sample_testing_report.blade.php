@@ -11,9 +11,9 @@
                 <div class="card-body">
                     <h6 class="card-title"><b>EDIT SAMPLE TESTING REPORT </b></h6>
                 
-                    <form id="myForm" action="{{ route('update.sampletestingreport', $testinggetid->id) }}" method="POST">
-                        @method('POST')
+                    <form id="myForm" action="{{ route('update.report', $testinggetid->sampleReport->id) }}" method="POST">
                         @csrf
+                        @method('POST')
                         <!-- Bagian return sample -->
                         
                             {{-- <div class="row mb-3 align-items-center">
@@ -38,6 +38,7 @@
                         
                         <!-- end return sample-->
                         <input type="hidden" name="id" value="{{ $testinggetid->id }}">
+                        {{-- <input type="hidden" name="id" value="{{ $sampleTestingReport->id }}"> --}}
                         <input type="hidden" name="status_approvals_id" value="{{ $testinggetid->status_approvals_id }}">
                         <input type="hidden" name="status_approvals" value="{{ $testinggetid->status_approvals_id_spv }}">
                         <input type="hidden" name="report_no" value="{{ $testinggetid->incomming_number }}">
@@ -215,8 +216,19 @@
                             <label for="test-purpose" class="form-label"><b>Result</b></label>
 
                             <div class="row mb-3">
-                                <!-- Checkbox Group 1 -->                               
+                                <!-- Checkbox Group 1 -->         
+                                @foreach($result as $results)
                                 <div class="col-md-6 d-flex align-items-center">
+                                    <div class="form-check">
+                                            <input class="form-check-input" name="result_test[]" id="toggleCheckbox" type="checkbox" value="{{ $results }}" {{ $results == $testinggetid->sampleReport->result_test ? 'checked' : '' }}>
+                                                {{ $results }}
+                                            </option>
+                                    </div>
+                                </div>
+                            @endforeach
+
+                                
+                                {{-- <div class="col-md-6 d-flex align-items-center">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" id="pass" value="Pass" name="result_test[]">
                                         <label class="form-check-label me-2" for="pass">PASS</label>
@@ -227,10 +239,10 @@
                                         <input class="form-check-input" type="checkbox" id="conditionalPass" value="Conditional Pass" name="result_test[]">
                                         <label class="form-check-label me-2" for="conditionalPass">CONDITIONAL PASS</label>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
 
-                            <div class="row mb-3">
+                            {{-- <div class="row mb-3">
                                 <!-- Checkbox Group 2 -->
                                 <div class="col-md-6 d-flex align-items-center">
                                     <div class="form-check">
@@ -253,7 +265,7 @@
                                     <input class="form-check-input" type="checkbox" id="na" value="N/A" name="result_test[]">
                                     <label class="form-check-label me-2" for="na">N/A</label>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="form-group mb-3" id="other_purpose">
                                 <label for="remarks"><b>Remarks:</b></label>

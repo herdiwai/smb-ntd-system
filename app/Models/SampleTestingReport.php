@@ -14,7 +14,6 @@ class SampleTestingReport extends Model
         'summary_after',
         'schedule_of_test',
         'est_of_completion_date',
-        'report_no',
         'result_test',
         'remark_test',
         'inspector',

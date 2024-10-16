@@ -7,6 +7,9 @@
     width: auto; /* Agar input dan select tidak memakan seluruh lebar */
     margin-right: 10px; /* Jarak antara elemen */
     }
+    /* form label {
+        font-weight: bold;
+    } */
 </style>
 
 <div class="page-content">
@@ -247,7 +250,7 @@
                                             @if($items->status == 'incomplete')
                                                 <span class="badge bg-danger" style="color: black;"> {{ $items->status }} </span>
                                             @else
-                                                <span class="badge bg-success" style="color: black;"> {{ $items->status }} </span>
+                                                <span class="badge bg-info" style="color: black;"> {{ $items->status }} </span>
                                             @endif
                                         </td>
                                         {{-- status approval spv --}}
@@ -310,7 +313,7 @@
                                         </td>
                                         @elseif($items->status_approvals_id == '1')
                                         <td>
-                                            <p style="color: green">APPROVED</p>
+                                            <p class="text-success">APPROVED</p>
                                         </td>
                                         @endif
                                         @endif
@@ -322,7 +325,7 @@
                                             <td><p style="color: red">status report not completed</p></td> --}}
                                         @if($items->status_approvals_id_qe == '1')
                                             <td>
-                                                <p style="color: green">REVIEW</p>
+                                                <p class="text-success">REVIEW</p>
                                             </td>
                                         @elseif($items->status_approvals_id_qe == '2' OR $items->status_approvals_id_qe == '3' OR $items->status_approvals_id_qe == '' OR $items->status == 'incomplete')
                                             <td>
@@ -362,9 +365,9 @@
                                         @if(Auth::user()->can('edit.testingrequisition'))
                                         <td> 
                                             @if(Auth::user()->can('edit.testingrequisition'))
-                                                @if($items->status_approvals_id_qc == '2')
-                                                    <a href="{{ route('edit.TestingRequisition', $items->id) }}" class="btn btn-inverse-warning btn-xs" title="Edit"><i data-feather="edit" style="width: 16px; height: 16px;"></i></a>
-                                                @elseif($items->status_approvals_id_qc == '' OR $items->status_approvals_id_qc == '1')
+                                                @if($items->status_approvals_id_qc == '2' OR $items->status_approvals_id_qe == '2')
+                                                    <a href="{{ route('edit.TestingRequisition', $items->id) }}" class="btn btn-inverse-warning btn-xs" title="Edit"><i data-feather="edit" style="width: 16px; height: 16px;"></i> Edit</a>
+                                                @elseif($items->status_approvals_id_qc == '' OR $items->status_approvals_id_qc == '1' OR $items->status_approvals_id_qe == '' OR $items->status_approvals_id_qe == '1')
                                                     <p class="text-secondary">nothing to edit</p>
                                                 @endif
                                             @endif
@@ -380,7 +383,7 @@
                                         in_array($items->status_approvals_id_spv, [2, 3]) || 
                                         in_array($items->status_approvals_id_qe, [2, 3]))
                                         <td>
-                                            <p style="color: red">can't download pdf/incomplete form status</p>
+                                            <p class="text-danger">can't download pdf/incomplete form status</p>
                                         </td>
                                         @else
                                             <td><a href="{{ route('requisition.export-pdf', $items->id ) }}" class="btn btn-inverse-success btn-xs" title="Export-PDF"><i data-feather="download" style="width: 16px; height: 16px;"></i> PDF</a></td>
@@ -390,21 +393,21 @@
                                         @if($items->status_approvals_id_qe == '3' OR $items->status_approvals_id_qe == '1' OR $items->status_approvals_id_qe == '')
                                             <td class="notes_qe_iqc"> <p class="text-secondary">no record.</p></td>
                                         @elseif($items->status_approvals_id_qe == '2')
-                                            <td class="notes_qe_iqc"> <p style="color: red;">{{ $items->notes_qe }}</p></td>
+                                            <td class="notes_qe_iqc"> <p class="text-danger">{{ $items->notes_qe }}</p></td>
                                         @endif
 
                                         {{-- status Notes QE-QCA  --}}
                                         @if($items->status_approvals_id_spv == '3' OR $items->status_approvals_id_spv == '1' OR $items->status_approvals_id_spv == '')
                                             <td class="notes_qe_qca"> <p class="text-secondary">no record.</p></td>
                                         @elseif($items->status_approvals_id_spv == '2')
-                                            <td class="notes_qe_qca"> <p style="color: red;">{{ $items->notes_spv }}</p></td>
+                                            <td class="notes_qe_qca"> <p class="text-danger">{{ $items->notes_spv }}</p></td>
                                         @endif
 
                                         {{-- status Correction Technician Life Test  --}}
                                         @if($items->status_approvals_id_qc == '3' OR $items->status_approvals_id_qc == '1' OR $items->status_approvals_id_qc == '')
                                             <td class="notes_qe_qca"> <p class="text-secondary">no record.</p></td>
                                         @elseif($items->status_approvals_id_qc == '2')
-                                            <td class="notes_qe_qca"> <p style="color: red;">{{ $items->notes_qc }}</p></td>
+                                            <td class="notes_qe_qca"> <p class="text-danger">{{ $items->notes_qc }}</p></td>
                                         @endif
 
                                     </tr>

@@ -122,7 +122,7 @@
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents01" role="button" aria-expanded="false" aria-controls="uiComponents01">
               <i class="link-icon" data-feather="file-text"></i>
-              <span class="link-title">Sample Testing Report</span>
+              <span class="link-title">Requisitiion & Report</span>
               <i class="link-arrow" data-feather="chevron-down"></i>
             </a>
             <div class="collapse" id="uiComponents01">
@@ -168,7 +168,7 @@
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents04" role="button" aria-expanded="false" aria-controls="uiComponents04">
               <i class="link-icon" data-feather="folder"></i>
-              <span class="link-title" style="font-size: 12.5px;">Sample Testing Requisition</span>
+              <span class="link-title" style="font-size: 12.5px;">Requisitiion & Report</span>
               <i class="link-arrow" data-feather="chevron-down"></i>
             </a>
             <div class="collapse" id="uiComponents04">
@@ -188,7 +188,7 @@
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents05" role="button" aria-expanded="false" aria-controls="uiComponents05">
               <i class="link-icon" data-feather="folder"></i>
-              <span class="link-title">QE-QCA Review</span>
+              <span class="link-title">Requisition & Report</span>
               <i class="link-arrow" data-feather="chevron-down"></i>
             </a>
             <div class="collapse" id="uiComponents05">
@@ -209,7 +209,7 @@
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents06" role="button" aria-expanded="false" aria-controls="uiComponents06">
               <i class="link-icon" data-feather="folder"></i>
-              <span class="link-title" style="font-size: 13.5px;">Sample Testing Requisition</span>
+              <span class="link-title" style="font-size: 13.5px;">Requisition & Report</span>
               <i class="link-arrow" data-feather="chevron-down"></i>
             </a>
             <div class="collapse" id="uiComponents06">

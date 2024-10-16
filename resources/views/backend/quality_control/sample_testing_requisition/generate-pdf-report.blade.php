@@ -598,7 +598,7 @@ body::before, body::after {
         </div>
         <div class="form-group">
             <label class="date" for="name">Date</label>
-            <input class="date" type="text" id="name" name="name" value="20-10-2024">
+            <input class="date" type="text" id="name" name="name" value="{{ $sampleRequisition->sampleReport->date }}">
         </div>
     </div>
 
