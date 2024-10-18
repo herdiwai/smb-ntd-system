@@ -126,13 +126,22 @@ License: For each use you must have a valid license purchased only from above li
 				break; 
 			}
 			@endif 
-
+			
+			// Menampilkan spinner saat halaman akan di-unload
 			window.addEventListener('beforeunload', function() {
 				document.getElementById('loadingSpinner').style.display = 'block';
 			});
-
+			// Menyembunyikan spinner ketika halaman selesai dimuat
 			window.addEventListener('load', function() {
 				document.getElementById('loadingSpinner').style.display = 'none';
+			});
+
+			// Menyembunyikan spinner ketika pengguna kembali ke halaman sebelumnya dengan cache
+			window.addEventListener('pageshow', function(event) {
+				if (event.persisted) {
+				// Halaman dimuat dari cache (bfcache)
+				document.getElementById('loadingSpinner').style.display = 'none';
+				}
 			});
 
 		</script>
