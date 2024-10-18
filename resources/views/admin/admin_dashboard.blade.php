@@ -17,7 +17,7 @@ License: For each use you must have a valid license purchased only from above li
 	<meta name="author" content="NobleUI">
 	<meta name="keywords" content="nobleui, bootstrap, bootstrap 5, bootstrap5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
 
-	<title>Admin Panel - Sunda Estate</title>
+	<title>BTM-SYSTEM</title>
 
 	<!-- Fonts -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,6 +29,7 @@ License: For each use you must have a valid license purchased only from above li
 	<link rel="stylesheet" href="{{ asset('backend/assets/vendors/pickr/themes/classic.min.css') }}">
 	<link rel="stylesheet" href="{{ asset('backend/assets/vendors/datatables.net-bs5/dataTables.bootstrap5.css') }}">
 	<link rel="stylesheet" href="{{ asset('backend/assets/vendors/flatpickr/flatpickr.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('backend/assets/vendors/prismjs/themes/prism.css') }}">
 	<!-- End plugin css for this page -->
 
 	<!-- core:css -->
@@ -66,7 +67,13 @@ License: For each use you must have a valid license purchased only from above li
 				@include('admin.body.header')
 				<!-- partial -->
 
-				@yield('admin')
+				@yield('admin') 
+				{{-- !-- Tambahkan ini di layout master Anda --> --}}
+				<div id="loadingSpinner" class="text-center" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999;">
+					<div class="spinner-border text-primary" role="status">
+						<span class="visually-hidden">Loading...</span>
+					</div>
+				</div>
 
 				<!-- partial:partials/_footer.html -->
 				@include('admin.body.footer')
@@ -81,6 +88,8 @@ License: For each use you must have a valid license purchased only from above li
 		<!-- Plugin js for this page -->
 		<script src="{{ asset('backend/assets/vendors/flatpickr/flatpickr.min.js') }}"></script>
 		<script src="{{ asset('backend/assets/vendors/apexcharts/apexcharts.min.js') }}"></script>
+		<script src="{{ asset('backend/assets/vendors/prismjs/prism.js') }}"></script>
+		<script src="{{ asset('backend/assets/vendors/clipboard/clipboard.min.js') }}"></script>
 		{{-- <script src="{{ asset('backend/assets/vendors/pickr/pickr.min.js') }}"></script> --}}
 		<!-- End plugin js for this page -->
 
@@ -117,6 +126,24 @@ License: For each use you must have a valid license purchased only from above li
 				break; 
 			}
 			@endif 
+			
+			// Menampilkan spinner saat halaman akan di-unload
+			window.addEventListener('beforeunload', function() {
+				document.getElementById('loadingSpinner').style.display = 'block';
+			});
+			// Menyembunyikan spinner ketika halaman selesai dimuat
+			window.addEventListener('load', function() {
+				document.getElementById('loadingSpinner').style.display = 'none';
+			});
+
+			// Menyembunyikan spinner ketika pengguna kembali ke halaman sebelumnya dengan cache
+			window.addEventListener('pageshow', function(event) {
+				if (event.persisted) {
+				// Halaman dimuat dari cache (bfcache)
+				document.getElementById('loadingSpinner').style.display = 'none';
+				}
+			});
+
 		</script>
 
 		<!-- Start DataTables -->

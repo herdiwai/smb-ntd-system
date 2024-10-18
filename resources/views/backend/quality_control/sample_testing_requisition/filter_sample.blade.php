@@ -7,25 +7,22 @@
     width: auto; /* Agar input dan select tidak memakan seluruh lebar */
     margin-right: 10px; /* Jarak antara elemen */
     }
-    /* form label {
-        font-weight: bold;
-    } */
 </style>
 
 <div class="page-content">
   
-    <nav class="page-breadcrumb">
+    {{-- <nav class="page-breadcrumb">
         <ol class="breadcrumb">
             @if(Auth::user()->can('add.testingrequisition'))
              <a href="{{ route('add.sampletestingrequisition') }}" class="btn btn-inverse-info btn-xs"><i data-feather="file-plus" style="width: 16px; height: 16px;"></i> ADD REQUISITION FORM</a>
             @endif
 
         </ol>
-    </nav>
+    </nav> --}}
 
-    {{-- <div class="row"> --}}
+    <div class="row">
 <!-- Form filter -->
-    {{-- <form action="{{ route('filter.sample') }}" method="GET" class="mb-3">
+    <form action="{{ route('filter.sample') }}" method="GET" class="mb-3">
         @csrf
         @method('GET')
         <div class="row">
@@ -41,18 +38,31 @@
                     <label for="date">to date:</label>
                     <input type="date" name="to_date" id="date" class="form-control form-control-xs">
                 </div>
-            </div> --}}
+            </div>
 
-            <!-- Filter by DO Number -->
-            {{-- <div class="col-md-3">
+            <!-- Filter by Model -->
+            <div class="col-md-2">
                 <div class="form-group">
-                    <label for="text">Do.Number:</label>
-                    <input type="text" name="text" id="text" class="form-control" value="{{ request()->get('date') }}">
+                    <label for="model">Model:</label>
+                    <select name="model_id" id="model" class="form-control form-control-xs">
+                        <option value="">--select model--</option>
+                        @foreach($modelbrewer as $models)
+                            <option value="{{ $models->id }}" {{ old('modelbrewer') == $models->id ? 'selected' : '' }}>{{ $models->model }}</option>
+                        @endforeach
+                    </select>
                 </div>
-            </div> --}}
+            </div>
+
+             <!-- Filter by Series -->
+             <div class="col-md-2">
+                <div class="form-group">
+                    <label for="text">series/pn:</label>
+                    <input type="text" name="series" id="text" class="form-control form-control-xs">
+                </div>
+            </div>
 
             <!-- Filter by Process QCA/IQC -->
-            {{-- <div class="col-md-2">
+            <div class="col-md-2">
                 <div class="form-group">
                     <label for="processs">Process:</label>
                     <select name="processes_id" id="process" class="form-control form-control-xs">
@@ -62,7 +72,41 @@
                         @endforeach
                     </select>
                 </div>
-            </div> --}}
+            </div>
+
+            <!-- Filter by Lot -->
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="lot">Lot:</label>
+                    <select name="lot_id" id="lot" class="form-control form-control-xs">
+                        <option value="">--select lot--</option>
+                        @foreach($lot as $lots)
+                            <option value="{{ $lots->id }}" {{ old('lot') == $lots->id ? 'selected' : '' }}>{{ $lots->lot }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <!-- Filter by shift -->
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="shift">shift:</label>
+                    <select name="shift_id" id="shift" class="form-control form-control-xs">
+                        <option value="">--select shift--</option>
+                        @foreach($shift as $shifts)
+                            <option value="{{ $shifts->id }}" {{ old('shift') == $shifts->id ? 'selected' : '' }}>{{ $shifts->shift }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <!-- Filter by DO Number -->
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="text">do.number:</label>
+                    <input type="text" name="do_no" id="text" class="form-control form-control-xs">
+                </div>
+            </div>
 
             <!-- Filter by Series -->
             {{-- <div class="col-md-3">
@@ -72,19 +116,6 @@
                         <option value="">-- Select series --</option>
                         <option value="1" {{ request()->get('series') == '1' ? 'selected' : '' }}>RRU172337901DST</option>
                         <option value="2" {{ request()->get('series') == '2' ? 'selected' : '' }}>RRU1234523sERSR</option>
-                    </select>
-                </div>
-            </div> --}}
-
-            <!-- Filter by Model -->
-            {{-- <div class="col-md-2">
-                <div class="form-group">
-                    <label for="model">Model:</label>
-                    <select name="model_id" id="model" class="form-control form-control-xs">
-                        <option value="">--select model--</option>
-                        @foreach($modelbrewer as $models)
-                            <option value="{{ $models->id }}" {{ old('modelbrewer') == $models->id ? 'selected' : '' }}>{{ $models->model }}</option>
-                        @endforeach
                     </select>
                 </div>
             </div> --}}
@@ -103,7 +134,7 @@
             </div> --}}
 
             <!-- Filter by status -->
-            {{-- <div class="col-md-2">
+            <div class="col-md-2">
                 <div class="form-group">
                     <label for="status">status:</label>
                     <select name="status_approvals_id" id="status_approvals" class="form-control form-control-xs">
@@ -113,7 +144,7 @@
                         @endforeach
                     </select>
                 </div>
-            </div> --}}
+            </div>
 
             <!-- Filter by Shift -->
             {{-- <div class="col-md-3">
@@ -128,15 +159,14 @@
                 </div>
             </div> --}}
             
-            {{-- <div class="col-md-2 align-self-end">
+            <div class="col-md-2 align-self-end">
                 <button type="submit" class="btn btn-info btn-xs"><i data-feather="search" style="width: 16px; height: 16px;"></i> Search..</button>
-                <a href="{{ route('qualitycontrol.sampletestingrequisition') }}" class="btn btn-light btn-xs" style="position: absolute; margin-left:1%;"><i data-feather="refresh-ccw" style="width: 16px; height: 16px;"></i> Refresh</a>
+                <a href="{{ route('filter.sample') }}" class="btn btn-light btn-xs" style="position: absolute; margin-left:1%;"><i data-feather="refresh-ccw" style="width: 16px; height: 16px;"></i> Refresh</a>
             </div>
         
         </div>
     </form>
-    </div> --}}
-    {{-- End Form Filter --}}
+    </div>
 
     <div class="row">
         <div class="col-md-12 grid-margin stretch-card">
@@ -168,8 +198,8 @@
                                     <th>status review QE-QCA</th>
                                     <th>status review QE-IQC</th>
                                     <th>status testing report</th>
-                                    <th hidden>status_approvals_manager</th>
                                     <th hidden>statusapprovals_spv</th>
+                                    <th hidden>status_approvals_manager</th>
                                     @if(Auth::user()->can('statusapprovalsspv.column'))
                                     <th>status approvals manager</th>
                                     @endif
@@ -188,20 +218,17 @@
                                         <th>action approvals QE-IQC</th>
                                     @endif
                                     <th>View Details</th>
-                                    @if(Auth::user()->can('edit.testingrequisition'))
-                                        <th>Action</th>
-                                    @endif
                                     <th>Export to PDF</th>
+                                    @if(Auth::user()->can('edit.testingrequisition'))
+                                        <th hidden>Action</th>
+                                    @endif
                                     <th hidden>Export to PDF</th>
-                                    <th>Notes QE-IQC</th>
-                                    <th>Notes QE-QCA</th>
-                                    <th>Correction Tech Lifetest</th>
                                 </tr>
                             </thead>
                             <tbody>
                                     @if($testingrequisition->isEmpty())
                                         <tr>
-                                            <td colspan="3" style="color: red;">No data found for the selected.</td>
+                                            <td colspan="3" style="color: red;">No data found, please filter data first</td>
                                         </tr>
                                     @else
                                 @foreach ($testingrequisition as $key => $items)
@@ -223,15 +250,15 @@
                                         <td class="completion_date" hidden>@if($items->sampleReport == '')<p style="color:red">Report not completed</p>@else{{ $items->sampleReport->est_of_completion_date }}@endif</td>
                                         <td class="inspector_name" hidden>@if($items->sampleReport == '')<p style="color:red">Report not completed</p>@else{{ $items->sampleReport->inspector }}@endif</td>
                                         <td class="date" hidden>@if($items->sampleReport == '')<p style="color:red">Report not completed</p>@else{{ $items->sampleReport->date }}@endif</td>
-                                        {{-- status approvals by spv --}}
+                                        {{-- status approvals by QE-QCA --}}
                                         @if($items->status_approvals_id_spv == '3')
                                             <td><span class="badge bg-warning" style="color: black;">pending</span></td>
                                         @elseif($items->status_approvals_id_spv == '2')
                                             <td><span class="badge bg-danger" style="color: black;">rejected</span></td>
                                         @elseif($items->status_approvals_id_spv == '1')
-                                            <td><span class="badge bg-primary" style="color: black;">review</span></td>
+                                        <td class="qe_review"><span class="badge bg-primary" style="color: black;">Review</span></td>
                                         @endif
-                                        {{-- End status approvals by spv --}}
+                                        {{-- End status approvals by QE-QCA --}}
 
                                         {{-- Status approvals by QE-IQC --}}
                                         @if($items->status_approvals_id_qe == '' OR $items->status_approvals_id_qe == '3')
@@ -239,7 +266,7 @@
                                         @elseif($items->status_approvals_id_qe == '2')
                                             <td class="qe_review"><span class="badge bg-danger" style="color: black;">rejected</span></td>
                                         @elseif($items->status_approvals_id_qe == '1')
-                                            <td class="qe_review"><span class="badge bg-primary" style="color: black;">review</span></td>
+                                            <td class="qe_review"><span class="badge bg-primary" style="color: black;">Review</span></td>
                                         @endif
                                         {{-- End Status by QE --}}
 
@@ -257,11 +284,11 @@
                                         @if(Auth::user()->can('statusapprovalspv.column'))
                                         <td>
                                             @if($items->statusApprovals->status == 'pending')
-                                                <span class="badge bg-warning" style="color: black;"> {{ $items->statusApprovals->status }} </span>
+                                                <span class="badge bg-warning" style="color: black;"> {{ $items->statusApprovals->status }}</span>
                                             @elseif($items->statusApprovals->status == 'rejected')
                                                 <span class="badge bg-danger" style="color: black;"> {{ $items->statusApprovals->status }} </span>
                                             @else
-                                                <span class="badge bg-success" style="color: black;"> {{ $items->statusApprovals->status }} </span>
+                                                <span class="badge bg-info" style="color: black;"> {{ $items->statusApprovals->status }} </span>
                                             @endif
                                         </td> 
                                         @endif
@@ -269,7 +296,7 @@
                                         @if(Auth::user()->can('statusapprovalmanager.column'))
                                         <td>
                                             @if($items->status_approvals_id == '1')
-                                                <span class="badge bg-success" style="color: black;"> approved </span>
+                                                <span class="badge bg-success" style="color: black;">Approved</span>
                                             @elseif($items->status_approvals_id == '2')
                                                 <span class="badge bg-danger" style="color: black;"> rejected </span>
                                             @else
@@ -284,19 +311,19 @@
                                             <td><p style="color: red">status report not completed</p></td> --}}
                                         @if($items->status_approvals_id_spv == '1')
                                             <td>
-                                                <p class="text-success">REVIEW</p>
+                                                <p style="color: green">REVIEW</p>
                                             </td>
+                                        @elseif($items->status_approvals_id_qe == '' OR $items->status == 'incomplete')
+                                            <td><p style="color: yellow">waiting review QE-IQC</p></td>
                                         @elseif($items->status_approvals_id_qe == '1' OR $items->status_approvals_id_qe == '2' OR $items->status_approvals_id_spv == '2')
-                                            <td>
-                                                <button type="button" class="btn btn-inverse-success btn-xs" data-bs-toggle="modal" data-bs-target="#approvalModal" onclick="openApprovalModal({{ $items->id }})" title="Approvals">
-                                                    <i data-feather="check-square" style="width: 16px; height: 16px;"></i> Approved/Rejected
-                                                </button>
+                                        <td>
+                                            <button type="button" class="btn btn-inverse-success btn-xs" data-bs-toggle="modal" data-bs-target="#approvalModal" onclick="openApprovalModal({{ $items->id }})" title="Approvals">
+                                                <i data-feather="check-square" style="width: 16px; height: 16px;"></i>
+                                            </button>
                                             </td>
-                                        @elseif($items->status_approvals_id_qe == '' OR $items->status == 'incomplete' OR $items->status_approvals_id_spv == '3')
-                                            <td><p class="text-warning">waiting review QE-IQC</p></td>
                                         @elseif($items->status_approvals_id_spv == '')
                                             <td>
-                                                <p class="text-danger">please review first</p>
+                                                <p style="color: rgb(238, 38, 12)">please review first</p>
                                             </td>
                                         @endif
                                         @endif
@@ -308,7 +335,7 @@
                                         @elseif($items->status_approvals_id == '3' OR $items->status_approvals_id == '2')
                                         <td>
                                             <button type="button" class="btn btn-inverse-success btn-xs" data-bs-toggle="modal" data-bs-target="#approvalModalManager" onclick="openApprovalModalManager({{ $items->id }})" title="Approvals">
-                                                <i data-feather="check-square" style="width: 16px; height: 16px;"></i> Approved/Rejected
+                                                Approved/Rejected
                                             </button>
                                         </td>
                                         @elseif($items->status_approvals_id == '1')
@@ -321,23 +348,18 @@
 
                                         {{-- Button Action Approval by QE --}}
                                         @if(Auth::user()->can('action.approvalsQE'))
-                                        {{-- @if($items->status_approvals_id_qe == '23')
-                                            <td><p style="color: red">status report not completed</p></td> --}}
-                                        @if($items->status_approvals_id_qe == '1')
-                                            <td>
-                                                <p class="text-success">REVIEW</p>
-                                            </td>
-                                        @elseif($items->status_approvals_id_qe == '2' OR $items->status_approvals_id_qe == '3' OR $items->status_approvals_id_qe == '' OR $items->status == 'incomplete')
+                                        @if($items->status == 'incomplete')
+                                            <td><p style="color: red">status report not completed</p></td>
+                                        @elseif($items->status_approvals_id_qe == '2' OR $items->status_approvals_id_qe == '3')
                                             <td>
                                                 <button type="button" class="btn btn-inverse-success btn-xs" data-bs-toggle="modal" data-bs-target="#approvalModalQe" onclick="openApprovalModalQe({{ $items->id }})" title="Approvals">
-                                                    approved/rejected
+                                                    <i data-feather="check-square" style="width: 16px; height: 16px;"></i>
                                                 </button>
                                             </td>
-                                        {{-- @elseif()
+                                        @elseif($items->status_approvals_id_qe == '1' OR $items->status == 'complete' OR $items->status_approvals_id == '1')
                                             <td>
-                                                <p style="color: rgb(255, 255, 255)">belum direview</p>
-                                            </td> --}}
-                                        
+                                                <p style="color: green">REVIEW</p>
+                                            </td>
 
                                         {{-- @elseif($items->status_approvals_id_qe == '2' OR $items->status_approvals_id_qe == '')
                                         <td>
@@ -365,51 +387,23 @@
                                         @if(Auth::user()->can('edit.testingrequisition'))
                                         <td> 
                                             @if(Auth::user()->can('edit.testingrequisition'))
-                                                @if($items->status_approvals_id_qc == '2' OR $items->status_approvals_id_qe == '2')
-                                                    <a href="{{ route('edit.TestingRequisition', $items->id) }}" class="btn btn-inverse-warning btn-xs" title="Edit"><i data-feather="edit" style="width: 16px; height: 16px;"></i> Edit</a>
-                                                @elseif($items->status_approvals_id_qc == '' OR $items->status_approvals_id_qc == '1' OR $items->status_approvals_id_qe == '' OR $items->status_approvals_id_qe == '1')
-                                                    <p class="text-secondary">nothing to edit</p>
-                                                @endif
+                                                <a hidden href="{{ route('edit.TestingRequisition', $items->id) }}" class="btn btn-inverse-warning btn-xs" title="Edit"><i data-feather="edit" style="width: 16px; height: 16px;"></i></a>
                                             @endif
-
                                             @if(Auth::user()->can('delete.testingreport'))
                                                 <a href="{{ route('delete.requisition', $items->id) }}" class="btn btn-inverse-danger btn-xs" title="Delete"><i data-feather="trash-2" style="width: 16px; height: 16px;"></i></a>
                                             @endif
                                         </td> 
                                         @endif
-                                        {{-- Status PDF --}}
                                         @if($items->status == 'incomplete' || 
                                         in_array($items->status_approvals_id, [2, 3]) ||
                                         in_array($items->status_approvals_id_spv, [2, 3]) || 
                                         in_array($items->status_approvals_id_qe, [2, 3]))
                                         <td>
-                                            <p class="text-danger">can't download pdf/incomplete form status</p>
+                                            <p class="text-danger">can't download pdf/form status not complete</p>
                                         </td>
                                         @else
-                                            <td><a href="{{ route('requisition.export-pdf', $items->id ) }}" class="btn btn-inverse-success btn-xs" title="Export-PDF"><i data-feather="download" style="width: 16px; height: 16px;"></i> PDF</a></td>
+                                            <td><a href="{{ route('requisition.export-pdf', $items->id ) }}" class="btn btn-inverse-danger btn-xs" title="Export-PDF"><i data-feather="download" style="width: 16px; height: 16px;"></i></a></td>
                                         @endif
-
-                                        {{-- status Notes QE-IQC  --}}
-                                        @if($items->status_approvals_id_qe == '3' OR $items->status_approvals_id_qe == '1' OR $items->status_approvals_id_qe == '')
-                                            <td class="notes_qe_iqc"> <p class="text-secondary">no record.</p></td>
-                                        @elseif($items->status_approvals_id_qe == '2')
-                                            <td class="notes_qe_iqc"> <p class="text-danger">{{ $items->notes_qe }}</p></td>
-                                        @endif
-
-                                        {{-- status Notes QE-QCA  --}}
-                                        @if($items->status_approvals_id_spv == '3' OR $items->status_approvals_id_spv == '1' OR $items->status_approvals_id_spv == '')
-                                            <td class="notes_qe_qca"> <p class="text-secondary">no record.</p></td>
-                                        @elseif($items->status_approvals_id_spv == '2')
-                                            <td class="notes_qe_qca"> <p class="text-danger">{{ $items->notes_spv }}</p></td>
-                                        @endif
-
-                                        {{-- status Correction Technician Life Test  --}}
-                                        @if($items->status_approvals_id_qc == '3' OR $items->status_approvals_id_qc == '1' OR $items->status_approvals_id_qc == '')
-                                            <td class="notes_qe_qca"> <p class="text-secondary">no record.</p></td>
-                                        @elseif($items->status_approvals_id_qc == '2')
-                                            <td class="notes_qe_qca"> <p class="text-danger">{{ $items->notes_qc }}</p></td>
-                                        @endif
-
                                     </tr>
                                 @endforeach 
                                 @endif
@@ -615,17 +609,12 @@
                               </div>
 
                               <div class="row mb-3">
-                                  <label for="qe_review" class="col-sm-3 col-form-label">QE-IQC Review</label>
+                                  <label for="qe_review" class="col-sm-3 col-form-label">QE Review</label>
                                   <div class="col-sm-9">
-                                      <input type="text" class="form-control qe_review" id="qe_review" value="tidak ada" disabled>
+                                      <input type="text" class="form-control qe_review" id="qe_review" disabled>
                                   </div>
                               </div>
-                              <div class="row mb-3">
-                                  <label for="notes_qe_iqc" class="col-sm-3 col-form-label">Notes QE-IQC</label>
-                                  <div class="col-sm-9">
-                                      <input type="text" class="form-control notes_qe_iqc" id="notes_qe_iqc" disabled>
-                                  </div>
-                              </div>
+
                           </form>
         </div>
       </div>
@@ -696,27 +685,18 @@
                                       <input type="text" class="form-control status_report" id="status" disabled>
                                   </div>
                               </div>
-                              
                               <div class="row mb-3">
-                                <label for="status_approvals_spv" class="col-sm-3 col-form-label">QE-QCA Review</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control status_approvals_spv" id="status_approvals_spv" disabled>
-                                </div>
-                            </div>
-
+                                  <label for="status_approvals_spv" class="col-sm-3 col-form-label">Approvals Spv</label>
+                                  <div class="col-sm-9">
+                                      <input type="text" class="form-control status_approvals_spv" id="status_approvals_spv" disabled>
+                                  </div>
+                              </div>
                               <div class="row mb-3">
-                                <label for="notes_qe_qca" class="col-sm-3 col-form-label">Notes QE-QCA</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control notes_qe_qca" id="notes_qe_qca" disabled>
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="status_approvals_manager" class="col-sm-3 col-form-label">Approvals Manager</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control status_approvals_manager" id="status_approvals_manager" disabled>
-                                </div>
-                            </div>
+                                  <label for="status_approvals_manager" class="col-sm-3 col-form-label">Approvals Manager</label>
+                                  <div class="col-sm-9">
+                                      <input type="text" class="form-control status_approvals_manager" id="status_approvals_manager" disabled>
+                                  </div>
+                              </div>
 
                           </form>
 
@@ -799,8 +779,6 @@
             $('.status_approvals_spv').val(_this.find('.status_approvals_spv').text());
             $('.status_approvals_manager').val(_this.find('.status_approvals_manager').text());
             $('.qe_review').val(_this.find('.qe_review').text());
-            $('.notes_qe_iqc').val(_this.find('.notes_qe_iqc').text());
-            $('.notes_qe_qca').val(_this.find('.notes_qe_qca').text());
     });
   </script>
   

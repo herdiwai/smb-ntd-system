@@ -1,16 +1,33 @@
+{{-- <style>
+  .clock {
+      font-size: 20px;
+      font-weight: bold;
+      color: #f08811;
+      /* margin-top: 20px; */
+  }
+</style> --}}
 <nav class="navbar">
     <a href="#" class="sidebar-toggler">
         <i data-feather="menu"></i>
     </a>
+    @php
+        $id = Auth::user()->id;
+        $profileData = App\Models\User::find($id);
+    @endphp
     <div class="navbar-content">
         <form class="search-form">
             <div class="input-group">
               <div class="input-group-text">
+                <p>Login Account : {{ $profileData->username  }}</p>&nbsp;&nbsp;-&nbsp;
+                <p>Time :&nbsp;&nbsp;</p><div class="clock" id="clock"></div>&nbsp;&nbsp;
+                <a href="{{ route('admin.logout') }}" class="btn btn-inverse-danger btn-xs "><i data-feather="log-out" style="width: 14px; height: 14px;"></i>&nbsp;LOGOUT</a>
                 {{-- <i data-feather="search"></i> --}}
+                
               </div>
                   {{-- <input type="text" class="form-control" id="navbarForm" placeholder="Search here..."> --}}
               </div>
         </form>
+
         <ul class="navbar-nav">
             <li class="nav-item dropdown">
                 {{-- <a class="nav-link dropdown-toggle" href="#" id="appsDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -197,7 +214,7 @@
                         </div>
                         <div class="text-center">
                             <p class="tx-16 fw-bolder">{{ $profileData->name }}</p>
-                            <p class="tx-12 text-muted">{{ $profileData->email }}</p>
+                            {{-- <p class="tx-12 text-muted">{{ $profileData->email }}</p> --}}
                         </div>
                     </div>
     <ul class="list-unstyled p-1">
@@ -207,18 +224,20 @@
           <span>Profile</span>
         </a>
       </li>
+      @if(Auth::user()->can('menu.changepassword'))
       <li class="dropdown-item py-2">
         <a href="{{ route('admin.change.password') }}" class="text-body ms-0">
           <i class="me-2 icon-md" data-feather="edit"></i>
           <span>Change Password</span>
         </a>
       </li>
-      <li class="dropdown-item py-2">
+      @endif
+      {{-- <li class="dropdown-item py-2">
         <a href="javascript:;" class="text-body ms-0">
           <i class="me-2 icon-md" data-feather="repeat"></i>
           <span>Switch User</span>
         </a>
-      </li>
+      </li> --}}
       <li class="dropdown-item py-2">
         <a href="{{ route('admin.logout') }}" class="text-body ms-0">
           <i class="me-2 icon-md" data-feather="log-out"></i>
@@ -231,3 +250,20 @@
         </ul>
     </div>
 </nav>
+
+<script>
+  function updateClock() {
+      const clock = document.getElementById('clock');
+      const now = new Date();
+
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+
+      clock.textContent = `${hours}:${minutes}:${seconds}`;
+    }
+
+      // Update the clock every second
+      setInterval(updateClock, 1000);
+      // Initial call to display the clock immediately
+</script>

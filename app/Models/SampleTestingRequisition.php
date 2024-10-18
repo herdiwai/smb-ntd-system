@@ -34,6 +34,15 @@ class SampleTestingRequisition extends Model
             'status',
             'testpurpose',
             'summary',
+            'status_approvals_id',
+            'status_approvals_id_spv',
+            'sample_testing_reports_id',
+            'notes_spv',
+            'status_approvals_id_qe',
+            'notes_qe',
+            'notes_manager',
+            'status_approvals_id_qc',
+            'notes_qc',
     ];
 
     public function modelBrewer()
@@ -48,10 +57,14 @@ class SampleTestingRequisition extends Model
     {
         return $this->hasOne(Process::class,'id','processes_id');
     }
-    // Relasi to table SampleTestingReport
-    public function SampleReport()
+    public function shift()
     {
-        return $this->hasMany(SampleTestingReport::class);
+        return $this->hasOne(Shift::class,'id','shift_id');
+    }
+    // Relasi to table SampleTestingReport
+    public function sampleReport()
+    {
+        return $this->hasOne(SampleTestingReport::class,'sample_testing_requisition_id');
     }
 
     // Relasi ke user (satu form pertama diisi oleh satu user)
@@ -63,6 +76,10 @@ class SampleTestingRequisition extends Model
     public function testingReport()
     {
         return $this->hasMany(SampleTestingReport::class);
+    }
+    public function statusApprovals()
+    {
+        return $this->hasOne(StatusApprovals::class,'id','status_approvals_id');
     }
 
 }

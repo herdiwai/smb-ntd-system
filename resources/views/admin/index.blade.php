@@ -3,7 +3,7 @@
     
 <div class="page-content">
 
-  <h3>Welcome To SMB-SYSTEM</h3>
+  <h3>Welcome to BTM-<span style="color: orange">SYSTEM</span></h3>
 
     {{-- <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
       <div>

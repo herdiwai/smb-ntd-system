@@ -5,11 +5,11 @@
 
 <div class="page-content">
 
-    <div class="row">
-        <div class="col-md-12 grid-margin stretch-card">
+    <div class="row justify-content-center">
+        <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h6 class="card-title">FORM INPUT SAMPLE TESTING REQUISITION </h6>
+                    <h6 class="card-title"><b>FORM INPUT SAMPLE TESTING REQUISITION </b></h6>
                 
                     <form id="myForm" action="{{ route('store.sampletestingrequisition') }}" method="POST">
                         @method('POST')
@@ -40,26 +40,86 @@
 
                         
                             <div class="row">
+                                {{-- <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <div class="form-row align-items-center">
+                                            <div class="col-sm-3">
+                                                <label for="date" class="col-form-label">Date</label>
+                                            </div>
+                                            <div class="col">
+                                                <input type="date" name="date" id="date" class="form-control" placeholder="Select date" data-input>
+                                            </div>
+                                        </div>
+                                    </div>                                   
+                                </div> --}}
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-3">
-                                                <label for="" class="col-form-label">Date</label>
+                                                <label for="process" class="col-form-label col-form-label-sm"><b>Process</b></label>
                                             </div>
                                             <div class="col">
-                                                <input type="date" name="date" id="" class="form-control" placeholder="Select date" data-input>
+                                                <select id="process" name="processes_id" class="form-select form-select-sm">
+                                                    <option value="">Select Process</option>
+                                                    @foreach($process as $processs)
+                                                        {{-- <option value="{{ $processs->id }}">{{ $processs->process }}</option> --}}
+                                                        <option value="{{ $processs->id }}" {{ old('process') == $processs ? 'selected' : '' }}>{{ $processs->process }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
-                                    </div>                                   
+                                    </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-3">
-                                                <label for="lot" class="col-form-label">Lot</label>
+                                                <label for="model" class="col-form-label col-form-label-sm"><b>Model</b></label>
                                             </div>
                                             <div class="col">
-                                                <select id="lot" name="lot_id" class="form-select">
+                                                <select id="model" name="model_id" class="form-select form-select-sm">
+                                                    <option value="">Select Model</option>
+                                                    @foreach($modelbrewer as $models)
+                                                        {{-- <option value="{{ $models->id }}">{{ $models->model }}</option> --}}
+                                                        <option value="{{ $models->id }}" {{ old('modelbrewer') == $models->id ? 'selected' : '' }}>{{ $models->model }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>    
+                                </div>
+                            </div>
+
+                       
+
+                            <div class="row">
+                                
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <div class="form-row align-items-center">
+                                            <div class="col-sm-3">
+                                                <label for="shift" class="col-form-label col-form-label-sm"><b>Shift</b></label>
+                                            </div>
+                                            <div class="col">
+                                                <select id="shift" name="shift_id" class="form-select form-select-sm">
+                                                    <option value="">Select Shift</option>
+                                                    @foreach($shift as $shifts)
+                                                        {{-- <option value="{{ $shifts->id }}">{{ $shifts->shift }}</option> --}}
+                                                        <option value="{{ $shifts->id }}" {{ old('shift') == $shifts->id ? 'selected' : '' }}>{{ $shifts->shift }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <div class="form-row align-items-center">
+                                            <div class="col-sm-3">
+                                                <label for="lot" class="col-form-label col-form-label-sm"><b>Lot</b></label>
+                                            </div>
+                                            <div class="col">
+                                                <select id="lot" name="lot_id" class="form-select form-select-sm">
                                                     <option value="">Select Lot</option>
                                                     @foreach($lot as $lots)
                                                         <option value="{{ $lots->id }}">{{ $lots->lot }}</option>
@@ -69,56 +129,19 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                       
-
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <div class="form-group">
-                                        <div class="form-row align-items-center">
-                                            <div class="col-sm-3">
-                                                <label for="model" class="col-form-label">Model</label>
-                                            </div>
-                                            <div class="col">
-                                                <select id="model" name="model_id" class="form-select">
-                                                    <option value="">Select Model</option>
-                                                    @foreach($modelbrewer as $models)
-                                                        <option value="{{ $models->id }}">{{ $models->model }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>    
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <div class="form-group">
-                                        <div class="form-row align-items-center">
-                                            <div class="col-sm-3">
-                                                <label for="shift" class="col-form-label">Shift</label>
-                                            </div>
-                                            <div class="col">
-                                                <select id="shift" name="shift_id" class="form-select">
-                                                    <option value="">Select Shift</option>
-                                                    @foreach($shift as $shifts)
-                                                        <option value="{{ $shifts->id }}">{{ $shifts->shift }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                
                             </div>    
 
                             <div class="row">
+                               
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
-                                            <div class="col-sm-3">
-                                                <label for="series" class="col-form-label">Series</label>
+                                            <div class="col">
+                                                <label for="noOfSample" class="col-form-label col-form-label-sm"><b>No Of Sample</b></label>
                                             </div>
                                             <div class="col">
-                                                <input type="text" class="form-control" id="series" placeholder="" name="series">
+                                                <input type="text" class="form-control form-control-sm" id="noOfSample" name="no_of_sample">
                                             </div>
                                         </div>
                                     </div>
@@ -127,27 +150,28 @@
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-3">
-                                                <label for="noOfSample" class="col-form-label">No Of Sample</label>
+                                                <label for="cONo" class="col-form-label col-form-label-sm"><b>C/O No.</b></label>
                                             </div>
                                             <div class="col">
-                                                <input type="text" class="form-control" id="noOfSample" placeholder="" name="no_of_sample">
+                                                <input type="text" class="form-control form-control-sm" id="co_no" placeholder="" name="co_no">
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>  
                                 </div>
                             </div>    
 
 
                          
                             <div class="row">
+                               
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
-                                            <div class="col-sm-3">
-                                                <label for="cONo" class="col-form-label">C/O No.</label>
+                                            <div class="col">
+                                                <label for="" class="col-form-label col-form-label-sm"><b>Do Number</b></label>
                                             </div>
                                             <div class="col">
-                                                <input type="text" class="form-control" id="co_no" placeholder="" name="co_no">
+                                                <input type="text" class="form-control form-control-sm" id="" placeholder="" name="do_no">
                                             </div>
                                         </div>
                                     </div>  
@@ -156,39 +180,23 @@
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-3">
-                                                <label for="" class="col-form-label">Do Number</label>
+                                                <label for="series" class="col-form-label col-form-label-sm"><b>Series</b></label>
                                             </div>
                                             <div class="col">
-                                                <input type="text" class="form-control" id="" placeholder="" name="do_no">
-                                            </div>
-                                        </div>
-                                    </div>  
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <div class="form-group">
-                                        <div class="form-row align-items-center">
-                                            <div class="col-sm-3">
-                                                <label for="process" class="col-form-label">Process</label>
-                                            </div>
-                                            <div class="col">
-                                                <select id="process" name="processes_id" class="form-select">
-                                                    <option value="">Select Process</option>
-                                                    @foreach($process as $processs)
-                                                        <option value="{{ $processs->id }}">{{ $processs->process }}</option>
-                                                    @endforeach
-                                                </select>
+                                                <input type="text" class="form-control form-control-sm" id="series" name="series">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
-                                            <div class="col-sm-3">
-                                                <label for="mfgSample" class="col-form-label">MFG Sample Date</label>
+                                            <div class="col">
+                                                <label for="mfgSample" class="col-form-label col-form-label-sm"><b>MFG Sample Date</b></label>
                                             </div>
                                             <div class="col">
-                                                <input type="date" class="form-control" name="mfg_sample_date" id="mfgSample" placeholder="">
+                                                <input type="date" class="form-control form-control-sm" name="mfg_sample_date" id="mfgSample" placeholder="">
                                             </div>
                                         </div>
                                     </div>
@@ -206,11 +214,11 @@
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
                                     <div class="form-row align-items-center">
-                                        <div class="col-sm-5">
-                                            <label for="sampleSubmittedDate" class="col-form-label">Sample Submitted (Date)</label>
+                                        <div class="col">
+                                            <label for="sampleSubmittedDate" class="col-form-label col-form-label-sm"><b>Sample Submitted (Date)</b></label>
                                         </div>
                                         <div class="col">
-                                            <input type="date" name="sample_subtmitted_date" id="sampleSubmittedDate" class="form-control" placeholder="Select date" data-input>
+                                            <input type="date" name="sample_subtmitted_date" id="sampleSubmittedDate" class="form-control form-control-sm" placeholder="Select date" data-input>
                                         </div>
                                     </div>
                                 </div>
@@ -218,11 +226,12 @@
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
                                     <div class="form-row align-items-center">
-                                        <div class="col-sm-3">
-                                            <label for="completionDate" class="col-form-label">Completion Date</label>
+                                        <div class="col">
+                                            <label for="completionDate" class="col-form-label col-form-label-sm"><b>Completion Date</b></label>
                                         </div>
                                         <div class="col">
-                                            <input type="date" name="completion_date" id="completionDate" class="form-control" placeholder="Select date" data-input>
+                                            <input type="text" name="completion_date" class="form-control form-control-sm">
+                                            {{-- <input type="text" name="completion_date" id="completionDate" class="form-control form-control-sm" placeholder="Select date" data-input> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -233,11 +242,12 @@
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
                                     <div class="form-row align-items-center">
-                                        <div class="col-sm-5">
-                                            <label for="traceabilityDate" class="col-form-label">Traceability (Date Code)</label>
+                                        <div class="col">
+                                            <label for="traceabilityDate" class="col-form-label col-form-label-sm"><b>Traceability (Date Code)</b></label>
                                         </div>
                                         <div class="col">
-                                            <input type="date" name="tracebility_datecode" id="traceabilityDate" class="form-control" placeholder="Select date" data-input>
+                                            {{-- <input type="text" name="tracebility_datecode" class="form-control form-control-sm"> --}}
+                                            <input type="date" name="tracebility_datecode" id="completionDate" class="form-control form-control-sm" placeholder="Select date" data-input>
                                         </div>
                                     </div>
                                 </div>
@@ -249,7 +259,7 @@
                         <!-- Test Purpose Section -->
 
                         <div class="form-group mb-3">
-                            <label for="test-purpose" class="form-label">Test Purpose</label>
+                            <label for="test-purpose" class="form-label form-label-sm"><b>Test Purpose</b></label>
 
                             <div class="row mb-3">
                                 <!-- Checkbox Group 1 -->                               
@@ -316,13 +326,13 @@
                             </div>
 
                             <div class="form-group mb-3" id="other_purpose">
-                                <label for="remarks">Other purpose/remarks:</label>
+                                <label for="remarks"><b>Other purpose/remarks:</b></label>
                                 <textarea class="form-control" id="remarks" name="test_purpose" rows="5" placeholder=""></textarea>
                             </div>
                         </div>
 
                         <!-- end class test purpose -->
-                        <hr />
+                        {{-- <hr /> --}}
                         {{-- <div class="row">
                             <div class="col-md-6 mb-3">
                                 <h6 class="card-title">Pilot Project</h6>
@@ -360,36 +370,39 @@
                                 <input type="text" class="form-control" id="input4" placeholder="">
                             </div>
                         </div> --}}
+                        
 
                         <div class="row">
                             <div class="col-md-12 mb-6">
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <div class="form-row">
                                         <label for="qeReview" >Testing purpose</label>
                                         <input type="text" class="form-control" id="name" placeholder=""name="testing_purpose" >
                                     </div>
                                 </div>
-                                &nbsp;  
+                                &nbsp;   --}}
 
                                 <div class="form-group">
                                     <div class="form-row">
-                                        <label for="qeReview" >Summary</label>
+                                        <label for="qeReview"><b>Summary</b></label>
                                         <textarea class="form-control" id="summary" placeholder="" rows="5" name="summary"></textarea>
                                     </div>
                                 </div>
                                 &nbsp;
-
-                                <div class="form-group">
-                                    <div class="form-row">
-                                        <label for="qeReview" >Check By</label>
-                                        <input type="text" class="form-control" value="{{ $profileData->username }}" id="name" placeholder=""name="check_by" readonly>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="form-row">
+                                            <label for="qeReview"><b>Check By</b></label>
+                                            {{-- <input type="text" class="form-control" value="{{ $profileData->username }}" id="name" placeholder=""name="check_by" readonly> --}}
+                                            <input type="text" class="form-control form-control-sm" id="name" placeholder=""name="check_by">
+                                        </div>
                                     </div>
+                                    <br>
+                                        <button class="btn btn-primary btn-sm" type="submit"><i data-feather="send" style="width: 16px; height: 16px;"></i> SAVE</button>
                                 </div>
                             </div>
                         </div>
 
-                        <button class="btn btn-primary btn-sm" type="submit"><i data-feather="save"></i> SAVE</button>
-                        
                     </form>
                 </div>
             </div>
@@ -516,125 +529,95 @@
     $(document).ready(function (){
         $('#myForm').validate({
             rules: {
-                lot: {
+                lot_id: {
                     required : true,
                 }, 
-                model: {
+                model_id: {
                     required : true,
                 }, 
-                shift: {
+                shift_id: {
                     required : true,
                 }, 
                 series: {
                     required : true,
                 }, 
-                noOfSample: {
+                no_of_sample: {
                     required : true,
                 }, 
-                cONo: {
+                co_no: {
                     required : true,
                 }, 
-                process: {
+                do_no: {
+                    required : true,
+                }, 
+                processes_id: {
                     required : true,
                 },
-                mfgSample: {
+                mfg_sample_date: {
                     required : true,
                 },
-                sampleSubmittedDate: {
+                sample_subtmitted_date: {
                     required : true,
                 },
-                completionDate: {
+                completion_date: {
                     required : true,
                 },
-                traceabilityDate: {
+                tracebility_datecode: {
                     required : true,
                 },
-                quatationSample: {
+                summary: {
                     required : true,
                 },
-                moldProcess: {
+                check_by: {
                     required : true,
                 },
-                epPPSample: {
-                    required : true,
-                },
-                firstBatch: {
-                    required : true,
-                },
-                ssbApproves: {
-                    required : true,
-                },
-                normalLife: {
-                    required : true,
-                },
-                designChange: {
-                    required : true,
-                },
-                presented: {
-                    required : true,
-                },
-                name: {
+                testpurpose: {
                     required : true,
                 },
                 
             },
             messages :{
-                lot: {
+                lot_id: {
                     required : 'Please Enter Lot Name',
                 }, 
-                model: {
+                model_id: {
                     required : 'Please Enter Model Name',
                 }, 
-                shift: {
+                shift_id: {
                     required : 'Please Enter Shift Name',
                 }, 
                 series: {
-                    required : 'Please Series Name',
+                    required : 'Please Enter Series Name',
                 }, 
-                noOfSample: {
+                no_of_sample: {
                     required : 'Please Enter No of Sample',
                 }, 
-                cONo: {
+                co_no: {
                     required : 'Please Enter C/O No',
                 }, 
-                process: {
+                do_no: {
+                    required : 'Please Enter D.O Number',
+                }, 
+                processes_id: {
                     required : 'Please Enter Process',
                 },
-                mfgSample: {
+                mfg_sample_date: {
                     required : 'Please Enter MFG Sample',
                 },  
-                sampleSubmittedDate: {
+                sample_subtmitted_date: {
                     required : 'Please Select Sample Submited Date',
                 },  
-                completionDate: {
+                completion_date: {
                     required : 'Please Select Completion Date',
                 }, 
-                traceabilityDate: {
+                tracebility_datecode: {
                     required : 'Please Select Traceability Date',
                 },
-                quatationSample: {
-                    required : 'Please Enter Select Test Purpose',
+                summary: {
+                    required : 'Please Enter Summary',
                 },
-                moldProcess: {
-                    required : '',
-                },
-                epPPSample: {
-                    required : '',
-                },
-                firstBatch: {
-                    required : '',
-                },
-                ssbApproves: {
-                    required : '',
-                },
-                normalLife: {
-                    required : '',
-                },
-                designChange: {
-                    required : '',
-                },
-                presented: {
-                    required : '',
+                check_by: {
+                    required : 'Please Enter Your Name',
                 },
                  
             },
@@ -652,27 +635,28 @@
         });
     });
     
-    document.querySelectorAll('input[type="checkbox"]').forEach(function(checkbox) {
-        checkbox.addEventListener('change', function() {
-            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            const otherInput = document.getElementById('other_purpose');
-            let checked = false;
 
-            // Periksa jika ada checkbox yang dipilih
-            checkboxes.forEach(function(checkbox) {
-                if (checkbox.checked) {
-                    checked = true;
-                }
-            });
+    // document.querySelectorAll('input[type="checkbox"]').forEach(function(checkbox) {
+    //     checkbox.addEventListener('change', function() {
+    //         const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    //         const otherInput = document.getElementById('other_purpose');
+    //         let checked = false;
 
-            // Jika ada checkbox yang dipilih, sembunyikan textarea
-            if (checked) {
-                otherInput.style.display = 'none';
-            } else {
-                otherInput.style.display = 'block';
-            }
-        });
-    });
+    //         // Periksa jika ada checkbox yang dipilih
+    //         checkboxes.forEach(function(checkbox) {
+    //             if (checkbox.checked) {
+    //                 checked = true;
+    //             }
+    //         });
+
+    //         // Jika ada checkbox yang dipilih, sembunyikan textarea
+    //         if (checked) {
+    //             otherInput.style.display = 'none';
+    //         } else {
+    //             otherInput.style.display = 'block';
+    //         }
+    //     });
+    // });
 
 
 </script>

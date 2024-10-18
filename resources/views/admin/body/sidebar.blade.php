@@ -1,7 +1,7 @@
 <nav class="sidebar">
     <div class="sidebar-header">
       <a href="#" class="sidebar-brand">
-        BTM-<span>System</span>
+        BTM-<span style="color: orange">SYSTEM</span>
       </a>
       <div class="sidebar-toggler not-active">
         <span></span>
@@ -92,39 +92,47 @@
           </li>
           @endif --}}
 
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents1" role="button" aria-expanded="false" aria-controls="uiComponents1">
-              <i class="link-icon" data-feather="file"></i>
-              <span class="link-title">Testing Requisition</span>
-              <i class="link-arrow" data-feather="chevron-down"></i>
-            </a>
-            <div class="collapse" id="uiComponents1">
-              <ul class="nav sub-menu">
-                
-                <li class="nav-item">
-                  <a href="{{ route('qualitycontrol.sampletestingrequisition') }}" class="nav-link">All Table</a>
-                </li>
-               
-                <li class="nav-item">
-                  <a href="{{ route('add.sampletestingrequisition') }}" class="nav-link">Add</a>
-                </li>
-             
-              </ul>
-            </div>
-          </li>
 
+        @if(Auth::user()->can('testingrequisition.menu'))
+            <li class="nav-item">
+              <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents1" role="button" aria-expanded="false" aria-controls="uiComponents1">
+                <i class="link-icon" data-feather="file"></i>
+                <span class="link-title" style="font-size: 12.5px;">Sample Testing Requisition</span>
+                <i class="link-arrow" data-feather="chevron-down"></i>
+              </a>
+              <div class="collapse" id="uiComponents1">
+                <ul class="nav sub-menu">
+                  
+                  <li class="nav-item">
+                    <a href="{{ route('qualitycontrol.sampletestingrequisition') }}" class="nav-link">All Table</a>
+                  </li>
+                
+                  @if(Auth::user()->can('add.testingrequisition'))
+                  <li class="nav-item">
+                    <a href="{{ route('add.sampletestingrequisition') }}" class="nav-link">Add</a>
+                  </li>
+                  @endif
+
+                </ul>
+              </div>
+            </li>
+          @endif
+
+          @if(Auth::user()->can('testingreport.menu'))
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents01" role="button" aria-expanded="false" aria-controls="uiComponents01">
               <i class="link-icon" data-feather="file-text"></i>
-              <span class="link-title">Testing Report</span>
+              <span class="link-title">Requisition & Report</span>
               <i class="link-arrow" data-feather="chevron-down"></i>
             </a>
             <div class="collapse" id="uiComponents01">
               <ul class="nav sub-menu">
                 
+                @if(Auth::user()->can('all.testingreport'))
                 <li class="nav-item">
                   <a href="{{ route('qualitycontrol.sampletestingreport') }}" class="nav-link">All Table</a>
                 </li>
+                @endif
                
                 {{-- <li class="nav-item">
                   <a href="" class="nav-link">Add</a>
@@ -133,6 +141,114 @@
               </ul>
             </div>
           </li>
+          @endif
+
+
+          {{-- @if(Auth::user()->can('approved.menu'))
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents02" role="button" aria-expanded="false" aria-controls="uiComponents02">
+              <i class="link-icon" data-feather="folder"></i>
+              <span class="link-title">Approved</span>
+              <i class="link-arrow" data-feather="chevron-down"></i>
+            </a>
+            <div class="collapse" id="uiComponents02">
+              <ul class="nav sub-menu">
+                
+                <li class="nav-item">
+                  <a href="{{ route('approval.status') }}" class="nav-link">All Table</a>
+                </li>
+        
+              </ul>
+            </div>
+          </li>
+          @endif --}}
+
+         
+          @if(Auth::user()->can('notyetappovals.menu'))
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents04" role="button" aria-expanded="false" aria-controls="uiComponents04">
+              <i class="link-icon" data-feather="folder"></i>
+              <span class="link-title" style="font-size: 12.5px;">Requisitiion & Report</span>
+              <i class="link-arrow" data-feather="chevron-down"></i>
+            </a>
+            <div class="collapse" id="uiComponents04">
+              <ul class="nav sub-menu">
+                
+                @if(Auth::user()->can('all.testingreport'))
+                <li class="nav-item">
+                  <a href="{{ route('qualitycontrol.sampletestingrequisition') }}" class="nav-link">All Table</a>
+                </li>
+               @endif
+              </ul>
+            </div>
+          </li>
+          @endif
+
+          @if(Auth::user()->can('approvalsspv.menu'))
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents05" role="button" aria-expanded="false" aria-controls="uiComponents05">
+              <i class="link-icon" data-feather="folder"></i>
+              <span class="link-title">Requisition & Report</span>
+              <i class="link-arrow" data-feather="chevron-down"></i>
+            </a>
+            <div class="collapse" id="uiComponents05">
+              <ul class="nav sub-menu">
+                
+                @if(Auth::user()->can('all.approvalsspv'))
+                <li class="nav-item">
+                  <a href="{{ route('qualitycontrol.sampletestingrequisition') }}" class="nav-link">All Table</a>
+                </li>
+               @endif
+              </ul>
+            </div>
+          </li>
+          @endif
+
+          {{-- Menu Approvals QE --}}
+          @if(Auth::user()->can('menu.approvalsQE'))
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents06" role="button" aria-expanded="false" aria-controls="uiComponents06">
+              <i class="link-icon" data-feather="folder"></i>
+              <span class="link-title" style="font-size: 13.5px;">Requisition & Report</span>
+              <i class="link-arrow" data-feather="chevron-down"></i>
+            </a>
+            <div class="collapse" id="uiComponents06">
+              <ul class="nav sub-menu">
+                
+                @if(Auth::user()->can('all.approvalsQE'))
+                <li class="nav-item">
+                  <a href="{{ route('qualitycontrol.sampletestingrequisition') }}" class="nav-link">All Table</a>
+                </li>
+                @endif
+             
+              </ul>
+            </div>
+          </li>
+          @endif
+          {{-- End Approvals QE --}}
+
+          {{-- Menu Filter Sample Requisition and Report --}}
+          @if(Auth::user()->can('menu.filterSample'))
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents07" role="button" aria-expanded="false" aria-controls="uiComponents07">
+              <i class="link-icon" data-feather="filter"></i>
+              <span class="link-title">Filter Sample</span>
+              <i class="link-arrow" data-feather="chevron-down"></i>
+            </a>
+            <div class="collapse" id="uiComponents07">
+              <ul class="nav sub-menu">
+                
+                @if(Auth::user()->can('all.filterSample'))
+                <li class="nav-item">
+                  <a href="{{ route('filter.sample') }}" class="nav-link">All Table</a>
+                </li>
+                @endif
+             
+              </ul>
+            </div>
+          </li>
+          @endif
+          {{-- End Approvals QE --}}
 
          
 
@@ -178,7 +294,7 @@
           </li>
         @endif
         
-        
+        @if(Auth::user()->can('model.menu'))
           <li class="nav-item nav-category">List</li>
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents2" role="button" aria-expanded="false" aria-controls="uiComponents2">
@@ -197,7 +313,9 @@
               </ul>
             </div>
           </li>
+        @endif
 
+        @if(Auth::user()->can('process.menu'))
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents3" role="button" aria-expanded="false" aria-controls="uiComponents3">
               <i class="link-icon" data-feather="table"></i>
@@ -215,7 +333,9 @@
               </ul>
             </div>
           </li>
+          @endif
 
+          @if(Auth::user()->can('lot.menu'))
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents4" role="button" aria-expanded="false" aria-controls="uiComponents4">
               <i class="link-icon" data-feather="table"></i>
@@ -233,7 +353,7 @@
               </ul>
             </div>
           </li>
- 
+          @endif
 
 
         @if(Auth::user()->can('role&permission.menu'))

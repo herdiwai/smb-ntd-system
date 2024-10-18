@@ -1,11 +1,13 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Backend\ApprovalController;
 use App\Http\Controllers\Backend\LotController;
 use App\Http\Controllers\Backend\ModelBrewerController;
 use App\Http\Controllers\Backend\ProcessController;
 use App\Http\Controllers\Backend\ProcessModelController;
 use App\Http\Controllers\Backend\SubAssyProcessPatrolController;
+use App\Http\Controllers\Backend\ReviewApprovalController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\SampleTestingReportContoller;
 use App\Http\Controllers\Backend\SampleTestingRequisitionController;
@@ -178,7 +180,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
     });
 });
 
-// Production SampleTestingRequisition
+// Quality SampleTestingRequisition
 Route::middleware(['auth', 'roles:admin'])->group(function() {
 
     Route::controller(SampleTestingRequisitionController::class)->group(function(){
@@ -186,6 +188,37 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
         Route::get('/add/sampletestingrequisition', 'AddSampleTestingRequisition' )->name('add.sampletestingrequisition');
         Route::post('/store/sampletestingrequisition', 'StoreTesting' )->name('store.sampletestingrequisition');
         Route::get('/edit/sampletestingrequisition/{id}', 'EditTestingRequisition' )->name('edit.TestingRequisition');
+        Route::post('/update/sampletestingrequisition', 'UpdateTestingRequisition' )->name('update.TestingRequisition');
+        Route::post('/update/approvals-manager/{id}', 'UpdateApprovalsManager' )->name('update.approvalsmanager');
+        Route::post('/update/approvals-spv/{id}', 'UpdateApprovalsSpv' )->name('update.approvalsspv');
+        Route::post('/update/approvals-qe/{id}', 'UpdateApprovalsQe' )->name('update.approvalsqe');
+        Route::get('/testing/{id}', 'ShowDetails' )->name('show.testing');
+        Route::get('/filter-sample', 'filterSample' )->name('filter.sample');
+        // Route::get('/generate-pdf', 'generatePdf' )->name('generate.pdf');
+        Route::get('/requisition/{id}/export-pdf', 'generatePdf' )->name('requisition.export-pdf');
+        Route::get('/delete/sampletestingrequisition/{id}', 'DeleteRequisition' )->name('delete.requisition');
+        // Route::post('/update/hourlyoutput', 'UpdateHourlyOutput' )->name('update.hourlyoutput');
+
+        //Production Hourly Ouput Export Excel
+        // Route::get('/production/export-excel', 'ExportToExcel')->name('excel.export.file');
+        //Production Hourly Ouput Filter Data
+        // Route::get('/filter/hourlyoutput', 'FilterHourlyOutput')->name('filter.hourlyoutput');
+    });
+});
+
+// Quality SampleTestingReport
+Route::middleware(['auth', 'roles:admin'])->group(function() {
+    Route::controller(SampleTestingReportContoller::class)->group(function(){
+        Route::get('/qualitycontrol/sampletestingreport', 'SampleTestingReport' )->name('qualitycontrol.sampletestingreport');
+        Route::get('/add/sampletestingreport/{id}', 'AddSampleTestingReport' )->name('add.sampletestingreport');
+        Route::post('/store/sampletestingreport/{id}', 'StoreTestingReport' )->name('store.sampletestingreport');
+        Route::get('/edit/sampletestingreport/{id}', 'EditTestingReport' )->name('edit.sampletestingreport');
+        // Route::post('/update/sampletestingreport', 'UpdateTestingReport' )->name('update.sampletestingreport');
+        Route::post('/update/correction-form/{id}', 'actionCorrection' )->name('update.correction');
+        Route::post('/update/sampletestingreport/{id}', 'UpdateTestingReport' )->name('update.sampletestingreport');
+        Route::post('/report/update/{id}', 'update' )->name('update.report');
+        // Route::post('/update/approvals/{id}', 'UpdateApprovals' )->name('update.approvals');
+        // Route::get('/edit/sampletestingrequisition/{id}', 'EditTestingRequisition' )->name('edit.TestingRequisition');
         // Route::post('/update/hourlyoutput', 'UpdateHourlyOutput' )->name('update.hourlyoutput');
         // Route::get('/delete/hourlyoutput/{id}', 'DeleteHourlyoutput' )->name('delete.hourlyoutput');
 
@@ -196,14 +229,13 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
     });
 });
 
-// Production SampleTestingReport
+// Approvals
 Route::middleware(['auth', 'roles:admin'])->group(function() {
-
-    Route::controller(SampleTestingReportContoller::class)->group(function(){
-        Route::get('/qualitycontrol/sampletestingreport', 'SampleTestingReport' )->name('qualitycontrol.sampletestingreport');
-        Route::get('/add/sampletestingreport/{id}', 'AddSampleTestingReport' )->name('add.sampletestingreport');
-        Route::post('/store/sampletestingreport/{id}', 'StoreTestingReport' )->name('store.sampletestingreport');
-        // Route::get('/edit/sampletestingrequisition/{id}', 'EditTestingRequisition' )->name('edit.TestingRequisition');
+    Route::controller(ApprovalController::class)->group(function(){
+        Route::get('/approvals', 'index' )->name('approval.status');
+        // Route::get('/add/sampletestingreport/{id}', 'AddSampleTestingReport' )->name('add.sampletestingreport');
+        Route::post('/store/approvals/{id}', 'StoreApprovals' )->name('store.approvals');
+        Route::get('/testing/{id}', 'ShowDetail' )->name('show.testing');
         // Route::post('/update/hourlyoutput', 'UpdateHourlyOutput' )->name('update.hourlyoutput');
         // Route::get('/delete/hourlyoutput/{id}', 'DeleteHourlyoutput' )->name('delete.hourlyoutput');
 
@@ -212,8 +244,6 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
         //Production Hourly Ouput Filter Data
         // Route::get('/filter/hourlyoutput', 'FilterHourlyOutput')->name('filter.hourlyoutput');
     });
-
-    
 });
 
 // Production SubAssy Patrol Record
@@ -239,3 +269,9 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
 
     
 });
+
+
+Route::get('/review', [ReviewApprovalController::class, 'index'])->name('review.index');
+Route::get('/review/{id}', [ReviewApprovalController::class, 'show'])->name('review.show');
+Route::post('/review/{id}', [ReviewApprovalController::class, 'submit'])->name('review.submit');
+

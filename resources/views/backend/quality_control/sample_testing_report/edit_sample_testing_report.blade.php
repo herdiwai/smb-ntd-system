@@ -9,11 +9,11 @@
         <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h6 class="card-title"><b>FORM SAMPLE TESTING REPORT </b></h6>
+                    <h6 class="card-title"><b>EDIT SAMPLE TESTING REPORT </b></h6>
                 
-                    <form id="myForm" action="{{ route('store.sampletestingreport', $testinggetid->id) }}" method="POST">
-                        @method('POST')
+                    <form id="myForm" action="{{ route('update.report', $testinggetid->sampleReport->id) }}" method="POST">
                         @csrf
+                        @method('POST')
                         <!-- Bagian return sample -->
                         
                             {{-- <div class="row mb-3 align-items-center">
@@ -38,6 +38,7 @@
                         
                         <!-- end return sample-->
                         <input type="hidden" name="id" value="{{ $testinggetid->id }}">
+                        {{-- <input type="hidden" name="id" value="{{ $sampleTestingReport->id }}"> --}}
                         <input type="hidden" name="status_approvals_id" value="{{ $testinggetid->status_approvals_id }}">
                         <input type="hidden" name="status_approvals" value="{{ $testinggetid->status_approvals_id_spv }}">
                         <input type="hidden" name="report_no" value="{{ $testinggetid->incomming_number }}">
@@ -204,7 +205,7 @@
                                         <label for="after" class="col-form-label"><b>After :</b></label>
                                     </div>
                                     <div class="col">
-                                        <textarea name="summary_after" class="form-control" id="after" rows="5" placeholder=""></textarea>
+                                        <textarea name="summary_after" class="form-control" id="after" rows="5" placeholder="">{{ old('summary_after', $testinggetid->sampleReport->summary_after) }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -215,8 +216,19 @@
                             <label for="test-purpose" class="form-label"><b>Result</b></label>
 
                             <div class="row mb-3">
-                                <!-- Checkbox Group 1 -->                               
+                                <!-- Checkbox Group 1 -->         
+                                @foreach($result as $results)
                                 <div class="col-md-6 d-flex align-items-center">
+                                    <div class="form-check">
+                                            <input class="form-check-input" name="result_test[]" id="toggleCheckbox" type="checkbox" value="{{ $results }}" {{ $results == $testinggetid->sampleReport->result_test ? 'checked' : '' }}>
+                                                {{ $results }}
+                                            </option>
+                                    </div>
+                                </div>
+                            @endforeach
+
+                                
+                                {{-- <div class="col-md-6 d-flex align-items-center">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" id="pass" value="Pass" name="result_test[]">
                                         <label class="form-check-label me-2" for="pass">PASS</label>
@@ -227,10 +239,10 @@
                                         <input class="form-check-input" type="checkbox" id="conditionalPass" value="Conditional Pass" name="result_test[]">
                                         <label class="form-check-label me-2" for="conditionalPass">CONDITIONAL PASS</label>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
 
-                            <div class="row mb-3">
+                            {{-- <div class="row mb-3">
                                 <!-- Checkbox Group 2 -->
                                 <div class="col-md-6 d-flex align-items-center">
                                     <div class="form-check">
@@ -248,16 +260,16 @@
 
                             <div class="row mb-3">
                                 <!-- Checkbox Group 3 -->
-                                <div class="col-md-6 d-flex align-items-center">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="na" value="N/A" name="result_test[]">
-                                        <label class="form-check-label me-2" for="na">N/A</label>
-                                    </div>
+                            <div class="col-md-6 d-flex align-items-center">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="na" value="N/A" name="result_test[]">
+                                    <label class="form-check-label me-2" for="na">N/A</label>
                                 </div>
+                            </div> --}}
 
                             <div class="form-group mb-3" id="other_purpose">
                                 <label for="remarks"><b>Remarks:</b></label>
-                                <textarea class="form-control" id="remarks" name="remark_test" rows="5" placeholder=""></textarea>
+                                <textarea class="form-control" id="remarks" name="remark_test" rows="5" placeholder="">{{ old('summary_after', $testinggetid->sampleReport->remark_test) }}</textarea>
                             </div>
                         </div>
 
@@ -271,7 +283,7 @@
                                                 <label for="" class="col-form-label-sm"><b>Schedule of Test</b></label>
                                             </div>
                                             <div class="col">
-                                                <input type="date" name="schedule_of_test" id="" class="form-control form-control-sm" placeholder="Select date" data-input>
+                                                <input type="date" name="schedule_of_test" id="" value="{{ old('schedule_of_test', $testinggetid->sampleReport->schedule_of_test) }}" class="form-control form-control-sm" placeholder="Select date" data-input>
                                             </div>
                                         </div>
                                     </div>                                   
@@ -284,7 +296,7 @@
                                                 <label for="" class="col-form-label-sm"><b>Est of Completion Date</b></label>
                                             </div>
                                             <div class="col">
-                                                <input type="date" name="est_of_completion_date" id="" class="form-control form-control-sm" placeholder="Select date" data-input>
+                                                <input type="date" name="est_of_completion_date" id="" value="{{ old('est_of_completion_date', $testinggetid->sampleReport->est_of_completion_date) }}" class="form-control form-control-sm" placeholder="Select date" data-input>
                                             </div>
                                         </div>
                                     </div>                                   
@@ -297,7 +309,7 @@
                                                 <label for="inspector" class="col-form-label-sm"><b>Inspector Name</b></label>
                                             </div>
                                             <div class="col">
-                                                <input type="text" name="inspector" class="form-control form-control-sm" id="inspector">
+                                                <input type="text" name="inspector" value="{{ old('inspector', $testinggetid->sampleReport->inspector) }}"  class="form-control form-control-sm" id="inspector">
                                             </div>
                                         </div>
                                     </div>
@@ -308,7 +320,7 @@
                                                 <label for="date" class="col-form-label-sm"><b>Date</b></label>
                                             </div>
                                             <div class="col">
-                                                <input type="date" name="date" id="" class="form-control form-control-sm" placeholder="Select date" data-input>
+                                                <input type="date" name="date" id="" value="{{ old('date', $testinggetid->sampleReport->date) }}" class="form-control form-control-sm" placeholder="Select date" data-input>
                                             </div>
                                         </div>
                                     </div>

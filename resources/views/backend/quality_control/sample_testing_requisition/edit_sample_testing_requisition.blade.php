@@ -3,15 +3,21 @@
 
 <script src="{{ asset('backend/assets/vendors/jquery-ajax/jquery.min.js') }}"></script>
 
+<style>
+    label {
+        font-weight: bold;
+    }
+</style>
+
 <div class="page-content">
 
-    <div class="row">
-        <div class="col-md-12 grid-margin stretch-card">
+    <div class="row justify-content-center">
+        <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
                     <h6 class="card-title">FORM EDIT SAMPLE TESTING REQUISITION </h6>
                 
-                    <form id="myForm" action="" method="POST">
+                    <form id="myForm" action="{{ route('update.TestingRequisition') }}" method="POST">
                         @method('POST')
                         @csrf
                         <!-- Bagian return sample -->
@@ -40,26 +46,26 @@
                         <input type="hidden" name="id" value="{{ $testinggetid->id }}">
                         
                             <div class="row">
-                                <div class="col-md-6 mb-3">
+                                {{-- <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
-                                            <div class="col-sm-3">
-                                                <label for="" class="col-form-label">Date</label>
+                                            <div class="col">
+                                                <label for="" class="col-form-label-sm">Date</label>
                                             </div>
                                             <div class="col">
-                                                <input type="date" value="{{ old('date', $testinggetid->date) }}" name="date" id="" class="form-control" placeholder="Select date" data-input>
+                                                <input type="date" value="{{ old('date', $testinggetid->date) }}" name="date" id="" class="form-control form-control-sm" placeholder="Select date" data-input>
                                             </div>
                                         </div>
                                     </div>                                   
-                                </div>
+                                </div> --}}
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-3">
-                                                <label for="lot" class="col-form-label">Lot</label>
+                                                <label for="lot" class="col-form-label-sm">Lot</label>
                                             </div>
                                             <div class="col">
-                                                <select id="lot" name="lot_id" class="form-select">
+                                                <select id="lot" name="lot_id" class="form-select form-select-sm">
                                                     <option value="">Select Lot</option>
                                                     @foreach($lot as $lots)
                                                         <option value="{{ $lots->id }}" {{ $lots->id ==  old('lot_id', $testinggetid->lot_id) ? 'selected' : '' }}>
@@ -71,19 +77,15 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                       
-
-                            <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-3">
-                                                <label for="model" class="col-form-label">Model</label>
+                                                <label for="model" class="col-form-label-sm">Model</label>
                                             </div>
                                             <div class="col">
-                                                <select id="model" name="model_id" class="form-select">
+                                                <select id="model" name="model_id" class="form-select form-select-sm">
                                                     <option value="">Select Model</option>
                                                     @foreach($modelbrewer as $modelbrewers)
                                                         <option value="{{ $modelbrewers->id }}" {{ $modelbrewers->id ==  old('model_id', $testinggetid->model_id) ? 'selected' : '' }}>
@@ -95,14 +97,17 @@
                                         </div>
                                     </div>    
                                 </div>
+                            </div>
+
+                            <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-3">
-                                                <label for="shift" class="col-form-label">Shift</label>
+                                                <label for="shift" class="col-form-label-sm">Shift</label>
                                             </div>
                                             <div class="col">
-                                                <select id="shift" name="shift_id" class="form-select">
+                                                <select id="shift" name="shift_id" class="form-select form-select-sm">
                                                     <option value="">Select Shift</option>
                                                     @foreach($shift as $shifts)
                                                         <option value="{{ $shifts->id }}" {{ $shifts->id ==  old('shift_id', $testinggetid->shift_id) ? 'selected' : '' }}>
@@ -114,17 +119,29 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <div class="form-row align-items-center">
+                                            <div class="col-sm-3">
+                                                <label for="series" class="col-form-label-sm">Series</label>
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" value="{{ old('series', $testinggetid->series) }}" class="form-control form-control-sm" id="series" placeholder="" name="series">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>    
 
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
-                                            <div class="col-sm-3">
-                                                <label for="series" class="col-form-label">Series</label>
+                                            <div class="col">
+                                                <label for="noOfSample" class="col-form-label-sm">No Of Sample</label>
                                             </div>
                                             <div class="col">
-                                                <input type="text" value="{{ old('series', $testinggetid->series) }}" class="form-control" id="series" placeholder="" name="series">
+                                                <input type="text" value="{{ old('no_of_sample', $testinggetid->no_of_sample) }}" class="form-control form-control-sm" id="noOfSample" placeholder="" name="no_of_sample">
                                             </div>
                                         </div>
                                     </div>
@@ -132,28 +149,26 @@
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
-                                            <div class="col-sm-3">
-                                                <label for="noOfSample" class="col-form-label">No Of Sample</label>
+                                            <div class="col">
+                                                <label for="cONo" class="col-form-label-sm">C/O No.</label>
                                             </div>
                                             <div class="col">
-                                                <input type="text" value="{{ old('no_of_sample', $testinggetid->no_of_sample) }}" class="form-control" id="noOfSample" placeholder="" name="no_of_sample">
+                                                <input type="text" value="{{ old('co_no', $testinggetid->co_no) }}" class="form-control form-control-sm" id="co_no" placeholder="" name="co_no">
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>  
                                 </div>
                             </div>    
 
-
-                         
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
-                                            <div class="col-sm-3">
-                                                <label for="cONo" class="col-form-label">C/O No.</label>
+                                            <div class="col">
+                                                <label for="" class="col-form-label-sm">Do Number</label>
                                             </div>
                                             <div class="col">
-                                                <input type="text" value="{{ old('co_no', $testinggetid->co_no) }}" class="form-control" id="co_no" placeholder="" name="co_no">
+                                                <input type="text" value="{{ old('do_no', $testinggetid->do_no) }}" class="form-control form-control-sm" id="" placeholder="" name="do_no">
                                             </div>
                                         </div>
                                     </div>  
@@ -161,23 +176,11 @@
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
-                                            <div class="col-sm-3">
-                                                <label for="" class="col-form-label">Do Number</label>
+                                            <div class="col">
+                                                <label for="process" class="col-form-label-sm">Process</label>
                                             </div>
                                             <div class="col">
-                                                <input type="text" value="{{ old('do_no', $testinggetid->do_no) }}" class="form-control" id="" placeholder="" name="do_no">
-                                            </div>
-                                        </div>
-                                    </div>  
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <div class="form-group">
-                                        <div class="form-row align-items-center">
-                                            <div class="col-sm-3">
-                                                <label for="process" class="col-form-label">Process</label>
-                                            </div>
-                                            <div class="col">
-                                                <select id="process" name="processes_id" class="form-select">
+                                                <select id="process" name="processes_id" class="form-select form-select-sm">
                                                     <option value="">Select Process</option>
                                                     @foreach($process as $processs)
                                                         <option value="{{ $processs->id }}" {{ $processs->id ==  old('processes_id', $testinggetid->processes_id) ? 'selected' : '' }}>
@@ -192,11 +195,11 @@
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
-                                            <div class="col-sm-3">
-                                                <label for="mfgSample" class="col-form-label">MFG Sample Date</label>
+                                            <div class="col">
+                                                <label for="mfgSample" class="col-form-label-sm">MFG Sample Date</label>
                                             </div>
                                             <div class="col">
-                                                <input type="date" value="{{ old('mfg_sample_date', $testinggetid->mfg_sample_date) }}" class="form-control" name="mfg_sample_date" id="mfgSample" placeholder="">
+                                                <input type="date" value="{{ old('mfg_sample_date', $testinggetid->mfg_sample_date) }}" class="form-control form-control-sm" name="mfg_sample_date" id="mfgSample" placeholder="">
                                             </div>
                                         </div>
                                     </div>
@@ -214,11 +217,11 @@
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
                                     <div class="form-row align-items-center">
-                                        <div class="col-sm-5">
-                                            <label for="sampleSubmittedDate" class="col-form-label">Sample Submitted (Date)</label>
+                                        <div class="col">
+                                            <label for="sampleSubmittedDate" class="col-form-label-sm">Sample Submitted (Date)</label>
                                         </div>
                                         <div class="col">
-                                            <input type="date" value="{{ old('sample_subtmitted_date', $testinggetid->sample_subtmitted_date) }}" name="sample_subtmitted_date" id="sampleSubmittedDate" class="form-control" placeholder="Select date" data-input>
+                                            <input type="date" value="{{ old('sample_subtmitted_date', $testinggetid->sample_subtmitted_date) }}" name="sample_subtmitted_date" id="sampleSubmittedDate" class="form-control form-control-sm" placeholder="Select date" data-input>
                                         </div>
                                     </div>
                                 </div>
@@ -226,11 +229,11 @@
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
                                     <div class="form-row align-items-center">
-                                        <div class="col-sm-3">
-                                            <label for="completionDate" class="col-form-label">Completion Date</label>
+                                        <div class="col">
+                                            <label for="completionDate" class="col-form-label-sm">Completion Date</label>
                                         </div>
                                         <div class="col">
-                                            <input type="date" value="{{ old('completion_date', $testinggetid->completion_date) }}" name="completion_date" id="completionDate" class="form-control" placeholder="Select date" data-input>
+                                            <input type="text" value="{{ old('completion_date', $testinggetid->completion_date) }}" name="completion_date" id="completionDate" class="form-control form-control-sm">
                                         </div>
                                     </div>
                                 </div>
@@ -241,11 +244,11 @@
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
                                     <div class="form-row align-items-center">
-                                        <div class="col-sm-5">
-                                            <label for="traceabilityDate" class="col-form-label">Traceability (Date Code)</label>
+                                        <div class="col">
+                                            <label for="traceabilityDate" class="col-form-label-sm">Traceability (Date Code)</label>
                                         </div>
                                         <div class="col">
-                                            <input type="date" value="{{ old('tracebility_datecode', $testinggetid->tracebility_datecode) }}" name="tracebility_datecode" id="traceabilityDate" class="form-control" placeholder="Select date" data-input>
+                                            <input type="date" value="{{ old('tracebility_datecode', $testinggetid->tracebility_datecode) }}" name="tracebility_datecode" id="traceabilityDate" class="form-control form-control-sm" placeholder="Select date" data-input>
                                         </div>
                                     </div>
                                 </div>
@@ -264,7 +267,7 @@
                                 @foreach($testpurpose as $testpurposes)
                                     <div class="col-md-6 d-flex align-items-center">
                                         <div class="form-check">
-                                                <input class="form-check-input" id="toggleCheckbox" type="checkbox" value="{{ $testpurposes }}" {{ $testpurposes == $testinggetid->testpurpose ? 'checked' : '' }}>
+                                                <input class="form-check-input" name="testpurpose[]" id="toggleCheckbox" type="checkbox" value="{{ $testpurposes }}" {{ $testpurposes == $testinggetid->testpurpose ? 'checked' : '' }}>
                                                     {{ $testpurposes }}
                                                 </option>
                                         </div>
@@ -274,7 +277,7 @@
 
                             <div class="form-group mb-3" id="other_purpose">
                                 <label for="remarks">Other purpose/remarks:</label>
-                                <textarea class="form-control" value="{{ old('test_purpose', $testinggetid->test_purpose) }}" id="remarks" name="test_purpose" rows="5" placeholder=""></textarea>
+                                <textarea class="form-control form-control-sm" id="remarks" name="test_purpose" rows="5" placeholder="">{{ $testinggetid->test_purpose }}</textarea>
                             </div>
                         </div>
                         <!-- end class test purpose -->
@@ -282,33 +285,34 @@
                        
                         <div class="row">
                             <div class="col-md-12 mb-6">
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <div class="form-row">
                                         <label for="qeReview" >Testing purpose</label>
-                                        <input type="text" value="{{ old('testing_purpose', $testinggetid->testing_purpose) }}" class="form-control" id="name" placeholder=""name="testing_purpose" >
+                                        <input type="text" value="{{ old('testing_purpose', $testinggetid->testing_purpose) }}" class="form-control form-control-sm" id="name" placeholder=""name="testing_purpose" >
                                     </div>
                                 </div>
-                                &nbsp;  
+                                &nbsp;   --}}
 
                                 <div class="form-group">
                                     <div class="form-row">
                                         <label for="qeReview" >Summary</label>
-                                        <textarea class="form-control" id="summary" placeholder="" rows="5" name="summary">{{ old('summary', $testinggetid->summary) }}</textarea>
+                                        <textarea class="form-control form-control-sm" id="summary" placeholder="" rows="5" name="summary">{{ old('summary', $testinggetid->summary) }}</textarea>
                                     </div>
                                 </div>
                                 &nbsp;
-
+                                <div class="col-md-6">
                                 <div class="form-group">
                                     <div class="form-row">
                                         <label for="qeReview" >Check By</label>
-                                        <input type="text" class="form-control" value="{{ $profileData->username }}" id="name" placeholder=""name="check_by" readonly>
+                                        <input type="text" class="form-control form-control-sm" value="{{ $testinggetid->check_by }}" id="name" placeholder=""name="check_by">
                                     </div>
+                                </div>
+                                <br>
+                                <button class="btn btn-primary btn-sm" type="submit"><i data-feather="send" style="width: 16px; height: 16px;"></i> SAVE</button>
                                 </div>
                             </div>
                         </div>
 
-                        <button class="btn btn-primary btn-sm" type="submit"><i data-feather="save"></i> SAVE</button>
-                        
                     </form>
                 </div>
             </div>

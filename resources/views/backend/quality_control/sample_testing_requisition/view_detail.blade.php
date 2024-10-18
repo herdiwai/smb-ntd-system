@@ -1,0 +1,1 @@
+<p><strong>ID:</strong> {{ $data->id }}</p>
