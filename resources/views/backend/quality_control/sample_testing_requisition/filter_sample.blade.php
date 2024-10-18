@@ -233,7 +233,7 @@
                                     @else
                                 @foreach ($testingrequisition as $key => $items)
                                     <tr>
-                                        <td>{{ $key+1 }}</td>
+                                        <td>{{ $loop->iteration + ($testingrequisition->currentPage() - 1) * $testingrequisition->perPage() }}</td>
                                         <td class="sample_subtmitted_date">{{ $items->sample_subtmitted_date }}</td>
                                         <td class="doc_no">{{ $items->process->process }}/{{ $items->lot->lot }}/{{ $items->modelBrewer->model }}/{{ $items->sample_subtmitted_date }}/{{ $items->do_no }}/{{ $items->incomming_number }}</td>
                                         <td class="series">{{ $items->series }}</td>
