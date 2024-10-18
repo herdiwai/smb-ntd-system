@@ -16,4 +16,9 @@ class ModelBrewer extends Model
         return $this->belongsTo(SampleTestingRequisition::class,'id');
     }
 
+    public function ProcessPatrol()
+    {
+        return $this->belongsTo(InspectionCheckResult::class,'id');
+    }
+
 }

@@ -862,7 +862,7 @@
                                     </div>
                                 </div>
                                 {{-- <div id="error-message" style="color: red; display: none;"></div> <!-- Elemen untuk menampilkan pesan error --> --}}
-                                <button type="button" class="btn btn-outline-primary" onclick="nextStep(2)">Next</button>
+                                <button type="button" class="btn btn-outline-primary" onclick="nextStep(2)"><i data-feather="chevrons-right"></i>Next</button>
                             </div>
                             <!-- end step 1 -->
                         
@@ -1348,8 +1348,8 @@
                                 {{-- <a href="{{ route('add.ProcessPatrol', ['page' => 1]) }}" class="btn btn-outline-primary">Previous</a>
                                 <button type="submit" formaction="{{ route('add.ProcessPatrol', ['page' => 3]) }}" class="btn btn-outline-primary">Next</button> --}}
 
-                                <button type="button" class="btn btn-outline-primary" onclick="previousStep(1)">Previous</button>
-                                <button type="button" class="btn btn-outline-primary" onclick="nextStep(3)">Next</button>
+                                <button type="button" class="btn btn-outline-primary" onclick="previousStep(1)"><i data-feather="chevrons-left"></i> Previouss</button>
+                                <button type="button" class="btn btn-outline-primary" onclick="nextStep(3)">Next <i data-feather="chevrons-right"></i></button>
                             </div>
 
                             {{-- @elseif ($currentPage == 3)  --}}
@@ -1562,8 +1562,8 @@
                               
                                 {{-- <a href="{{ route('add.ProcessPatrol', ['page' => 2]) }}" class="btn btn-outline-primary">Previous</a>
                                 <button type="submit" formaction="{{ route('add.ProcessPatrol', ['page' => 4]) }}" class="btn btn-outline-primary">Next</button> --}}
-                                <button type="button" class="btn btn-outline-primary" onclick="previousStep(2)">Previous</button>
-                                <button type="button" class="btn btn-outline-primary" onclick="nextStep(4)">Next</button>
+                                <button type="button" class="btn btn-outline-primary" onclick="previousStep(2)"><i data-feather="chevrons-left"></i>Previous</button>
+                                <button type="button" class="btn btn-outline-primary" onclick="nextStep(4)">Next<i data-feather="chevrons-right"></i></button>
                             </div>
 
                             {{-- @elseif ($currentPage == 4)  --}}
@@ -1792,8 +1792,8 @@
                                 {{-- <a href="{{ route('add.ProcessPatrol', ['page' => 3]) }}" class="btn btn-outline-primary">Previous</a>
                                 <button type="submit" formaction="" class="btn btn-outline-primary">Submit</button> --}}
 
-                                <button type="button" class="btn btn-outline-primary" onclick="previousStep(3)">Previous</button>
-                                <button type="submit" class="btn btn-outline-primary">Submit</button>
+                                <button type="button" class="btn btn-outline-primary" onclick="previousStep(3)"><i data-feather="chevrons-left"></i>Previous</button>
+                                <button type="submit" class="btn btn-outline-primary"><i data-feather="send"></i> Submit</button>
                             </div>
                                     
                         {{-- @endif --}}

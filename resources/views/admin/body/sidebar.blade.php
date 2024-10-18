@@ -227,6 +227,37 @@
           @endif
           {{-- End Approvals QE --}}
 
+
+          {{-- Menu SubAssy Patrol --}}
+          {{-- @if(Auth::user()->can('testingrequisition.menu')) --}}
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents07" role="button" aria-expanded="false" aria-controls="uiComponents07">
+              <i class="link-icon" data-feather="folder"></i>
+              <span class="link-title" style="font-size: 13.5px;">SubAssy Patrol</span>
+              <i class="link-arrow" data-feather="chevron-down"></i>
+            </a>
+            <div class="collapse" id="uiComponents07">
+              <ul class="nav sub-menu">
+                
+                {{-- @if(Auth::user()->can('add.testingrequisition')) --}}
+                <li class="nav-item">
+                  <a href="{{ route('qualitycontrol.subassypatrolrecord') }}" class="nav-link">All Table</a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ route('add.ProcessPatrol') }}" class="nav-link">Add</a>
+                </li>
+                {{-- @endif --}}
+             
+              </ul>
+            </div>
+          </li>
+          {{-- @endif --}}
+          {{-- End SubAssy Patrol --}}
+
+
+
+
+
           {{-- Menu Filter Sample Requisition and Report --}}
           @if(Auth::user()->can('menu.filterSample'))
           <li class="nav-item">
