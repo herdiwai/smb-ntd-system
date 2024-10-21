@@ -211,6 +211,23 @@ body::before, body::after {
     margin-bottom: 5px;
 }
 
+.footer1 {
+    position: absolute;
+    bottom: 130px;
+    right: -3px;
+    font-size: 12px;
+    text-align: right;
+    color: #333;
+}
+.footer2 {
+    position: absolute;
+    bottom: 90px;
+    right: -3px;
+    font-size: 12px;
+    text-align: right;
+    color: #333;
+}
+
 
 </style>
 
@@ -364,7 +381,9 @@ body::before, body::after {
                 <input class="test_result" type="text" value="{{ $sampleRequisition->sampleReport->result_test }}">
             </div>
         </div>
-
+        <div class="footer1">
+            SB.09.S1.-P2-F2
+        </div>
 
     </div>
 <br>
@@ -602,11 +621,14 @@ body::before, body::after {
         </div>
     </div>
 
+    <div class="footer2">
+        09-S1.1-P2-F3
+    </div>
 
 </div>
 
 
-    
+
     
 </body>
 </html>
