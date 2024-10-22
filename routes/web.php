@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\ApprovalController;
 use App\Http\Controllers\Backend\LotController;
 use App\Http\Controllers\Backend\ModelBrewerController;
+use App\Http\Controllers\Backend\MrrequestController;
 use App\Http\Controllers\Backend\ProcessController;
 use App\Http\Controllers\Backend\ProcessModelController;
 use App\Http\Controllers\Backend\SubAssyProcessPatrolController;
@@ -260,14 +261,8 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
         Route::get('/delete/processpatrolrecord/{id}', 'DeleteProcessPatrol' )->name('delete.ProcessPatrol');
         Route::get('/export-pdf/{id}', 'exportToPdf' )->name('pdf.ProcessPatrol');
         // Route::post('edit/processpatrolrecord/{id}', [YourController::class, 'processPatrolRecord'])->name('processpatrolrecord');
-        // Route::get('/inspectionitem/{id}', 'getInspectionItemById');// Route untuk ambil data inspection item berdasarkan ID
-
-        
-
-        
+        // Route::get('/inspectionitem/{id}', 'getInspectionItemById');// Route untuk ambil data inspection item berdasarkan ID  
     });
-
-    
 });
 
 
@@ -275,3 +270,26 @@ Route::get('/review', [ReviewApprovalController::class, 'index'])->name('review.
 Route::get('/review/{id}', [ReviewApprovalController::class, 'show'])->name('review.show');
 Route::post('/review/{id}', [ReviewApprovalController::class, 'submit'])->name('review.submit');
 
+
+// Production MRR
+Route::middleware(['auth', 'roles:admin'])->group(function() {
+    Route::controller(MrrequestController::class)->group(function(){
+        Route::get('/production/mrr', 'Mrrequest' )->name('production.mrr');
+        Route::get('/add/mrr', 'AddMrr' )->name('add.mrr');
+        Route::post('/store/mrr', 'StoreMrr' )->name('store.mrr');
+        Route::get('/store/mrr-technician/{id}', 'EditMrrTechnician' )->name('edit.mrrtechnician');
+        // Route::post('/update/sampletestingreport', 'UpdateTestingReport' )->name('update.sampletestingreport');
+        // Route::post('/update/correction-form/{id}', 'actionCorrection' )->name('update.correction');
+        // Route::post('/update/sampletestingreport/{id}', 'UpdateTestingReport' )->name('update.sampletestingreport');
+        // Route::post('/report/update/{id}', 'update' )->name('update.report');
+        // Route::post('/update/approvals/{id}', 'UpdateApprovals' )->name('update.approvals');
+        // Route::get('/edit/sampletestingrequisition/{id}', 'EditTestingRequisition' )->name('edit.TestingRequisition');
+        // Route::post('/update/hourlyoutput', 'UpdateHourlyOutput' )->name('update.hourlyoutput');
+        // Route::get('/delete/hourlyoutput/{id}', 'DeleteHourlyoutput' )->name('delete.hourlyoutput');
+
+        //Production Hourly Ouput Export Excel
+        // Route::get('/production/export-excel', 'ExportToExcel')->name('excel.export.file');
+        //Production Hourly Ouput Filter Data
+        // Route::get('/filter/hourlyoutput', 'FilterHourlyOutput')->name('filter.hourlyoutput');
+    });
+});
