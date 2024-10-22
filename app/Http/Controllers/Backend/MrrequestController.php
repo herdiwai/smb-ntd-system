@@ -18,7 +18,7 @@ class MrrequestController extends Controller
 {
     public function Mrrequest(Request $request) {
         $mrrequest = Mrrequest::all();
-        $data = Mrrequest::with('modelBrewer','lot','process','shift','line','equipmentNo')->paginate(5);
+        $data = Mrrequest::with('modelBrewer','lot','process','shift','line','equipmentNo')->orderBy('Date_pd','desc')->paginate(5);
         $modelbrewer = ModelBrewer::all();
         $lot = Lot::all();
         $shift = Shift::all();
@@ -64,7 +64,7 @@ class MrrequestController extends Controller
         ]);
 
         $notification = array(
-            'message' => 'Mrr Form Request Create Successfully',
+            'message' => 'MRR Form Request Create Successfully',
             'alert-type' => 'success'
         );
         return redirect()->route('production.mrr')->with($notification);
@@ -85,10 +85,42 @@ class MrrequestController extends Controller
         return view('backend.production.mrr_request.edit_mrr_technician', compact('mrr_id','data','lot','modelbrewer','shift','process','line','department','equipment'));
     }
 
-    // public function StoreMrrTechnician(Request $request, $id) {
-    //     Mrrequest::findOrFail($id)->update([
-    //         'user_id' => Auth::id(),
-    //     ]);
-    // }
+    public function StoreMrrTechnician(Request $request) {
+        $mrr_id = $request->id;
+        Mrrequest::findOrFail($mrr_id)->update([
+            'user_id' => Auth::id(),
+            'Judgement' => $request->Judgement,
+            'Issue' => $request->Issue,
+            'Root_cause' => $request->Root_cause,
+            'Action' => $request->Action,
+            'Repair_by' => $request->Repair_by,
+            'Response_time' => $request->Response_time,
+            'Repair_start_time' => $request->Repair_start_time,
+            'Repair_end_time' => $request->Repair_end_time,
+        ]);
+
+        $notification = array(
+            'message' => 'MRR Form Request Update Successfully',
+            'alert-type' => 'info'
+        );
+        return redirect()->route('production.mrr')->with($notification);
+    }
+
+    public function UpdateQc(Request $request) {
+        $mrr_id = $request->id;
+        Mrrequest::findOrFail($mrr_id)->update([
+            'user_id' => Auth::id(),
+            'Qc_start_time' => $request->Qc_start_time,
+            'Qc_end_time' => $request->Qc_end_time,
+            'Qc_name_sign' => $request->Qc_name_sign,
+            'Date_qc' => $request->Date_qc,
+            'status_mrr' => 'complete',
+        ]);
+        $notification = array(
+            'message' => 'MRR Form Request Update Successfully',
+            'alert-type' => 'info'
+        );
+        return redirect()->route('production.mrr')->with($notification);
+    }
 
 }

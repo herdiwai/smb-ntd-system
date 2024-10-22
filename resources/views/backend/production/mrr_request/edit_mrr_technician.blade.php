@@ -9,9 +9,9 @@
         <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h6 class="card-title"><b>FORM INPUT MRR </b></h6>
+                    <h6 class="card-title"><b>FORM INPUT MRR TECHNICIAN </b></h6>
                 
-                    <form id="myForm" action="{{ route('store.mrr') }}" method="POST">
+                    <form id="myForm" action="{{ route('store.mrrtechnician', $mrr_id->id) }}" method="POST">
                         @method('POST')
                         @csrf
                         <!-- Bagian return sample -->
@@ -118,12 +118,7 @@
                                                 <label for="to_department" class="col-form-label col-form-label-sm"><b>To Department</b></label>
                                             </div>
                                             <div class="col">
-                                                <select id="department" name="To_department" class="form-select form-select-sm">
-                                                    <option value="">Select Department</option>
-                                                    @foreach($department as $departments)
-                                                        <option value="{{ $departments }}" {{ old('department') == $departments ? 'selected' : '' }}>{{ $departments }}</option>
-                                                    @endforeach
-                                                </select>
+                                                <input type="text" value="{{ old('To_department', $mrr_id->To_department ) }}" class="form-control form-control-sm" id="name" name="To_department" disabled>
                                             </div>
                                         </div>
                                     </div>
@@ -132,15 +127,10 @@
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-3">
-                                                <label for="lot" class="col-form-label col-form-label-sm"><b>Lot</b></label>
+                                                <label for="lot_id" class="col-form-label col-form-label-sm"><b>Lot</b></label>
                                             </div>
                                             <div class="col">
-                                                <select id="lot" name="lot_id" class="form-select form-select-sm">
-                                                    <option value="">Select Lot</option>
-                                                    @foreach($lot as $lots)
-                                                        <option value="{{ $lots->id }}">{{ $lots->lot }}</option>
-                                                    @endforeach
-                                                </select>
+                                                <input type="text" value="{{ old('lot_id', $mrr_id->lot->lot ) }}" class="form-control form-control-sm" id="name" name="lot_id" disabled>
                                             </div>
                                         </div>
                                     </div>
@@ -155,15 +145,11 @@
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm-3">
-                                                <label for="to_department" class="col-form-label col-form-label-sm"><b>Process</b></label>
+                                                <label for="process" class="col-form-label col-form-label-sm"><b>Process</b></label>
                                             </div>
                                             <div class="col">
-                                                <select id="process" name="processes_id" class="form-select form-select-sm">
-                                                    <option value="">Select process</option>
-                                                    @foreach($equipment as $equipments)
-                                                        <option value="{{ $equipments->id }}">{{ $equipments->Equipment_Name }}</option>
-                                                    @endforeach
-                                                </select>
+                                                <input type="text" value="{{ old('Equipment_id', $mrr_id->equipmentNo->Equipment_Name ) }}" class="form-control form-control-sm" id="equipment_no" name="Equipment_id" disabled>
+                                                {{-- <input type="text" value="{{ old('processes_id', $mrr_id->process->process ) }}" class="form-control form-control-sm" id="name" name="processes_id" disabled> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -175,12 +161,7 @@
                                                 <label for="line" class="col-form-label col-form-label-sm"><b>Line</b></label>
                                             </div>
                                             <div class="col">
-                                                <select id="line" name="line_id" class="form-select form-select-sm">
-                                                    <option value="">Select Line</option>
-                                                    @foreach($line as $lines)
-                                                        <option value="{{ $lines->id }}">{{ $lines->line }}</option>
-                                                    @endforeach
-                                                </select>
+                                                <input type="text" value="{{ old('line_id', $mrr_id->line->line ) }}" class="form-control form-control-sm" id="name" name="line_id" disabled>
                                             </div>
                                         </div>
                                     </div>
@@ -198,12 +179,7 @@
                                                 <label for="equipment_no" class="col-form-label col-form-label-sm"><b>Equipment No</b></label>
                                             </div>
                                             <div class="col">
-                                                <select id="equipment_id" name="Equipment_id" class="form-select form-select-sm">
-                                                    <option value="">Select equipment no</option>
-                                                    @foreach($equipment as $equipments)
-                                                        <option value="{{ $equipments->id }}">{{ $equipments->Equipment_Number }}</option>
-                                                    @endforeach
-                                                </select>
+                                                <input type="text" value="{{ old('Equipment_id', $mrr_id->equipmentNo->Equipment_Number ) }}" class="form-control form-control-sm" id="equipment_no" name="Equipment_id" disabled>
                                             </div>
                                         </div>
                                     </div>
@@ -215,7 +191,7 @@
                                                 <label for="date_pd" class="col-form-label col-form-label-sm"><b>Date</b></label>
                                             </div>
                                             <div class="col">
-                                                <input type="date" class="form-control form-control-sm" name="Date_pd" id="date_pd" >
+                                                <input type="date" value="{{ old('Date_pd', $mrr_id->Date_pd ) }}" class="form-control form-control-sm" name="Date_pd" id="date_pd" disabled>
                                             </div>
                                         </div>
                                     </div>
@@ -223,13 +199,12 @@
                                 
                                 <div class="form-group mb-3" id="other_purpose">
                                     <label for="description"><b>Description:</b></label>
-                                    <textarea class="form-control" id="description" name="Description" rows="5" placeholder=""></textarea>
+                                    <textarea class="form-control" id="description" name="Description" rows="5" placeholder="" disabled>{{ old('Description', $mrr_id->Description ) }}</textarea>
                                 </div>
 
                             </div>    
 
                             <div class="row">
-                                
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
@@ -237,12 +212,12 @@
                                                 <label for="breakdown_time" class="col-form-label col-form-label-sm"><b>Breakdown Time</b></label>
                                             </div>
                                             <div class="col">
-                                                <input type="time" class="form-control form-control-sm" name="Breakdown_time" id="breakdown_time" >
+                                                <input type="time" value="{{ old('Breakdown_time', $mrr_id->Breakdown_time ) }}" class="form-control form-control-sm" name="Breakdown_time" id="breakdown_time" disabled>
                                             </div>
                                         </div>
                                     </div>
                                     <br>
-                                    <button class="btn btn-primary btn-sm" type="submit"><i data-feather="send" style="width: 16px; height: 16px;"></i> SAVE</button>
+                                    
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
@@ -251,14 +226,99 @@
                                                 <label for="report_time" class="col-form-label col-form-label-sm"><b>Report Time</b></label>
                                             </div>
                                             <div class="col">
-                                                <input type="time" class="form-control form-control-sm" name="Report_time" id="report_time" >
+                                                <input type="time" value="{{ old('Report_time', $mrr_id->Report_time ) }}" class="form-control form-control-sm" name="Report_time" id="breakdown_time" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <b><hr></b>
+                                <h3 style="text-align: center;">RESULT</h3>
+                                <br>
+                                <b><hr></b>
+                            </div>
+
+                            <div class="row">
+                                
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <div class="form-row align-items-center">
+                                            <div class="col-sm">
+                                                <label for="judgement" class="col-form-label col-form-label-sm"><b>Judgement</b></label>
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" class="form-control form-control-sm" id="judgement" name="Judgement">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <div class="form-row align-items-center">
+                                            <div class="col-sm">
+                                                <label for="Response_time" class="col-form-label col-form-label-sm"><b>Response Time</b></label>
+                                            </div>
+                                            <div class="col">
+                                                <input type="time" class="form-control form-control-sm" name="Response_time" id="Response_time">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 
-                            </div>
+                                <div class="form-group mb-3" id="other_purpose">
+                                    <label for="Issue"><b>Issue:</b></label>
+                                    <textarea class="form-control" id="Issue" name="Issue" rows="5" placeholder=""></textarea>
+                                </div>
+                                <div class="form-group mb-3" id="other_purpose">
+                                    <label for="Root_cause"><b>Root Cause:</b></label>
+                                    <textarea class="form-control" id="Root_cause" name="Root_cause" rows="5" placeholder=""></textarea>
+                                </div>
+                                <div class="form-group mb-3" id="other_purpose">
+                                    <label for="Action"><b>Action:</b></label>
+                                    <textarea class="form-control" id="Action" name="Action" rows="5" placeholder=""></textarea>
+                                </div>
+                            </div> 
 
+                            <div class="row">
+                                
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <div class="form-row align-items-center">
+                                            <div class="col-sm">
+                                                <label for="Repair_start_time" class="col-form-label col-form-label-sm"><b>Repair Start Time</b></label>
+                                            </div>
+                                            <div class="col">
+                                                <input type="time" class="form-control form-control-sm" id="Repair_start_time" name="Repair_start_time">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <div class="form-row align-items-center">
+                                            <div class="col-sm">
+                                                <label for="Repair_end_time" class="col-form-label col-form-label-sm"><b>Repair End Time</b></label>
+                                            </div>
+                                            <div class="col">
+                                                <input type="time" class="form-control form-control-sm" name="Repair_end_time" id="Repair_end_time">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <div class="form-row align-items-center">
+                                            <div class="col-sm">
+                                                <label for="Repair_by" class="col-form-label col-form-label-sm"><b>Repair By</b></label>
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" class="form-control form-control-sm" name="Repair_by" id="Repair_by">
+                                            </div>
+                                        </div>
+                                        <br>
+                                    <button class="btn btn-primary btn-sm" type="submit"><i data-feather="send" style="width: 16px; height: 16px;"></i> SAVE</button>
+                                    </div>
+                                </div>
+                            </div>
 
                     </form>
                 </div>

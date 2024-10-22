@@ -45,6 +45,8 @@ class Mrrequest extends Model
         'Status_approvals_id_spv_mt',
         'Note_spv_mt',
         'Date_spv_mt',
+        'Qc_name_sign',
+        'status_mrr',
         ];
 
 

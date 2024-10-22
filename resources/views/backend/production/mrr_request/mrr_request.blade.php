@@ -36,7 +36,8 @@
                                     <th>Breakdown Time</th>
                                     <th>Report Time</th>
                                     <th>Status MRR</th>
-                                    <th>Action MRR</th>
+                                    <th>Action Techinician</th>
+                                    <th>Action QC</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -67,8 +68,13 @@
                                             {{-- <button type="button" class="btn btn-inverse-success btn-xs" data-bs-toggle="modal" data-bs-target="#resultModalMrr" onclick="openResultMrr({{ $mrr->id }})" title="AddMrr">
                                                 <i data-feather="check-square" style="width: 16px; height: 16px;"></i> AddMrr
                                             </button> --}}
-                                            <a href="{{ route('edit.mrrtechnician', $mrr->id ) }}" class="btn btn-inverse-warning" title="Add Mrr"><i data-feather="edit"></i></a>
+                                            <a href="{{ route('edit.mrrtechnician', $mrr->id ) }}" class="btn btn-inverse-warning btn-xs" title="Add Mrr"><i data-feather="edit" style="width: 16px; height: 16px;"></i></a>
                                             {{-- <a href="{{ route('delete.hourlyoutput', $production->id) }}" class="btn btn-inverse-danger" title="Delete"><i data-feather="trash-2"></i></a> --}}
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-inverse-success btn-xs" data-bs-toggle="modal" data-bs-target="#qcAccepted" onclick="openQcAccepted({{ $mrr->id }})" title="AddMrr">
+                                                <i data-feather="check-square" style="width: 16px; height: 16px;"></i>
+                                            </button>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -84,57 +90,99 @@
 
 </div>
 
-{{-- MODAL APPROVALS BY MANAGER --}}
-<!-- Modal -->
-{{-- <div class="modal fade" id="resultModalMrr" tabindex="-1" role="dialog" aria-labelledby="resultMrrModalLabel" aria-hidden="true">
+{{-- MODAL QC ACCEPTED --}}
+<div class="modal fade" id="qcAccepted" tabindex="-1" role="dialog" aria-labelledby="qcAcceptedModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="resultMrrModalLabel">Approval Forms</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button> --}}
+          <h5 class="modal-title" id="qcAcceptedModalLabel">QC Final Accepted Form</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
           {{-- <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"> --}}
             {{-- <span aria-hidden="true">&times;</span> --}}
-          {{-- </button>
+          </button> 
         </div>
-        <form id="resultFormMrr" action="" method="POST">
+        <form id="qcFormAccepted" action="" method="POST">
           @csrf
           <div class="modal-body">
-            <div class="form-group">
-              <label for="approval_status">Approval Status</label>
-              <select name="status_approvals_id" id="approval_status" class="form-control">
-                <option value="1">Approved</option>
-                <option value="2">Rejected</option>
-              </select>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <div class="form-row align-items-center">
+                        <div class="col-sm">
+                            <label for="Qc_start_time" class="col-form-label col-form-label-sm"><b>Qc Start Time</b></label>
+                        </div>
+                        <div class="col">
+                            <input type="time" class="form-control form-control-sm" name="Qc_start_time" id="Qc_start_time" >
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-              <label for="notes">Notes</label>
-              <textarea name="notes_manager" id="notes" class="form-control" rows="4" placeholder="Optional"></textarea>
+              <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <div class="form-row align-items-center">
+                        <div class="col-sm">
+                            <label for="Qc_end_time" class="col-form-label col-form-label-sm"><b>Qc End Time</b></label>
+                        </div>
+                        <div class="col">
+                            <input type="time" class="form-control form-control-sm" name="Qc_end_time" id="Qc_end_time" >
+                        </div>
+                    </div>
+                </div>
             </div>
           </div>
-          <div class="modal-footer"> --}}
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <div class="form-group">
+                  <div class="form-row align-items-center">
+                      <div class="col-sm">
+                          <label for="Qc_name_sign" class="col-form-label col-form-label-sm"><b>Qc Sign</b></label>
+                      </div>
+                      <div class="col">
+                          <input type="text" class="form-control form-control-sm" name="Qc_name_sign" id="Qc_name_sign" >
+                      </div>
+                  </div>
+              </div>
+          </div>
+            <div class="col-md-6 mb-3">
+              <div class="form-group">
+                  <div class="form-row align-items-center">
+                      <div class="col-sm">
+                          <label for="Date_qc" class="col-form-label col-form-label-sm"><b>Date</b></label>
+                      </div>
+                      <div class="col">
+                          <input type="date" class="form-control form-control-sm" name="Date_qc" id="Date_qc" >
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+
+          <div class="modal-footer">
             {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
-            {{-- <button type="submit" class="btn btn-inverse-info btn-xs"><i data-feather="send" style="width: 16px; height: 16px;"></i> Submit</button>
+            <button type="submit" class="btn btn-inverse-info btn-xs"><i data-feather="send" style="width: 16px; height: 16px;"></i> Submit</button>
           </div>
         </form>
       </div>
     </div>
-  </div> --}}
-{{-- END MODAL APPROVALS BY MANAGER--}}
+  </div>
+{{-- END MODAL QC ACCEPTED--}}
 
 <script>
-    // modal approvals Manager
-    // function openResultMrr(itemId) {
-    //     // Set the form action dynamically based on the item ID
-    //     var actionUrl = "{{ route('update.approvalsmanager', ':id') }}";
-    //     actionUrl = actionUrl.replace(':id', itemId);
-    //     $('#resultFormMrr').attr('action', actionUrl);
-    //     // Optionally reset the form fields when modal is opened
-    //     // $('#approval_status').val('approved'); // default status
-    //     // $('#notes').val('');
+    // Mode QC Accepted
+    function openQcAccepted(itemId) {
+        // Set the form action dynamically based on the item ID
+        var actionUrl = "{{ route('update.qc', ':id') }}";
+        actionUrl = actionUrl.replace(':id', itemId);
+        $('#qcFormAccepted').attr('action', actionUrl);
+        // Optionally reset the form fields when modal is opened
+        // $('#approval_status').val('approved'); // default status
+        // $('#notes').val('');
         
-    //     // Show the modal
-    //     $('#resultModalMrr').modal('show');
-    // }
+        // Show the modal
+        $('#qcAccepted').modal('show');
+    }
 
 </script>
 
