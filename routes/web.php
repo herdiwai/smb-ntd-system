@@ -280,6 +280,8 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
         Route::get('/store/mrr-technician/{id}', 'EditMrrTechnician' )->name('edit.mrrtechnician');
         Route::post('/store/mrrtechnician/{id}', 'StoreMrrTechnician' )->name('store.mrrtechnician');
         Route::post('/update/qc/{id}', 'UpdateQc' )->name('update.qc');
+        Route::post('/update/sign-spv/{id}', 'UpdateSignSpv' )->name('update.signspv');
+        Route::get('/mrr/{id}/export-pdf', 'MrrPdf' )->name('mrr.export-pdf');
         // Route::post('/update/correction-form/{id}', 'actionCorrection' )->name('update.correction');
         // Route::post('/update/sampletestingreport/{id}', 'UpdateTestingReport' )->name('update.sampletestingreport');
         // Route::post('/report/update/{id}', 'update' )->name('update.report');

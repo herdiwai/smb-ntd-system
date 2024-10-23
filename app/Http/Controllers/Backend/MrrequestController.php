@@ -11,6 +11,7 @@ use App\Models\Mrrequest;
 use App\Models\Process;
 use App\Models\Shift;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,7 +19,7 @@ class MrrequestController extends Controller
 {
     public function Mrrequest(Request $request) {
         $mrrequest = Mrrequest::all();
-        $data = Mrrequest::with('modelBrewer','lot','process','shift','line','equipmentNo')->orderBy('Date_pd','desc')->paginate(5);
+        $data = Mrrequest::with('modelBrewer','lot','process','shift','line','equipmentNo','statusApprovals')->orderBy('Date_pd','desc')->paginate(5);
         $modelbrewer = ModelBrewer::all();
         $lot = Lot::all();
         $shift = Shift::all();
@@ -121,6 +122,40 @@ class MrrequestController extends Controller
             'alert-type' => 'info'
         );
         return redirect()->route('production.mrr')->with($notification);
+    }
+
+    public function UpdateSignSpv(Request $request) {
+        $mrr_id = $request->id;
+        Mrrequest::findOrFail($mrr_id)->update([
+            'user_id' => Auth::id(),
+            'Status_approvals_id_spv_pd' => $request->Status_approvals_id_spv_pd,
+            'Note_spv_pd' => $request->Note_spv_pd,
+        ]);
+        $notification = array(
+            'message' => 'Sign MRR Form Request Update Successfully',
+            'alert-type' => 'info'
+        );
+        return redirect()->route('production.mrr')->with($notification);
+    }
+
+    public function MrrPdf($id)
+    {
+        // $sampleRequisition = SampleTestingRequisition::with('sampleReport','modelBrewer','lot','process','statusApprovals')->findOrFail($id);
+        // $testinggetid = SampleTestingRequisition::findOrFail($id);
+        // $data = [
+        //     'title' => 'Sample Testing Requisition FORM',
+        //     'date' => date('m/d/Y'),
+        //     'requisition' => $sampleRequisition,
+        // ];
+        $data = Mrrequest::with('modelBrewer','lot','process','shift','line','equipmentNo','statusApprovals')->findOrFail($id);
+        $pdf = Pdf::loadView('backend.production.mrr_request.export_pdf', compact('data'));
+        // header('Content-Type: application/pdf');
+        // header('Content-Disposition: inline; filename="sample-testing-requisition-report.pdf"');
+         // Mengatur ukuran kertas dan orientasi (misal: A4 potrait)
+        // Mengatur nomor berbeda pada setiap halaman
+    
+        return $pdf->stream('Mrr.pdf', ['Attachment' => false]);
+        // return view('backend.quality_control.sample_testing_requisition.generate-requisition-pdf', compact('testinggetid','sampleRequisition'));
     }
 
 }

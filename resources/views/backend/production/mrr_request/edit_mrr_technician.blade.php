@@ -199,7 +199,7 @@
                                 
                                 <div class="form-group mb-3" id="other_purpose">
                                     <label for="description"><b>Description:</b></label>
-                                    <textarea class="form-control" id="description" name="Description" rows="5" placeholder="" disabled>{{ old('Description', $mrr_id->Description ) }}</textarea>
+                                    <textarea class="form-control" id="description" name="Description" rows="4" placeholder="" disabled>{{ old('Description', $mrr_id->Description ) }}</textarea>
                                 </div>
 
                             </div>    

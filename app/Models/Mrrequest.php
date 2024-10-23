@@ -75,4 +75,8 @@ class Mrrequest extends Model
     {
         return $this->hasOne(EquipmentNo::class,'id','Equipment_id');
     }
+    public function statusApprovals()
+    {
+        return $this->hasOne(StatusApprovals::class,'id','status_approvals_id');
+    }
 }
