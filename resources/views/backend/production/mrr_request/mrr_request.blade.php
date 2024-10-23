@@ -112,7 +112,7 @@
                                             {{-- <a href="{{ route('delete.hourlyoutput', $production->id) }}" class="btn btn-inverse-danger" title="Delete"><i data-feather="trash-2"></i></a> --}}
                                         </td>
                                         <td>
-                                            <button type="button" class="btn btn-inverse-info btn-xs" data-bs-toggle="modal" data-bs-target="#qcAccepted" onclick="openQcAccepted({{ $mrr->id }})" title="AddMrr">
+                                            <button type="button" class="btn btn-inverse-info btn-xs" data-bs-toggle="modal" data-bs-target="#qcAccepted" onclick="openQcAccepted({{ $mrr->id }})" title="Sign">
                                                 <i data-feather="check-square" style="width: 16px; height: 16px;"></i>
                                             </button>
                                         </td>
@@ -134,7 +134,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="qcAcceptedModalLabel">QC Final Accepted Form</h5>
+          <h5 class="modal-title" id="qcAcceptedModalLabel">QC Form</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
           {{-- <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"> --}}
             {{-- <span aria-hidden="true">&times;</span> --}}

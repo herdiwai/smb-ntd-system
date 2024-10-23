@@ -167,21 +167,30 @@
 
         table {
             width: 100%;
+            table-layout: fixed;
+            /* margin-left: 20px; */
             border-collapse: collapse;
-            margin-bottom: 20px;
+            margin-bottom: 0px;
+            word-wrap: break-word;
+            
         }
 
         table, th,td {
             /* border: 1px solid black; */
-        }
-        .borderisi {
-            border-right: 1px;
+            max-width: 150px; /* Maksimum lebar kolom */
+            word-wrap: break-word; /* Memaksa kata panjang berpindah ke baris berikutnya */
+            /* overflow: hidden; */
+            text-overflow: ellipsis; /* Menambahkan ... pada teks panjang */
+            padding: 5px;
         }
 
+
         th, td {
-            padding: 8px;
+            padding: 5px;
+            word-wrap: break-word; /* Memaksa kata panjang berpindah ke baris berikutnya */
             text-align: left;
             vertical-align: top;
+            white-space: nowrap; /* Mencegah teks pindah ke baris berikutnya */
         }
 
         .header {
@@ -197,7 +206,7 @@
         }
 
         .signature {
-            margin-top: 20px;
+            margin-top: 0px;
         }
 
         .text-center {
@@ -210,7 +219,19 @@
 
         .text-right {
             text-align: right;
-            margin-top: -10px;
+            margin-top: 7px;
+        }
+        .border1 {
+            border-bottom: 1px solid black;
+        }
+        .titikdua {
+            margin-left: 70px;
+        }
+        textarea {
+            width: 505px; /* Mengatur lebar tetap */
+            height: 35px; /* Mengatur tinggi tetap */
+            padding: 5px; /* Menambahkan padding di dalam textarea */
+            font-size: 12px; /* Ukuran font di dalam textarea */
         }
     </style>
 </head>
@@ -219,89 +240,101 @@
 <div class="container">
     <div class="header">
         <h3>PT. SIMATELEX MANUFACTORY BATAM</h3>
-        <p>Maintenance Repair Request</p>
+        <h4>MAINTENANCE REPAIR REQUEST</p>
     </div>
 
     <table>
         <tr>
             <td><strong>Request (Dept)</strong></td>
-            <td>{{ $data->Request_dept }}</td>
+            <td class="border1">{{ $data->Request_dept }}</td>
             <td><strong>Model</strong></td>
-            <td>{{ $data->modelBrewer->model }}</td>
+            <td class="border1">{{ $data->modelBrewer->model }}</td>
         </tr>
         <tr>
             <td><strong>Name</strong></td>
-            <td>{{ $data->Name_pd }}</td>
+            <td class="border1">{{ $data->Name }}</td>
             <td><strong>Shift</strong></td>
-            <td>{{ $data->shift->shift }}</td>
+            <td class="border1">{{ $data->shift->shift }}</td>
         </tr>
         <tr>
             <td><strong>To Department</strong></td>
-            <td>{{ $data->To_department }}</td>
+            <td class="border1">{{ $data->To_department }}</td>
             <td><strong>Lot</strong></td>
-            <td>{{ $data->lot->lot }}</td>
+            <td class="border1">{{ $data->lot->lot }}</td>
         </tr>
         <tr>
             <td><strong>Process</strong></td>
-            <td class="borderisi">{{ $data->equipmentNo->Equipment_Name }}</td>
+            <td class="border1">{{ $data->equipmentNo->Equipment_Name }}</td>
             <td><strong>Line</strong></td>
-            <td>{{ $data->line->line }}</td>
+            <td class="border1">{{ $data->line->line }}</td>
         </tr>
         <tr>
             <td><strong>Equip. No</strong></td>
-            <td>{{ $data->equipmentNo->Equipment_Number }}</td>
+            <td class="border1">{{ $data->equipmentNo->Equipment_Number }}</td>
             <td><strong>Date</strong></td>
-            <td>{{ $data->Date_pd }}</td>
+            <td class="border1">{{ $data->Date_pd }}</td>
+        </tr>
+        <tr>
+            {{-- <td><strong>Breakdown Time</strong></td>
+            <td class="border1">{{ $data->Breakdown_time }}</td> --}}
+            <td><strong>Sign (SPV)</strong></td>
+            <td class="border1">Iwan</td>
+            <td><strong>Report Time</strong></td>
+            <td class="border1">{{ $data->Report_time }}</td>
         </tr>
         <tr>
             <td><strong>Description</strong></td>
-            <td colspan="3">{{ $data->Description }}</td>
+            <textarea>{{ $data->Description }}</textarea>
         </tr>
-        <tr>
-            <td><strong>Breakdown Time</strong></td>
-            <td>{{ $data->Breakdown_time }}</td>
-            <td><strong>Report Time</strong></td>
-            <td>{{ $data->Report_time }}</td>
-        </tr>
-        <tr>
-            <td class="signspv"><strong>Sign (SPV)</strong></td>
-            <td colspan="3">Iwan</td>
-        </tr>
+       
+      
     </table>
 
     <table>
         <tr>
             <th colspan="4" class="section-title">RESULT</th>
         </tr>
-        <tr>
+        <br>
+        {{-- <tr>
             <td><strong>Judgement</strong></td>
-            <td>{{ $data->Judgement }}</td>
+            <td class="border1">{{ $data->Judgement }}</td>
             <td><strong>Response Time</strong></td>
-            <td>{{ $data->Response_time }}</td>
-        </tr>
+            <td class="border1">{{ $data->Response_time }}</td>
+        </tr> --}}
         <tr>
             <td><strong>Issue</strong></td>
-            <td>{{ $data->Issue }}</td>
-            <td><strong>Repair Start Time</strong></td>
-            <td>{{ $data->Repair_start_time }}</td>
+            <textarea class="border1">{{ $data->Issue }}</textarea>
+            {{-- <td><strong>Repair Start Time</strong></td>
+            <td class="border1">{{ $data->Repair_start_time }}</td> --}}
         </tr>
         <tr>
             <td><strong>Root Cause</strong></td>
-            <td>{{ $data->Root_cause }}</td>
-            <td><strong>Repair End Time</strong></td>
-            <td>{{ $data->Repair_end_time }}</td>
+            <textarea class="border1">{{ $data->Root_cause }}</textarea>
+            {{-- <td><strong>Repair End Time</strong></td>
+            <td class="border1">{{ $data->Repair_end_time }}</td> --}}
         </tr>
         <tr>
             <td><strong>Action</strong></td>
-            <td>{{ $data->Action }}</td>
-            <td><strong>QC Start Time</strong></td>
-            <td>{{ $data->Qc_start_time }}</td>
+            <textarea class="border1">{{ $data->Action }}</textarea>
+            
+        </tr>
+        <tr>
+            <td><strong>Response Time</strong></td>
+            <td class="border1">{{ $data->Response_time }}</td>
+            <td><strong>Repair Start Time</strong></td>
+            <td class="border1">{{ $data->Repair_start_time }}</td>
         </tr>
         <tr>
             <td><strong>Repair By*</strong></td>
-            <td>{{ $data->Repair_by }}</td>
+            <td class="border1">{{ $data->Repair_by }}</td>
+            <td><strong>Repair End Time</strong></td>
+            <td class="border1">{{ $data->Repair_end_time }}</td>
+        </tr>
+        <tr>
+            <td><strong>QC Start Time</strong></td>
+            <td class="border1">{{ $data->Qc_start_time }}</td>
             <td><strong>QC End Time</strong></td>
-            <td>{{ $data->Qc_end_time }}</td>
+            <td class="border1">{{ $data->Qc_end_time }}</td>
         </tr>
     </table>
 
@@ -311,15 +344,15 @@
         </tr>
         <tr>
             <td><strong>QC Sign</strong></td>
-            <td>{{ $data->Qc_sign }}asdasd</td>
+            <td class="border1">{{ $data->Qc_sign }}asdasd</td>
             <td><strong>Date / Time</strong></td>
-            <td class="borderisi">{{ $data->Qc_date }}sadasd</td>
+            <td class="border1">{{ $data->Qc_date }}sadasd</td>
         </tr>
         <tr>
             <td><strong>PD Sign</strong></td>
-            <td>{{ $data->Name }}</td>
+            <td class="border1">{{ $data->Name }}</td>
             <td><strong>Date / Time</strong></td>
-            <td>{{ $data->Date_pd }}</td>
+            <td class="border1">{{ $data->Date_pd }}</td>
         </tr>
         {{-- <tr>
             <td><strong>SPV NTD/MT Sign</strong></td>
@@ -329,8 +362,8 @@
         </tr> --}}
     </table>
 
-    <p class="text-right">SB-MT-014 (2)</p>
 </div>
+<p class="text-right">SB-MT-014 (2)</p>
 
 </body>
 </html>
