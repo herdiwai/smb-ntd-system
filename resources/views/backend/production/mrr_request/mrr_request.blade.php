@@ -5,9 +5,9 @@
   
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
-            {{-- @if(Auth::user()->can('add.testingrequisition')) --}}
-             <a href="{{ route('add.mrr') }}" class="btn btn-inverse-info btn-xs"><i data-feather="file-plus" style="width: 16px; height: 16px;"></i> ADD MRR FORM</a>
-            {{-- @endif --}}
+            @if(Auth::user()->can('add.Mrr'))
+                <a href="{{ route('add.mrr') }}" class="btn btn-inverse-info btn-xs"><i data-feather="file-plus" style="width: 16px; height: 16px;"></i> ADD MRR FORM</a>
+            @endif
 
         </ol>
     </nav>
@@ -43,13 +43,30 @@
                                     <th hidden>Sign Spv pd</th>
                                     <th hidden>Judgement</th>
                                     <th hidden>Response_time</th>
+                                    <th hidden>Issue</th>
+                                    <th hidden>Root Cause</th>
+                                    <th hidden>Action</th>
+                                    <th hidden>Repair Start Time</th>
+                                    <th hidden>Repair End Time</th>
+                                    <th hidden>Qc Start Time</th>
+                                    <th hidden>Qc End Time</th>
+                                    <th hidden>Qc Sign</th>
+                                    <th hidden>Date Qc</th>
+                                    <th hidden>PD Sign</th>
+                                    <th hidden>Date PD</th>
 
 
                                     <th>Status MRR</th>
                                     <th>View Detail</th>
-                                    <th>Action Spv PD</th>
-                                    <th>Action Techinician</th>
-                                    <th>Action QC</th>
+                                    @if(Auth::user()->can('sign.mrrSpv'))
+                                        <th>Action Spv PD</th>
+                                    @endif
+                                    @if(Auth::user()->can('edit.mrrtechnician'))
+                                        <th>Action Techinician</th>
+                                    @endif
+                                    @if(Auth::user()->can('sign.mrrQc'))
+                                        <th>Action QC</th>
+                                    @endif
                                     <th>Export to PDF</th>
                             </tr>
                             </thead>
@@ -74,6 +91,7 @@
                                         @if($mrr->Status_approvals_id_spv_pd == '3')
                                             <td class="sign_spv_pd" hidden>Pending</td>
                                         @else
+                                            {{-- Nama sign sementara diambil dari kolom Note_spv_pd --}}
                                             <td class="sign_spv_pd" hidden>{{ $mrr->Note_spv_pd  }}</td>
                                         @endif
                                         {{-- End Status Sign Spv Production --}}
@@ -91,6 +109,73 @@
                                             <td class="Response_time" hidden>{{ $mrr->Response_time }}</td>
                                         @endif
                                         {{-- End Status Response_time --}}
+                                    
+                                        @if($mrr->Issue == '' )
+                                            <td class="issue" hidden><p class="text-secondary">no record</p></td>
+                                        @else
+                                            <td class="issue" hidden>{{ $mrr->Issue }}</td>
+                                        @endif
+
+                                        @if($mrr->Root_cause == '')
+                                            <td class="root_cause" hidden><p class="text-secondary">no record</p></td>
+                                        @else
+                                            <td class="root_cause" hidden>{{ $mrr->Root_cause }}</td>
+                                        @endif
+
+                                        @if($mrr->Action == '')
+                                            <td class="action" hidden><p class="text-secondary">no record</p></td>
+                                        @else
+                                            <td class="action" hidden>{{ $mrr->Action }}</td>
+                                        @endif
+
+                                        @if($mrr->Repair_start_time == '')
+                                            <td class="repair_start" hidden><p class="text-secondary">no record</p></td>
+                                        @else
+                                            <td class="repair_start" hidden>{{ $mrr->Repair_start_time }}</td>
+                                        @endif
+
+                                        @if($mrr->Repair_end_time == '')
+                                            <td class="repair_end" hidden><p class="text-secondary">no record</p></td>
+                                        @else
+                                            <td class="repair_end" hidden>{{ $mrr->Repair_end_time }}</td>
+                                        @endif
+
+                                        @if($mrr->Qc_start_time == '')
+                                            <td class="qc_start" hidden><p class="text-secondary">no record</p></td>
+                                        @else
+                                            <td class="qc_start" hidden>{{ $mrr->Qc_start_time }}</td>
+                                        @endif
+
+                                        @if($mrr->Qc_end_time == '')
+                                            <td class="qc_end" hidden><p class="text-secondary">no record</p></td>
+                                        @else
+                                            <td class="qc_end" hidden>{{ $mrr->Qc_end_time }}</td>
+                                        @endif
+
+                                        @if($mrr->Qc_name_sign == '')
+                                            <td class="qc_sign" hidden><p class="text-secondary">no record</p></td>
+                                        @else
+                                            <td class="qc_sign" hidden>{{ $mrr->Qc_name_sign }}</td>
+                                        @endif
+
+                                        @if($mrr->Date_qc == '')
+                                            <td class="date_qc" hidden><p class="text-secondary">no record</p></td>
+                                        @else
+                                            <td class="date_qc" hidden>{{ $mrr->Date_qc }}</td>
+                                        @endif
+
+                                        @if($mrr->Name == '')
+                                            <td class="pd_sign" hidden><p class="text-secondary">no record</p></td>
+                                        @else
+                                            <td class="pd_sign" hidden>{{ $mrr->Name }}</td>
+                                        @endif
+
+                                        @if($mrr->Date_pd == '')
+                                            <td class="date_pd" hidden><p class="text-secondary">no record</p></td>
+                                        @else
+                                            <td class="date_pd" hidden>{{ $mrr->Date_pd }}</td>
+                                        @endif
+
                                         <td>
                                             @if($mrr->status_mrr == 'incomplete')
                                                 <span class="badge bg-danger" style="color: black;"> {{ $mrr->status_mrr }} </span>
@@ -99,24 +184,46 @@
                                             @endif
                                         </td>
                                         <td><button type="button" class="btn btn-inverse-primary btn-xs view-details" data-bs-toggle="modal" data-bs-target="#varyingModal" data-id="'.$mrr->id.'" title="View Detail"><i data-feather="eye" style="width: 16px; height: 16px;"></i></button></td>
-                                        <td>
-                                            <button type="button" class="btn btn-inverse-success btn-xs" data-bs-toggle="modal" data-bs-target="#signModalSpv" onclick="openSignSpv({{ $mrr->id }})" title="Sign">
-                                                <i data-feather="check-square" style="width: 16px; height: 16px;"></i>
-                                            </button>
-                                        </td>
-                                        <td>
-                                            {{-- <button type="button" class="btn btn-inverse-success btn-xs" data-bs-toggle="modal" data-bs-target="#resultModalMrr" onclick="openResultMrr({{ $mrr->id }})" title="AddMrr">
-                                                <i data-feather="check-square" style="width: 16px; height: 16px;"></i> AddMrr
-                                            </button> --}}
-                                            <a href="{{ route('edit.mrrtechnician', $mrr->id ) }}" class="btn btn-inverse-warning btn-xs" title="Add Mrr"><i data-feather="edit" style="width: 16px; height: 16px;"></i></a>
-                                            {{-- <a href="{{ route('delete.hourlyoutput', $production->id) }}" class="btn btn-inverse-danger" title="Delete"><i data-feather="trash-2"></i></a> --}}
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-inverse-info btn-xs" data-bs-toggle="modal" data-bs-target="#qcAccepted" onclick="openQcAccepted({{ $mrr->id }})" title="Sign">
-                                                <i data-feather="check-square" style="width: 16px; height: 16px;"></i>
-                                            </button>
-                                        </td>
-                                        <td><a href="{{ route('mrr.export-pdf', $mrr->id ) }}" class="btn btn-inverse-success btn-xs" title="Export-PDF"><i data-feather="download" style="width: 16px; height: 16px;"></i> PDF</a></td>
+                                        
+                                        @if(Auth::user()->can('sign.mrrSpv'))
+                                            @if($mrr->Status_approvals_id_spv_pd == '3' OR $mrr->Status_approvals_id_spv_pd == '2')
+                                                <td>
+                                                    <button type="button" class="btn btn-inverse-success btn-xs" data-bs-toggle="modal" data-bs-target="#signModalSpv" onclick="openSignSpv({{ $mrr->id }})" title="Sign">
+                                                        <i data-feather="check-square" style="width: 16px; height: 16px;"></i>
+                                                    </button>
+                                                </td>
+                                            @elseif($mrr->Status_approvals_id_spv_pd == '1')
+                                                <td><p class="text-success">DONE</p></td>
+                                            @endif
+                                        @endif
+
+                                        @if(Auth::user()->can('edit.mrrtechnician'))
+                                            @if($mrr->status_mrr == 'incomplete')
+                                                <td>
+                                                    <a href="{{ route('edit.mrrtechnician', $mrr->id ) }}" class="btn btn-inverse-warning btn-xs" title="Add Mrr"><i data-feather="edit" style="width: 16px; height: 16px;"></i></a>
+                                                </td>
+                                            @elseif($mrr->status_mrr == 'complete')
+                                                <td><p class="text-success">DONE</p></td>
+                                            @endif
+                                        @endif
+
+                                        @if(Auth::user()->can('sign.mrrQc'))
+                                            @if($mrr->status_mrr == 'incomplete')
+                                                <td>
+                                                    <button type="button" class="btn btn-inverse-info btn-xs" data-bs-toggle="modal" data-bs-target="#qcAccepted" onclick="openQcAccepted({{ $mrr->id }})" title="Sign">
+                                                        <i data-feather="check-square" style="width: 16px; height: 16px;"></i>
+                                                    </button>
+                                                </td>
+                                            @elseif($mrr->status_mrr == 'complete')
+                                                <td><p class="text-success">DONE</p></td>
+                                            @endif
+                                        @endif
+
+                                        @if($mrr->status_mrr == 'incomplete')
+                                            <td><p class="text-danger">status mrr not complete</p></td>
+                                        @elseif($mrr->status_mrr == 'complete')
+                                            <td><a href="{{ route('mrr.export-pdf', $mrr->id ) }}" class="btn btn-inverse-success btn-xs" title="Export-PDF"><i data-feather="download" style="width: 16px; height: 16px;"></i> PDF</a></td>
+                                        @endif
                                     </tr>
                                 @endforeach
 
@@ -277,7 +384,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="varyingModalLabel">Sign Form Spv</h5>
+          <h5 class="modal-title" id="varyingModalLabel">View Detail MRR</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
           {{-- <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"> --}}
             {{-- <span aria-hidden="true">&times;</span> --}}
@@ -497,18 +604,129 @@
             
             <div class="form-group mb-3" id="other_purpose">
                 <label for="Issue"><b>Issue:</b></label>
-                <textarea class="form-control" id="Issue" name="Issue" rows="5" placeholder=""></textarea>
+                <textarea class="form-control issue" id="Issue" name="Issue" rows="2" placeholder="" disabled></textarea>
             </div>
             <div class="form-group mb-3" id="other_purpose">
                 <label for="Root_cause"><b>Root Cause:</b></label>
-                <textarea class="form-control" id="Root_cause" name="Root_cause" rows="5" placeholder=""></textarea>
+                <textarea class="form-control root_cause" id="Root_cause" name="Root_cause" rows="2" placeholder="" disabled></textarea>
             </div>
             <div class="form-group mb-3" id="other_purpose">
                 <label for="Action"><b>Action:</b></label>
-                <textarea class="form-control" id="Action" name="Action" rows="5" placeholder=""></textarea>
+                <textarea class="form-control action" id="Action" name="Action" rows="2" placeholder="" disabled></textarea>
             </div>
         </div> 
 
+        <div class="row">
+                                
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <div class="form-row align-items-center">
+                        <div class="col-sm">
+                            <label for="repair_start" class="col-form-label col-form-label-sm"><b>Repair Start Time</b></label>
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control form-control-sm repair_start" id="repair_start" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <div class="form-row align-items-center">
+                        <div class="col-sm">
+                            <label for="repair_end" class="col-form-label col-form-label-sm"><b>Repair End Time</b></label>
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control form-control-sm repair_end" id="repair_end" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+                                
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <div class="form-row align-items-center">
+                        <div class="col-sm">
+                            <label for="qc_start" class="col-form-label col-form-label-sm"><b>QC Start Time</b></label>
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control form-control-sm qc_start" id="qc_start" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <div class="form-row align-items-center">
+                        <div class="col-sm">
+                            <label for="qc_end" class="col-form-label col-form-label-sm"><b>QC End Time</b></label>
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control form-control-sm qc_end" id="qc_end" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+                                
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <div class="form-row align-items-center">
+                        <div class="col-sm">
+                            <label for="qc_sign" class="col-form-label col-form-label-sm"><b>QC Sign</b></label>
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control form-control-sm qc_sign" id="qc_sign" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <div class="form-row align-items-center">
+                        <div class="col-sm">
+                            <label for="date_qc" class="col-form-label col-form-label-sm"><b>Date/Time</b></label>
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control form-control-sm date_qc" id="date_qc" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+                                
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <div class="form-row align-items-center">
+                        <div class="col-sm">
+                            <label for="pd_sign" class="col-form-label col-form-label-sm"><b>PD Sign</b></label>
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control form-control-sm pd_sign" id="pd_sign" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <div class="form-row align-items-center">
+                        <div class="col-sm">
+                            <label for="date_pd" class="col-form-label col-form-label-sm"><b>Date/Time</b></label>
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control form-control-sm date_pd" id="date_pd" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
         </form>
@@ -571,12 +789,17 @@
             $('.sign_spv_pd').val(_this.find('.sign_spv_pd').text());
             $('.judgement').val(_this.find('.judgement').text());
             $('.Response_time').val(_this.find('.Response_time').text());
-            // $('.status_report').val(_this.find('.status_report').text());
-            // $('.status_approvals_spv').val(_this.find('.status_approvals_spv').text());
-            // $('.status_approvals_manager').val(_this.find('.status_approvals_manager').text());
-            // $('.qe_review').val(_this.find('.qe_review').text());
-            // $('.notes_qe_iqc').val(_this.find('.notes_qe_iqc').text());
-            // $('.notes_qe_qca').val(_this.find('.notes_qe_qca').text());
+            $('.issue').val(_this.find('.issue').text());
+            $('.root_cause').val(_this.find('.root_cause').text());
+            $('.action').val(_this.find('.action').text());
+            $('.repair_start').val(_this.find('.repair_start').text());
+            $('.repair_end').val(_this.find('.repair_end').text());
+            $('.qc_start').val(_this.find('.qc_start').text());
+            $('.qc_end').val(_this.find('.qc_end').text());
+            $('.qc_sign').val(_this.find('.qc_sign').text());
+            $('.date_qc').val(_this.find('.date_qc').text());
+            $('.pd_sign').val(_this.find('.pd_sign').text());
+            $('.date_pd').val(_this.find('.date_pd').text());
     });
 
 </script>
