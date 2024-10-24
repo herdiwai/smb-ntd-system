@@ -58,6 +58,37 @@
             </div>
           </li>
 
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#changes" role="button" aria-expanded="false" aria-controls="changes">
+              <i class="link-icon" data-feather="clipboard"></i>
+              <span class="link-title">Change Notice</span>
+              <i class="link-arrow" data-feather="chevron-down"></i>
+            </a>
+            <div class="collapse" id="changes">
+              <ul class="nav sub-menu">
+
+                @if(Auth::user()->can('hourlyoutput.all'))
+                  <li class="nav-item">
+                    <a href="{{ route('production.ChangeNotice') }}" class="nav-link">All Table</a>
+                  </li>
+                @endif
+
+                @if(Auth::user()->can('hourlyoutput.Add'))
+                  <li class="nav-item">
+                    <a href="{{ route('add.ChangeNotice') }}" class="nav-link">Add</a>
+                  </li>
+                @endif
+
+                <li class="nav-item">
+                  <a href="{{ route('filter.ProcessChangeNotice') }}" class="nav-link">Filter Change Notice</a>
+                </li>
+                {{-- <li class="nav-item">
+                  <a href="pages/email/compose.html" class="nav-link">Compose</a>
+                </li> --}}
+              </ul>
+            </div>
+          </li>
+
         @endif
         {{-- @endif --}}
         {{-- <li class="nav-item">
@@ -233,7 +264,7 @@
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents07" role="button" aria-expanded="false" aria-controls="uiComponents07">
               <i class="link-icon" data-feather="folder"></i>
-              <span class="link-title" style="font-size: 13.5px;">SubAssy Patrol</span>
+              <span class="link-title" style="font-size: 13.5px;">SubAssy Patrol Record</span>
               <i class="link-arrow" data-feather="chevron-down"></i>
             </a>
             <div class="collapse" id="uiComponents07">
@@ -245,6 +276,9 @@
                 </li>
                 <li class="nav-item">
                   <a href="{{ route('add.ProcessPatrol') }}" class="nav-link">Add</a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ route('filter.patrolrecord') }}" class="nav-link">Filter SubAssy Patrol</a>
                 </li>
                 {{-- @endif --}}
              

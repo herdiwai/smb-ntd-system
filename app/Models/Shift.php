@@ -15,4 +15,14 @@ class Shift extends Model
     {
         return $this->belongsTo(SampleTestingRequisition::class);
     }
+
+    public function ProcessPatrol()
+    {
+        return $this->belongsTo(InspectionCheckResult::class,'id');
+    }
+
+    public function ProcessChangeNotice()
+    {
+        return $this->belongsTo(ECNotice::class,'id');
+    }
 }

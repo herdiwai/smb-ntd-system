@@ -7,6 +7,7 @@ use App\Http\Controllers\Backend\ModelBrewerController;
 use App\Http\Controllers\Backend\ProcessController;
 use App\Http\Controllers\Backend\ProcessModelController;
 use App\Http\Controllers\Backend\SubAssyProcessPatrolController;
+use App\Http\Controllers\Backend\EngineeringChangeNotice;
 use App\Http\Controllers\Backend\ReviewApprovalController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\SampleTestingReportContoller;
@@ -144,6 +145,27 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
     });
 });
 
+// Production ECN Change Notice
+Route::middleware(['auth', 'roles:admin'])->group(function() {
+
+    Route::controller(EngineeringChangeNotice::class)->group(function(){
+        Route::get('/production/processchangenotice', 'ProcessChangeNotice' )->name('production.ChangeNotice');
+        Route::get('/add/processchangenotice', 'AddProcessChangeNotice' )->name('add.ChangeNotice');
+        Route::post('/add/processchangenotice', 'StoreProcessChangeNotice' )->name('post.ChangeNotice');
+        Route::get('/edit/processchangenotice/{id}', 'EditProcessChangeNotice' )->name('edit.ProcessChangeNotice');
+        Route::post('/edit/processchangenotice/{id}', 'UpdateProcessChangeNotice')->name('update.ProcessChangeNotice');
+        Route::get('/export/processchangenotice/{id}', 'FileProcessChangeNotice' )->name('file.ProcessChangeNotice');
+        Route::get('/filter-processchangenotice', 'filterProcessChangeNotice' )->name('filter.ProcessChangeNotice');
+        Route::get('/delete/processchangenotice/{id}', 'DeleteProcessChangeNotice' )->name('delete.ProcessChangeNotice');
+
+        
+
+        
+    });
+
+    
+});
+
 // Model Brewer
 Route::middleware(['auth', 'roles:admin'])->group(function() {
     Route::controller(ModelBrewerController::class)->group(function(){
@@ -259,6 +281,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
         Route::get('/detail/processpatrolrecord/{id}', 'DetailProcessPatrol')->name('detail.ProcessPatrol');
         Route::get('/delete/processpatrolrecord/{id}', 'DeleteProcessPatrol' )->name('delete.ProcessPatrol');
         Route::get('/export-pdf/{id}', 'exportToPdf' )->name('pdf.ProcessPatrol');
+        Route::get('/filter-patrolrecord', 'filterPatrolRecord' )->name('filter.patrolrecord');
         // Route::post('edit/processpatrolrecord/{id}', [YourController::class, 'processPatrolRecord'])->name('processpatrolrecord');
         // Route::get('/inspectionitem/{id}', 'getInspectionItemById');// Route untuk ambil data inspection item berdasarkan ID
 

@@ -10,4 +10,9 @@ class Line extends Model
     use HasFactory;
     protected $table = 'lines';
     protected $guarded = [];
+
+    public function ProcessChangeNotice()
+    {
+        return $this->belongsTo(ECNotice::class,'id');
+    }
 }
