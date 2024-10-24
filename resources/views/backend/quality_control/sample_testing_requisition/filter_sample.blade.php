@@ -402,7 +402,7 @@
                                             <p class="text-danger">can't download pdf/form status not complete</p>
                                         </td>
                                         @else
-                                            <td><a href="{{ route('requisition.export-pdf', $items->id ) }}" class="btn btn-inverse-danger btn-xs" title="Export-PDF"><i data-feather="download" style="width: 16px; height: 16px;"></i></a></td>
+                                            <td><a href="{{ route('requisition.export-pdf', $items->id ) }}" class="btn btn-inverse-success btn-xs" title="Export-PDF"><i data-feather="download" style="width: 16px; height: 16px;"></i> PDF</a></td>
                                         @endif
                                     </tr>
                                 @endforeach 

@@ -17,7 +17,7 @@
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
             @if(Auth::user()->can('add.testingrequisition'))
-             <a href="{{ route('add.sampletestingrequisition') }}" class="btn btn-inverse-info btn-xs"><i data-feather="file-plus" style="width: 16px; height: 16px;"></i> ADD REQUISITION FORM</a>
+             <a href="{{ route('add.sampletestingrequisition') }}" class="btn btn-inverse-info btn-xs"><i data-feather="file-plus" style="width: 16px; height: 16px;"></i> ADD SAMPLE REQUISITION FORM</a>
             @endif
 
         </ol>

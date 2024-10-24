@@ -90,6 +90,32 @@
           </li>
 
         @endif
+
+
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="collapse" href="#emails2" role="button" aria-expanded="false" aria-controls="emails2">
+            <i class="link-icon" data-feather="clipboard"></i>
+            <span class="link-title">MRR Request</span>
+            <i class="link-arrow" data-feather="chevron-down"></i>
+          </a>
+          <div class="collapse" id="emails2">
+            <ul class="nav sub-menu">
+
+                <li class="nav-item">
+                  <a href="{{ route('production.mrr') }}" class="nav-link">All Table</a>
+                </li>
+
+                <li class="nav-item">
+                  <a href="{{ route('add.mrr') }}" class="nav-link">Add</a>
+                </li>
+
+            </ul>
+          </div>
+        </li>
+
+
+
+
         {{-- @endif --}}
         {{-- <li class="nav-item">
           <a href="pages/apps/calendar.html" class="nav-link">
@@ -144,6 +170,12 @@
                   </li>
                   @endif
 
+                  @if(Auth::user()->can('all.filterSample'))
+                  <li class="nav-item">
+                    <a href="{{ route('filter.sample') }}" class="nav-link">Filter Sample</a>
+                  </li>
+                  @endif
+
                 </ul>
               </div>
             </li>
@@ -162,6 +194,12 @@
                 @if(Auth::user()->can('all.testingreport'))
                 <li class="nav-item">
                   <a href="{{ route('qualitycontrol.sampletestingreport') }}" class="nav-link">All Table</a>
+                </li>
+                @endif
+
+                @if(Auth::user()->can('all.filterSample'))
+                <li class="nav-item">
+                  <a href="{{ route('filter.sample') }}" class="nav-link">Filter Sample</a>
                 </li>
                 @endif
                
@@ -210,6 +248,13 @@
                   <a href="{{ route('qualitycontrol.sampletestingrequisition') }}" class="nav-link">All Table</a>
                 </li>
                @endif
+
+               @if(Auth::user()->can('all.filterSample'))
+                <li class="nav-item">
+                  <a href="{{ route('filter.sample') }}" class="nav-link">Filter Sample</a>
+                </li>
+              @endif
+
               </ul>
             </div>
           </li>
@@ -230,6 +275,13 @@
                   <a href="{{ route('qualitycontrol.sampletestingrequisition') }}" class="nav-link">All Table</a>
                 </li>
                @endif
+
+               @if(Auth::user()->can('all.filterSample'))
+                <li class="nav-item">
+                  <a href="{{ route('filter.sample') }}" class="nav-link">Filter Sample</a>
+                </li>
+              @endif
+
               </ul>
             </div>
           </li>
@@ -251,6 +303,12 @@
                   <a href="{{ route('qualitycontrol.sampletestingrequisition') }}" class="nav-link">All Table</a>
                 </li>
                 @endif
+
+                @if(Auth::user()->can('all.filterSample'))
+                <li class="nav-item">
+                  <a href="{{ route('filter.sample') }}" class="nav-link">Filter Sample</a>
+                </li>
+                @endif
              
               </ul>
             </div>
@@ -260,17 +318,17 @@
 
 
           {{-- Menu SubAssy Patrol --}}
-          {{-- @if(Auth::user()->can('testingrequisition.menu')) --}}
+          @if(Auth::user()->can('testingrequisition.menu'))
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents07" role="button" aria-expanded="false" aria-controls="uiComponents07">
-              <i class="link-icon" data-feather="folder"></i>
-              <span class="link-title" style="font-size: 13.5px;">SubAssy Patrol Record</span>
+              <i class="link-icon" data-feather="file"></i>
+              <span class="link-title" style="font-size: 13.5px;">SubAssy Patrol</span>
               <i class="link-arrow" data-feather="chevron-down"></i>
             </a>
             <div class="collapse" id="uiComponents07">
               <ul class="nav sub-menu">
                 
-                {{-- @if(Auth::user()->can('add.testingrequisition')) --}}
+                @if(Auth::user()->can('add.testingrequisition'))
                 <li class="nav-item">
                   <a href="{{ route('qualitycontrol.subassypatrolrecord') }}" class="nav-link">All Table</a>
                 </li>
@@ -281,11 +339,12 @@
                   <a href="{{ route('filter.patrolrecord') }}" class="nav-link">Filter SubAssy Patrol</a>
                 </li>
                 {{-- @endif --}}
+                @endif
              
-              </ul>
+              </ul> 
             </div>
           </li>
-          {{-- @endif --}}
+          @endif
           {{-- End SubAssy Patrol --}}
 
 
@@ -293,7 +352,7 @@
 
 
           {{-- Menu Filter Sample Requisition and Report --}}
-          @if(Auth::user()->can('menu.filterSample'))
+          {{-- @if(Auth::user()->can('menu.filterSample'))
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents07" role="button" aria-expanded="false" aria-controls="uiComponents07">
               <i class="link-icon" data-feather="filter"></i>
@@ -312,7 +371,7 @@
               </ul>
             </div>
           </li>
-          @endif
+          @endif --}}
           {{-- End Approvals QE --}}
 
          
