@@ -29,6 +29,52 @@ class MrrequestController extends Controller
         return view('backend.production.mrr_request.mrr_request', compact('mrrequest','data'));
     }
 
+    public function filterMrr(Request $request) {
+        $fromDate = $request->input('from_date');
+        $toDate = $request->input('to_date');
+        $lot_id = $request->input('lot_id');
+        $line_id = $request->input('line_id');
+        $model_id = $request->input('model_id');
+        // $processes_id = $request->input('processes_id');
+        $shift_id = $request->input('shift_id');
+        $status_mrr = $request->input('status_mrr');
+
+        $lot = Lot::all();
+        $modelbrewer = ModelBrewer::all();
+        $line = Line::all();
+        // $process = Process::all();
+        $shift = Shift::all();
+        $mrr_status = ['incomplete', 'complete'];
+    
+        $data = Mrrequest::with('modelBrewer','lot')
+                        ->orderBy('Date_pd','asc')
+                        ->when($fromDate && $toDate, function($query) use ($fromDate, $toDate) {
+                            return $query->whereBetween('Date_pd', [$fromDate, $toDate]);
+                        })
+                        // ->when($processes_id, function($query) use ($processes_id) {
+                        //     return $query->where('processes_id', $processes_id);
+                        // })
+                        ->when($lot_id, function($query) use ($lot_id) {
+                            return $query->where('lot_id', $lot_id);
+                        })
+                        ->when($line_id, function($query) use ($line_id) {
+                            return $query->where('line_id', $line_id);
+                        })
+                        ->when($model_id, function($query) use ($model_id) {
+                            return $query->where('model_id', $model_id);
+                        })
+                        ->when($shift_id, function($query) use ($shift_id) {
+                            return $query->where('shift_id', $shift_id);
+                        })
+                        ->when($status_mrr, function($query) use ($status_mrr) {
+                            return $query->where('status_mrr', $status_mrr);
+                        })
+                        ->paginate(10);
+    // dd($data);
+
+        return view('backend.production.mrr_request.filter_mrr', compact('shift','modelbrewer','lot','data','mrr_status','line'));
+    }
+
     public function AddMrr()
     {
         // $id = Auth::user()->id;
@@ -62,6 +108,7 @@ class MrrequestController extends Controller
             'Breakdown_time' => $request->Breakdown_time,
             'Report_time' => $request->Report_time,
             'Status_approvals_id_spv_pd' => 3,
+            'Status_approvals_id_qc' => 3,
         ]);
 
         $notification = array(
@@ -87,9 +134,11 @@ class MrrequestController extends Controller
     }
 
     public function StoreMrrTechnician(Request $request) {
+        // Set nilai default untuk Status_approvals_id_spv_ntd
+        $statusForm = $request->Status_approvals_id_spv_ntd == '1' ? 1 : 2;
         $mrr_id = $request->id;
         Mrrequest::findOrFail($mrr_id)->update([
-            'user_id' => Auth::id(),
+            'user_id_updated_result' => Auth::id(),
             'Judgement' => $request->Judgement,
             'Issue' => $request->Issue,
             'Root_cause' => $request->Root_cause,
@@ -98,6 +147,8 @@ class MrrequestController extends Controller
             'Response_time' => $request->Response_time,
             'Repair_start_time' => $request->Repair_start_time,
             'Repair_end_time' => $request->Repair_end_time,
+            'Status_approvals_id_spv_ntd' => $statusForm, //Sementara menggunakan kolom Status_approvals_id_spv_ntd
+            'Note_spv_ntd' => $request->Note_spv_ntd, //Sementara menggunakan kolom Note_spv_ntd
         ]);
 
         $notification = array(
@@ -110,11 +161,13 @@ class MrrequestController extends Controller
     public function UpdateQc(Request $request) {
         $mrr_id = $request->id;
         Mrrequest::findOrFail($mrr_id)->update([
-            'user_id' => Auth::id(),
+            'user_id_updated_qc' => Auth::id(),
             'Qc_start_time' => $request->Qc_start_time,
             'Qc_end_time' => $request->Qc_end_time,
             'Qc_name_sign' => $request->Qc_name_sign,
             'Date_qc' => $request->Date_qc,
+            'Status_approvals_id_qc' => 1,
+            'Note_qc' => $request->Note_qc,
             'status_mrr' => 'complete',
         ]);
         $notification = array(
@@ -127,8 +180,8 @@ class MrrequestController extends Controller
     public function UpdateSignSpv(Request $request) {
         $mrr_id = $request->id;
         Mrrequest::findOrFail($mrr_id)->update([
-            'user_id' => Auth::id(),
-            'Status_approvals_id_spv_pd' => $request->Status_approvals_id_spv_pd,
+            'user_id_updated_spv' => Auth::id(),
+            'Status_approvals_id_spv_pd' => 1,
             'Note_spv_pd' => $request->Note_spv_pd,
         ]);
         $notification = array(
@@ -156,6 +209,22 @@ class MrrequestController extends Controller
     
         return $pdf->stream('Mrr.pdf', ['Attachment' => false]);
         // return view('backend.quality_control.sample_testing_requisition.generate-requisition-pdf', compact('testinggetid','sampleRequisition'));
+    }
+
+    public function DeleteMrr($id) 
+    {
+        // Cari data berdasarkan ID yang ingin dihapus
+        $mrr = Mrrequest::find($id);
+
+        // Setelah data relasi dihapus, hapus data utama
+        $mrr->delete();
+
+        $notification = array(
+            'message' => 'Deleted Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('production.mrr')->with($notification);
+
     }
 
 }

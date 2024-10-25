@@ -3,14 +3,129 @@
 
 <div class="page-content">
   
-    <nav class="page-breadcrumb">
-        <ol class="breadcrumb">
-            @if(Auth::user()->can('add.Mrr'))
-                <a href="{{ route('add.mrr') }}" class="btn btn-inverse-info btn-xs"><i data-feather="file-plus" style="width: 16px; height: 16px;"></i> ADD MRR FORM</a>
-            @endif
+    
+    <!-- Form filter -->
+        <div class="row">
+            <form action="{{ route('filter.mrr') }}" method="GET" class="mb-3">
+                @csrf
+                @method('GET')
+                <div class="row">
+                    <!-- Filter by Date -->
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="date">from date:</label>
+                            <input type="date" name="from_date" id="date" class="form-control form-control-xs">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="date">to date:</label>
+                            <input type="date" name="to_date" id="date" class="form-control form-control-xs">
+                        </div>
+                    </div>
+        
+                    <!-- Filter by Model -->
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="model">Model:</label>
+                            <select name="model_id" id="model" class="form-control form-control-xs">
+                                <option value="">--select model--</option>
+                                @foreach($modelbrewer as $models)
+                                    <option value="{{ $models->id }}" {{ old('modelbrewer') == $models->id ? 'selected' : '' }}>{{ $models->model }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+        
+                    <!-- Filter by Process QCA/IQC -->
+                    {{-- <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="processs">Process:</label>
+                            <select name="processes_id" id="process" class="form-control form-control-xs">
+                                <option value="">--select Process--</option>
+                                @foreach($process as $processes)
+                                    <option value="{{ $processes->id }}" {{ old('process') == $processes->id ? 'selected' : '' }}>{{ $processes->process }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div> --}}
+        
+                    <!-- Filter by Lot -->
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="lot">Lot:</label>
+                            <select name="lot_id" id="lot" class="form-control form-control-xs">
+                                <option value="">--select lot--</option>
+                                @foreach($lot as $lots)
+                                    <option value="{{ $lots->id }}" {{ old('lot') == $lots->id ? 'selected' : '' }}>{{ $lots->lot }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
 
-        </ol>
-    </nav>
+                    <!-- Filter by Line -->
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="lot">Line:</label>
+                            <select name="line_id" id="line" class="form-select form-select-xs">
+                                <option value="">--select line--</option>
+                                @foreach($line as $lines)
+                                    <option value="{{ $lines->id }}" {{ old('line_id') == $lines->id ? 'selected' : '' }}>{{ $lines->line }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+        
+                    <!-- Filter by shift -->
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="shift">shift:</label>
+                            <select name="shift_id" id="shift" class="form-control form-control-xs">
+                                <option value="">--select shift--</option>
+                                @foreach($shift as $shifts)
+                                    <option value="{{ $shifts->id }}" {{ old('shift') == $shifts->id ? 'selected' : '' }}>{{ $shifts->shift }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+        
+                    <!-- Filter by status -->
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="status">status:</label>
+                            <select name="status_mrr" id="status_mrr" class="form-control form-control-xs">
+                                <option value="">--select status--</option>
+                                <option value="incomplete">incomplete</option>
+                                <option value="complete">complete</option>
+                                {{-- @foreach($mrr_status as $status_mrrs)
+                                    <option value="{{ $status_mrrs }}" {{ old('status') == $status_mrrs ? 'selected' : '' }}>{{ $status_mrrs }}</option>
+                                @endforeach --}}
+                            </select>
+                        </div>
+                    </div>
+        
+                    <!-- Filter by Shift -->
+                    {{-- <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="shift">Shift:</label>
+                            <select name="shift" id="shift" class="form-control">
+                                <option value="">-- Select Shift --</option>
+                                <option value="1" {{ request()->get('shift') == '1' ? 'selected' : '' }}>Shift 1</option>
+                                <option value="2" {{ request()->get('shift') == '2' ? 'selected' : '' }}>Shift 2</option>
+                                <option value="3" {{ request()->get('shift') == '3' ? 'selected' : '' }}>Shift 3</option>
+                            </select>
+                        </div>
+                    </div> --}}
+                    
+                    <div class="col-md-2 align-self-end">
+                        <button type="submit" class="btn btn-info btn-xs"><i data-feather="search" style="width: 16px; height: 16px;"></i> Search..</button>
+                        <a href="{{ route('filter.mrr') }}" class="btn btn-light btn-xs" style="position: absolute; margin-left:1%;"><i data-feather="refresh-ccw" style="width: 16px; height: 16px;"></i> Refresh</a>
+                    </div>
+                
+                </div>
+            </form>
+            </div>
+            {{-- End Form Filter --}}
 
     {{-- @php
         $id = Auth::user()->id;
@@ -58,7 +173,7 @@
 
                                     <th>Status MRR</th>
                                     <th>View Detail</th>
-                                    @if(Auth::user()->can('sign.mrrSpv'))
+                                    {{-- @if(Auth::user()->can('sign.mrrSpv'))
                                         <th>Action Spv PD</th>
                                     @endif
                                     @if(Auth::user()->can('edit.mrrtechnician'))
@@ -70,12 +185,16 @@
                                     @if(Auth::user()->can('edit.correction.production'))
                                         <th>Edit Mrr</th>
                                     @endif
-                                    <th>Correction NTD</th>
+                                    <th>Correction NTD</th> --}}
                                     <th>Export to PDF</th>
-                                    <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
+                                    @if($data->isEmpty())
+                                        <tr>
+                                            <td colspan="3" style="color: red;">No data found</td>
+                                        </tr>
+                                    @else
                                 @foreach ($data as $key => $mrr)
                                     <tr>
                                         <td>{{ $key+1 }}</td>
@@ -190,7 +309,7 @@
                                         </td>
                                         <td><button type="button" class="btn btn-inverse-primary btn-xs view-details" data-bs-toggle="modal" data-bs-target="#varyingModal" data-id="'.$mrr->id.'" title="View Detail"><i data-feather="eye" style="width: 16px; height: 16px;"></i></button></td>
                                         
-                                        @if(Auth::user()->can('sign.mrrSpv'))
+                                        {{-- @if(Auth::user()->can('sign.mrrSpv'))
                                             @if($mrr->Status_approvals_id_spv_pd == '3' OR $mrr->Status_approvals_id_spv_pd == '2')
                                                 <td>
                                                     <button type="button" class="btn btn-inverse-success btn-xs" data-bs-toggle="modal" data-bs-target="#signModalSpv" onclick="openSignSpv({{ $mrr->id }})" title="Sign">
@@ -203,21 +322,17 @@
                                         @endif
 
                                         @if(Auth::user()->can('edit.mrrtechnician'))
-                                            @if($mrr->Status_approvals_id_spv_pd == 3)
-                                                <td><p class="text-warning">waiting for spv sign</p></td>
-                                            @elseif($mrr->status_mrr == 'incomplete')
+                                            @if($mrr->status_mrr == 'incomplete')
                                                 <td>
                                                     <a href="{{ route('edit.mrrtechnician', $mrr->id ) }}" class="btn btn-inverse-warning btn-xs" title="Add Mrr"><i data-feather="edit" style="width: 16px; height: 16px;"></i></a>
                                                 </td>
-                                             @elseif($mrr->status_mrr == 'complete')
+                                            @elseif($mrr->status_mrr == 'complete')
                                                 <td><p class="text-success">DONE</p></td>
                                             @endif
                                         @endif
 
                                         @if(Auth::user()->can('sign.mrrQc'))
-                                            @if($mrr->Status_approvals_id_spv_ntd == '' OR $mrr->Status_approvals_id_spv_ntd == 3)
-                                                <td><p class="text-warning">waiting for ntd/mt sign</p></td>
-                                            @elseif($mrr->status_mrr == 'incomplete')
+                                            @if($mrr->status_mrr == 'incomplete')
                                                 <td>
                                                     <button type="button" class="btn btn-inverse-info btn-xs" data-bs-toggle="modal" data-bs-target="#qcAccepted" onclick="openQcAccepted({{ $mrr->id }})" title="Sign">
                                                         <i data-feather="check-square" style="width: 16px; height: 16px;"></i>
@@ -242,19 +357,16 @@
                                             <td><p class="text-secondary">no record</p></td>
                                         @else
                                             <td><p class="text-danger">{{ $mrr->Note_spv_ntd }}</p></td>
-                                        @endif
+                                        @endif --}}
 
                                         @if($mrr->status_mrr == 'incomplete')
                                             <td><p class="text-danger">status mrr not complete</p></td>
                                         @elseif($mrr->status_mrr == 'complete')
                                             <td><a href="{{ route('mrr.export-pdf', $mrr->id ) }}" class="btn btn-inverse-success btn-xs" title="Export-PDF"><i data-feather="download" style="width: 16px; height: 16px;"></i> PDF</a></td>
                                         @endif
-
-                                        <td>
-                                            <a href="{{ route('delete.mrr', $mrr->id ) }}" class="btn btn-inverse-danger btn-xs" title="Delete Mrr"><i data-feather="trash" style="width: 16px; height: 16px;"></i></a>
-                                        </td>
                                     </tr>
                                 @endforeach
+                                @endif
 
                             </tbody>
                         </table>
@@ -312,7 +424,7 @@
               <div class="form-group">
                   <div class="form-row align-items-center">
                       <div class="col-sm">
-                          <label for="Qc_name_sign" class="col-form-label col-form-label-sm"><b>Qc Name</b></label>
+                          <label for="Qc_name_sign" class="col-form-label col-form-label-sm"><b>Qc Sign</b></label>
                       </div>
                       <div class="col">
                           <input type="text" class="form-control form-control-sm" name="Qc_name_sign" id="Qc_name_sign" >
@@ -333,10 +445,10 @@
               </div>
           </div>
 
-          {{-- <div class="form-group mb-3"> --}}
+          <div class="form-group mb-3">
             {{-- <label for="test-purpose" class="form-label form-label-sm"><b>Sign</b></label> --}}
 
-            {{-- <div class="row mb-3">
+            <div class="row mb-3">
                 <!-- Checkbox Group 1 -->                               
                 <div class="col-md-6 d-flex align-items-center">
                     <div class="form-check">
@@ -351,12 +463,12 @@
                     </div>
                 </div>
             </div>
-          </div> --}}
+          </div>
+    
           <div class="form-group mb-3" id="other_purpose">
             <label for="Note_qc"><b>Note:</b></label>
             <textarea class="form-control" id="Note_qc" name="Note_qc" rows="2" placeholder="if any correction.."></textarea>
         </div>
-         
         </div>
 
           <div class="modal-footer">
@@ -387,7 +499,7 @@
           <div class="modal-body">
 
             <div class="row">
-              {{-- <div class="col-md-6 mb-3">
+              <div class="col-md-6 mb-3">
                 <div class="form-group">
                     <div class="form-row align-items-center">
                         <div class="col-sm">
@@ -401,8 +513,8 @@
                         </div>
                     </div>
                 </div>
-            </div> --}}
-            <div class="col-md-12 mb-3">
+            </div>
+            <div class="col-md-6 mb-3">
                 <div class="form-group">
                     <div class="form-row align-items-center">
                         <div class="col-sm">
@@ -416,10 +528,10 @@
                 </div>
             </div>
             {{-- Data untuk note spv_pd sementara masuk di kolom Note_spv_mt --}}
-          {{-- <div class="form-group mb-3" id="other_purpose">
+          <div class="form-group mb-3" id="other_purpose">
             <label for="Note_spv_mt"><b>Note:</b></label>
             <textarea class="form-control" id="Note_spv_mt" name="Note_spv_mt" rows="2" placeholder=""></textarea>
-        </div> --}}
+        </div>
           </div>
 
           <div class="modal-footer">

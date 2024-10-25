@@ -170,9 +170,12 @@
                                             <div class="col">
                                                 <select id="process" name="processes_id" class="form-select form-select-sm">
                                                     <option value="">Select process</option>
-                                                    @foreach($process as $processes)
-                                                        <option value="{{ $processes->id }}">{{ $processes->process }}</option>
+                                                    @foreach($equipment as $equipments)
+                                                        <option value="{{ $equipments->id }}">{{ $equipments->Equipment_Name }} - {{ $equipments->Equipment_Number }}</option>
                                                     @endforeach
+                                                    {{-- @foreach($process as $processes)
+                                                        <option value="{{ $processes->id }}">{{ $processes->process }}</option>
+                                                    @endforeach --}}
                                                 </select>
                                             </div>
                                         </div>

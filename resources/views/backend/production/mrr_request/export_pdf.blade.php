@@ -278,7 +278,7 @@
             {{-- <td><strong>Breakdown Time</strong></td>
             <td class="border1">{{ $data->Breakdown_time }}</td> --}}
             <td><strong>Sign (SPV)</strong></td>
-            <td class="border1">Iwan</td>
+            <td class="border1">{{ $data->Note_spv_pd }}</td>
             <td><strong>Report Time</strong></td>
             <td class="border1">{{ $data->Report_time }}</td>
         </tr>
@@ -344,9 +344,9 @@
         </tr>
         <tr>
             <td><strong>QC Sign</strong></td>
-            <td class="border1">{{ $data->Qc_sign }}asdasd</td>
+            <td class="border1">{{ $data->Qc_name_sign }}</td>
             <td><strong>Date / Time</strong></td>
-            <td class="border1">{{ $data->Qc_date }}sadasd</td>
+            <td class="border1">{{ $data->Date_qc }}</td>
         </tr>
         <tr>
             <td><strong>PD Sign</strong></td>

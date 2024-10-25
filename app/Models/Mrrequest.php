@@ -47,6 +47,9 @@ class Mrrequest extends Model
         'Date_spv_mt',
         'Qc_name_sign',
         'status_mrr',
+        'user_id_updated_result',
+        'user_id_updated_spv',
+        'user_id_updated_qc',
         ];
 
 

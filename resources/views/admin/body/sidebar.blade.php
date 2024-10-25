@@ -59,6 +59,7 @@
           </li>
         @endif
 
+        @if(Auth::user()->can('changenotice.menu'))
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#changes" role="button" aria-expanded="false" aria-controls="changes">
               <i class="link-icon" data-feather="clipboard"></i>
@@ -85,7 +86,7 @@
               </ul>
             </div>
           </li>
-
+          @endif
 
         @if(Auth::user()->can('Mrr.menu'))
         <li class="nav-item">
@@ -103,6 +104,10 @@
 
                 <li class="nav-item">
                   <a href="{{ route('add.mrr') }}" class="nav-link">Add</a>
+                </li>
+
+                <li class="nav-item">
+                  <a href="{{ route('filter.mrr') }}" class="nav-link">Filter MRR</a>
                 </li>
 
             </ul>
@@ -362,6 +367,10 @@
                   <a href="{{ route('production.mrr') }}" class="nav-link">All Table</a>
                 </li>
 
+                <li class="nav-item">
+                  <a href="{{ route('filter.mrr') }}" class="nav-link">Filter MRR</a>
+                </li>
+
                 {{-- <li class="nav-item">
                   <a href="{{ route('filter.patrolrecord') }}" class="nav-link">Filter SubAssy Patrol</a>
                 </li> --}}
@@ -462,6 +471,10 @@
                 <a href="{{ route('add.mrr') }}" class="nav-link">Add</a>
               </li>
               @endif
+
+              <li class="nav-item">
+                <a href="{{ route('filter.mrr') }}" class="nav-link">Filter MRR</a>
+              </li>
 
           </ul>
         </div>
