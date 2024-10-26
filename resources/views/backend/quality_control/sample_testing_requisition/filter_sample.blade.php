@@ -228,7 +228,7 @@
                             <tbody>
                                     @if($testingrequisition->isEmpty())
                                         <tr>
-                                            <td colspan="3" style="color: red;">No data found, please filter data first</td>
+                                            <td colspan="3" style="color: red;">No data found</td>
                                         </tr>
                                     @else
                                 @foreach ($testingrequisition as $key => $items)

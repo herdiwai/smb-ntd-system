@@ -307,7 +307,9 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
         Route::post('/update/qc/{id}', 'UpdateQc' )->name('update.qc');
         Route::post('/update/sign-spv/{id}', 'UpdateSignSpv' )->name('update.signspv');
         Route::get('/mrr/{id}/export-pdf', 'MrrPdf' )->name('mrr.export-pdf');
-        // Route::post('/update/correction-form/{id}', 'actionCorrection' )->name('update.correction');
+        Route::get('/filter-mrr', 'filterMrr' )->name('filter.mrr');
+        Route::get('/delete/mrr/{id}', 'DeleteMrr' )->name('delete.mrr');
+        Route::post('/mrrequest/export', 'MrrExcel' )->name('mrrequest.export-excel');
         // Route::post('/update/sampletestingreport/{id}', 'UpdateTestingReport' )->name('update.sampletestingreport');
         // Route::post('/report/update/{id}', 'update' )->name('update.report');
         // Route::post('/update/approvals/{id}', 'UpdateApprovals' )->name('update.approvals');

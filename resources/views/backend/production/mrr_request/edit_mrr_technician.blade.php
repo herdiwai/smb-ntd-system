@@ -237,89 +237,141 @@
                                 <b><hr></b>
                             </div>
 
-                            <div class="row">
-                                
-                                <div class="col-md-6 mb-3">
-                                    <div class="form-group">
-                                        <div class="form-row align-items-center">
-                                            <div class="col-sm">
-                                                <label for="judgement" class="col-form-label col-form-label-sm"><b>Judgement</b></label>
-                                            </div>
-                                            <div class="col">
-                                                <input type="text" class="form-control form-control-sm" id="judgement" name="Judgement">
-                                            </div>
+                            <div class="form-group mb-3">
+                                <label for="test-purpose" class="form-label form-label-sm"><b>Select one of the checkboxes to fill in the form</b></label>
+                    
+                                <div class="row mb-3">
+                                    <!-- Checkbox Confirm -->                            
+                                    <div class="col-md-6 d-flex align-items-center">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="confirmCheckbox">
+                                            <label class="form-check-label me-2" for="quatationSample">Confirm</label>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <div class="form-group">
-                                        <div class="form-row align-items-center">
-                                            <div class="col-sm">
-                                                <label for="Response_time" class="col-form-label col-form-label-sm"><b>Response Time</b></label>
-                                            </div>
-                                            <div class="col">
-                                                <input type="time" class="form-control form-control-sm" name="Response_time" id="Response_time">
-                                            </div>
+                                    <!-- End Checkbox Confirm -->    
+                                    
+                                    <!-- Checkbox Correction -->
+                                    <div class="col-md-6 d-flex align-items-center">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="correctionCheckbox">
+                                            <label class="form-check-label me-2" for="quatationSample">Correction</label>
                                         </div>
                                     </div>
-                                </div>
-                                
-                                <div class="form-group mb-3" id="other_purpose">
-                                    <label for="Issue"><b>Issue:</b></label>
-                                    <textarea class="form-control" id="Issue" name="Issue" rows="5" placeholder=""></textarea>
-                                </div>
-                                <div class="form-group mb-3" id="other_purpose">
-                                    <label for="Root_cause"><b>Root Cause:</b></label>
-                                    <textarea class="form-control" id="Root_cause" name="Root_cause" rows="5" placeholder=""></textarea>
-                                </div>
-                                <div class="form-group mb-3" id="other_purpose">
-                                    <label for="Action"><b>Action:</b></label>
-                                    <textarea class="form-control" id="Action" name="Action" rows="5" placeholder=""></textarea>
-                                </div>
-                            </div> 
+                                    <!-- EndCheckbox Correction -->
 
-                            <div class="row">
-                                
-                                <div class="col-md-6 mb-3">
-                                    <div class="form-group">
-                                        <div class="form-row align-items-center">
-                                            <div class="col-sm">
-                                                <label for="Repair_start_time" class="col-form-label col-form-label-sm"><b>Repair Start Time</b></label>
-                                            </div>
-                                            <div class="col">
-                                                <input type="time" class="form-control form-control-sm" id="Repair_start_time" name="Repair_start_time">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <div class="form-group">
-                                        <div class="form-row align-items-center">
-                                            <div class="col-sm">
-                                                <label for="Repair_end_time" class="col-form-label col-form-label-sm"><b>Repair End Time</b></label>
-                                            </div>
-                                            <div class="col">
-                                                <input type="time" class="form-control form-control-sm" name="Repair_end_time" id="Repair_end_time">
+                                    <div class="col-md-6 mb-3">
+                                        <div class="form-group">
+                                            <div class="form-row align-items-center">
+                                                <div class="col-sm">
+                                                    <label for="Qc_start_time" class="col-form-label col-form-label-sm"><b>Select Confirm/Correction</b></label>
+                                                </div>
+                                                <div class="col">
+                                                    <select name="Status_approvals_id_spv_ntd" id="approval_status" class="form-select form-select-sm">
+                                                        <option value="1">confirm</option>
+                                                        <option value="2">correction</option>
+                                                    </select>
+                                                    {{-- <p>select one, if the form is confirmed select confirmation. if the form is corrected select correction</p> --}}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+
+                                    <!-- Form Note for Correction -->
+                                    <div class="form-group mb-3" id="noteForm" style="display: none;">
+                                        <label for="Note_spv_ntd"><b>Note:</b></label>
+                                        <textarea class="form-control" id="Note_spv_ntd" name="Note_spv_ntd" rows="3" placeholder="if any correction.."></textarea>
+                                    </div>
+                                    <!-- End Form Note for Correction -->
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <div class="form-group">
-                                        <div class="form-row align-items-center">
-                                            <div class="col-sm">
-                                                <label for="Repair_by" class="col-form-label col-form-label-sm"><b>Repair By</b></label>
-                                            </div>
-                                            <div class="col">
-                                                <input type="text" class="form-control form-control-sm" name="Repair_by" id="Repair_by">
+                              </div>
+
+                              {{-- Form for Confirm --}}
+                              <div id="confirmForm" style="display: none;">
+                                <div class="row" >
+                            
+                                    <div class="col-md-6 mb-3">
+                                        <div class="form-group">
+                                            <div class="form-row align-items-center">
+                                                <div class="col-sm">
+                                                    <label for="judgement" class="col-form-label col-form-label-sm"><b>Judgement</b></label>
+                                                </div>
+                                                <div class="col">
+                                                    <input type="text" class="form-control form-control-sm" id="judgement" name="Judgement">
+                                                </div>
                                             </div>
                                         </div>
-                                        <br>
-                                    <button class="btn btn-primary btn-sm" type="submit"><i data-feather="send" style="width: 16px; height: 16px;"></i> SAVE</button>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="form-group">
+                                            <div class="form-row align-items-center">
+                                                <div class="col-sm">
+                                                    <label for="Response_time" class="col-form-label col-form-label-sm"><b>Response Time</b></label>
+                                                </div>
+                                                <div class="col">
+                                                    <input type="time" class="form-control form-control-sm" name="Response_time" id="Response_time">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group mb-3" id="other_purpose">
+                                        <label for="Issue"><b>Issue:</b></label>
+                                        <textarea class="form-control" id="Issue" name="Issue" rows="3" placeholder=""></textarea>
+                                    </div>
+                                    <div class="form-group mb-3" id="other_purpose">
+                                        <label for="Root_cause"><b>Root Cause:</b></label>
+                                        <textarea class="form-control" id="Root_cause" name="Root_cause" rows="3" placeholder=""></textarea>
+                                    </div>
+                                    <div class="form-group mb-3" id="other_purpose">
+                                        <label for="Action"><b>Action:</b></label>
+                                        <textarea class="form-control" id="Action" name="Action" rows="3" placeholder=""></textarea>
+                                    </div>
+                                </div> 
+    
+                                <div class="row">
+                                    
+                                    <div class="col-md-6 mb-3">
+                                        <div class="form-group">
+                                            <div class="form-row align-items-center">
+                                                <div class="col-sm">
+                                                    <label for="Repair_start_time" class="col-form-label col-form-label-sm"><b>Repair Start Time</b></label>
+                                                </div>
+                                                <div class="col">
+                                                    <input type="time" class="form-control form-control-sm" id="Repair_start_time" name="Repair_start_time">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="form-group">
+                                            <div class="form-row align-items-center">
+                                                <div class="col-sm">
+                                                    <label for="Repair_end_time" class="col-form-label col-form-label-sm"><b>Repair End Time</b></label>
+                                                </div>
+                                                <div class="col">
+                                                    <input type="time" class="form-control form-control-sm" name="Repair_end_time" id="Repair_end_time">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="form-group">
+                                            <div class="form-row align-items-center">
+                                                <div class="col-sm">
+                                                    <label for="Repair_by" class="col-form-label col-form-label-sm"><b>Repair By</b></label>
+                                                </div>
+                                                <div class="col">
+                                                    <input type="text" class="form-control form-control-sm" name="Repair_by" id="Repair_by">
+                                                </div>
+                                            </div>
+                                            <br>
+                                        
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
+                            {{-- End Form for Confirm --}}
+                            <button class="btn btn-primary btn-sm" type="submit"><i data-feather="send" style="width: 16px; height: 16px;"></i> SAVE</button>
                     </form>
                 </div>
             </div>
@@ -330,6 +382,26 @@
 </div>
 
 <script type="text/javascript">
+
+    $(document).ready(function() {
+        // Handle Correction Checkbox
+        $('#correctionCheckbox').change(function() {
+            if($(this).is(':checked')) {
+                $('#noteForm').show();  // Show Note Form
+            } else {
+                $('#noteForm').hide();  // Hide Note Form
+            }
+        });
+
+        // Handle Confirm Checkbox
+        $('#confirmCheckbox').change(function() {
+            if($(this).is(':checked')) {
+                $('#confirmForm').show();  // Show Confirm Form
+            } else {
+                $('#confirmForm').hide();  // Hide Confirm Form
+            }
+        });
+    });
     // $(document).ready(function (){
     //     $('#myForm').validate({
     //         rules: {

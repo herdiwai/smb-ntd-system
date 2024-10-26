@@ -168,12 +168,13 @@
                                                 <label for="to_department" class="col-form-label col-form-label-sm"><b>Process</b></label>
                                             </div>
                                             <div class="col">
-                                                <select id="process" name="processes_id" class="form-select form-select-sm">
+                                                <input type="text" class="form-control form-control-sm" name="processes_id" id="processes_id" >
+                                                {{-- <select id="process" name="processes_id" class="form-select form-select-sm">
                                                     <option value="">Select process</option>
-                                                    @foreach($process as $processes)
-                                                        <option value="{{ $processes->id }}">{{ $processes->process }}</option>
+                                                    @foreach($equipment as $equipments)
+                                                        <option value="{{ $equipments->id }}">{{ $equipments->Equipment_Name }} - {{ $equipments->Equipment_Number }}</option>
                                                     @endforeach
-                                                </select>
+                                                </select> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -208,12 +209,13 @@
                                                 <label for="equipment_no" class="col-form-label col-form-label-sm"><b>Equipment No</b></label>
                                             </div>
                                             <div class="col">
-                                                <select id="equipment_id" name="Equipment_id" class="form-select form-select-sm">
+                                                <input type="text" class="form-control form-control-sm" name="Equipment_id" id="Equipment_id" >
+                                                {{-- <select id="equipment_id" name="Equipment_id" class="form-select form-select-sm">
                                                     <option value="">Select equipment no</option>
                                                     @foreach($equipment as $equipments)
                                                         <option value="{{ $equipments->id }}">{{ $equipments->Equipment_Number }}</option>
                                                     @endforeach
-                                                </select>
+                                                </select> --}}
                                             </div>
                                         </div>
                                     </div>

@@ -43,13 +43,13 @@
                   </li>
                 @endif
 
-                  <li class="nav-item">
+                  {{-- <li class="nav-item">
                     <a href="{{ route('process.model') }}" class="nav-link">All Table Procces Model</a>
                   </li>
 
                   <li class="nav-item">
                     <a href="{{ route('add.processmodel') }}" class="nav-link">Add Procces Model</a>
-                  </li>
+                  </li> --}}
                 
                 {{-- <li class="nav-item">
                   <a href="pages/email/compose.html" class="nav-link">Compose</a>
@@ -57,28 +57,26 @@
               </ul>
             </div>
           </li>
+        @endif
 
+        @if(Auth::user()->can('changenotice.menu'))
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#changes" role="button" aria-expanded="false" aria-controls="changes">
-              <i class="link-icon" data-feather="clipboard"></i>
+              <i class="link-icon" data-feather="disc"></i>
               <span class="link-title">Change Notice</span>
               <i class="link-arrow" data-feather="chevron-down"></i>
             </a>
             <div class="collapse" id="changes">
               <ul class="nav sub-menu">
 
-                @if(Auth::user()->can('hourlyoutput.all'))
                   <li class="nav-item">
                     <a href="{{ route('production.ChangeNotice') }}" class="nav-link">All Table</a>
                   </li>
-                @endif
-
-                @if(Auth::user()->can('hourlyoutput.Add'))
+                
                   <li class="nav-item">
                     <a href="{{ route('add.ChangeNotice') }}" class="nav-link">Add</a>
                   </li>
-                @endif
-
+            
                 <li class="nav-item">
                   <a href="{{ route('filter.ProcessChangeNotice') }}" class="nav-link">Filter Change Notice</a>
                 </li>
@@ -88,13 +86,13 @@
               </ul>
             </div>
           </li>
+          @endif
 
-        @endif
-
-
+        {{-- Menu MRR for production user --}}
+          @if(Auth::user()->can('Mrr.menu')) 
         <li class="nav-item">
           <a class="nav-link" data-bs-toggle="collapse" href="#emails2" role="button" aria-expanded="false" aria-controls="emails2">
-            <i class="link-icon" data-feather="clipboard"></i>
+            <i class="link-icon" data-feather="book-open"></i>
             <span class="link-title">MRR Request</span>
             <i class="link-arrow" data-feather="chevron-down"></i>
           </a>
@@ -105,14 +103,22 @@
                   <a href="{{ route('production.mrr') }}" class="nav-link">All Table</a>
                 </li>
 
+                @if(Auth::user()->can('add.Mrr'))
+                  <li class="nav-item">
+                    <a href="{{ route('add.mrr') }}" class="nav-link">Add</a>
+                  </li>
+                @endif
+
                 <li class="nav-item">
-                  <a href="{{ route('add.mrr') }}" class="nav-link">Add</a>
+                  <a href="{{ route('filter.mrr') }}" class="nav-link">Filter MRR</a>
                 </li>
 
             </ul>
           </div>
         </li>
-
+        @endif
+      {{-- End Menu MRR for production user --}}
+       
 
 
 
@@ -125,7 +131,7 @@
         </li> --}}
 
         {{-- @if(Auth::user()->can('pullstrength.menu')) --}}
-          <li class="nav-item nav-category">Quality Control</li>
+          
           {{-- <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents" role="button" aria-expanded="false" aria-controls="uiComponents">
               <i class="link-icon" data-feather="feather"></i>
@@ -151,6 +157,7 @@
 
 
         @if(Auth::user()->can('testingrequisition.menu'))
+        <li class="nav-item nav-category">Quality Control</li>
             <li class="nav-item">
               <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents1" role="button" aria-expanded="false" aria-controls="uiComponents1">
                 <i class="link-icon" data-feather="file"></i>
@@ -347,8 +354,37 @@
           @endif
           {{-- End SubAssy Patrol --}}
 
+          {{-- Menu MRR for QC user--}}
+          @if(Auth::user()->can('menu.MrrQc'))
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents08" role="button" aria-expanded="false" aria-controls="uiComponents08">
+              <i class="link-icon" data-feather="book-open"></i>
+              <span class="link-title" style="font-size: 13.5px;">Mrr Request</span>
+              <i class="link-arrow" data-feather="chevron-down"></i>
+            </a>
+            <div class="collapse" id="uiComponents08">
+              <ul class="nav sub-menu">
+                
+                {{-- @if(Auth::user()->can('add.testingrequisition')) --}}
+                <li class="nav-item">
+                  <a href="{{ route('production.mrr') }}" class="nav-link">All Table</a>
+                </li>
 
+                <li class="nav-item">
+                  <a href="{{ route('filter.mrr') }}" class="nav-link">Filter MRR</a>
+                </li>
 
+                {{-- <li class="nav-item">
+                  <a href="{{ route('filter.patrolrecord') }}" class="nav-link">Filter SubAssy Patrol</a>
+                </li> --}}
+                {{-- @endif --}}
+                {{-- @endif --}}
+             
+              </ul> 
+            </div>
+          </li>
+          @endif
+      {{-- End Menu MRR for QC user --}}
 
 
           {{-- Menu Filter Sample Requisition and Report --}}
@@ -415,26 +451,68 @@
         </li>
         @endif
 
+      {{-- Menu MRR for Maintenance user --}}
         @if(Auth::user()->can('maintenance.menu'))
           <li class="nav-item nav-category">Maintenance</li>
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents" role="button" aria-expanded="false" aria-controls="uiComponents">
-              <i class="link-icon" data-feather="feather"></i>
-              <span class="link-title">Spare part</span>
+              <i class="link-icon" data-feather="book-open"></i>
+              <span class="link-title">MRR Request</span>
               <i class="link-arrow" data-feather="chevron-down"></i>
             </a>
             <div class="collapse" id="uiComponents">
               <ul class="nav sub-menu">
+
                 <li class="nav-item">
-                  <a href="pages/ui-components/accordion.html" class="nav-link">All Table</a>
+                  <a href="{{ route('production.mrr') }}" class="nav-link">All Table</a>
                 </li>
+                @if(Auth::user()->can('add.Mrr'))
                 <li class="nav-item">
-                  <a href="pages/ui-components/alerts.html" class="nav-link">Add</a>
+                  <a href="{{ route('add.mrr') }}" class="nav-link">Add</a>
                 </li>
+                @endif
+
+              <li class="nav-item">
+                <a href="{{ route('filter.mrr') }}" class="nav-link">Filter MRR</a>
+              </li>
+
               </ul>
             </div>
           </li>
         @endif
+      {{-- End Menu MRR for Maintenance user --}}
+
+      {{-- Menu MRR for NTD user --}}
+      @if(Auth::user()->can('menu.Mrr'))
+      <li class="nav-item nav-category">NTD</li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="collapse" href="#emails12" role="button" aria-expanded="false" aria-controls="emails12">
+          <i class="link-icon" data-feather="book-open"></i>
+          <span class="link-title">MRR Request</span>
+          <i class="link-arrow" data-feather="chevron-down"></i>
+        </a>
+        <div class="collapse" id="emails12">
+          <ul class="nav sub-menu">
+
+              <li class="nav-item">
+                <a href="{{ route('production.mrr') }}" class="nav-link">All Table</a>
+              </li>
+              @if(Auth::user()->can('add.Mrr'))
+              <li class="nav-item">
+                <a href="{{ route('add.mrr') }}" class="nav-link">Add</a>
+              </li>
+              @endif
+
+              <li class="nav-item">
+                <a href="{{ route('filter.mrr') }}" class="nav-link">Filter MRR</a>
+              </li>
+
+          </ul>
+        </div>
+      </li>
+    @endif
+    {{-- End Menu MRR for NTD user --}}
+      
         
         @if(Auth::user()->can('model.menu'))
           <li class="nav-item nav-category">List</li>
