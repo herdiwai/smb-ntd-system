@@ -16,6 +16,8 @@ use App\Http\Controllers\Backend\SampleTestingRequisitionController;
 use App\Http\Controllers\NtdController;
 use App\Http\Controllers\PDHourlyOutputController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Backend\SuggestionSchemeReport;
+use App\Http\Controllers\Backend\FacilityWorkOrder;
 use App\Models\SampleTestingReport;
 use Illuminate\Support\Facades\Route;
 
@@ -317,5 +319,39 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
         // Route::get('/production/export-excel', 'ExportToExcel')->name('excel.export.file');
         //Production Hourly Ouput Filter Data
         // Route::get('/filter/hourlyoutput', 'FilterHourlyOutput')->name('filter.hourlyoutput');
+    });
+});
+// Facility Work Order
+Route::middleware(['auth', 'roles:admin'])->group(function() {
+
+    Route::controller(FacilityWorkOrder::class)->group(function(){
+        Route::get('/facility/workorder', 'WorkOrderRecord' )->name('facility.workorderrecord');
+        Route::get('/add/workorder', 'AddWorkOrderRecord' )->name('add.WorkOrderRecord');
+        Route::post('/add/workorder', 'StoreWorkOrder' )->name('post.WorkOrder');
+        Route::get('/store/workorder/{id}', 'EditWOTechnician' )->name('edit.wotechnician');
+        Route::post('/store/workordertechnician/{id}', 'StoreWOTechnician' )->name('store.wotechnician');
+        Route::post('/update/spv/{id}', 'UpdateSpv' )->name('update.spv');
+        Route::get('/wo/{id}/export-pdf', 'WOPdf' )->name('wo.export-pdf');
+          
+    });
+});
+
+
+// Personel Sugestion
+Route::middleware(['auth', 'roles:admin'])->group(function() {
+
+    Route::controller(SuggestionSchemeReport::class)->group(function(){
+        // Route::get('/qualitycontrol/processpatrolrecord', 'ProcessPatrol' )->name('qualitycontrol.subassypatrolrecord');
+        // Route::get('/add/processpatrolrecord', 'AddProcessPatrol' )->name('add.ProcessPatrol');
+        // Route::post('/add/processpatrolrecord', 'StoreProcessPatrol' )->name('post.ProcessPatrol');
+        // Route::get('/time/{id}', 'getTimeById');// Route untuk ambil data time berdasarkan ID
+        // Route::get('/edit/processpatrolrecord/{id}', 'EditProcessPatrol' )->name('edit.ProcessPatrol');
+        // Route::post('/edit/processpatrolrecord/{id}', 'UpdateProcessPatrol')->name('update.ProcessPatrol');
+        // Route::get('/detail/processpatrolrecord/{id}', 'DetailProcessPatrol')->name('detail.ProcessPatrol');
+        // Route::get('/delete/processpatrolrecord/{id}', 'DeleteProcessPatrol' )->name('delete.ProcessPatrol');
+        // Route::get('/export-pdf/{id}', 'exportToPdf' )->name('pdf.ProcessPatrol');
+        // Route::get('/filter-patrolrecord', 'filterPatrolRecord' )->name('filter.patrolrecord');
+        // Route::post('edit/processpatrolrecord/{id}', [YourController::class, 'processPatrolRecord'])->name('processpatrolrecord');
+        // Route::get('/inspectionitem/{id}', 'getInspectionItemById');// Route untuk ambil data inspection item berdasarkan ID  
     });
 });

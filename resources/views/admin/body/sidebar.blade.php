@@ -395,6 +395,24 @@
             </ul>
           </div>
         </li>
+
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="collapse" href="#uiComponentsS" role="button" aria-expanded="false" aria-controls="uiComponentsS">
+            <i class="link-icon" data-feather="feather"></i>
+            <span class="link-title">Work Order</span>
+            <i class="link-arrow" data-feather="chevron-down"></i>
+          </a>
+          <div class="collapse" id="uiComponentsS">
+            <ul class="nav sub-menu">
+              <li class="nav-item">
+                <a href="{{ route('facility.workorderrecord') }}" class="nav-link">All Table</a>
+              </li>
+              <li class="nav-item">
+                <a href="pages/ui-components/alerts.html" class="nav-link">Add</a>
+              </li>
+            </ul>
+          </div>
+        </li>
         @endif
 
         @if(Auth::user()->can('maintenance.menu'))
