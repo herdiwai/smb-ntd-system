@@ -118,28 +118,32 @@
                     </div> --}}
                     
                     <div class="col-md-2 align-self-end">
-                        <button type="submit" class="btn btn-info btn-xs"><i data-feather="search" style="width: 16px; height: 16px;"></i> Search..</button>
+                        <button type="submit" class="btn btn-info btn-xs"><i data-feather="search" style="width: 16px; height: 16px;"></i> Query..</button>
                         <a href="{{ route('filter.mrr') }}" class="btn btn-light btn-xs" style="position: absolute; margin-left:1%;"><i data-feather="refresh-ccw" style="width: 16px; height: 16px;"></i> Refresh</a>
                     </div>
 
-                      {{-- Form Export to Excel --}}
-            {{-- <form action="{{ route('mrrequest.export') }}" method="POST">
-                @csrf
-                <input type="hidden" name="to_date" value="{{ request('to_date') }}">
-                <input type="hidden" name="status" value="{{ request('status') }}">
-                <input type="hidden" name="line" value="{{ request('line') }}">
-                <button type="submit">Export to Excel</button>
-            </form> --}}
-            {{-- End Form Export to Excel --}}
-                
                 </div>
             </form>
             </div>
             {{-- End Form Filter --}}
 
-          
-
-
+               {{-- Form Export to Excel --}}
+               <form action="{{ route('mrrequest.export-excel') }}" method="POST">
+                @csrf
+                <input type="hidden" name="from_date" value="{{ request('from_date') }}">
+                <input type="hidden" name="to_date" value="{{ request('to_date') }}">
+                <input type="hidden" name="model_id" value="{{ request('model_id') }}">
+                <input type="hidden" name="lot_id" value="{{ request('lot_id') }}">
+                <input type="hidden" name="line_id" value="{{ request('line_id') }}">
+                <input type="hidden" name="shift_id" value="{{ request('shift_id') }}">
+                <input type="hidden" name="status_mrr" value="{{ request('status_mrr') }}">
+                
+                <div class="col-md-2 align-self-end">
+                    <button type="submit" class="btn btn-success btn-xs"><i data-feather="download" style="width: 16px; height: 16px;"></i> Export to Excel..</button>
+                </div>
+            </form>
+            {{-- End Form Export to Excel --}}
+          <br>
 
     {{-- @php
         $id = Auth::user()->id;

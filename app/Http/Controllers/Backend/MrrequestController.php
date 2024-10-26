@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Exports\MrrequestExport;
 use App\Http\Controllers\Controller;
 use App\Models\EquipmentNo;
 use App\Models\Line;
@@ -14,6 +15,7 @@ use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MrrequestController extends Controller
 {
@@ -143,6 +145,23 @@ class MrrequestController extends Controller
 
             return view('backend.production.mrr_request.filter_mrr', compact('shift','modelbrewer','lot','data','mrr_status','line'));
         }
+    }
+
+    public function MrrExcel(Request $request) {
+
+        // $fileName = 'pdhourlyoutput_' . now()->format('Ymd_His') . '.xlsx';
+
+        // return Excel::download(new ExportPDHourlyOutput($process, $lot, $shift, $line, $model, $startDate, $endDate), $fileName);
+        $fileName = 'MRR_' . now()->format('Ymd_His') . '.xlsx';
+        return Excel::download(new MrrequestExport(
+            $request->form_date,
+            $request->to_date,
+            $request->model_id,
+            $request->lot_id,
+            $request->line_id,
+            $request->shift_id,
+            $request->status_mrr,
+        ), $fileName);
     }
 
     public function AddMrr()
