@@ -15,4 +15,9 @@ class StatusApprovals extends Model
     {
         return $this->belongsTo(SampleTestingRequisition::class);
     }
+
+    public function ProcessPatrol()
+    {
+        return $this->belongsTo(InspectionCheckResult::class);
+    }
 }

@@ -5,23 +5,31 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class InspectionCheckResult extends Model
+class ECNotice extends Model
 {
     use HasFactory;
-    protected $table = 'subassy_inspection_check_result';
+    protected $table = 'prod_change_notice';
     protected $fillable = [
-        'date', 
-        'model', 
-        'product_name', 
-        'production_unit', 
-        'frequency_of_inspection', 
-        'inspection_standard', 
-        'line', 
-        'shift', 
-        'lot', 
-        'inspected_by', 
-        'reviewed_by',
-        'status'
+        'date',
+        'model',
+        'change_notice',
+        'change_from_notice',
+        'change_to_notice',
+        'line',
+        'shift',
+        'lot',
+        'so_no',
+        'co_no',
+        'week',
+        'implement_datecode',
+        'change_from_datecode',
+        'change_to_datecode',
+        'con_no',
+        'sah_key',
+        'con_name',
+        'sn_awal',
+        'sn_rndm',
+        'pic',
     ];
 
     public function modelBrewer()
@@ -44,15 +52,6 @@ class InspectionCheckResult extends Model
         return $this->hasOne(Line::class,'id','line');
     }
 
-    public function detailInspectionCheckResult()
-    {
-        return $this->hasMany(DetailInspectionCheckResult::class, 'inspection_check_id');
-    }
-    public function statusApprovals()
-    {
-        return $this->hasOne(StatusApprovals::class,'id','status_approvals_id');
-    }
-
     public function lot()
     {
         return $this->hasOne(Lot::class,'id','lot');
@@ -62,11 +61,9 @@ class InspectionCheckResult extends Model
     {
         return $this->hasOne(Shift::class,'id','shift');
     }
+
     public function line()
     {
         return $this->hasOne(Line::class,'id','line');
     }
-
 }
-   
-

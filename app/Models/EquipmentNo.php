@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Line extends Model
+class EquipmentNo extends Model
 {
     use HasFactory;
-    protected $table = 'lines';
+    protected $table = 'equipment';
     protected $guarded = [];
 
-    public function ProcessChangeNotice()
+    public function Mrrequest()
     {
-        return $this->belongsTo(ECNotice::class,'id');
+        return $this->belongsTo(Mrrequest::class,'id');
     }
 }

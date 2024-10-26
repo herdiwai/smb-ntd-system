@@ -4,9 +4,11 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\ApprovalController;
 use App\Http\Controllers\Backend\LotController;
 use App\Http\Controllers\Backend\ModelBrewerController;
+use App\Http\Controllers\Backend\MrrequestController;
 use App\Http\Controllers\Backend\ProcessController;
 use App\Http\Controllers\Backend\ProcessModelController;
 use App\Http\Controllers\Backend\SubAssyProcessPatrolController;
+use App\Http\Controllers\Backend\EngineeringChangeNotice;
 use App\Http\Controllers\Backend\ReviewApprovalController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\SampleTestingReportContoller;
@@ -144,6 +146,27 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
     });
 });
 
+// Production ECN Change Notice
+Route::middleware(['auth', 'roles:admin'])->group(function() {
+
+    Route::controller(EngineeringChangeNotice::class)->group(function(){
+        Route::get('/production/processchangenotice', 'ProcessChangeNotice' )->name('production.ChangeNotice');
+        Route::get('/add/processchangenotice', 'AddProcessChangeNotice' )->name('add.ChangeNotice');
+        Route::post('/add/processchangenotice', 'StoreProcessChangeNotice' )->name('post.ChangeNotice');
+        Route::get('/edit/processchangenotice/{id}', 'EditProcessChangeNotice' )->name('edit.ProcessChangeNotice');
+        Route::post('/edit/processchangenotice/{id}', 'UpdateProcessChangeNotice')->name('update.ProcessChangeNotice');
+        Route::get('/export/processchangenotice/{id}', 'FileProcessChangeNotice' )->name('file.ProcessChangeNotice');
+        Route::get('/filter-processchangenotice', 'filterProcessChangeNotice' )->name('filter.ProcessChangeNotice');
+        Route::get('/delete/processchangenotice/{id}', 'DeleteProcessChangeNotice' )->name('delete.ProcessChangeNotice');
+
+        
+
+        
+    });
+
+    
+});
+
 // Model Brewer
 Route::middleware(['auth', 'roles:admin'])->group(function() {
     Route::controller(ModelBrewerController::class)->group(function(){
@@ -259,15 +282,10 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
         Route::get('/detail/processpatrolrecord/{id}', 'DetailProcessPatrol')->name('detail.ProcessPatrol');
         Route::get('/delete/processpatrolrecord/{id}', 'DeleteProcessPatrol' )->name('delete.ProcessPatrol');
         Route::get('/export-pdf/{id}', 'exportToPdf' )->name('pdf.ProcessPatrol');
+        Route::get('/filter-patrolrecord', 'filterPatrolRecord' )->name('filter.patrolrecord');
         // Route::post('edit/processpatrolrecord/{id}', [YourController::class, 'processPatrolRecord'])->name('processpatrolrecord');
-        // Route::get('/inspectionitem/{id}', 'getInspectionItemById');// Route untuk ambil data inspection item berdasarkan ID
-
-        
-
-        
+        // Route::get('/inspectionitem/{id}', 'getInspectionItemById');// Route untuk ambil data inspection item berdasarkan ID  
     });
-
-    
 });
 
 
@@ -275,3 +293,31 @@ Route::get('/review', [ReviewApprovalController::class, 'index'])->name('review.
 Route::get('/review/{id}', [ReviewApprovalController::class, 'show'])->name('review.show');
 Route::post('/review/{id}', [ReviewApprovalController::class, 'submit'])->name('review.submit');
 
+
+// Production MRR
+Route::middleware(['auth', 'roles:admin'])->group(function() {
+    Route::controller(MrrequestController::class)->group(function(){
+        Route::get('/production/mrr', 'Mrrequest' )->name('production.mrr');
+        Route::get('/add/mrr', 'AddMrr' )->name('add.mrr');
+        Route::post('/store/mrr', 'StoreMrr' )->name('store.mrr');
+        Route::get('/store/mrr-technician/{id}', 'EditMrrTechnician' )->name('edit.mrrtechnician');
+        Route::post('/store/mrrtechnician/{id}', 'StoreMrrTechnician' )->name('store.mrrtechnician');
+        Route::post('/update/qc/{id}', 'UpdateQc' )->name('update.qc');
+        Route::post('/update/sign-spv/{id}', 'UpdateSignSpv' )->name('update.signspv');
+        Route::get('/mrr/{id}/export-pdf', 'MrrPdf' )->name('mrr.export-pdf');
+        Route::get('/filter-mrr', 'filterMrr' )->name('filter.mrr');
+        Route::get('/delete/mrr/{id}', 'DeleteMrr' )->name('delete.mrr');
+        // Route::post('/update/correction-form/{id}', 'actionCorrection' )->name('update.correction');
+        // Route::post('/update/sampletestingreport/{id}', 'UpdateTestingReport' )->name('update.sampletestingreport');
+        // Route::post('/report/update/{id}', 'update' )->name('update.report');
+        // Route::post('/update/approvals/{id}', 'UpdateApprovals' )->name('update.approvals');
+        // Route::get('/edit/sampletestingrequisition/{id}', 'EditTestingRequisition' )->name('edit.TestingRequisition');
+        // Route::post('/update/hourlyoutput', 'UpdateHourlyOutput' )->name('update.hourlyoutput');
+        // Route::get('/delete/hourlyoutput/{id}', 'DeleteHourlyoutput' )->name('delete.hourlyoutput');
+
+        //Production Hourly Ouput Export Excel
+        // Route::get('/production/export-excel', 'ExportToExcel')->name('excel.export.file');
+        //Production Hourly Ouput Filter Data
+        // Route::get('/filter/hourlyoutput', 'FilterHourlyOutput')->name('filter.hourlyoutput');
+    });
+});

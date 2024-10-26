@@ -392,7 +392,7 @@ class SampleTestingRequisitionController extends Controller
         // dd($id, $request->all());
         $notification = array(
             'message' => 'Approved Successfully',
-            'alert-type' => 'success'
+            'alert-type' => 'info'
         );
         return redirect()->route('qualitycontrol.sampletestingrequisition')->with($notification);
     }
@@ -406,7 +406,7 @@ class SampleTestingRequisitionController extends Controller
         // dd($id, $request->all());
         $notification = array(
             'message' => 'Approved Successfully',
-            'alert-type' => 'success'
+            'alert-type' => 'info'
         );
         return redirect()->route('qualitycontrol.sampletestingrequisition')->with($notification);
     }
@@ -421,7 +421,7 @@ class SampleTestingRequisitionController extends Controller
         // dd($id, $request->all());
         $notification = array(
             'message' => 'Approved Successfully',
-            'alert-type' => 'success'
+            'alert-type' => 'info'
         );
         return redirect()->route('qualitycontrol.sampletestingrequisition')->with($notification);
     }
@@ -438,6 +438,9 @@ class SampleTestingRequisitionController extends Controller
         $pdf = Pdf::loadView('backend.quality_control.sample_testing_requisition.generate-pdf-report', compact('testinggetid','sampleRequisition'));
         // header('Content-Type: application/pdf');
         // header('Content-Disposition: inline; filename="sample-testing-requisition-report.pdf"');
+         // Mengatur ukuran kertas dan orientasi (misal: A4 potrait)
+        // Mengatur nomor berbeda pada setiap halaman
+    
         return $pdf->stream('sample-testing-requisition-report.pdf', ['Attachment' => false]);
         // return view('backend.quality_control.sample_testing_requisition.generate-requisition-pdf', compact('testinggetid','sampleRequisition'));
     }
