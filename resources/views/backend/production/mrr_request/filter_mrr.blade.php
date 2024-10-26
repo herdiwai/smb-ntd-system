@@ -95,8 +95,8 @@
                             <label for="status">status:</label>
                             <select name="status_mrr" id="status_mrr" class="form-control form-control-xs">
                                 <option value="">--select status--</option>
-                                <option value="incomplete">incomplete</option>
                                 <option value="complete">complete</option>
+                                <option value="incomplete">incomplete</option>
                                 {{-- @foreach($mrr_status as $status_mrrs)
                                     <option value="{{ $status_mrrs }}" {{ old('status') == $status_mrrs ? 'selected' : '' }}>{{ $status_mrrs }}</option>
                                 @endforeach --}}
@@ -121,11 +121,25 @@
                         <button type="submit" class="btn btn-info btn-xs"><i data-feather="search" style="width: 16px; height: 16px;"></i> Search..</button>
                         <a href="{{ route('filter.mrr') }}" class="btn btn-light btn-xs" style="position: absolute; margin-left:1%;"><i data-feather="refresh-ccw" style="width: 16px; height: 16px;"></i> Refresh</a>
                     </div>
+
+                      {{-- Form Export to Excel --}}
+            {{-- <form action="{{ route('mrrequest.export') }}" method="POST">
+                @csrf
+                <input type="hidden" name="to_date" value="{{ request('to_date') }}">
+                <input type="hidden" name="status" value="{{ request('status') }}">
+                <input type="hidden" name="line" value="{{ request('line') }}">
+                <button type="submit">Export to Excel</button>
+            </form> --}}
+            {{-- End Form Export to Excel --}}
                 
                 </div>
             </form>
             </div>
             {{-- End Form Filter --}}
+
+          
+
+
 
     {{-- @php
         $id = Auth::user()->id;

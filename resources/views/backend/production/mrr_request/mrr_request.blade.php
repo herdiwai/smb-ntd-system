@@ -70,9 +70,16 @@
                                     @if(Auth::user()->can('edit.correction.production'))
                                         <th>Edit Mrr</th>
                                     @endif
-                                    <th>Correction NTD</th>
+                                    @if(Auth::user()->can('column.mrrtechnician'))
+                                        <th>Correction NTD</th>
+                                    @endif
+                                    @if(Auth::user()->can('column.correctionMT'))
+                                        <th>Correction MT</th>
+                                    @endif
                                     <th>Export to PDF</th>
-                                    <th>Action</th>
+                                    @if(Auth::user()->can('column.deleteMrr'))
+                                        <th>Action</th>
+                                    @endif
                             </tr>
                             </thead>
                             <tbody>
@@ -237,11 +244,21 @@
                                                 </td>
                                             @endif
                                         @endif
+                                        
+                                        @if(Auth::user()->can('column.mrrtechnician'))
+                                            @if($mrr->Note_spv_ntd == '')
+                                                <td><p class="text-secondary">no record</p></td>
+                                            @else
+                                                <td><p class="text-danger">{{ $mrr->Note_spv_ntd }}</p></td>
+                                            @endif
+                                        @endif
 
-                                        @if($mrr->Note_spv_ntd == '')
-                                            <td><p class="text-secondary">no record</p></td>
-                                        @else
-                                            <td><p class="text-danger">{{ $mrr->Note_spv_ntd }}</p></td>
+                                        @if(Auth::user()->can('column.correctionMT'))
+                                            @if($mrr->Note_spv_mt == '')
+                                                <td><p class="text-secondary">no record</p></td>
+                                            @else
+                                                <td><p class="text-danger">{{ $mrr->Note_spv_mt }}</p></td>
+                                            @endif
                                         @endif
 
                                         @if($mrr->status_mrr == 'incomplete')
@@ -249,10 +266,12 @@
                                         @elseif($mrr->status_mrr == 'complete')
                                             <td><a href="{{ route('mrr.export-pdf', $mrr->id ) }}" class="btn btn-inverse-success btn-xs" title="Export-PDF"><i data-feather="download" style="width: 16px; height: 16px;"></i> PDF</a></td>
                                         @endif
-
-                                        <td>
-                                            <a href="{{ route('delete.mrr', $mrr->id ) }}" class="btn btn-inverse-danger btn-xs" title="Delete Mrr"><i data-feather="trash" style="width: 16px; height: 16px;"></i></a>
-                                        </td>
+                                        
+                                        @if(Auth::user()->can('column.deleteMrr'))
+                                            <td>
+                                                <a href="{{ route('delete.mrr', $mrr->id ) }}" class="btn btn-inverse-danger btn-xs" title="Delete Mrr"><i data-feather="trash-2" style="width: 16px; height: 16px;"></i></a>
+                                            </td>
+                                        @endif
                                     </tr>
                                 @endforeach
 

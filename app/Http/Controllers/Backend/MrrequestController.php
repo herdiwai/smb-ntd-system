@@ -18,15 +18,27 @@ use Illuminate\Support\Facades\Auth;
 class MrrequestController extends Controller
 {
     public function Mrrequest(Request $request) {
+
         $mrrequest = Mrrequest::all();
-        $data = Mrrequest::with('modelBrewer','lot','process','shift','line','equipmentNo','statusApprovals')->orderBy('Date_pd','desc')->paginate(5);
+        // $data = Mrrequest::with('modelBrewer','lot','process','shift','line','equipmentNo','statusApprovals')->where('To_department', 'PIE(MT)')->orderBy('Date_pd','desc')->paginate(5);
         $modelbrewer = ModelBrewer::all();
         $lot = Lot::all();
         $shift = Shift::all();
         $line = Line::all();
         $department = ['PIE(NTD)','PIE(MT)'];
         $equipment= EquipmentNo::all();
-        return view('backend.production.mrr_request.mrr_request', compact('mrrequest','data'));
+
+            // Cek apakah user yang login memiliki email 'btm-mt@gmail.com'
+        if (Auth::check() && Auth::user()->email === 'btm-mt@gmail.com') { // Ambil data dari tabel mrrequest di mana to_department adalah 'PIE(MT)'
+            $data = Mrrequest::with('modelBrewer','lot','process','shift','line','equipmentNo','statusApprovals')->where('To_department', 'PIE(MT)')->orderBy('Date_pd','desc')->paginate(5);
+            return view('backend.production.mrr_request.mrr_request', compact('mrrequest','data'));
+        } elseif(Auth::check() && Auth::user()->email === 'btm-ntd@gmail.com') { // Ambil data dari tabel mrrequest di mana to_department adalah 'PIE(MT)'
+            $data = Mrrequest::with('modelBrewer','lot','process','shift','line','equipmentNo','statusApprovals')->where('To_department', 'PIE(NTD)')->orderBy('Date_pd','desc')->paginate(5);
+            return view('backend.production.mrr_request.mrr_request', compact('mrrequest','data'));
+        } else {
+            $data = Mrrequest::with('modelBrewer','lot','process','shift','line','equipmentNo','statusApprovals')->orderBy('Date_pd','desc')->paginate(5);
+            return view('backend.production.mrr_request.mrr_request', compact('mrrequest','data'));
+        }
     }
 
     public function filterMrr(Request $request) {
@@ -45,8 +57,39 @@ class MrrequestController extends Controller
         // $process = Process::all();
         $shift = Shift::all();
         $mrr_status = ['incomplete', 'complete'];
-    
-        $data = Mrrequest::with('modelBrewer','lot')
+
+        if (Auth::check() && Auth::user()->email === 'btm-mt@gmail.com') { // Cek apakah user yang login memiliki email 'btm-mt@gmail.com'
+            
+            $data = Mrrequest::with('modelBrewer','lot')->where('To_department', 'PIE(MT)')
+                            ->orderBy('Date_pd','asc')
+                            ->when($fromDate && $toDate, function($query) use ($fromDate, $toDate) {
+                                return $query->whereBetween('Date_pd', [$fromDate, $toDate]);
+                            })
+                            // ->when($processes_id, function($query) use ($processes_id) {
+                            //     return $query->where('processes_id', $processes_id);
+                            // })
+                            ->when($lot_id, function($query) use ($lot_id) {
+                                return $query->where('lot_id', $lot_id);
+                            })
+                            ->when($line_id, function($query) use ($line_id) {
+                                return $query->where('line_id', $line_id);
+                            })
+                            ->when($model_id, function($query) use ($model_id) {
+                                return $query->where('model_id', $model_id);
+                            })
+                            ->when($shift_id, function($query) use ($shift_id) {
+                                return $query->where('shift_id', $shift_id);
+                            })
+                            ->when($status_mrr, function($query) use ($status_mrr) {
+                                return $query->where('status_mrr', $status_mrr);
+                            })
+                            ->paginate(10);
+
+            return view('backend.production.mrr_request.filter_mrr', compact('shift','modelbrewer','lot','data','mrr_status','line'));
+
+        } elseif (Auth::check() && Auth::user()->email === 'btm-ntd@gmail.com') { // Cek apakah user yang login memiliki email 'btm-ntd@gmail.com'
+
+            $data = Mrrequest::with('modelBrewer','lot')->where('To_department', 'PIE(NTD)')
                         ->orderBy('Date_pd','asc')
                         ->when($fromDate && $toDate, function($query) use ($fromDate, $toDate) {
                             return $query->whereBetween('Date_pd', [$fromDate, $toDate]);
@@ -70,9 +113,36 @@ class MrrequestController extends Controller
                             return $query->where('status_mrr', $status_mrr);
                         })
                         ->paginate(10);
-    // dd($data);
 
-        return view('backend.production.mrr_request.filter_mrr', compact('shift','modelbrewer','lot','data','mrr_status','line'));
+            return view('backend.production.mrr_request.filter_mrr', compact('shift','modelbrewer','lot','data','mrr_status','line'));
+        } else {
+            $data = Mrrequest::with('modelBrewer','lot')
+                        ->orderBy('Date_pd','asc')
+                        ->when($fromDate && $toDate, function($query) use ($fromDate, $toDate) {
+                            return $query->whereBetween('Date_pd', [$fromDate, $toDate]);
+                        })
+                        // ->when($processes_id, function($query) use ($processes_id) {
+                        //     return $query->where('processes_id', $processes_id);
+                        // })
+                        ->when($lot_id, function($query) use ($lot_id) {
+                            return $query->where('lot_id', $lot_id);
+                        })
+                        ->when($line_id, function($query) use ($line_id) {
+                            return $query->where('line_id', $line_id);
+                        })
+                        ->when($model_id, function($query) use ($model_id) {
+                            return $query->where('model_id', $model_id);
+                        })
+                        ->when($shift_id, function($query) use ($shift_id) {
+                            return $query->where('shift_id', $shift_id);
+                        })
+                        ->when($status_mrr, function($query) use ($status_mrr) {
+                            return $query->where('status_mrr', $status_mrr);
+                        })
+                        ->paginate(10);
+
+            return view('backend.production.mrr_request.filter_mrr', compact('shift','modelbrewer','lot','data','mrr_status','line'));
+        }
     }
 
     public function AddMrr()
