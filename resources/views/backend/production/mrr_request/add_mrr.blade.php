@@ -254,7 +254,7 @@
                                         </div>
                                     </div>
                                     <br>
-                                    <button class="btn btn-primary btn-sm" type="submit"><i data-feather="send" style="width: 16px; height: 16px;"></i> SAVE</button>
+                                    <button class="btn btn-primary btn-sm" type="submit"><i data-feather="save" style="width: 16px; height: 16px;"></i> SAVE</button>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">

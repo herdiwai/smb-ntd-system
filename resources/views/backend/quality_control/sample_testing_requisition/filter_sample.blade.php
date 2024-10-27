@@ -10,7 +10,11 @@
 </style>
 
 <div class="page-content">
-  
+    @if ($errors->has('date'))
+    <div class="alert alert-danger">
+        {{ $errors->first('date') }}
+    </div>
+@endif
     {{-- <nav class="page-breadcrumb">
         <ol class="breadcrumb">
             @if(Auth::user()->can('add.testingrequisition'))

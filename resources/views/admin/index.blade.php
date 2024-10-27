@@ -4,7 +4,16 @@
 <div class="page-content">
 
   <h3>Welcome to BTM-<span style="color: orange">SYSTEM</span></h3>
-
+{{-- <div class="row">
+  <div class="col-xl-6 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">Bar chart</h6>
+        <canvas id="downtimeChart" width="400" height="200"></canvas>
+      </div>
+    </div>
+  </div>
+</div> --}}
     {{-- <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
       <div>
         <h4 class="mb-3 mb-md-0">Welcome to Dashboard</h4>
@@ -345,5 +354,12 @@
     </div> <!-- row --> --}}
 
 </div>
+
+{{-- <script src="{{ asset('backend/assets/plugins/chartjs/chart.umd.js') }}"></script> --}}
+
+{{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
+<script>
+
+</script>
 
 @endsection

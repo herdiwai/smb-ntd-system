@@ -371,7 +371,7 @@
                                 </div>
                             </div>
                             {{-- End Form for Confirm --}}
-                            <button class="btn btn-primary btn-sm" type="submit"><i data-feather="send" style="width: 16px; height: 16px;"></i> SAVE</button>
+                            <button class="btn btn-primary btn-sm" type="submit"><i data-feather="send" style="width: 16px; height: 16px;"></i> SUBMIT</button>
                     </form>
                 </div>
             </div>
