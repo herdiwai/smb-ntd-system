@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Exports\SampleTesting;
 use App\Http\Controllers\Controller;
 use App\Models\Lot;
 use App\Models\ModelBrewer;
@@ -16,6 +17,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
 
 use function PHPUnit\Framework\returnSelf;
@@ -366,6 +368,25 @@ class SampleTestingRequisitionController extends Controller
     // dd($data);
 
         return view('backend.quality_control.sample_testing_requisition.filter_sample', compact('shift','process','status','modelbrewer','lot','testingrequisition'));
+    }
+
+    public function SampleTestingExcel(Request $request) {
+
+        // $fileName = 'pdhourlyoutput_' . now()->format('Ymd_His') . '.xlsx';
+
+        // return Excel::download(new ExportPDHourlyOutput($process, $lot, $shift, $line, $model, $startDate, $endDate), $fileName);
+        $fileName = 'SampleTestingRequisition_Report_' . now()->format('Ymd_His') . '.xlsx';
+        return Excel::download(new SampleTesting(
+            $request->from_date,
+            $request->to_date,
+            $request->model_id,
+            $request->series,
+            $request->processes_id,
+            $request->lot_id,
+            $request->shift_id,
+            $request->do_no,
+            $request->status_approvals_id,
+        ), $fileName);
     }
 
     public function AddSampleTestingRequisition()

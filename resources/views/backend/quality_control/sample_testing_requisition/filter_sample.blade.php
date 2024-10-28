@@ -172,6 +172,26 @@
     </form>
     </div>
 
+     {{-- Form Export to Excel --}}
+     <form action="{{ route('sampletesting.export-excel') }}" method="POST">
+        @csrf
+        <input type="hidden" name="from_date" value="{{ request('from_date') }}">
+        <input type="hidden" name="to_date" value="{{ request('to_date') }}">
+        <input type="hidden" name="model_id" value="{{ request('model_id') }}">
+        <input type="hidden" name="series" value="{{ request('series') }}">
+        <input type="hidden" name="processes_id" value="{{ request('processes_id') }}">
+        <input type="hidden" name="lot_id" value="{{ request('lot_id') }}">
+        <input type="hidden" name="shift_id" value="{{ request('shift_id') }}">
+        <input type="hidden" name="do_no" value="{{ request('do_no') }}">
+        <input type="hidden" name="status_approvals_id" value="{{ request('status_approvals_id') }}">
+        
+        <div class="col-md-2 align-self-end">
+            <button type="submit" class="btn btn-success btn-xs" id="export-excel"><i data-feather="download" style="width: 16px; height: 16px;"></i> Export to Excel..</button>
+        </div>
+    </form>
+    <br>
+    {{-- End Form Export to Excel --}}
+
     <div class="row">
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">

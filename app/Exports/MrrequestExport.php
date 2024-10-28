@@ -41,79 +41,139 @@ class MrrequestExport implements FromCollection, WithHeadings, WithMapping, With
 
     public function collection()
     {
+        // $filters = [
+        //     'model_id' => $this->model_id,
+        //     'lot_id' => $this->lot_id,
+        //     'shift_id' => $this->shift_id,
+        //     'line_id' => $this->line_id,
+        //     'status_mrr' => $this->status_mrr,
+        // ];
+    
+        // return Mrrequest::with('modelBrewer','lot','process','shift','line','equipmentNo','statusApprovals')->where('To_department', 'PIE(MT)')
+        //     ->when($filters, function ($query) use ($filters) {
+        //         foreach ($filters as $column => $value) {
+        //             if ($value !== null) {
+        //                 $query->where($column, $value);
+        //             }
+        //         }
+        //     })
+        //     ->when($this->from_date, function ($query) {
+        //         return $query->whereDate('Date_pd', '>=', $this->from_date);
+        //     })
+        //     ->when($this->to_date, function ($query) {
+        //         return $query->whereDate('Date_pd', '<=', $this->to_date);
+        //     })
+        //     ->get();
 
-        if (Auth::check() && Auth::user()->email === 'btm-mt@gmail.com') {
 
-            return Mrrequest::with('modelBrewer','lot','process','shift','line','equipmentNo','statusApprovals')->where('To_department', 'PIE(MT)')
-                ->when($this->model_id, function($query) {
-                    return $query->where('model_id', $this->model_id);
-                })
-                ->when($this->lot_id, function($query) {
-                    return $query->where('lot_id', $this->lot_id);
-                })
-                ->when($this->line_id, function($query) {
-                    return $query->where('line_id', $this->line_id);
-                })
-                ->when($this->shift_id, function($query) {
-                    return $query->where('shift_id', $this->shift_id);
-                })
-                ->when($this->status_mrr, function($query) {
-                    return $query->where('status_mrr', $this->status_mrr);
-                })
-                ->when($this->from_date, function($query) {
-                    return $query->whereDate('Date_pd', '>=', $this->from_date);
-                })
-                ->when($this->to_date, function($query) {
-                    return $query->whereDate('Date_pd', '<=', $this->to_date);
-                })->get();
-        } elseif(Auth::check() && Auth::user()->email === 'btm-ntd@gmail.com') {
+        // if (Auth::check()) {
+        //     $userEmail = Auth::user()->email;
+            
+        //     // Tentukan nilai 'To_department' berdasarkan email pengguna
+        //     $department = $userEmail === 'btm-mt@gmail.com' ? 'PIE(MT)' : ($userEmail === 'btm-ntd@gmail.com' ? 'PIE(NTD)' : null);
+    
+        //     return Mrrequest::with('modelBrewer', 'lot', 'process', 'shift', 'line', 'equipmentNo', 'statusApprovals')
+        //         ->when($department, function ($query) use ($department) {
+        //             return $query->where('To_department', $department);
+        //         })
+        //         ->when($this->model_id, function ($query) {
+        //             return $query->where('model_id', $this->model_id);
+        //         })
+        //         ->when($this->lot_id, function ($query) {
+        //             return $query->where('lot_id', $this->lot_id);
+        //         })
+        //         ->when($this->line_id, function ($query) {
+        //             return $query->where('line_id', $this->line_id);
+        //         })
+        //         ->when($this->shift_id, function ($query) {
+        //             return $query->where('shift_id', $this->shift_id);
+        //         })
+        //         ->when($this->status_mrr, function ($query) {
+        //             return $query->where('status_mrr', $this->status_mrr);
+        //         })
+        //         ->when($this->from_date, function ($query) {
+        //             return $query->whereDate('Date_pd', '>=', $this->from_date);
+        //         })
+        //         ->when($this->to_date, function ($query) {
+        //             return $query->whereDate('Date_pd', '<=', $this->to_date);
+        //         })
+        //         ->get();
+        // }
+    
+        // return collect();
 
-            return Mrrequest::with('modelBrewer','lot','process','shift','line','equipmentNo','statusApprovals')->where('To_department', 'PIE(NTD)')
-                ->when($this->model_id, function($query) {
-                    return $query->where('model_id', $this->model_id);
-                })
-                ->when($this->lot_id, function($query) {
-                    return $query->where('lot_id', $this->lot_id);
-                })
-                ->when($this->line_id, function($query) {
-                    return $query->where('line_id', $this->line_id);
-                })
-                ->when($this->shift_id, function($query) {
-                    return $query->where('shift_id', $this->shift_id);
-                })
-                ->when($this->status_mrr, function($query) {
-                    return $query->where('status_mrr', $this->status_mrr);
-                })
-                ->when($this->from_date, function($query) {
-                    return $query->whereDate('Date_pd', '>=', $this->from_date);
-                })
-                ->when($this->to_date, function($query) {
-                    return $query->whereDate('Date_pd', '<=', $this->to_date);
-                })->get();
-        } else {
-            return Mrrequest::with('modelBrewer','lot','process','shift','line','equipmentNo','statusApprovals')
-                ->when($this->model_id, function($query) {
-                    return $query->where('model_id', $this->model_id);
-                })
-                ->when($this->lot_id, function($query) {
-                    return $query->where('lot_id', $this->lot_id);
-                })
-                ->when($this->line_id, function($query) {
-                    return $query->where('line_id', $this->line_id);
-                })
-                ->when($this->shift_id, function($query) {
-                    return $query->where('shift_id', $this->shift_id);
-                })
-                ->when($this->status_mrr, function($query) {
-                    return $query->where('status_mrr', $this->status_mrr);
-                })
-                ->when($this->from_date, function($query) {
-                    return $query->whereDate('Date_pd', '>=', $this->from_date);
-                })
-                ->when($this->to_date, function($query) {
-                    return $query->whereDate('Date_pd', '<=', $this->to_date);
-                })->get();
-        }
+        // if (Auth::check() && Auth::user()->email === 'btm-mt@gmail.com') {
+
+        //     return Mrrequest::with('modelBrewer','lot','process','shift','line','equipmentNo','statusApprovals')->where('To_department', 'PIE(MT)')
+        //         ->when($this->model_id, function($query) {
+        //             return $query->where('model_id', $this->model_id);
+        //         })
+        //         ->when($this->lot_id, function($query) {
+        //             return $query->where('lot_id', $this->lot_id);
+        //         })
+        //         ->when($this->line_id, function($query) {
+        //             return $query->where('line_id', $this->line_id);
+        //         })
+        //         ->when($this->shift_id, function($query) {
+        //             return $query->where('shift_id', $this->shift_id);
+        //         })
+        //         ->when($this->status_mrr, function($query) {
+        //             return $query->where('status_mrr', $this->status_mrr);
+        //         })
+        //         ->when($this->from_date, function($query) {
+        //             return $query->whereDate('Date_pd', '>=', $this->from_date);
+        //         })
+        //         ->when($this->to_date, function($query) {
+        //             return $query->whereDate('Date_pd', '<=', $this->to_date);
+        //         })->get();
+        // } elseif(Auth::check() && Auth::user()->email === 'btm-ntd@gmail.com') {
+
+        //     return Mrrequest::with('modelBrewer','lot','process','shift','line','equipmentNo','statusApprovals')->where('To_department', 'PIE(NTD)')
+        //         ->when($this->model_id, function($query) {
+        //             return $query->where('model_id', $this->model_id);
+        //         })
+        //         ->when($this->lot_id, function($query) {
+        //             return $query->where('lot_id', $this->lot_id);
+        //         })
+        //         ->when($this->line_id, function($query) {
+        //             return $query->where('line_id', $this->line_id);
+        //         })
+        //         ->when($this->shift_id, function($query) {
+        //             return $query->where('shift_id', $this->shift_id);
+        //         })
+        //         ->when($this->status_mrr, function($query) {
+        //             return $query->where('status_mrr', $this->status_mrr);
+        //         })
+        //         ->when($this->from_date, function($query) {
+        //             return $query->whereDate('Date_pd', '>=', $this->from_date);
+        //         })
+        //         ->when($this->to_date, function($query) {
+        //             return $query->whereDate('Date_pd', '<=', $this->to_date);
+        //         })->get();
+        // } else {
+        //     return Mrrequest::with('modelBrewer','lot','process','shift','line','equipmentNo','statusApprovals')
+        //         ->when($this->model_id, function($query) {
+        //             return $query->where('model_id', $this->model_id);
+        //         })
+        //         ->when($this->lot_id, function($query) {
+        //             return $query->where('lot_id', $this->lot_id);
+        //         })
+        //         ->when($this->line_id, function($query) {
+        //             return $query->where('line_id', $this->line_id);
+        //         })
+        //         ->when($this->shift_id, function($query) {
+        //             return $query->where('shift_id', $this->shift_id);
+        //         })
+        //         ->when($this->status_mrr, function($query) {
+        //             return $query->where('status_mrr', $this->status_mrr);
+        //         })
+        //         ->when($this->from_date, function($query) {
+        //             return $query->whereDate('Date_pd', '>=', $this->from_date);
+        //         })
+        //         ->when($this->to_date, function($query) {
+        //             return $query->whereDate('Date_pd', '<=', $this->to_date);
+        //         })->get();
+        // }
 
     }
 

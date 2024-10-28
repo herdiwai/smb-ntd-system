@@ -220,6 +220,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
         // Route::get('/generate-pdf', 'generatePdf' )->name('generate.pdf');
         Route::get('/requisition/{id}/export-pdf', 'generatePdf' )->name('requisition.export-pdf');
         Route::get('/delete/sampletestingrequisition/{id}', 'DeleteRequisition' )->name('delete.requisition');
+        Route::post('/sampletesting/export', 'SampleTestingExcel' )->name('sampletesting.export-excel');
         // Route::post('/update/hourlyoutput', 'UpdateHourlyOutput' )->name('update.hourlyoutput');
 
         //Production Hourly Ouput Export Excel
@@ -308,6 +309,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
         Route::get('/filter-mrr', 'filterMrr' )->name('filter.mrr');
         Route::get('/delete/mrr/{id}', 'DeleteMrr' )->name('delete.mrr');
         Route::post('/mrrequest/export', 'MrrExcel' )->name('mrrequest.export-excel');
+        Route::get('/get-equipment-no/{equipment_id}', 'getEquipmentNo' )->name('getequipment.no');
         // Route::post('/update/sampletestingreport/{id}', 'UpdateTestingReport' )->name('update.sampletestingreport');
         // Route::post('/report/update/{id}', 'update' )->name('update.report');
         // Route::post('/update/approvals/{id}', 'UpdateApprovals' )->name('update.approvals');

@@ -298,4 +298,16 @@ class MrrequestController extends Controller
 
     }
 
+    public function getEquipmentNo($equipment_id)
+    {
+        // Asumsikan Anda memiliki model Equipment dengan kolom equipment_name dan equipment_no
+        $equipment = EquipmentNo::find($equipment_id);
+
+        if ($equipment) {
+            return response()->json(['Equipment_Number' => $equipment->Equipment_Number]);
+        }
+
+        return response()->json(['Equipment_Number' => null]);
+    }
+
 }

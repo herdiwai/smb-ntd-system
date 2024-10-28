@@ -126,8 +126,8 @@
             </div>
             {{-- End Form Filter --}}
 
-               {{-- Form Export to Excel --}}
-               <form action="{{ route('mrrequest.export-excel') }}" method="POST">
+            {{-- Form Export to Excel --}}
+            <form action="{{ route('mrrequest.export-excel') }}" method="POST">
                 @csrf
                 <input type="hidden" name="from_date" value="{{ request('from_date') }}">
                 <input type="hidden" name="to_date" value="{{ request('to_date') }}">

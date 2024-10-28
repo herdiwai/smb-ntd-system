@@ -299,7 +299,7 @@
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents06" role="button" aria-expanded="false" aria-controls="uiComponents06">
               <i class="link-icon" data-feather="folder"></i>
-              <span class="link-title" style="font-size: 13.5px;">Requisition & Report</span>
+              <span class="link-title" style="font-size: 13.5px;">Requisition & Repor</span>
               <i class="link-arrow" data-feather="chevron-down"></i>
             </a>
             <div class="collapse" id="uiComponents06">
@@ -328,7 +328,7 @@
           @if(Auth::user()->can('testingrequisition.menu'))
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents07" role="button" aria-expanded="false" aria-controls="uiComponents07">
-              <i class="link-icon" data-feather="file"></i>
+              <i class="link-icon" data-feather="shopping-bag"></i>
               <span class="link-title" style="font-size: 13.5px;">SubAssy Patrol</span>
               <i class="link-arrow" data-feather="chevron-down"></i>
             </a>

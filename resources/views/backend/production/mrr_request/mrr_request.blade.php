@@ -27,6 +27,7 @@
                             <thead>
                             <tr>
                                     <th>No</th>
+                                    <th>Date</th>
                                     <th>Request Dept</th>
                                     <th>Name</th>
                                     <th>To Department</th>
@@ -37,7 +38,6 @@
                                     <th>Shift</th> 
                                     <th>Lot</th>
                                     <th>Line</th>
-                                    <th>Date</th>
                                     <th>Breakdown Time</th>
                                     <th>Report Time</th>
                                     <th hidden>Sign Spv pd</th>
@@ -86,6 +86,7 @@
                                 @foreach ($data as $key => $mrr)
                                     <tr>
                                         <td>{{ $key+1 }}</td>
+                                        <td class="date">{{ $mrr->Date_pd }}</td>
                                         <td class="request-dept">{{ $mrr->Request_dept }}</td>
                                         <td class="name">{{ $mrr->Name }}</td>
                                         <td class="to_department">{{ $mrr->To_department }}</td>
@@ -96,7 +97,6 @@
                                         <td class="shift">{{ $mrr->shift->shift }}</td>
                                         <td class="lot">{{ $mrr->lot->lot }}</td>
                                         <td class="line">{{ $mrr->line->line }}</td>
-                                        <td class="date">{{ $mrr->Date_pd }}</td>
                                         <td class="breakdown_time">{{ $mrr->Breakdown_time }}</td>
                                         <td class="report_time">{{ $mrr->Report_time }}</td>
                                         {{-- Status Sign Spv Production --}}

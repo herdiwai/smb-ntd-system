@@ -72,7 +72,7 @@
                                             </div>
                                             <div class="col">
                                                 <select id="model" name="model_id" class="form-select form-select-sm">
-                                                    <option value="">Select Model</option>
+                                                    <option value="">--select model--</option>
                                                     @foreach($modelbrewer as $models)
                                                         <option value="{{ $models->id }}" {{ old('modelbrewer') == $models->id ? 'selected' : '' }}>{{ $models->model }}</option>
                                                     @endforeach
@@ -107,7 +107,7 @@
                                             </div>
                                             <div class="col">
                                                 <select id="shift" name="shift_id" class="form-select form-select-sm">
-                                                    <option value="">Select Shift</option>
+                                                    <option value="">--select shift--</option>
                                                     @foreach($shift as $shifts)
                                                         <option value="{{ $shifts->id }}">{{ $shifts->shift }}</option>
                                                     @endforeach
@@ -129,7 +129,7 @@
                                             </div>
                                             <div class="col">
                                                 <select id="department" name="To_department" class="form-select form-select-sm">
-                                                    <option value="">Select Department</option>
+                                                    <option value="">--select department--</option>
                                                     @foreach($department as $departments)
                                                         <option value="{{ $departments }}" {{ old('department') == $departments ? 'selected' : '' }}>{{ $departments }}</option>
                                                     @endforeach
@@ -146,7 +146,7 @@
                                             </div>
                                             <div class="col">
                                                 <select id="lot" name="lot_id" class="form-select form-select-sm">
-                                                    <option value="">Select Lot</option>
+                                                    <option value="">--select lot--</option>
                                                     @foreach($lot as $lots)
                                                         <option value="{{ $lots->id }}">{{ $lots->lot }}</option>
                                                     @endforeach
@@ -168,13 +168,13 @@
                                                 <label for="to_department" class="col-form-label col-form-label-sm"><b>Process</b></label>
                                             </div>
                                             <div class="col">
-                                                <input type="text" class="form-control form-control-sm" name="processes_id" id="processes_id" >
-                                                {{-- <select id="process" name="processes_id" class="form-select form-select-sm">
-                                                    <option value="">Select process</option>
+                                                {{-- <input type="text" class="form-control form-control-sm" name="processes_id" id="processes_id" > --}}
+                                                <select id="Equipment_Name" name="Equipment_id" class="form-select form-select-sm">
+                                                    <option value="">--select process--</option>
                                                     @foreach($equipment as $equipments)
-                                                        <option value="{{ $equipments->id }}">{{ $equipments->Equipment_Name }} - {{ $equipments->Equipment_Number }}</option>
+                                                        <option value="{{ $equipments->id }}">{{ $equipments->Equipment_Name }}</option>
                                                     @endforeach
-                                                </select> --}}
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -187,7 +187,7 @@
                                             </div>
                                             <div class="col">
                                                 <select id="line" name="line_id" class="form-select form-select-sm">
-                                                    <option value="">Select Line</option>
+                                                    <option value="">--select line--</option>
                                                     @foreach($line as $lines)
                                                         <option value="{{ $lines->id }}">{{ $lines->line }}</option>
                                                     @endforeach
@@ -206,10 +206,10 @@
                                     <div class="form-group">
                                         <div class="form-row align-items-center">
                                             <div class="col-sm">
-                                                <label for="equipment_no" class="col-form-label col-form-label-sm"><b>Equipment No</b></label>
+                                                <label for="Equipment_Number" class="col-form-label col-form-label-sm"><b>Equipment No</b></label>
                                             </div>
                                             <div class="col">
-                                                <input type="text" class="form-control form-control-sm" name="Equipment_id" id="Equipment_id" >
+                                                <input type="text" class="form-control form-control-sm" id="Equipment_Number" disabled>
                                                 {{-- <select id="equipment_id" name="Equipment_id" class="form-select form-select-sm">
                                                     <option value="">Select equipment no</option>
                                                     @foreach($equipment as $equipments)
@@ -282,6 +282,24 @@
 </div>
 
 <script type="text/javascript">
+
+document.getElementById('Equipment_Name').addEventListener('change', function() {
+    const equipmentId = this.value;
+    const equipmentNoInput = document.getElementById('Equipment_Number');
+
+    if (equipmentId) {
+        // AJAX request untuk mendapatkan equipment_no
+        fetch(`/get-equipment-no/${equipmentId}`)
+            .then(response => response.json())
+            .then(data => {
+                equipmentNoInput.value = data.Equipment_Number || 'Not Found';
+            })
+            .catch(error => console.error('Error fetching equipment number:', error));
+    } else {
+        equipmentNoInput.value = '';
+    }
+});
+
     // $(document).ready(function (){
     //     $('#myForm').validate({
     //         rules: {
