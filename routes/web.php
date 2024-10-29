@@ -346,21 +346,21 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
 });
 
 
-// Personel Sugestion
-Route::middleware(['auth', 'roles:admin'])->group(function() {
+// // Personel Sugestion
+// Route::middleware(['auth', 'roles:admin'])->group(function() {
 
-    Route::controller(SuggestionSchemeReport::class)->group(function(){
-        // Route::get('/qualitycontrol/processpatrolrecord', 'ProcessPatrol' )->name('qualitycontrol.subassypatrolrecord');
-        // Route::get('/add/processpatrolrecord', 'AddProcessPatrol' )->name('add.ProcessPatrol');
-        // Route::post('/add/processpatrolrecord', 'StoreProcessPatrol' )->name('post.ProcessPatrol');
-        // Route::get('/time/{id}', 'getTimeById');// Route untuk ambil data time berdasarkan ID
-        // Route::get('/edit/processpatrolrecord/{id}', 'EditProcessPatrol' )->name('edit.ProcessPatrol');
-        // Route::post('/edit/processpatrolrecord/{id}', 'UpdateProcessPatrol')->name('update.ProcessPatrol');
-        // Route::get('/detail/processpatrolrecord/{id}', 'DetailProcessPatrol')->name('detail.ProcessPatrol');
-        // Route::get('/delete/processpatrolrecord/{id}', 'DeleteProcessPatrol' )->name('delete.ProcessPatrol');
-        // Route::get('/export-pdf/{id}', 'exportToPdf' )->name('pdf.ProcessPatrol');
-        // Route::get('/filter-patrolrecord', 'filterPatrolRecord' )->name('filter.patrolrecord');
-        // Route::post('edit/processpatrolrecord/{id}', [YourController::class, 'processPatrolRecord'])->name('processpatrolrecord');
-        // Route::get('/inspectionitem/{id}', 'getInspectionItemById');// Route untuk ambil data inspection item berdasarkan ID  
-    });
-});
+//     Route::controller(SuggestionSchemeReport::class)->group(function(){
+//         // Route::get('/qualitycontrol/processpatrolrecord', 'ProcessPatrol' )->name('qualitycontrol.subassypatrolrecord');
+//         // Route::get('/add/processpatrolrecord', 'AddProcessPatrol' )->name('add.ProcessPatrol');
+//         // Route::post('/add/processpatrolrecord', 'StoreProcessPatrol' )->name('post.ProcessPatrol');
+//         // Route::get('/time/{id}', 'getTimeById');// Route untuk ambil data time berdasarkan ID
+//         // Route::get('/edit/processpatrolrecord/{id}', 'EditProcessPatrol' )->name('edit.ProcessPatrol');
+//         // Route::post('/edit/processpatrolrecord/{id}', 'UpdateProcessPatrol')->name('update.ProcessPatrol');
+//         // Route::get('/detail/processpatrolrecord/{id}', 'DetailProcessPatrol')->name('detail.ProcessPatrol');
+//         // Route::get('/delete/processpatrolrecord/{id}', 'DeleteProcessPatrol' )->name('delete.ProcessPatrol');
+//         // Route::get('/export-pdf/{id}', 'exportToPdf' )->name('pdf.ProcessPatrol');
+//         // Route::get('/filter-patrolrecord', 'filterPatrolRecord' )->name('filter.patrolrecord');
+//         // Route::post('edit/processpatrolrecord/{id}', [YourController::class, 'processPatrolRecord'])->name('processpatrolrecord');
+//         // Route::get('/inspectionitem/{id}', 'getInspectionItemById');// Route untuk ambil data inspection item berdasarkan ID  
+//     });
+// });
