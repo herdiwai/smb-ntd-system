@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Exports\SampleTesting;
 use App\Http\Controllers\Controller;
 use App\Models\Lot;
 use App\Models\ModelBrewer;
@@ -16,6 +17,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
 
 use function PHPUnit\Framework\returnSelf;
@@ -207,48 +209,184 @@ class SampleTestingRequisitionController extends Controller
 
     public function filterSample(Request $request) 
     {
-        $fromDate = $request->input('from_date');
-        $toDate = $request->input('to_date');
-        $lot_id = $request->input('lot_id');
-        $model_id = $request->input('model_id');
-        $series = $request->input('series');
-        $processes_id = $request->input('processes_id');
-        $shift_id = $request->input('shift_id');
-        $status_approvals_id = $request->input('status_approvals_id');
+        // $fromDate = $request->input('from_date');
+        // $toDate = $request->input('to_date');
+        // $lot_id = $request->input('lot_id');
+        // $model_id = $request->input('model_id');
+        // $series = $request->input('series');
+        // $processes_id = $request->input('processes_id');
+        // $shift_id = $request->input('shift_id');
+        // $status_approvals_id = $request->input('status_approvals_id');
 
         $lot = Lot::all();
         $modelbrewer = ModelBrewer::all();
         $status = StatusApprovals::all();
         $process = Process::all();
         $shift = Shift::all();
+
+        $fromDate = $request->input('from_date');
+        $toDate = $request->input('to_date');
+        $filters = [
+            'processes_id' => $request->input('processes_id'),
+            'lot_id' => $request->input('lot_id'),
+            'model_id' => $request->input('model_id'),
+            'series' => $request->input('series'),
+            'shift_id' => $request->input('shift_id'),
+            'status_approvals_id' => $request->input('status_approvals_id'),
+        ];
     
-        $testingrequisition = SampleTestingRequisition::with('sampleReport','statusApprovals','modelBrewer','lot','process')
-                        ->orderBy('incomming_number','asc')
-                        ->when($fromDate && $toDate, function($query) use ($fromDate, $toDate) {
-                            return $query->whereBetween('sample_subtmitted_date', [$fromDate, $toDate]);
-                        })
-                        ->when($processes_id, function($query) use ($processes_id) {
-                            return $query->where('processes_id', $processes_id);
-                        })
-                        ->when($lot_id, function($query) use ($lot_id) {
-                            return $query->where('lot_id', $lot_id);
-                        })
-                        ->when($model_id, function($query) use ($model_id) {
-                            return $query->where('model_id', $model_id);
-                        })
-                        ->when($series, function($query) use ($series) {
-                            return $query->where('series', $series);
-                        })
-                        ->when($shift_id, function($query) use ($shift_id) {
-                            return $query->where('shift_id', $shift_id);
-                        })
-                        ->when($status_approvals_id, function($query) use ($status_approvals_id) {
-                            return $query->where('status_approvals_id', $status_approvals_id);
-                        })
-                        ->paginate(10);
+        // Periksa apakah ada filter lain yang diisi tanpa fromDate dan toDate
+        $otherFiltersFilled = array_filter($filters); // Mendapatkan filter yang terisi
+        if ($otherFiltersFilled && (!$fromDate || !$toDate)) {
+            // Redirect dengan pesan error jika filter lain diisi tanpa fromDate dan toDate
+            return redirect()->back()->withErrors([
+                'date' => 'Please enter “From Date” and “To Date” dates to use other filters.',
+            ]);
+        }
+    
+        // Melanjutkan ke query jika kondisi sesuai
+        $testingrequisition = SampleTestingRequisition::with([
+                'sampleReport', 'statusApprovals', 'modelBrewer', 'lot', 'process'
+            ])
+            ->orderBy('incomming_number', 'asc');
+    
+        // Terapkan filter tanggal jika keduanya diisi
+        if ($fromDate && $toDate) {
+            $testingrequisition->whereBetween('sample_subtmitted_date', [$fromDate, $toDate]);
+        }
+    
+        // Terapkan filter lain
+        foreach ($filters as $column => $value) {
+            if ($value) {
+                $testingrequisition->where($column, $value);
+            }
+        }
+    
+        $testingrequisition = $testingrequisition->paginate(10)->appends(array_filter(array_merge($filters, [
+            'from_date' => $fromDate,
+            'to_date' => $toDate,
+        ])));
+    
+
+        // $filters = [
+        //     'processes_id' => $processes_id,
+        //     'lot_id' => $lot_id,
+        //     'model_id' => $model_id,
+        //     'series' => $series,
+        //     'shift_id' => $shift_id,
+        //     'status_approvals_id' => $status_approvals_id,
+        // ];
+        
+        // $testingrequisition = SampleTestingRequisition::with([
+        //         'sampleReport', 'statusApprovals', 'modelBrewer', 'lot', 'process'
+        //     ])
+        //     ->orderBy('incomming_number', 'asc');
+        
+        // // Filter tanggal hanya jika `$fromDate` dan `$toDate` keduanya ada
+        // if ($fromDate && $toDate) {
+        //     $testingrequisition->whereBetween('sample_subtmitted_date', [$fromDate, $toDate]);
+        // }
+        
+        // // Filter berdasarkan nilai lain yang tersedia di `$filters`
+        // foreach ($filters as $column => $value) {
+        //     if ($value) {
+        //         $testingrequisition->where($column, $value);
+        //     }
+        // }
+        
+        // $testingrequisition = $testingrequisition->paginate(10)->appends(array_filter(array_merge($filters, [
+        //     'from_date' => $fromDate,
+        //     'to_date' => $toDate,
+        // ])));
+        
+
+        // $filters = [
+        //     'sample_subtmitted_date' => [$fromDate, $toDate],
+        //     'processes_id' => $processes_id,
+        //     'lot_id' => $lot_id,
+        //     'model_id' => $model_id,
+        //     'series' => $series,
+        //     'shift_id' => $shift_id,
+        //     'status_approvals_id' => $status_approvals_id,
+        // ];
+        
+        // $testingrequisition = SampleTestingRequisition::with([
+        //         'sampleReport', 'statusApprovals', 'modelBrewer', 'lot', 'process'
+        //     ])
+        //     ->orderBy('incomming_number', 'asc')
+        //     ->when($fromDate && $toDate, function ($query) use ($fromDate, $toDate) {
+        //         return $query->whereBetween('sample_subtmitted_date', [$fromDate, $toDate]);
+        //     });
+        
+        // // Filter berdasarkan nilai-nilai yang tersedia
+        // foreach ($filters as $column => $value) {
+        //     if ($value) {
+        //         if ($column === 'sample_subtmitted_date') {
+        //             $testingrequisition->whereBetween($column, $value);
+        //         } else {
+        //             $testingrequisition->where($column, $value);
+        //         }
+        //     }
+        // }
+        
+        // $testingrequisition = $testingrequisition->paginate(10)->appends(array_filter($filters));
+        
+    
+        // $testingrequisition = SampleTestingRequisition::with('sampleReport','statusApprovals','modelBrewer','lot','process')
+        //                 ->orderBy('incomming_number','asc')
+        //                 ->when($fromDate && $toDate, function($query) use ($fromDate, $toDate) {
+        //                     return $query->whereBetween('sample_subtmitted_date', [$fromDate, $toDate]);
+        //                 })
+        //                 ->when($processes_id, function($query) use ($processes_id) {
+        //                     return $query->where('processes_id', $processes_id);
+        //                 })
+        //                 ->when($lot_id, function($query) use ($lot_id) {
+        //                     return $query->where('lot_id', $lot_id);
+        //                 })
+        //                 ->when($model_id, function($query) use ($model_id) {
+        //                     return $query->where('model_id', $model_id);
+        //                 })
+        //                 ->when($series, function($query) use ($series) {
+        //                     return $query->where('series', $series);
+        //                 })
+        //                 ->when($shift_id, function($query) use ($shift_id) {
+        //                     return $query->where('shift_id', $shift_id);
+        //                 })
+        //                 ->when($status_approvals_id, function($query) use ($status_approvals_id) {
+        //                     return $query->where('status_approvals_id', $status_approvals_id);
+        //                 })
+        //                 ->paginate(10)->appends([
+        //                     'from_date' => $fromDate,
+        //                     'to_date' => $toDate,
+        //                     'lot_id' => $lot_id,
+        //                     'model_id' => $model_id,
+        //                     'series' => $series,
+        //                     'processes_id' => $processes_id,
+        //                     'shift_id' => $shift_id,
+        //                     'status_approvals_id' => $status_approvals_id,
+        //                 ]);
     // dd($data);
 
         return view('backend.quality_control.sample_testing_requisition.filter_sample', compact('shift','process','status','modelbrewer','lot','testingrequisition'));
+    }
+
+    public function SampleTestingExcel(Request $request) {
+
+        // $fileName = 'pdhourlyoutput_' . now()->format('Ymd_His') . '.xlsx';
+
+        // return Excel::download(new ExportPDHourlyOutput($process, $lot, $shift, $line, $model, $startDate, $endDate), $fileName);
+        $fileName = 'SampleTestingRequisition_Report_' . now()->format('Ymd_His') . '.xlsx';
+        return Excel::download(new SampleTesting(
+            $request->from_date,
+            $request->to_date,
+            $request->model_id,
+            $request->series,
+            $request->processes_id,
+            $request->lot_id,
+            $request->shift_id,
+            $request->do_no,
+            $request->status_approvals_id,
+        ), $fileName);
     }
 
     public function AddSampleTestingRequisition()
