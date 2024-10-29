@@ -214,7 +214,7 @@
                                     @else
                                 @foreach ($data as $key => $mrr)
                                     <tr>
-                                        <td>{{ $key+1 }}</td>
+                                        <td>{{ $key+1 + ($data->currentPage() - 1) * $data->perPage() }}</td>
                                         <td class="date">{{ $mrr->Date_pd }}</td>
                                         <td class="request-dept">{{ $mrr->Request_dept }}</td>
                                         <td class="name">{{ $mrr->Name }}</td>

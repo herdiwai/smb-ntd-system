@@ -52,7 +52,7 @@ class MrrequestController extends Controller
             $query->where('To_department', $toDepartment);
         }
     
-        $data = $query->paginate(5);
+        $data = $query->paginate(10);
         return view('backend.production.mrr_request.mrr_request', compact('mrrequest', 'data'));
 
             // Cek apakah user yang login memiliki email 'btm-mt@gmail.com'
@@ -232,6 +232,47 @@ class MrrequestController extends Controller
         return redirect()->route('production.mrr')->with($notification);
     }
 
+    public function EditMrrProduction($id) {
+        $data = Mrrequest::with('modelBrewer','lot','process','shift','line','equipmentNo')->get();
+        $mrr_id = Mrrequest::with('shift','modelBrewer','equipmentNo')->findOrFail($id);
+        $modelbrewer = ModelBrewer::all();
+        $lot = Lot::all();
+        $shift = Shift::all();
+        $process = Process::all();
+        $line = Line::all();
+        $department = ['PIE(NTD)','PIE(MT)'];
+        $equipment= EquipmentNo::all();
+
+        return view('backend.production.mrr_request.edit_mrr_production', compact('mrr_id','data','lot','modelbrewer','shift','process','line','department','equipment'));
+    }
+
+    public function StoreMrrProduction(Request $request) {
+        $mrr_id = $request->id;
+        Mrrequest::findOrFail($mrr_id)->update([
+            'user_id' => Auth::id(),
+            'Request_dept' => $request->Request_dept,
+            'Name' => $request->Name,
+            'To_department' => $request->To_department,
+            'Equipment_id' => $request->Equipment_id,
+            'Description' => $request->Description,
+            'model_id' => $request->model_id,
+            'processes_id' => $request->processes_id,
+            'shift_id' => $request->shift_id,
+            'lot_id' => $request->lot_id,
+            'line_id' => $request->line_id,
+            'Date_pd' => $request->Date_pd,
+            'Breakdown_time' => $request->Breakdown_time,
+            'Report_time' => $request->Report_time,
+        ]);
+
+        $notification = array(
+            'message' => 'Edit MRR Form Request Update Successfully',
+            'alert-type' => 'info'
+        );
+        return redirect()->route('production.mrr')->with($notification);
+    }
+
+
     public function EditMrrTechnician($id) {
 
         $data = Mrrequest::with('modelBrewer','lot','process','shift','line','equipmentNo')->get();
@@ -343,7 +384,7 @@ class MrrequestController extends Controller
 
     public function getEquipmentNo($equipment_id)
     {
-        // Asumsikan Anda memiliki model Equipment dengan kolom equipment_name dan equipment_no
+        
         $equipment = EquipmentNo::find($equipment_id);
 
         if ($equipment) {

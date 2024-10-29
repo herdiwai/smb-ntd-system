@@ -301,8 +301,10 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
         Route::get('/production/mrr', 'Mrrequest' )->name('production.mrr');
         Route::get('/add/mrr', 'AddMrr' )->name('add.mrr');
         Route::post('/store/mrr', 'StoreMrr' )->name('store.mrr');
-        Route::get('/store/mrr-technician/{id}', 'EditMrrTechnician' )->name('edit.mrrtechnician');
+        Route::get('/edit/mrr-technician/{id}', 'EditMrrTechnician' )->name('edit.mrrtechnician');
         Route::post('/store/mrrtechnician/{id}', 'StoreMrrTechnician' )->name('store.mrrtechnician');
+        Route::get('/edit/mrr-production/{id}', 'EditMrrProduction' )->name('edit.mrrproduction');
+        Route::post('/store/mrrproduction/{id}', 'StoreMrrProduction' )->name('store.mrrproduction');
         Route::post('/update/qc/{id}', 'UpdateQc' )->name('update.qc');
         Route::post('/update/sign-spv/{id}', 'UpdateSignSpv' )->name('update.signspv');
         Route::get('/mrr/{id}/export-pdf', 'MrrPdf' )->name('mrr.export-pdf');
