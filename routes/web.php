@@ -334,6 +334,9 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
         Route::post('/store/workordertechnician/{id}', 'StoreWOTechnician' )->name('store.wotechnician');
         Route::post('/update/spv/{id}', 'UpdateSpv' )->name('update.spv');
         Route::get('/wo/{id}/export-pdf', 'WOPdf' )->name('wo.export-pdf');
+        Route::get('/delete/workorder/{id}', 'DeleteWorkOrder' )->name('delete.workorder');
+        Route::get('/filter-workorder', 'filterWorkOrder' )->name('filter.workorder');
+        Route::post('/workorder/export', 'WOExcel' )->name('workorder.export-excel');
           
     });
 });

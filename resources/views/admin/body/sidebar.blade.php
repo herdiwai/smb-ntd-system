@@ -59,7 +59,7 @@
           </li>
         @endif
 
-        @if(Auth::user()->can('changenotice.menu'))
+          @if(Auth::user()->can('changenotice.menu'))
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#changes" role="button" aria-expanded="false" aria-controls="changes">
               <i class="link-icon" data-feather="disc"></i>
@@ -412,7 +412,7 @@
 
          
 
-          @if(Auth::user()->can('Sparepart.menu'))
+        @if(Auth::user()->can('Sparepart.menu'))
         <li class="nav-item nav-category">Facility</li>
         <li class="nav-item">
           <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents" role="button" aria-expanded="false" aria-controls="uiComponents">
@@ -444,7 +444,10 @@
                 <a href="{{ route('facility.workorderrecord') }}" class="nav-link">All Table</a>
               </li>
               <li class="nav-item">
-                <a href="pages/ui-components/alerts.html" class="nav-link">Add</a>
+                <a href="{{ route('add.WorkOrderRecord') }}" class="nav-link">Add</a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('filter.workorder') }}" class="nav-link">Filter Work Order</a>
               </li>
             </ul>
           </div>

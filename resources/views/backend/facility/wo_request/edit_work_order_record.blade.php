@@ -74,7 +74,11 @@
                                             <label for="line" class="col-form-label col-form-label-sm"><b>Line</b></label>
                                         </div>
                                         <div class="col">
-                                            <input type="text" value="{{ old('line_id', $wo_id->lines->line ) }}" class="form-control form-control-sm" id="line" name="line_id" disabled>
+                                            @if($wo_id->line == '-') <!-- Memeriksa apakah nilai line adalah '-' -->
+                                                <input type="text" value="{{ old('line_id', $wo_id->line) }}" class="form-control form-control-sm" id="line" name="line_id" disabled>
+                                            @else
+                                                <input type="text" value="{{ old('line_id', $wo_id->lines->line) }}" class="form-control form-control-sm" id="line" name="line_id">
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -101,7 +105,11 @@
                                             <label for="lot" class="col-form-label col-form-label-sm"><b>Lot</b></label>
                                         </div>
                                         <div class="col">
-                                            <input type="text" value="{{ old('lot_id', $wo_id->lots->lot ) }}" class="form-control form-control-sm" id="lot" name="lot_id" disabled>
+                                            @if($wo_id->lot == '-') <!-- Memeriksa apakah nilai line adalah '-' -->
+                                                <input type="text" value="{{ old('lot_id', $wo_id->lot) }}" class="form-control form-control-sm" id="lot" name="lot_id" disabled>
+                                            @else
+                                                <input type="text" value="{{ old('lot_id', $wo_id->lots->lot) }}" class="form-control form-control-sm" id="lot" name="lot_id">
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -113,7 +121,11 @@
                                             <label for="shift" class="col-form-label col-form-label-sm"><b>Shift</b></label>
                                         </div>
                                         <div class="col">
-                                            <input type="text" value="{{ old('shift_id', $wo_id->shifts->shift ) }}" class="form-control form-control-sm" id="shift" name="shift_id" disabled>
+                                            @if($wo_id->shift == '-') <!-- Memeriksa apakah nilai line adalah '-' -->
+                                                <input type="text" value="{{ old('shift_id', $wo_id->shift) }}" class="form-control form-control-sm" id="shift" name="shift_id" disabled>
+                                            @else
+                                                <input type="text" value="{{ old('shift_id', $wo_id->shifts->shift) }}" class="form-control form-control-sm" id="shift" name="shift_id">
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -205,7 +217,7 @@
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
                                     <div class="form-row align-items-center">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm">
                                             <label for="date_complated_technician" class="col-form-label col-form-label-sm"><b>Date Complated</b></label>
                                         </div>
                                         <div class="col">

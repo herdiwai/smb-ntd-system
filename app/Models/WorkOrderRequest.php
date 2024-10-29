@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class WorkOrderRequest extends Model
+
 {
     use HasFactory;
     protected $table = 'facility_work_order';
@@ -30,6 +31,7 @@ class WorkOrderRequest extends Model
         'time_accepted',
         'date_final',
         'status',
+        'no_wo',
     ];
 
     public function lots()

@@ -17,6 +17,10 @@
             padding: 10px 0;
             font-size: 14px;
         }
+        .text-right {
+            text-align: right;
+            font-size: 12px; /* Sesuaikan ukuran sesuai kebutuhan */
+        }
         .title {
             text-align: center;
             font-weight: bold;
@@ -33,11 +37,11 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 14px;
+            font-size: 12px;
         }
         table, th, td {
             border: 1px solid black;
-            padding: 8px;
+            padding: 5px;
         }
     </style>
 </head>
@@ -47,27 +51,27 @@
         <div class="title">Facility Work Order</div>
     
             <!-- Table 1: Work Order Details -->
-            <table class="table" style="margin-top: 10px;">
+            <table class="table" style="border-collapse: collapse; width: 100%;">
                 <tr>
-                    <td>No</td>
-                    <td></td>
-                    <td>Date</td>
+                    <td>No:</td>
+                    <td>{{ $workorder->no_wo }}</td>
+                    <td>Date:</td>
                     <td>{{ $workorder->date }}</td>
                 </tr>
                 <tr>
-                    <td>Reported by</td>
+                    <td>Reported by:</td>
                     <td>{{ $workorder->reported_by }}</td>
-                    <td>Department</td>
+                    <td>Department:</td>
                     <td>{{ $workorder->request_dept }} (Shift: {{ $workorder->shifts->shift }}) </td>
                 </tr>
                 <tr>
-                    <td>Requested by</td>
+                    <td>Requested by:</td>
                     <td>{{ $workorder->request_by }}</td>
-                    <td>Location</td>
+                    <td>Location:</td>
                     <td>{{ $workorder->location }} (Line: {{ $workorder->line }} / Lot: {{ $workorder->lots->lot }}) </td>
                 </tr>
                 <tr>
-                    <td>Description</td>
+                    <td>Description:</td>
                     <td colspan="3">{{ $workorder->decription }}</td>
                 </tr>
             </table>
@@ -83,15 +87,15 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Assigned to</td>
+                    <td>Assigned to:</td>
                     <td>{{ $workorder->assigned_technician }}</td>
-                    <td>Time Spent (Hour/Min)</td>
+                    <td>Time Spent (Hour/Min):</td>
                     <td>{{ $workorder->time_spent }}</td>
                 </tr>
                 <tr>
-                    <td>Completed By</td>
+                    <td>Completed By:</td>
                     <td>{{ $workorder->complated_by_technician }}</td>
-                    <td>Date Completed</td>
+                    <td>Date Completed:</td>
                     <td>{{ $workorder->date_complated_technician }}</td>
                 </tr>
             </table>
@@ -101,26 +105,19 @@
                 <div>FINAL ACCEPTED</div>
                 <table class="table" style="width: 100%;">
                     <tr>
-                        <td>Name</td>
+                        <td>Name:</td>
                         <td>{{ $workorder->name_spv }}</td>
-                        <td>Date/Time</td>
-                        <td>{{ $workorder->date_final }} / {{ $workorder->time_accepted }}</td>
+                        <td>Date/Time:</td>
+                        <td>{{ $workorder->date_final }} / {{ $workorder->time_accepted }} WIB</td>
                     </tr>
                 </table>
             </div>
         </div>
-    
-
-           
+        <p class="text-right" style="font-size: 12px;">SB-ADM-067</p>
+        
     </div>
-
-
-
-
-
-
-
-
-
+    
     
 </body>
+
+</html>
