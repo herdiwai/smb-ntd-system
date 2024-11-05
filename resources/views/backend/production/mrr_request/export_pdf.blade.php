@@ -239,8 +239,8 @@
 
 <div class="container">
     <div class="header">
-        <h3>PT. SIMATELEX MANUFACTORY BATAM</h3>
-        <h4>MAINTENANCE REPAIR REQUEST</p>
+        <h2>PT. SIMATELEX MANUFACTORY BATAM</h2>
+        <h3 style="font-size: 17px; margin-top: -7px;">MAINTENANCE REPAIR REQUEST</h3>
     </div>
 
     <table>

@@ -295,7 +295,7 @@
             {{-- <span aria-hidden="true">&times;</span> --}}
           </button> 
         </div>
-        <form id="qcFormAccepted" action="" method="POST">
+        <form id="qcFormAccepted" class="myForm" action="" method="POST">
           @csrf
           <div class="modal-body">
 
@@ -875,6 +875,42 @@
             $('.pd_sign').val(_this.find('.pd_sign').text());
             $('.date_pd').val(_this.find('.date_pd').text());
     });
+
+    // Validate form action MRR QC
+    $(document).ready(function (){
+        $('.myForm').validate({
+            rules: {
+                Qc_start_time: {
+                    required : true,
+                },
+                Qc_end_time: {
+                    required : true,
+                },
+                
+            },
+            messages :{
+                Qc_start_time: {
+                    required : 'Please Enter Qc_start_time',
+                },
+                Qc_end_time: {
+                    required : 'Please Enter Qc_end_time',
+                },
+                 
+            },
+            errorElement : 'span', 
+            errorPlacement: function (error,element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight : function(element, errorClass, validClass){
+                $(element).addClass('is-invalid');
+            },
+            unhighlight : function(element, errorClass, validClass){
+                $(element).removeClass('is-invalid');
+            },
+        });
+    });
+
 
 </script>
 

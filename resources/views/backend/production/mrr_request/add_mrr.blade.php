@@ -300,114 +300,99 @@ document.getElementById('Equipment_Name').addEventListener('change', function() 
     }
 });
 
-    // $(document).ready(function (){
-    //     $('#myForm').validate({
-    //         rules: {
-    //             lot_id: {
-    //                 required : true,
-    //             }, 
-    //             model_id: {
-    //                 required : true,
-    //             }, 
-    //             shift_id: {
-    //                 required : true,
-    //             }, 
-    //             series: {
-    //                 required : true,
-    //             }, 
-    //             no_of_sample: {
-    //                 required : true,
-    //             }, 
-    //             co_no: {
-    //                 required : true,
-    //             }, 
-    //             do_no: {
-    //                 required : true,
-    //             }, 
-    //             processes_id: {
-    //                 required : true,
-    //             },
-    //             mfg_sample_date: {
-    //                 required : true,
-    //             },
-    //             sample_subtmitted_date: {
-    //                 required : true,
-    //             },
-    //             completion_date: {
-    //                 required : true,
-    //             },
-    //             tracebility_datecode: {
-    //                 required : true,
-    //             },
-    //             summary: {
-    //                 required : true,
-    //             },
-    //             check_by: {
-    //                 required : true,
-    //             },
-    //             testpurpose: {
-    //                 required : true,
-    //             },
+    $(document).ready(function (){
+        $('#myForm').validate({
+            rules: {
+                Request_dept: {
+                    required : true,
+                }, 
+                model_id: {
+                    required : true,
+                }, 
+                Name: {
+                    required : true,
+                }, 
+                shift_id: {
+                    required : true,
+                }, 
+                To_department: {
+                    required : true,
+                }, 
+                lot_id: {
+                    required : true,
+                }, 
+                Equipment_id: {
+                    required : true,
+                }, 
+                line_id: {
+                    required : true,
+                }, 
+                Date_pd: {
+                    required : true,
+                }, 
+                Description: {
+                    required : true,
+                }, 
+                Breakdown_time: {
+                    required : true,
+                }, 
+                Report_time: {
+                    required : true,
+                }, 
                 
-    //         },
-    //         messages :{
-    //             lot_id: {
-    //                 required : 'Please Enter Lot Name',
-    //             }, 
-    //             model_id: {
-    //                 required : 'Please Enter Model Name',
-    //             }, 
-    //             shift_id: {
-    //                 required : 'Please Enter Shift Name',
-    //             }, 
-    //             series: {
-    //                 required : 'Please Enter Series Name',
-    //             }, 
-    //             no_of_sample: {
-    //                 required : 'Please Enter No of Sample',
-    //             }, 
-    //             co_no: {
-    //                 required : 'Please Enter C/O No',
-    //             }, 
-    //             do_no: {
-    //                 required : 'Please Enter D.O Number',
-    //             }, 
-    //             processes_id: {
-    //                 required : 'Please Enter Process',
-    //             },
-    //             mfg_sample_date: {
-    //                 required : 'Please Enter MFG Sample',
-    //             },  
-    //             sample_subtmitted_date: {
-    //                 required : 'Please Select Sample Submited Date',
-    //             },  
-    //             completion_date: {
-    //                 required : 'Please Select Completion Date',
-    //             }, 
-    //             tracebility_datecode: {
-    //                 required : 'Please Select Traceability Date',
-    //             },
-    //             summary: {
-    //                 required : 'Please Enter Summary',
-    //             },
-    //             check_by: {
-    //                 required : 'Please Enter Your Name',
-    //             },
+            },
+            messages :{
+                Request_dept: {
+                    required : 'Please Enter Request_dept',
+                },
+                model_id: {
+                    required : 'Please Enter Model',
+                },
+                Name: {
+                    required : 'Please Enter Model',
+                },
+                shift_id: {
+                    required : 'Please Enter Shift',
+                },
+                To_department: {
+                    required : 'Please Enter To_department',
+                },
+                lot_id: {
+                    required : 'Please Enter Lot',
+                },
+                Equipment_id: {
+                    required : 'Please Enter Process',
+                },
+                line_id: {
+                    required : 'Please Enter Line',
+                },
+                Date_pd: {
+                    required : 'Please Enter Date_pd',
+                },
+                Description: {
+                    required : 'Please Enter Description',
+                },
+                Breakdown_time: {
+                    required : 'Please Enter Breakdown_time',
+                },
+                Report_time: {
+                    required : 'Please Enter Report_time',
+                },
                  
-    //         },
-    //         errorElement : 'span', 
-    //         errorPlacement: function (error,element) {
-    //             error.addClass('invalid-feedback');
-    //             element.closest('.form-group').append(error);
-    //         },
-    //         highlight : function(element, errorClass, validClass){
-    //             $(element).addClass('is-invalid');
-    //         },
-    //         unhighlight : function(element, errorClass, validClass){
-    //             $(element).removeClass('is-invalid');
-    //         },
-    //     });
-    // });
+            },
+            errorElement : 'span', 
+            errorPlacement: function (error,element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight : function(element, errorClass, validClass){
+                $(element).addClass('is-invalid');
+            },
+            unhighlight : function(element, errorClass, validClass){
+                $(element).removeClass('is-invalid');
+            },
+        });
+    });
     
 
     // document.querySelectorAll('input[type="checkbox"]').forEach(function(checkbox) {

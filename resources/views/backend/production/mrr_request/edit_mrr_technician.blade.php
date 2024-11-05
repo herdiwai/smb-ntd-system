@@ -267,6 +267,7 @@
                                                 </div>
                                                 <div class="col">
                                                     <select name="Status_approvals_id_spv_ntd" id="approval_status" class="form-select form-select-sm">
+                                                        <option value="">--select--</option>
                                                         <option value="1">confirm</option>
                                                         <option value="2">correction</option>
                                                     </select>
@@ -402,114 +403,82 @@
             }
         });
     });
-    // $(document).ready(function (){
-    //     $('#myForm').validate({
-    //         rules: {
-    //             lot_id: {
-    //                 required : true,
-    //             }, 
-    //             model_id: {
-    //                 required : true,
-    //             }, 
-    //             shift_id: {
-    //                 required : true,
-    //             }, 
-    //             series: {
-    //                 required : true,
-    //             }, 
-    //             no_of_sample: {
-    //                 required : true,
-    //             }, 
-    //             co_no: {
-    //                 required : true,
-    //             }, 
-    //             do_no: {
-    //                 required : true,
-    //             }, 
-    //             processes_id: {
-    //                 required : true,
-    //             },
-    //             mfg_sample_date: {
-    //                 required : true,
-    //             },
-    //             sample_subtmitted_date: {
-    //                 required : true,
-    //             },
-    //             completion_date: {
-    //                 required : true,
-    //             },
-    //             tracebility_datecode: {
-    //                 required : true,
-    //             },
-    //             summary: {
-    //                 required : true,
-    //             },
-    //             check_by: {
-    //                 required : true,
-    //             },
-    //             testpurpose: {
-    //                 required : true,
-    //             },
+    // Validate form action MRR Technician
+    $(document).ready(function (){
+        $('#myForm').validate({
+            rules: {
+                Status_approvals_id_spv_ntd: {
+                    required : true,
+                },
+                Judgement: {
+                    required : true,
+                },
+                Response_time: {
+                    required : true,
+                },
+                Issue: {
+                    required : true,
+                },
+                Root_cause: {
+                    required : true,
+                },
+                Action: {
+                    required : true,
+                },
+                Repair_start_time: {
+                    required : true,
+                },
+                Repair_end_time: {
+                    required : true,
+                },
+                Repair_by: {
+                    required : true,
+                },
                 
-    //         },
-    //         messages :{
-    //             lot_id: {
-    //                 required : 'Please Enter Lot Name',
-    //             }, 
-    //             model_id: {
-    //                 required : 'Please Enter Model Name',
-    //             }, 
-    //             shift_id: {
-    //                 required : 'Please Enter Shift Name',
-    //             }, 
-    //             series: {
-    //                 required : 'Please Enter Series Name',
-    //             }, 
-    //             no_of_sample: {
-    //                 required : 'Please Enter No of Sample',
-    //             }, 
-    //             co_no: {
-    //                 required : 'Please Enter C/O No',
-    //             }, 
-    //             do_no: {
-    //                 required : 'Please Enter D.O Number',
-    //             }, 
-    //             processes_id: {
-    //                 required : 'Please Enter Process',
-    //             },
-    //             mfg_sample_date: {
-    //                 required : 'Please Enter MFG Sample',
-    //             },  
-    //             sample_subtmitted_date: {
-    //                 required : 'Please Select Sample Submited Date',
-    //             },  
-    //             completion_date: {
-    //                 required : 'Please Select Completion Date',
-    //             }, 
-    //             tracebility_datecode: {
-    //                 required : 'Please Select Traceability Date',
-    //             },
-    //             summary: {
-    //                 required : 'Please Enter Summary',
-    //             },
-    //             check_by: {
-    //                 required : 'Please Enter Your Name',
-    //             },
+            },
+            messages :{
+                Status_approvals_id_spv_ntd: {
+                    required : 'Please Enter Confimr/Correction',
+                },
+                Judgement: {
+                    required : 'Please Enter Judgement',
+                },
+                Response_time: {
+                    required : 'Please Enter Response_time',
+                },
+                Issue: {
+                    required : 'Please Enter Issue',
+                },
+                Root_cause: {
+                    required : 'Please Enter Root_cause',
+                },
+                Action: {
+                    required : 'Please Enter Action',
+                },
+                Repair_start_time: {
+                    required : 'Please Enter Repair_start_time',
+                },
+                Repair_end_time: {
+                    required : 'Please Enter Repair_end_time',
+                },
+                Repair_by: {
+                    required : 'Please Enter Repair_by',
+                },
                  
-    //         },
-    //         errorElement : 'span', 
-    //         errorPlacement: function (error,element) {
-    //             error.addClass('invalid-feedback');
-    //             element.closest('.form-group').append(error);
-    //         },
-    //         highlight : function(element, errorClass, validClass){
-    //             $(element).addClass('is-invalid');
-    //         },
-    //         unhighlight : function(element, errorClass, validClass){
-    //             $(element).removeClass('is-invalid');
-    //         },
-    //     });
-    // });
+            },
+            errorElement : 'span', 
+            errorPlacement: function (error,element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight : function(element, errorClass, validClass){
+                $(element).addClass('is-invalid');
+            },
+            unhighlight : function(element, errorClass, validClass){
+                $(element).removeClass('is-invalid');
+            },
+        });
+    });
     
 
     // document.querySelectorAll('input[type="checkbox"]').forEach(function(checkbox) {

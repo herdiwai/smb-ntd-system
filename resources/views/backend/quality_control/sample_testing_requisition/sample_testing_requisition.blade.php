@@ -437,7 +437,7 @@
             {{-- <span aria-hidden="true">&times;</span> --}}
           </button>
         </div>
-        <form id="approvalFormManager" action="" method="POST">
+        <form id="approvalFormManager" class="myForm" action="" method="POST">
           @csrf
           <div class="modal-body">
             <div class="form-group">
@@ -475,7 +475,7 @@
             {{-- <span aria-hidden="true">&times;</span> --}}
           </button>
         </div>
-        <form id="approvalFormQe" action="" method="POST">
+        <form id="approvalFormQe" class="myForm" action="" method="POST">
           @csrf
           <div class="modal-body">
             <div class="form-group">
@@ -513,7 +513,7 @@
             {{-- <span aria-hidden="true">&times;</span> --}}
           </button>
         </div>
-        <form id="approvalForm" action="" method="POST">
+        <form id="approvalForm" class="myForm2" action="" method="POST">
           @csrf
           <div class="modal-body">
             <div class="form-group">
@@ -804,6 +804,80 @@
     });
   </script>
   
+  {{-- Validate Form approvals QE IQC --}}
+  <script type="text/javascript">
+    $(document).ready(function (){
+        $('.myForm').validate({
+            rules: {
+                notes_qe: {
+                    required : true,
+                },
+                status_approvals_id_qe: {
+                    required : true,
+                },
+                
+            },
+            messages :{
+                notes_qe: {
+                    required : 'Please Enter Notes',
+                },
+                status_approvals_id_qe: {
+                    required : 'Please Enter Approval Status',
+                },
+                 
+            },
+            errorElement : 'span', 
+            errorPlacement: function (error,element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight : function(element, errorClass, validClass){
+                $(element).addClass('is-invalid');
+            },
+            unhighlight : function(element, errorClass, validClass){
+                $(element).removeClass('is-invalid');
+            },
+        });
+    });
+</script>
+
+{{-- Validate Form approvals Spv PD --}}
+<script type="text/javascript">
+    $(document).ready(function (){
+        $('.myForm2').validate({
+            rules: {
+                status_approvals_id_spv: {
+                    required : true,
+                },
+                notes_spv: {
+                    required : true,
+                },
+                
+            },
+            messages :{
+                status_approvals_id_spv: {
+                    required : 'Please Enter Approvals',
+                },
+                notes_spv: {
+                    required : 'Please Enter Notes',
+                },
+                 
+            },
+            errorElement : 'span', 
+            errorPlacement: function (error,element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight : function(element, errorClass, validClass){
+                $(element).addClass('is-invalid');
+            },
+            unhighlight : function(element, errorClass, validClass){
+                $(element).removeClass('is-invalid');
+            },
+        });
+    });
+</script>
+
   <script type="text/javascript">
     // $('#serverside tbody').on('click', 'tr', function() {
     //     $(this).toggleClass('selected');  // Tambahkan kelas 'selected' pada baris yang dipilih
