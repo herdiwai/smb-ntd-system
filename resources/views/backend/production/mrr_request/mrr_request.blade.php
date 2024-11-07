@@ -401,7 +401,7 @@
             {{-- <span aria-hidden="true">&times;</span> --}}
           </button> 
         </div>
-        <form id="signFormSpv" action="" method="POST">
+        <form id="signFormSpv" class="myForm2" action="" method="POST">
           @csrf
           <div class="modal-body">
 
@@ -886,14 +886,61 @@
                 Qc_end_time: {
                     required : true,
                 },
+                Qc_name_sign: {
+                    required : true,
+                },
+                Date_qc: {
+                    required : true,
+                },
+                Note_qc: {
+                    required : true,
+                },
                 
             },
             messages :{
                 Qc_start_time: {
-                    required : 'Please Enter Qc_start_time',
+                    required : 'Please Enter Qc Start Time',
                 },
                 Qc_end_time: {
-                    required : 'Please Enter Qc_end_time',
+                    required : 'Please Enter Qc End Time',
+                },
+                Qc_name_sign: {
+                    required : 'Please Enter Qc Name',
+                },
+                Date_qc: {
+                    required : 'Please Enter Date Qc',
+                },
+                Note_qc: {
+                    required : 'Please Enter Note Qc',
+                },
+                 
+            },
+            errorElement : 'span', 
+            errorPlacement: function (error,element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight : function(element, errorClass, validClass){
+                $(element).addClass('is-invalid');
+            },
+            unhighlight : function(element, errorClass, validClass){
+                $(element).removeClass('is-invalid');
+            },
+        });
+    });
+
+    // Validate form action MRR Spv PD
+    $(document).ready(function (){
+        $('.myForm2').validate({
+            rules: {
+                Note_spv_pd: {
+                    required : true,
+                },
+                
+            },
+            messages :{
+                Note_spv_pd: {
+                    required : 'Please Enter Name',
                 },
                  
             },

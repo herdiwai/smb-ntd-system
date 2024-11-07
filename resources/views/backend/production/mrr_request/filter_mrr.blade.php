@@ -172,11 +172,11 @@
                                     <th>Line</th>
                                     <th>Breakdown Time</th>
                                     <th>Report Time</th>
-                                    <th hidden>Sign Spv pd</th>
-                                    <th hidden>Judgement</th>
-                                    <th hidden>Response_time</th>
-                                    <th hidden>Issue</th>
-                                    <th hidden>Root Cause</th>
+                                    <th>Sign Spv pd</th>
+                                    <th>Judgement</th>
+                                    <th>Response_time</th>
+                                    <th>Issue</th>
+                                    <th>Root Cause</th>
                                     <th hidden>Action</th>
                                     <th hidden>Repair Start Time</th>
                                     <th hidden>Repair End Time</th>
@@ -189,7 +189,7 @@
 
 
                                     <th>Status MRR</th>
-                                    <th>View Detail</th>
+                                    {{-- <th>View Detail</th> --}}
                                     {{-- @if(Auth::user()->can('sign.mrrSpv'))
                                         <th>Action Spv PD</th>
                                     @endif
@@ -203,7 +203,7 @@
                                         <th>Edit Mrr</th>
                                     @endif
                                     <th>Correction NTD</th> --}}
-                                    <th>Export to PDF</th>
+                                    {{-- <th>Export to PDF</th> --}}
                             </tr>
                             </thead>
                             <tbody>
@@ -230,37 +230,37 @@
                                         <td class="report_time">{{ $mrr->Report_time }}</td>
                                         {{-- Status Sign Spv Production --}}
                                         @if($mrr->Status_approvals_id_spv_pd == '3')
-                                            <td class="sign_spv_pd" hidden>Pending</td>
+                                            <td class="sign_spv_pd text-secondary">no record</td>
                                         @else
                                             {{-- Nama sign sementara diambil dari kolom Note_spv_pd --}}
-                                            <td class="sign_spv_pd" hidden>{{ $mrr->Note_spv_pd  }}</td>
+                                            <td class="sign_spv_pd">{{ $mrr->Note_spv_pd  }}</td>
                                         @endif
                                         {{-- End Status Sign Spv Production --}}
                                         {{-- Status judgement --}}
                                         @if($mrr->Judgement == '')
-                                            <td class="judgement" hidden><p class="text-secondary">no record</p></td>
+                                            <td class="judgement"><p class="text-secondary">no record</p></td>
                                         @else
-                                            <td class="judgement" hidden>{{ $mrr->Judgement }}</td>
+                                            <td class="judgement">{{ $mrr->Judgement }}</td>
                                         @endif
                                         {{-- End Status judgement --}}
                                         {{-- Status Response_time --}}
                                         @if($mrr->Response_time == '')
-                                            <td class="Response_time" hidden><p class="text-secondary">no record</p></td>
+                                            <td class="Response_time"><p class="text-secondary">no record</p></td>
                                         @else
-                                            <td class="Response_time" hidden>{{ $mrr->Response_time }}</td>
+                                            <td class="Response_time">{{ $mrr->Response_time }}</td>
                                         @endif
                                         {{-- End Status Response_time --}}
                                     
                                         @if($mrr->Issue == '' )
-                                            <td class="issue" hidden><p class="text-secondary">no record</p></td>
+                                            <td class="issue"><p class="text-secondary">no record</p></td>
                                         @else
-                                            <td class="issue" hidden>{{ $mrr->Issue }}</td>
+                                            <td class="issue">{{ $mrr->Issue }}</td>
                                         @endif
 
                                         @if($mrr->Root_cause == '')
-                                            <td class="root_cause" hidden><p class="text-secondary">no record</p></td>
+                                            <td class="root_cause"><p class="text-secondary">no record</p></td>
                                         @else
-                                            <td class="root_cause" hidden>{{ $mrr->Root_cause }}</td>
+                                            <td class="root_cause">{{ $mrr->Root_cause }}</td>
                                         @endif
 
                                         @if($mrr->Action == '')
@@ -324,7 +324,7 @@
                                                 <span class="badge bg-info" style="color: black;"> {{ $mrr->status_mrr }} </span>
                                             @endif
                                         </td>
-                                        <td><button type="button" class="btn btn-inverse-primary btn-xs view-details" data-bs-toggle="modal" data-bs-target="#varyingModal" data-id="'.$mrr->id.'" title="View Detail"><i data-feather="eye" style="width: 16px; height: 16px;"></i></button></td>
+                                        {{-- <td><button type="button" class="btn btn-inverse-primary btn-xs view-details" data-bs-toggle="modal" data-bs-target="#varyingModal" data-id="'.$mrr->id.'" title="View Detail"><i data-feather="eye" style="width: 16px; height: 16px;"></i></button></td> --}}
                                         
                                         {{-- @if(Auth::user()->can('sign.mrrSpv'))
                                             @if($mrr->Status_approvals_id_spv_pd == '3' OR $mrr->Status_approvals_id_spv_pd == '2')
@@ -375,12 +375,12 @@
                                         @else
                                             <td><p class="text-danger">{{ $mrr->Note_spv_ntd }}</p></td>
                                         @endif --}}
-
+{{-- 
                                         @if($mrr->status_mrr == 'incomplete')
                                             <td><p class="text-danger">status mrr not complete</p></td>
                                         @elseif($mrr->status_mrr == 'complete')
                                             <td><a href="{{ route('mrr.export-pdf', $mrr->id ) }}" class="btn btn-inverse-success btn-xs" title="Export-PDF"><i data-feather="download" style="width: 16px; height: 16px;"></i> PDF</a></td>
-                                        @endif
+                                        @endif --}}
                                     </tr>
                                 @endforeach
                                 @endif

@@ -244,7 +244,7 @@
                                     <!-- Checkbox Confirm -->                            
                                     <div class="col-md-6 d-flex align-items-center">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="confirmCheckbox">
+                                            <input name="Status_approvals_id_spv_ntd" value="1" class="form-check-input" type="checkbox" id="confirmCheckbox">
                                             <label class="form-check-label me-2" for="quatationSample">Confirm</label>
                                         </div>
                                     </div>
@@ -253,13 +253,13 @@
                                     <!-- Checkbox Correction -->
                                     <div class="col-md-6 d-flex align-items-center">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="correctionCheckbox">
+                                            <input name="Status_approvals_id_spv_ntd" value="2" class="form-check-input" type="checkbox" id="correctionCheckbox">
                                             <label class="form-check-label me-2" for="quatationSample">Correction</label>
                                         </div>
                                     </div>
                                     <!-- EndCheckbox Correction -->
 
-                                    <div class="col-md-6 mb-3">
+                                    {{-- <div class="col-md-6 mb-3">
                                         <div class="form-group">
                                             <div class="form-row align-items-center">
                                                 <div class="col-sm">
@@ -271,11 +271,10 @@
                                                         <option value="1">confirm</option>
                                                         <option value="2">correction</option>
                                                     </select>
-                                                    {{-- <p>select one, if the form is confirmed select confirmation. if the form is corrected select correction</p> --}}
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     <!-- Form Note for Correction -->
                                     <div class="form-group mb-3" id="noteForm" style="display: none;">
@@ -403,6 +402,38 @@
             }
         });
     });
+
+    document.addEventListener('DOMContentLoaded', function() {
+    const confirmCheckbox = document.getElementById('confirmCheckbox');
+    const correctionCheckbox = document.getElementById('correctionCheckbox');
+
+    confirmCheckbox.addEventListener('change', function() {
+      if (this.checked) {
+        correctionCheckbox.checked = false; // Uncheck correctionCheckbox
+        correctionCheckbox.disabled = true; // Disable correctionCheckbox
+      } else {
+        correctionCheckbox.disabled = false; // Enable correctionCheckbox if confirmCheckbox is unchecked
+      }
+    });
+
+    correctionCheckbox.addEventListener('change', function() {
+      if (this.checked) {
+        confirmCheckbox.checked = false; // Uncheck confirmCheckbox
+        confirmCheckbox.disabled = true; // Disable confirmCheckbox
+      } else {
+        confirmCheckbox.disabled = false; // Enable confirmCheckbox if checkbox2 is unchecked
+      }
+    });
+
+    // confirmCheckbox.addEventListener('change', function() {
+    //   correctionCheckbox.disabled = this.checked;
+    // });
+
+    // checkbox2.addEventListener('change', function() {
+    //   confirmCheckbox.disabled = this.checked;
+    // });
+  });
+
     // Validate form action MRR Technician
     $(document).ready(function (){
         $('#myForm').validate({
@@ -434,6 +465,9 @@
                 Repair_by: {
                     required : true,
                 },
+                // Note_spv_ntd: {
+                //     required : true,
+                // },
                 
             },
             messages :{
@@ -464,6 +498,9 @@
                 Repair_by: {
                     required : 'Please Enter Repair_by',
                 },
+                // Note_spv_ntd: {
+                //     required : 'Please Enter Note Correction',
+                // },
                  
             },
             errorElement : 'span', 

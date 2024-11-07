@@ -65,10 +65,10 @@
                                     </td>
                                     <td>{{ $production->pic }}</td>
                                     <td> 
-                                        <a href="{{ route('edit.ProcessChangeNotice', $production->id) }}" class="btn btn-inverse-warning btn-xs" title="Edit"><i data-feather="edit"></i></a>
-                                        <a href="{{ route('delete.ProcessChangeNotice', $production->id) }}" class="btn btn-inverse-danger btn-sm" title="Delete"><i data-feather="trash-2"></i></a>
-                                        <a href="{{ route('file.ProcessChangeNotice', $production->id) }}" class="btn btn-inverse-info btn-xs" title="Detail">
-                                            <i data-feather="download"></i>
+                                        <a href="{{ route('edit.ProcessChangeNotice', $production->id) }}" class="btn btn-inverse-warning btn-xs" title="Edit"><i data-feather="edit" style="width: 16px; height: 16px;"></i></a>
+                                        <a href="{{ route('delete.ProcessChangeNotice', $production->id) }}" class="btn btn-inverse-danger btn-xs" title="Delete"><i data-feather="trash-2" style="width: 16px; height: 16px;"></i></a>
+                                        <a href="{{ route('file.ProcessChangeNotice', $production->id) }}" class="btn btn-inverse-info btn-xs" title="Export-PDF">
+                                            <i data-feather="download" style="width: 16px; height: 16px;"></i>
                                         </a>
                                     </td> 
                                     
