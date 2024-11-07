@@ -54,6 +54,7 @@ License: For each use you must have a valid license purchased only from above li
   <link rel="stylesheet" type="text/css" href="{{ asset('backend/assets/vendors/toastr/css/toastr.css') }}" >
   {{-- jquery ajax --}}
   <script src="{{ asset('backend/assets/vendors/jquery-ajax/jquery.min.js') }}"></script>
+  <script src="{{ asset('backend/assets/js/chart.umd.js') }}"></script>
 
 </head>
 	<body>

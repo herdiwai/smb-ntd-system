@@ -16,6 +16,8 @@ use App\Http\Controllers\Backend\SampleTestingRequisitionController;
 use App\Http\Controllers\NtdController;
 use App\Http\Controllers\PDHourlyOutputController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Backend\SuggestionSchemeReport;
+use App\Http\Controllers\Backend\FacilityWorkOrder;
 use App\Models\SampleTestingReport;
 use Illuminate\Support\Facades\Route;
 
@@ -220,6 +222,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
         // Route::get('/generate-pdf', 'generatePdf' )->name('generate.pdf');
         Route::get('/requisition/{id}/export-pdf', 'generatePdf' )->name('requisition.export-pdf');
         Route::get('/delete/sampletestingrequisition/{id}', 'DeleteRequisition' )->name('delete.requisition');
+        Route::post('/sampletesting/export', 'SampleTestingExcel' )->name('sampletesting.export-excel');
         // Route::post('/update/hourlyoutput', 'UpdateHourlyOutput' )->name('update.hourlyoutput');
 
         //Production Hourly Ouput Export Excel
@@ -300,14 +303,17 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
         Route::get('/production/mrr', 'Mrrequest' )->name('production.mrr');
         Route::get('/add/mrr', 'AddMrr' )->name('add.mrr');
         Route::post('/store/mrr', 'StoreMrr' )->name('store.mrr');
-        Route::get('/store/mrr-technician/{id}', 'EditMrrTechnician' )->name('edit.mrrtechnician');
+        Route::get('/edit/mrr-technician/{id}', 'EditMrrTechnician' )->name('edit.mrrtechnician');
         Route::post('/store/mrrtechnician/{id}', 'StoreMrrTechnician' )->name('store.mrrtechnician');
+        Route::get('/edit/mrr-production/{id}', 'EditMrrProduction' )->name('edit.mrrproduction');
+        Route::post('/store/mrrproduction/{id}', 'StoreMrrProduction' )->name('store.mrrproduction');
         Route::post('/update/qc/{id}', 'UpdateQc' )->name('update.qc');
         Route::post('/update/sign-spv/{id}', 'UpdateSignSpv' )->name('update.signspv');
         Route::get('/mrr/{id}/export-pdf', 'MrrPdf' )->name('mrr.export-pdf');
         Route::get('/filter-mrr', 'filterMrr' )->name('filter.mrr');
         Route::get('/delete/mrr/{id}', 'DeleteMrr' )->name('delete.mrr');
-        // Route::post('/update/correction-form/{id}', 'actionCorrection' )->name('update.correction');
+        Route::post('/mrrequest/export', 'MrrExcel' )->name('mrrequest.export-excel');
+        Route::get('/get-equipment-no/{equipment_id}', 'getEquipmentNo' )->name('getequipment.no');
         // Route::post('/update/sampletestingreport/{id}', 'UpdateTestingReport' )->name('update.sampletestingreport');
         // Route::post('/report/update/{id}', 'update' )->name('update.report');
         // Route::post('/update/approvals/{id}', 'UpdateApprovals' )->name('update.approvals');
@@ -319,5 +325,22 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
         // Route::get('/production/export-excel', 'ExportToExcel')->name('excel.export.file');
         //Production Hourly Ouput Filter Data
         // Route::get('/filter/hourlyoutput', 'FilterHourlyOutput')->name('filter.hourlyoutput');
+    });
+});
+// Facility Work Order
+Route::middleware(['auth', 'roles:admin'])->group(function() {
+
+    Route::controller(FacilityWorkOrder::class)->group(function(){
+        Route::get('/facility/workorder', 'WorkOrderRecord' )->name('facility.workorderrecord');
+        Route::get('/add/workorder', 'AddWorkOrderRecord' )->name('add.WorkOrderRecord');
+        Route::post('/add/workorder', 'StoreWorkOrder' )->name('post.WorkOrder');
+        Route::get('/store/workorder/{id}', 'EditWOTechnician' )->name('edit.wotechnician');
+        Route::post('/store/workordertechnician/{id}', 'StoreWOTechnician' )->name('store.wotechnician');
+        Route::post('/update/spv/{id}', 'UpdateSpv' )->name('update.spv');
+        Route::get('/wo/{id}/export-pdf', 'WOPdf' )->name('wo.export-pdf');
+        Route::get('/delete/workorder/{id}', 'DeleteWorkOrder' )->name('delete.workorder');
+        Route::get('/filter-workorder', 'filterWorkOrder' )->name('filter.workorder');
+        Route::post('/workorder/export', 'WOExcel' )->name('workorder.export-excel');
+          
     });
 });

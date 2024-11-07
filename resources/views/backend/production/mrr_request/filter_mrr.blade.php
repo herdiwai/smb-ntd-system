@@ -2,11 +2,10 @@
 @section('admin')
 
 <div class="page-content">
-  
     
     <!-- Form filter -->
         <div class="row">
-            <form action="{{ route('filter.mrr') }}" method="GET" class="mb-3">
+            <form action="{{ route('filter.mrr') }}" id="filterForm" method="GET" class="mb-3">
                 @csrf
                 @method('GET')
                 <div class="row">
@@ -14,13 +13,13 @@
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="date">from date:</label>
-                            <input type="date" name="from_date" id="date" class="form-control form-control-xs">
+                            <input type="date" name="from_date" id="from_date" class="form-control form-control-xs">
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="date">to date:</label>
-                            <input type="date" name="to_date" id="date" class="form-control form-control-xs">
+                            <input type="date" name="to_date" id="to_date" class="form-control form-control-xs">
                         </div>
                     </div>
         
@@ -28,7 +27,7 @@
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="model">Model:</label>
-                            <select name="model_id" id="model" class="form-control form-control-xs">
+                            <select name="model_id" id="model_id" class="form-control form-control-xs">
                                 <option value="">--select model--</option>
                                 @foreach($modelbrewer as $models)
                                     <option value="{{ $models->id }}" {{ old('modelbrewer') == $models->id ? 'selected' : '' }}>{{ $models->model }}</option>
@@ -54,7 +53,7 @@
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="lot">Lot:</label>
-                            <select name="lot_id" id="lot" class="form-control form-control-xs">
+                            <select name="lot_id" id="lot_id" class="form-control form-control-xs">
                                 <option value="">--select lot--</option>
                                 @foreach($lot as $lots)
                                     <option value="{{ $lots->id }}" {{ old('lot') == $lots->id ? 'selected' : '' }}>{{ $lots->lot }}</option>
@@ -67,7 +66,7 @@
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="lot">Line:</label>
-                            <select name="line_id" id="line" class="form-select form-select-xs">
+                            <select name="line_id" id="line_id" class="form-select form-select-xs">
                                 <option value="">--select line--</option>
                                 @foreach($line as $lines)
                                     <option value="{{ $lines->id }}" {{ old('line_id') == $lines->id ? 'selected' : '' }}>{{ $lines->line }}</option>
@@ -80,7 +79,7 @@
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="shift">shift:</label>
-                            <select name="shift_id" id="shift" class="form-control form-control-xs">
+                            <select name="shift_id" id="shift_id" class="form-control form-control-xs">
                                 <option value="">--select shift--</option>
                                 @foreach($shift as $shifts)
                                     <option value="{{ $shifts->id }}" {{ old('shift') == $shifts->id ? 'selected' : '' }}>{{ $shifts->shift }}</option>
@@ -118,28 +117,32 @@
                     </div> --}}
                     
                     <div class="col-md-2 align-self-end">
-                        <button type="submit" class="btn btn-info btn-xs"><i data-feather="search" style="width: 16px; height: 16px;"></i> Search..</button>
+                        <button type="submit" class="btn btn-info btn-xs"><i data-feather="search" style="width: 16px; height: 16px;"></i> Query..</button>
                         <a href="{{ route('filter.mrr') }}" class="btn btn-light btn-xs" style="position: absolute; margin-left:1%;"><i data-feather="refresh-ccw" style="width: 16px; height: 16px;"></i> Refresh</a>
                     </div>
 
-                      {{-- Form Export to Excel --}}
-            {{-- <form action="{{ route('mrrequest.export') }}" method="POST">
-                @csrf
-                <input type="hidden" name="to_date" value="{{ request('to_date') }}">
-                <input type="hidden" name="status" value="{{ request('status') }}">
-                <input type="hidden" name="line" value="{{ request('line') }}">
-                <button type="submit">Export to Excel</button>
-            </form> --}}
-            {{-- End Form Export to Excel --}}
-                
                 </div>
             </form>
             </div>
             {{-- End Form Filter --}}
 
-          
-
-
+            {{-- Form Export to Excel --}}
+            <form action="{{ route('mrrequest.export-excel') }}" method="POST">
+                @csrf
+                <input type="hidden" name="from_date" value="{{ request('from_date') }}">
+                <input type="hidden" name="to_date" value="{{ request('to_date') }}">
+                <input type="hidden" name="model_id" value="{{ request('model_id') }}">
+                <input type="hidden" name="lot_id" value="{{ request('lot_id') }}">
+                <input type="hidden" name="line_id" value="{{ request('line_id') }}">
+                <input type="hidden" name="shift_id" value="{{ request('shift_id') }}">
+                <input type="hidden" name="status_mrr" value="{{ request('status_mrr') }}">
+                
+                <div class="col-md-2 align-self-end">
+                    <button type="submit" class="btn btn-success btn-xs" id="export-excel"><i data-feather="download" style="width: 16px; height: 16px;"></i> Export to Excel..</button>
+                </div>
+            </form>
+            {{-- End Form Export to Excel --}}
+          <br>
 
     {{-- @php
         $id = Auth::user()->id;
@@ -156,6 +159,7 @@
                             <thead>
                             <tr>
                                     <th>No</th>
+                                    <th>Date</th>
                                     <th>Request Dept</th>
                                     <th>Name</th>
                                     <th>To Department</th>
@@ -166,14 +170,13 @@
                                     <th>Shift</th> 
                                     <th>Lot</th>
                                     <th>Line</th>
-                                    <th>Date</th>
                                     <th>Breakdown Time</th>
                                     <th>Report Time</th>
-                                    <th hidden>Sign Spv pd</th>
-                                    <th hidden>Judgement</th>
-                                    <th hidden>Response_time</th>
-                                    <th hidden>Issue</th>
-                                    <th hidden>Root Cause</th>
+                                    <th>Sign Spv pd</th>
+                                    <th>Judgement</th>
+                                    <th>Response_time</th>
+                                    <th>Issue</th>
+                                    <th>Root Cause</th>
                                     <th hidden>Action</th>
                                     <th hidden>Repair Start Time</th>
                                     <th hidden>Repair End Time</th>
@@ -186,7 +189,7 @@
 
 
                                     <th>Status MRR</th>
-                                    <th>View Detail</th>
+                                    {{-- <th>View Detail</th> --}}
                                     {{-- @if(Auth::user()->can('sign.mrrSpv'))
                                         <th>Action Spv PD</th>
                                     @endif
@@ -200,7 +203,7 @@
                                         <th>Edit Mrr</th>
                                     @endif
                                     <th>Correction NTD</th> --}}
-                                    <th>Export to PDF</th>
+                                    {{-- <th>Export to PDF</th> --}}
                             </tr>
                             </thead>
                             <tbody>
@@ -211,7 +214,8 @@
                                     @else
                                 @foreach ($data as $key => $mrr)
                                     <tr>
-                                        <td>{{ $key+1 }}</td>
+                                        <td>{{ $key+1 + ($data->currentPage() - 1) * $data->perPage() }}</td>
+                                        <td class="date">{{ $mrr->Date_pd }}</td>
                                         <td class="request-dept">{{ $mrr->Request_dept }}</td>
                                         <td class="name">{{ $mrr->Name }}</td>
                                         <td class="to_department">{{ $mrr->To_department }}</td>
@@ -222,42 +226,41 @@
                                         <td class="shift">{{ $mrr->shift->shift }}</td>
                                         <td class="lot">{{ $mrr->lot->lot }}</td>
                                         <td class="line">{{ $mrr->line->line }}</td>
-                                        <td class="date">{{ $mrr->Date_pd }}</td>
                                         <td class="breakdown_time">{{ $mrr->Breakdown_time }}</td>
                                         <td class="report_time">{{ $mrr->Report_time }}</td>
                                         {{-- Status Sign Spv Production --}}
                                         @if($mrr->Status_approvals_id_spv_pd == '3')
-                                            <td class="sign_spv_pd" hidden>Pending</td>
+                                            <td class="sign_spv_pd text-secondary">no record</td>
                                         @else
                                             {{-- Nama sign sementara diambil dari kolom Note_spv_pd --}}
-                                            <td class="sign_spv_pd" hidden>{{ $mrr->Note_spv_pd  }}</td>
+                                            <td class="sign_spv_pd">{{ $mrr->Note_spv_pd  }}</td>
                                         @endif
                                         {{-- End Status Sign Spv Production --}}
                                         {{-- Status judgement --}}
                                         @if($mrr->Judgement == '')
-                                            <td class="judgement" hidden><p class="text-secondary">no record</p></td>
+                                            <td class="judgement"><p class="text-secondary">no record</p></td>
                                         @else
-                                            <td class="judgement" hidden>{{ $mrr->Judgement }}</td>
+                                            <td class="judgement">{{ $mrr->Judgement }}</td>
                                         @endif
                                         {{-- End Status judgement --}}
                                         {{-- Status Response_time --}}
                                         @if($mrr->Response_time == '')
-                                            <td class="Response_time" hidden><p class="text-secondary">no record</p></td>
+                                            <td class="Response_time"><p class="text-secondary">no record</p></td>
                                         @else
-                                            <td class="Response_time" hidden>{{ $mrr->Response_time }}</td>
+                                            <td class="Response_time">{{ $mrr->Response_time }}</td>
                                         @endif
                                         {{-- End Status Response_time --}}
                                     
                                         @if($mrr->Issue == '' )
-                                            <td class="issue" hidden><p class="text-secondary">no record</p></td>
+                                            <td class="issue"><p class="text-secondary">no record</p></td>
                                         @else
-                                            <td class="issue" hidden>{{ $mrr->Issue }}</td>
+                                            <td class="issue">{{ $mrr->Issue }}</td>
                                         @endif
 
                                         @if($mrr->Root_cause == '')
-                                            <td class="root_cause" hidden><p class="text-secondary">no record</p></td>
+                                            <td class="root_cause"><p class="text-secondary">no record</p></td>
                                         @else
-                                            <td class="root_cause" hidden>{{ $mrr->Root_cause }}</td>
+                                            <td class="root_cause">{{ $mrr->Root_cause }}</td>
                                         @endif
 
                                         @if($mrr->Action == '')
@@ -321,7 +324,7 @@
                                                 <span class="badge bg-info" style="color: black;"> {{ $mrr->status_mrr }} </span>
                                             @endif
                                         </td>
-                                        <td><button type="button" class="btn btn-inverse-primary btn-xs view-details" data-bs-toggle="modal" data-bs-target="#varyingModal" data-id="'.$mrr->id.'" title="View Detail"><i data-feather="eye" style="width: 16px; height: 16px;"></i></button></td>
+                                        {{-- <td><button type="button" class="btn btn-inverse-primary btn-xs view-details" data-bs-toggle="modal" data-bs-target="#varyingModal" data-id="'.$mrr->id.'" title="View Detail"><i data-feather="eye" style="width: 16px; height: 16px;"></i></button></td> --}}
                                         
                                         {{-- @if(Auth::user()->can('sign.mrrSpv'))
                                             @if($mrr->Status_approvals_id_spv_pd == '3' OR $mrr->Status_approvals_id_spv_pd == '2')
@@ -372,12 +375,12 @@
                                         @else
                                             <td><p class="text-danger">{{ $mrr->Note_spv_ntd }}</p></td>
                                         @endif --}}
-
+{{-- 
                                         @if($mrr->status_mrr == 'incomplete')
                                             <td><p class="text-danger">status mrr not complete</p></td>
                                         @elseif($mrr->status_mrr == 'complete')
                                             <td><a href="{{ route('mrr.export-pdf', $mrr->id ) }}" class="btn btn-inverse-success btn-xs" title="Export-PDF"><i data-feather="download" style="width: 16px; height: 16px;"></i> PDF</a></td>
-                                        @endif
+                                        @endif --}}
                                     </tr>
                                 @endforeach
                                 @endif
@@ -924,6 +927,7 @@
 
 
 <script type="text/javascript">
+
     // Mode QC Accepted
     function openQcAccepted(itemId) {
         // Set the form action dynamically based on the item ID

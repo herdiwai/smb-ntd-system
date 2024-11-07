@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\Mrrequest;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -15,7 +17,18 @@ class AdminController extends Controller
 {
     public function AdminDashboard()
     {
-        return view('admin.index');
+        // Ambil tanggal minggu ini
+        $startOfWeek = Carbon::now()->startOfWeek();
+        $endOfWeek = Carbon::now()->endOfWeek();
+
+        $downtimeData = DB::table('mrrequest')
+        ->select('To_department', DB::raw('SUM(DATEDIFF(MINUTE, Repair_start_time, Repair_end_time)) as total_downtime'))
+        ->whereIn('To_department', ['PIE(NTD)', 'PIE(MT)'])
+        ->whereBetween('created_at', [$startOfWeek, $endOfWeek])
+        ->groupBy('To_department')
+        ->pluck('total_downtime', 'To_department');
+
+        return view('admin.index', compact('downtimeData'));
     }
 
     public function AdminLogout(Request $request)

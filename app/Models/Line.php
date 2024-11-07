@@ -15,4 +15,9 @@ class Line extends Model
     {
         return $this->belongsTo(ECNotice::class,'id');
     }
+
+    public function WorkOrderRecord()
+    {
+        return $this->belongsTo(WorkOrderRequest::class,'id');
+    }
 }

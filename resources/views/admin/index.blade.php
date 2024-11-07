@@ -2,9 +2,22 @@
 @section('admin')
     
 <div class="page-content">
-
-  <h3>Welcome to BTM-<span style="color: orange">SYSTEM</span></h3>
-
+<div class="row">
+  <h3>WELCOME TO BTM-<span style="color: orange">SYSTEM</span></h3>
+</div>
+<br>
+@if(Auth::user()->can('barChart.Mrr'))
+<div class="row">
+  <div class="col-sm-4 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">Chart Downtime <strong class="text-success">PIE(MT)</strong> & <strong class="text-danger">PIE(NTD)</strong></h6>
+        <canvas id="downtimeChart" width="400" height="200"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+@endif
     {{-- <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
       <div>
         <h4 class="mb-3 mb-md-0">Welcome to Dashboard</h4>
@@ -345,5 +358,51 @@
     </div> <!-- row --> --}}
 
 </div>
+
+{{-- <script src="{{ asset('backend/assets/plugins/chartjs/chart.umd.js') }}"></script>p --}}
+
+{{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
+<script>
+
+  // Ambil data downtime dari controller
+  const downtimeData = @json($downtimeData);
+
+  // Siapkan label dan data untuk Chart.js
+  const labels = Object.keys(downtimeData); // ['PIE(NTD)', 'PIE(MT)']
+  const data = Object.values(downtimeData); // [120, 90]
+
+  const ctx = document.getElementById('downtimeChart').getContext('2d');
+  new Chart(ctx, {
+      type: 'pie', // Tipe chart, bisa juga 'pie' atau 'doughnut'
+      data: {
+          labels: labels,
+          datasets: [{
+              label: 'Total Downtime This Week (in minutes)',
+              data: data,
+              backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(255, 99, 132, 0.2)'],
+              borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)'],
+              borderWidth: 1
+          }]
+      },
+      options: {
+          responsive: true,
+          scales: {
+              y: {
+                  beginAtZero: true,
+                  title: {
+                      display: true,
+                      text: 'Downtime (Minutes)'
+                  }
+              },
+              x: {
+                  title: {
+                      display: true,
+                      text: 'Department'
+                  }
+              }
+          }
+      }
+  });
+</script>
 
 @endsection

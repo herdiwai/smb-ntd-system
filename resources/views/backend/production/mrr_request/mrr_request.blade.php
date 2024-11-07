@@ -27,6 +27,7 @@
                             <thead>
                             <tr>
                                     <th>No</th>
+                                    <th>Date</th>
                                     <th>Request Dept</th>
                                     <th>Name</th>
                                     <th>To Department</th>
@@ -37,7 +38,6 @@
                                     <th>Shift</th> 
                                     <th>Lot</th>
                                     <th>Line</th>
-                                    <th>Date</th>
                                     <th>Breakdown Time</th>
                                     <th>Report Time</th>
                                     <th hidden>Sign Spv pd</th>
@@ -85,7 +85,8 @@
                             <tbody>
                                 @foreach ($data as $key => $mrr)
                                     <tr>
-                                        <td>{{ $key+1 }}</td>
+                                        <td>{{ $key+1 + ($data->currentPage() - 1) * $data->perPage() }}</td>
+                                        <td class="date">{{ $mrr->Date_pd }}</td>
                                         <td class="request-dept">{{ $mrr->Request_dept }}</td>
                                         <td class="name">{{ $mrr->Name }}</td>
                                         <td class="to_department">{{ $mrr->To_department }}</td>
@@ -96,7 +97,6 @@
                                         <td class="shift">{{ $mrr->shift->shift }}</td>
                                         <td class="lot">{{ $mrr->lot->lot }}</td>
                                         <td class="line">{{ $mrr->line->line }}</td>
-                                        <td class="date">{{ $mrr->Date_pd }}</td>
                                         <td class="breakdown_time">{{ $mrr->Breakdown_time }}</td>
                                         <td class="report_time">{{ $mrr->Report_time }}</td>
                                         {{-- Status Sign Spv Production --}}
@@ -240,7 +240,7 @@
                                                 <td><p class="text-secondary">nothing to edit</p></td>
                                             @elseif($mrr->Note_spv_ntd == true)
                                                 <td>
-                                                    <a href="" class="btn btn-inverse-warning btn-xs" title="Add Mrr"><i data-feather="edit" style="width: 16px; height: 16px;"></i></a>
+                                                    <a href="{{ route('edit.mrrproduction', $mrr->id ) }}" class="btn btn-inverse-warning btn-xs" title="Edit Mrr"><i data-feather="edit" style="width: 16px; height: 16px;"></i></a>
                                                 </td>
                                             @endif
                                         @endif
@@ -289,13 +289,13 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="qcAcceptedModalLabel">QC Form</h5>
+          <h5 class="modal-title" id="qcAcceptedModalLabel">QC SIGN MRR FORM</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
           {{-- <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"> --}}
             {{-- <span aria-hidden="true">&times;</span> --}}
           </button> 
         </div>
-        <form id="qcFormAccepted" action="" method="POST">
+        <form id="qcFormAccepted" class="myForm" action="" method="POST">
           @csrf
           <div class="modal-body">
 
@@ -401,7 +401,7 @@
             {{-- <span aria-hidden="true">&times;</span> --}}
           </button> 
         </div>
-        <form id="signFormSpv" action="" method="POST">
+        <form id="signFormSpv" class="myForm2" action="" method="POST">
           @csrf
           <div class="modal-body">
 
@@ -875,6 +875,89 @@
             $('.pd_sign').val(_this.find('.pd_sign').text());
             $('.date_pd').val(_this.find('.date_pd').text());
     });
+
+    // Validate form action MRR QC
+    $(document).ready(function (){
+        $('.myForm').validate({
+            rules: {
+                Qc_start_time: {
+                    required : true,
+                },
+                Qc_end_time: {
+                    required : true,
+                },
+                Qc_name_sign: {
+                    required : true,
+                },
+                Date_qc: {
+                    required : true,
+                },
+                Note_qc: {
+                    required : true,
+                },
+                
+            },
+            messages :{
+                Qc_start_time: {
+                    required : 'Please Enter Qc Start Time',
+                },
+                Qc_end_time: {
+                    required : 'Please Enter Qc End Time',
+                },
+                Qc_name_sign: {
+                    required : 'Please Enter Qc Name',
+                },
+                Date_qc: {
+                    required : 'Please Enter Date Qc',
+                },
+                Note_qc: {
+                    required : 'Please Enter Note Qc',
+                },
+                 
+            },
+            errorElement : 'span', 
+            errorPlacement: function (error,element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight : function(element, errorClass, validClass){
+                $(element).addClass('is-invalid');
+            },
+            unhighlight : function(element, errorClass, validClass){
+                $(element).removeClass('is-invalid');
+            },
+        });
+    });
+
+    // Validate form action MRR Spv PD
+    $(document).ready(function (){
+        $('.myForm2').validate({
+            rules: {
+                Note_spv_pd: {
+                    required : true,
+                },
+                
+            },
+            messages :{
+                Note_spv_pd: {
+                    required : 'Please Enter Name',
+                },
+                 
+            },
+            errorElement : 'span', 
+            errorPlacement: function (error,element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight : function(element, errorClass, validClass){
+                $(element).addClass('is-invalid');
+            },
+            unhighlight : function(element, errorClass, validClass){
+                $(element).removeClass('is-invalid');
+            },
+        });
+    });
+
 
 </script>
 
