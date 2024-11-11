@@ -292,7 +292,7 @@
                                                     <i data-feather="check-square" style="width: 16px; height: 16px;"></i> Approved/Rejected
                                                 </button>
                                             </td>
-                                        @elseif($items->status_approvals_id_qe == '' OR $items->status == 'incomplete' OR $items->status_approvals_id_spv == '3')
+                                        @elseif($items->status_approvals_id_qe == '' OR $items->status == 'incomplete' OR $items->status_approvals_id_spv == '3' OR $items->status_approvals_id == '3')
                                             <td><p class="text-warning">waiting review QE-IQC</p></td>
                                         @elseif($items->status_approvals_id_spv == '')
                                             <td>
@@ -437,12 +437,13 @@
             {{-- <span aria-hidden="true">&times;</span> --}}
           </button>
         </div>
-        <form id="approvalFormManager" class="myForm" action="" method="POST">
+        <form id="approvalFormManager" class="myForm1" action="" method="POST">
           @csrf
           <div class="modal-body">
             <div class="form-group">
               <label for="approval_status">Approval Status</label>
               <select name="status_approvals_id" id="approval_status" class="form-control">
+                <option>--status approvals--</option>
                 <option value="1">Approved</option>
                 <option value="2">Rejected</option>
               </select>
@@ -481,13 +482,14 @@
             <div class="form-group">
               <label for="approval_status">Approval Status</label>
               <select name="status_approvals_id_qe" id="approval_status" class="form-control">
+                <option>--select status--</option>
                 <option value="1">Approved</option>
                 <option value="2">Rejected</option>
               </select>
             </div>
             <div class="form-group">
               <label for="notes">Notes</label>
-              <textarea name="notes_qe" id="notes" class="form-control" rows="4" placeholder="Optional"></textarea>
+              <textarea name="notes_qe" id="notes" class="form-control" rows="4" placeholder="if any correction"></textarea>
             </div>
           </div>
           <div class="modal-footer">
@@ -501,7 +503,7 @@
 {{-- END MODAL APPROVALS BY QE--}}
 
 
-{{-- MODAL APPROVALS BY SPV --}}
+{{-- MODAL APPROVALS BY QE-QCA --}}
 <!-- Modal -->
 <div class="modal fade" id="approvalModal" tabindex="-1" role="dialog" aria-labelledby="approvalModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -517,8 +519,10 @@
           @csrf
           <div class="modal-body">
             <div class="form-group">
-              <label for="approval_status">Approval Status</label>
+                {{-- sementara menggunakan column status_approvals_id_spv --}}
+              <label for="approval_status">Approval Status</label> 
               <select name="status_approvals_id_spv" id="approval_status" class="form-control">
+                <option>--select approvals--</option>
                 <option value="1">Approved</option>
                 <option value="2">Rejected</option>
               </select>
@@ -536,7 +540,7 @@
       </div>
     </div>
   </div>
-{{-- END MODAL APPROVALS BY SPV--}}
+{{-- END MODAL APPROVALS BY QE-QCA--}}
 
 
 {{-- MODAL VIEW --}}
@@ -809,18 +813,18 @@
     $(document).ready(function (){
         $('.myForm').validate({
             rules: {
-                notes_qe: {
-                    required : true,
-                },
+                // notes_qe: {
+                //     required : true,
+                // },
                 status_approvals_id_qe: {
                     required : true,
                 },
                 
             },
             messages :{
-                notes_qe: {
-                    required : 'Please Enter Notes',
-                },
+                // notes_qe: {
+                //     required : 'Please Enter Notes',
+                // },
                 status_approvals_id_qe: {
                     required : 'Please Enter Approval Status',
                 },
@@ -841,7 +845,7 @@
     });
 </script>
 
-{{-- Validate Form approvals Spv PD --}}
+{{-- Validate Form approvals QE-QCA --}}
 <script type="text/javascript">
     $(document).ready(function (){
         $('.myForm2').validate({
@@ -849,18 +853,18 @@
                 status_approvals_id_spv: {
                     required : true,
                 },
-                notes_spv: {
-                    required : true,
-                },
+                // notes_spv: {
+                //     required : true,
+                // },
                 
             },
             messages :{
                 status_approvals_id_spv: {
                     required : 'Please Enter Approvals',
                 },
-                notes_spv: {
-                    required : 'Please Enter Notes',
-                },
+                // notes_spv: {
+                //     required : 'Please Enter Notes',
+                // },
                  
             },
             errorElement : 'span', 

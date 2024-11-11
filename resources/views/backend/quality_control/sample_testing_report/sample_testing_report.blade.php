@@ -246,6 +246,39 @@
         $('#correctionModal').modal('show');
     }// End modal Corection Form Requisition
 
+    $(document).ready(function (){
+        $('.myForm').validate({
+            rules: {
+                // notes_qe: {
+                //     required : true,
+                // },
+                status_approvals_id_qe: {
+                    required : true,
+                },
+                
+            },
+            messages :{
+                // notes_qe: {
+                //     required : 'Please Enter Notes',
+                // },
+                status_approvals_id_qe: {
+                    required : 'Please Enter Approval Status',
+                },
+                 
+            },
+            errorElement : 'span', 
+            errorPlacement: function (error,element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight : function(element, errorClass, validClass){
+                $(element).addClass('is-invalid');
+            },
+            unhighlight : function(element, errorClass, validClass){
+                $(element).removeClass('is-invalid');
+            },
+        });
+    });
 
 </script>
 
