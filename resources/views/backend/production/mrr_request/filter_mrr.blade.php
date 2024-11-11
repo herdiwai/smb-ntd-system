@@ -94,8 +94,10 @@
                             <label for="status">status:</label>
                             <select name="status_mrr" id="status_mrr" class="form-control form-control-xs">
                                 <option value="">--select status--</option>
-                                <option value="complete">complete</option>
-                                <option value="incomplete">incomplete</option>
+                                <option value="25">25%</option>
+                                <option value="50">50%</option>
+                                <option value="75">75%</option>
+                                <option value="100">100%</option>
                                 {{-- @foreach($mrr_status as $status_mrrs)
                                     <option value="{{ $status_mrrs }}" {{ old('status') == $status_mrrs ? 'selected' : '' }}>{{ $status_mrrs }}</option>
                                 @endforeach --}}
@@ -177,15 +179,15 @@
                                     <th>Response_time</th>
                                     <th>Issue</th>
                                     <th>Root Cause</th>
-                                    <th hidden>Action</th>
-                                    <th hidden>Repair Start Time</th>
-                                    <th hidden>Repair End Time</th>
-                                    <th hidden>Qc Start Time</th>
-                                    <th hidden>Qc End Time</th>
-                                    <th hidden>Qc Sign</th>
-                                    <th hidden>Date Qc</th>
-                                    <th hidden>PD Sign</th>
-                                    <th hidden>Date PD</th>
+                                    <th>Action</th>
+                                    <th>Repair Start Time</th>
+                                    <th>Repair End Time</th>
+                                    <th>Qc Start Time</th>
+                                    <th>Qc End Time</th>
+                                    <th>Qc Sign</th>
+                                    <th>Date (QC)</th>
+                                    <th>PD Sign</th>
+                                    <th>Date (PD)</th>
 
 
                                     <th>Status MRR</th>
@@ -264,64 +266,78 @@
                                         @endif
 
                                         @if($mrr->Action == '')
-                                            <td class="action" hidden><p class="text-secondary">no record</p></td>
+                                            <td class="action"><p class="text-secondary">no record</p></td>
                                         @else
-                                            <td class="action" hidden>{{ $mrr->Action }}</td>
+                                            <td class="action">{{ $mrr->Action }}</td>
                                         @endif
 
                                         @if($mrr->Repair_start_time == '')
-                                            <td class="repair_start" hidden><p class="text-secondary">no record</p></td>
+                                            <td class="repair_start"><p class="text-secondary">no record</p></td>
                                         @else
-                                            <td class="repair_start" hidden>{{ $mrr->Repair_start_time }}</td>
+                                            <td class="repair_start">{{ $mrr->Repair_start_time }}</td>
                                         @endif
 
                                         @if($mrr->Repair_end_time == '')
-                                            <td class="repair_end" hidden><p class="text-secondary">no record</p></td>
+                                            <td class="repair_end"><p class="text-secondary">no record</p></td>
                                         @else
-                                            <td class="repair_end" hidden>{{ $mrr->Repair_end_time }}</td>
+                                            <td class="repair_end">{{ $mrr->Repair_end_time }}</td>
                                         @endif
 
                                         @if($mrr->Qc_start_time == '')
-                                            <td class="qc_start" hidden><p class="text-secondary">no record</p></td>
+                                            <td class="qc_start"><p class="text-secondary">no record</p></td>
                                         @else
-                                            <td class="qc_start" hidden>{{ $mrr->Qc_start_time }}</td>
+                                            <td class="qc_start">{{ $mrr->Qc_start_time }}</td>
                                         @endif
 
                                         @if($mrr->Qc_end_time == '')
-                                            <td class="qc_end" hidden><p class="text-secondary">no record</p></td>
+                                            <td class="qc_end"><p class="text-secondary">no record</p></td>
                                         @else
-                                            <td class="qc_end" hidden>{{ $mrr->Qc_end_time }}</td>
+                                            <td class="qc_end">{{ $mrr->Qc_end_time }}</td>
                                         @endif
 
                                         @if($mrr->Qc_name_sign == '')
-                                            <td class="qc_sign" hidden><p class="text-secondary">no record</p></td>
+                                            <td class="qc_sign"><p class="text-secondary">no record</p></td>
                                         @else
-                                            <td class="qc_sign" hidden>{{ $mrr->Qc_name_sign }}</td>
+                                            <td class="qc_sign">{{ $mrr->Qc_name_sign }}</td>
                                         @endif
 
                                         @if($mrr->Date_qc == '')
-                                            <td class="date_qc" hidden><p class="text-secondary">no record</p></td>
+                                            <td class="date_qc"><p class="text-secondary">no record</p></td>
                                         @else
-                                            <td class="date_qc" hidden>{{ $mrr->Date_qc }}</td>
+                                            <td class="date_qc">{{ $mrr->Date_qc }}</td>
                                         @endif
 
                                         @if($mrr->Name == '')
-                                            <td class="pd_sign" hidden><p class="text-secondary">no record</p></td>
+                                            <td class="pd_sign"><p class="text-secondary">no record</p></td>
                                         @else
-                                            <td class="pd_sign" hidden>{{ $mrr->Name }}</td>
+                                            <td class="pd_sign">{{ $mrr->Name }}</td>
                                         @endif
 
                                         @if($mrr->Date_pd == '')
-                                            <td class="date_pd" hidden><p class="text-secondary">no record</p></td>
+                                            <td class="date_pd"><p class="text-secondary">no record</p></td>
                                         @else
-                                            <td class="date_pd" hidden>{{ $mrr->Date_pd }}</td>
+                                            <td class="date_pd">{{ $mrr->Date_pd }}</td>
                                         @endif
 
                                         <td>
-                                            @if($mrr->status_mrr == 'incomplete')
-                                                <span class="badge bg-danger" style="color: black;"> {{ $mrr->status_mrr }} </span>
+                                            @if($mrr->status_mrr == '25')
+                                                {{-- <span class="badge bg-danger" style="color: black;"> {{ $mrr->status_mrr }} </span> --}}
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" title="25%"><strong class="text-dark">25%</strong></div>
+                                                </div>
+                                            @elseif($mrr->status_mrr == '50')
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" title="50%"><strong class="text-dark">50%</strong></div>
+                                                </div>
+                                            @elseif($mrr->status_mrr == '75')
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" title="75%"><strong class="text-dark">75%</strong></div>
+                                                </div>
                                             @else
-                                                <span class="badge bg-info" style="color: black;"> {{ $mrr->status_mrr }} </span>
+                                                {{-- <span class="badge bg-info" style="color: black;"> {{ $mrr->status_mrr }} </span> --}}
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" title="100%"><strong class="text-dark">100%</strong></div>
+                                                </div>
                                             @endif
                                         </td>
                                         {{-- <td><button type="button" class="btn btn-inverse-primary btn-xs view-details" data-bs-toggle="modal" data-bs-target="#varyingModal" data-id="'.$mrr->id.'" title="View Detail"><i data-feather="eye" style="width: 16px; height: 16px;"></i></button></td> --}}

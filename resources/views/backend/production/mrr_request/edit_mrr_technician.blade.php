@@ -316,7 +316,7 @@
                                     
                                     <div class="form-group mb-3" id="other_purpose">
                                         <label for="Issue"><b>Issue:</b></label>
-                                        <textarea class="form-control" id="Issue" name="Issue" rows="3" placeholder=""></textarea>
+                                        <textarea class="form-control" id="Issue" name="Issue" rows="3" placeholder="">{{ old('Issue', $mrr_id->Description ) }}</textarea>
                                     </div>
                                     <div class="form-group mb-3" id="other_purpose">
                                         <label for="Root_cause"><b>Root Cause:</b></label>

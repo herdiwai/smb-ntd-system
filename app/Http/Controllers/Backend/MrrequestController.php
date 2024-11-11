@@ -82,7 +82,7 @@ class MrrequestController extends Controller
             'status_mrr' => $request->input('status_mrr'),
         ];
         // Initialize the base query
-        $query = Mrrequest::with('modelBrewer', 'lot')->orderBy('Date_pd', 'asc');
+        $query = Mrrequest::with('modelBrewer', 'lot')->orderBy('Date_pd', 'desc');
 
         // Apply department filter based on logged-in user's email
         if (Auth::check()) {
@@ -169,6 +169,7 @@ class MrrequestController extends Controller
             'Report_time' => $request->Report_time,
             'Status_approvals_id_spv_pd' => 3,
             'Status_approvals_id_qc' => 3,
+            'status_mrr' => 25,
         ]);
 
         $notification = array(
@@ -250,6 +251,7 @@ class MrrequestController extends Controller
             'Repair_end_time' => $request->Repair_end_time,
             'Status_approvals_id_spv_ntd' => $statusForm, //Sementara menggunakan kolom Status_approvals_id_spv_ntd
             'Note_spv_ntd' => $request->Note_spv_ntd, //Sementara menggunakan kolom Note_spv_ntd
+            'status_mrr' => 75,
         ]);
 
         $notification = array(
@@ -269,7 +271,8 @@ class MrrequestController extends Controller
             'Date_qc' => $request->Date_qc,
             'Status_approvals_id_qc' => 1,
             'Note_qc' => $request->Note_qc,
-            'status_mrr' => 'complete',
+            'status_mrr' => 100,
+            // 'status_mrr' => 'complete',
         ]);
         $notification = array(
             'message' => 'MRR Form Request Update Successfully',
@@ -284,6 +287,7 @@ class MrrequestController extends Controller
             'user_id_updated_spv' => Auth::id(),
             'Status_approvals_id_spv_pd' => 1,
             'Note_spv_pd' => $request->Note_spv_pd,
+            'status_mrr' => 50,
         ]);
         $notification = array(
             'message' => 'Sign MRR Form Request Update Successfully',

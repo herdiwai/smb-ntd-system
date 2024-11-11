@@ -189,10 +189,24 @@
                                         @endif
 
                                         <td>
-                                            @if($mrr->status_mrr == 'incomplete')
-                                                <span class="badge bg-danger" style="color: black;"> {{ $mrr->status_mrr }} </span>
+                                            @if($mrr->status_mrr == '25')
+                                                {{-- <span class="badge bg-danger" style="color: black;"> {{ $mrr->status_mrr }} </span> --}}
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" title="25%"><strong class="text-dark">25%</strong></div>
+                                                </div>
+                                            @elseif($mrr->status_mrr == '50')
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" title="50%"><strong class="text-dark">50%</strong></div>
+                                                </div>
+                                            @elseif($mrr->status_mrr == '75')
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" title="75%"><strong class="text-dark">75%</strong></div>
+                                                </div>
                                             @else
-                                                <span class="badge bg-info" style="color: black;"> {{ $mrr->status_mrr }} </span>
+                                                {{-- <span class="badge bg-info" style="color: black;"> {{ $mrr->status_mrr }} </span> --}}
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" title="100%"><strong class="text-dark">100%</strong></div>
+                                                </div>
                                             @endif
                                         </td>
                                         <td><button type="button" class="btn btn-inverse-primary btn-xs view-details" data-bs-toggle="modal" data-bs-target="#varyingModal" data-id="'.$mrr->id.'" title="View Detail"><i data-feather="eye" style="width: 16px; height: 16px;"></i></button></td>
@@ -212,25 +226,25 @@
                                         @if(Auth::user()->can('edit.mrrtechnician'))
                                             @if($mrr->Status_approvals_id_spv_pd == 3)
                                                 <td><p class="text-warning">waiting for spv sign</p></td>
-                                            @elseif($mrr->status_mrr == 'incomplete')
+                                            @elseif($mrr->status_mrr == '50')
                                                 <td>
                                                     <a href="{{ route('edit.mrrtechnician', $mrr->id ) }}" class="btn btn-inverse-warning btn-xs" title="Add Mrr"><i data-feather="edit" style="width: 16px; height: 16px;"></i></a>
                                                 </td>
-                                             @elseif($mrr->status_mrr == 'complete')
+                                             @elseif($mrr->Status_approvals_id_spv_ntd == '1')
                                                 <td><p class="text-success">DONE</p></td>
                                             @endif
                                         @endif
 
                                         @if(Auth::user()->can('sign.mrrQc'))
-                                            @if($mrr->Status_approvals_id_spv_ntd == '' OR $mrr->Status_approvals_id_spv_ntd == 3)
+                                            @if($mrr->Status_approvals_id_spv_ntd == '' OR $mrr->Status_approvals_id_spv_ntd == 3 OR $mrr->Status_approvals_id_spv_ntd == 2)
                                                 <td><p class="text-warning">waiting for ntd/mt sign</p></td>
-                                            @elseif($mrr->status_mrr == 'incomplete')
+                                            @elseif($mrr->Status_approvals_id_qc == '3' OR $mrr->Status_approvals_id_qc == '2' OR $mrr->Status_approvals_id_qc == '')
                                                 <td>
                                                     <button type="button" class="btn btn-inverse-info btn-xs" data-bs-toggle="modal" data-bs-target="#qcAccepted" onclick="openQcAccepted({{ $mrr->id }})" title="Sign">
                                                         <i data-feather="check-square" style="width: 16px; height: 16px;"></i>
                                                     </button>
                                                 </td>
-                                            @elseif($mrr->status_mrr == 'complete')
+                                            @elseif($mrr->Status_approvals_id_qc == 1)
                                                 <td><p class="text-success">DONE</p></td>
                                             @endif
                                         @endif
@@ -261,9 +275,9 @@
                                             @endif
                                         @endif
 
-                                        @if($mrr->status_mrr == 'incomplete')
+                                        @if($mrr->Status_approvals_id_qc == '3' OR $mrr->Status_approvals_id_qc == '2' OR $mrr->Status_approvals_id_qc == '')
                                             <td><p class="text-danger">status mrr not complete</p></td>
-                                        @elseif($mrr->status_mrr == 'complete')
+                                        @elseif($mrr->Status_approvals_id_qc == '1')
                                             <td><a href="{{ route('mrr.export-pdf', $mrr->id ) }}" class="btn btn-inverse-success btn-xs" title="Export-PDF"><i data-feather="download" style="width: 16px; height: 16px;"></i> PDF</a></td>
                                         @endif
                                         
@@ -892,9 +906,6 @@
                 Date_qc: {
                     required : true,
                 },
-                Note_qc: {
-                    required : true,
-                },
                 
             },
             messages :{
@@ -909,9 +920,6 @@
                 },
                 Date_qc: {
                     required : 'Please Enter Date Qc',
-                },
-                Note_qc: {
-                    required : 'Please Enter Note Qc',
                 },
                  
             },
