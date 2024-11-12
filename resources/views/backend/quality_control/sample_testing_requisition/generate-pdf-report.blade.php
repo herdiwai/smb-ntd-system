@@ -247,11 +247,11 @@ body::before, body::after {
         
         <div class="form-row">
             <div class="form-group">
-                <label class="model" for="name">Model</label>
+                <label class="model" for="name">Model :</label>
                 <input type="text" id="name" name="name" value="{{ $sampleRequisition->modelBrewer->model }}">
             </div>
             <div class="form-group">
-                <label class="noofsample" for="name">No of Sample</label>
+                <label class="noofsample" for="name">No of Sample :</label>
                 <input type="text" id="name" name="name" value="{{ $sampleRequisition->no_of_sample }}">
             </div>
             {{-- <div class="form-group">
@@ -267,11 +267,11 @@ body::before, body::after {
 
         <div class="form-row">
             <div class="form-group">
-                <label class="series" for="name">Series</label>
+                <label class="series" for="name">Series :</label>
                 <input type="text" id="name" name="name" value="{{ $sampleRequisition->series }}">
             </div>
             <div class="form-group">
-                <label class="process" for="name">Process</label>
+                <label class="process" for="name">Process :</label>
                 <input type="text" id="name" name="name" value="{{ $sampleRequisition->process->process }}">
             </div>
         </div>
@@ -280,11 +280,11 @@ body::before, body::after {
 
         <div class="form-row">
             <div class="form-group">
-                <label for="name">C/O No</label>
+                <label for="name">C/O No :</label>
                 <input type="text" id="name" name="name" value="{{ $sampleRequisition->co_no }}">
             </div>
             <div class="form-group">
-                <label class="mfg" for="name">MFG Sample Date</label>
+                <label class="mfg" for="name">MFG Sample Date :</label>
                 <input type="text" id="name" name="name" value="{{ $sampleRequisition->mfg_sample_date }}">
             </div>
         </div>
@@ -296,7 +296,7 @@ body::before, body::after {
 
         <div class="form-row">
             <div class="form-group">
-                <label for="name">Sample Submitted (Date)</label>
+                <label for="name">Sample Submitted (Date) :</label>
                 <input class="purposesize" type="text" id="name" name="name" value="{{ $sampleRequisition->sample_subtmitted_date }}">
             </div>
         </div>
@@ -305,7 +305,7 @@ body::before, body::after {
 
         <div class="form-row">
             <div class="form-group">
-                <label class="tracebilitydatecode" for="name">Tracebility (Date Code)</label>
+                <label class="tracebilitydatecode" for="name">Tracebility (Date Code) :</label>
                 <input class="purposesize" type="text" id="name" name="name" value="{{ $sampleRequisition->tracebility_datecode }}">
             </div>
         </div>
@@ -314,7 +314,7 @@ body::before, body::after {
 
         <div class="form-row">
             <div class="form-group">
-                <label class="completiondate" for="name">Completion Date</label>
+                <label class="completiondate" for="name">Completion Date :</label>
                 <input class="purposesize" type="text" id="name" name="name" value="{{ $sampleRequisition->completion_date }}">
             </div>
         </div>
@@ -326,7 +326,7 @@ body::before, body::after {
 
         <div class="form-row">
             <div class="form-group">
-                <label class="testpurpose" for="name">Test Purpose</label>
+                <label class="testpurpose" for="name">Test Purpose :</label>
                 <input class="purposesize" type="text" id="name" name="name" value="{{ $sampleRequisition->testpurpose }}">
             </div>
         </div>
@@ -334,13 +334,13 @@ body::before, body::after {
         <br>
 
         <div class="form-group">
-            <label for="address">Other Purpose/Remarks</label>
+            <label for="address">Other Purpose/Remarks :</label>
             <textarea id="address" name="address">{{ $sampleRequisition->test_purpose }}</textarea>
         </div>
 
         <div class="form-row">
             <div class="form-group">
-                <label class="check_by" for="name">Check By</label>
+                <label class="check_by" for="name">Check By :</label>
                 <input class="check_by" type="text" value="{{ $sampleRequisition->check_by }}">
             </div>
         </div>
@@ -349,7 +349,7 @@ body::before, body::after {
 
         <div class="form-row">
             <div class="form-group">
-                <label class="qereview" for="name">QE Review</label>
+                <label class="qereview" for="name">QE Review :</label>
                 @if($sampleRequisition->status_approvals_id_qe == '1')
                     <input class="qereview" type="text" id="name" name="name" value="Nel Hendri">
                 @else
@@ -357,7 +357,7 @@ body::before, body::after {
                 @endif
             </div>
             <div class="form-group">
-                <label class="regaccepted" for="name">Reg Accepted</label>
+                <label class="regaccepted" for="name">Reg Accepted :</label>
                 <input type="text" id="name" name="name" value="Yes">
             </div>
         </div>
@@ -366,18 +366,18 @@ body::before, body::after {
 
         <div class="form-row">
             <div class="form-group">
-                <label class="scheduletest" for="name">Schedule of Test</label>
+                <label class="scheduletest" for="name">Schedule of Test :</label>
                 <input class="scheduletest" type="text" id="name" name="name" value="{{ $sampleRequisition->sampleReport->schedule_of_test }}">
             </div>
             <div class="form-group">
-                <label class="estcompletiondate" for="name">Est of Completion Date</label>
+                <label class="estcompletiondate" for="name">Est of Completion Date :</label>
                 <input class="estcompletiondate" type="text" id="name" name="name" value="{{ $sampleRequisition->sampleReport->est_of_completion_date }}">
             </div>
         </div>
         <br>
         <div class="form-row">
             <div class="form-group">
-                <label class="test_result" for="name">Test Result:</label>
+                <label class="test_result" for="name">Test Result :</label>
                 <input class="test_result" type="text" value="{{ $sampleRequisition->sampleReport->result_test }}">
             </div>
         </div>
@@ -406,11 +406,11 @@ body::before, body::after {
     
     <div class="form-row">
         <div class="form-group">
-            <label class="model" for="name">Model</label>
+            <label class="model" for="name">Model :</label>
             <input type="text" id="name" name="name" value="{{ $sampleRequisition->modelBrewer->model }}">
         </div>
         <div class="form-group">
-            <label class="noofsample" for="name">No of Sample</label>
+            <label class="noofsample" for="name">No of Sample :</label>
             <input type="text" id="name" name="name" value="{{ $sampleRequisition->no_of_sample }}">
         </div>
         {{-- <div class="form-group">
@@ -426,11 +426,11 @@ body::before, body::after {
 
     <div class="form-row">
         <div class="form-group">
-            <label class="series" for="name">Series</label>
+            <label class="series" for="name">Series :</label>
             <input type="text" id="name" name="name" value="{{ $sampleRequisition->series }}">
         </div>
         <div class="form-group">
-            <label class="process" for="name">Process</label>
+            <label class="process" for="name">Process :</label>
             <input type="text" id="name" name="name" value="{{ $sampleRequisition->process->process }}">
         </div>
     </div>
@@ -439,11 +439,11 @@ body::before, body::after {
 
     <div class="form-row">
         <div class="form-group">
-            <label for="name">C/O No</label>
+            <label for="name">C/O No :</label>
             <input type="text" id="name" name="name" value="{{ $sampleRequisition->co_no }}">
         </div>
         <div class="form-group">
-            <label class="mfg" for="name">MFG Sample Date</label>
+            <label class="mfg" for="name">MFG Sample Date :</label>
             <input type="text" id="name" name="name" value="{{ $sampleRequisition->mfg_sample_date }}">
         </div>
     </div>
@@ -452,7 +452,7 @@ body::before, body::after {
 
     <div class="form-row">
         <div class="form-group">
-            <label for="name">Sample Submitted (Date)</label>
+            <label for="name">Sample Submitted (Date) :</label>
             <input class="purposesize" type="text" id="name" name="name" value="{{ $sampleRequisition->sample_subtmitted_date }}">
         </div>
     </div>
@@ -461,7 +461,7 @@ body::before, body::after {
 
     <div class="form-row">
         <div class="form-group">
-            <label class="tracebilitydatecode" for="name">Tracebility (Date Code)</label>
+            <label class="tracebilitydatecode" for="name">Tracebility (Date Code) :</label>
             <input class="purposesize" type="text" id="name" name="name" value="{{ $sampleRequisition->tracebility_datecode }}">
         </div>
     </div>
@@ -478,25 +478,25 @@ body::before, body::after {
 
     <div class="form-row">
         <div class="form-group">
-            <label class="testpurpose" for="name">Test Purpose</label>
+            <label class="testpurpose" for="name">Test Purpose :</label>
             <input class="purposesize" type="text" id="name" name="name" value="{{ $sampleRequisition->testpurpose }}">
         </div>
     </div>
     <br>
     <div class="form-row">
         <div class="form-group">
-            <label class="test_item" for="name">Test Item</label>
+            <label class="test_item" for="name">Test Item :</label>
             <input class="purposesize" type="text" id="name" name="name" value="{{ $sampleRequisition->test_purpose }}">
         </div>
     </div>
     <br>
     <div class="form-group">
-        <label for="address">Summary</label>
+        <label for="address">Summary :</label>
         <textarea id="address" name="address">Before : {{ $sampleRequisition->test_purpose }}</textarea>
     </div>
     <br>
     <div class="form-group">
-        <label for="address">Summary</label>
+        <label for="address">Summary :</label>
         <textarea id="address" name="address">After : {{ $sampleRequisition->sampleReport->summary_after }}</textarea>
     </div>
 
@@ -577,11 +577,11 @@ body::before, body::after {
 
     <div class="form-row">
         <div class="form-group">
-            <label class="result" for="name">Result</label>
+            <label class="result" for="name">Result :</label>
                 <input class="result" type="text" id="name" name="name" value="{{ $sampleRequisition->sampleReport->result_test }}">
         </div>
         <div class="form-group">
-            <label class="remark" for="name">Remark</label>
+            <label class="remark" for="name">Remark :</label>
             <input class="remark" type="text" id="name" name="name" value="{{ $sampleRequisition->sampleReport->remark_test }}">
         </div>
     </div>
@@ -590,33 +590,33 @@ body::before, body::after {
 
     <div class="form-row">
         <div class="form-group">
-            <label class="inspector" for="name">Inspector</label>
+            <label class="inspector" for="name">Inspector :</label>
             <input class="inspector" type="text" id="name" name="name" value="{{ $sampleRequisition->sampleReport->inspector }}">
         </div>
         <div class="form-group">
-            <label class="date" for="name">Date</label>
+            <label class="date" for="name">Date :</label>
             <input class="date" type="text" id="name" name="name" value="{{ $sampleRequisition->sampleReport->date }}">
         </div>
     </div>
     <br>
     <div class="form-row">
         <div class="form-group">
-            <label class="review" for="name">Review</label>
-            <input class="review" type="text" id="name" name="name" value="Dian">
+            <label class="review" for="name">Review :</label>
+            <input class="review" type="text" id="name" name="name" value="Shelma">
         </div>
         <div class="form-group">
-            <label class="date" for="name">Date</label>
+            <label class="date" for="name">Date :</label>
             <input class="date" type="text" id="name" name="name" value="{{ $sampleRequisition->sampleReport->date }}">
         </div>
     </div>
 <br>
     <div class="form-row">
         <div class="form-group">
-            <label class="approved" for="name">Approved</label>
+            <label class="approved" for="name">Approved :</label>
             <input class="approved" type="text" id="name" name="name" value="Andri">
         </div>
         <div class="form-group">
-            <label class="date" for="name">Date</label>
+            <label class="date" for="name">Date :</label>
             <input class="date" type="text" id="name" name="name" value="{{ $sampleRequisition->sampleReport->date }}">
         </div>
     </div>

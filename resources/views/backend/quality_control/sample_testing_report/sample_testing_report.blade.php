@@ -22,10 +22,11 @@
                                     <th>Doc.No</th>
                                     <th>Series</th>
                                     <th>No of samples</th>
-                                    <th>status report</th>
-                                    <th>status review QE-IQC</th>
-                                    <th>status review QE-QCA</th>
-                                    <th>Status Approvals Manager</th>
+                                    {{-- <th>status report</th> --}}
+                                    {{-- <th>status review QE-IQC</th> --}}
+                                    {{-- <th>status review QE-QCA</th> --}}
+                                    {{-- <th>Status Approvals Manager</th> --}}
+                                    <th>Status Sample</th>
                                     <th>Action Corection Form Requisition</th>
                                     <th>Action Report</th>
                                     <th>Edit Report</th>
@@ -161,21 +162,25 @@
                         data: 'no_of_sample',
                         name: 'no_of_sample',
                     },
+                    // {
+                    //     data: 'status_report',
+                    //     name: 'status_report',
+                    // },
+                    // {
+                    //     data: 'status_review_qe_iqc',
+                    //     name: 'status_review_qe_iqc',
+                    // },
+                    // {
+                    //     data: 'status_review_qe_qca',
+                    //     name: 'status_review_qe_qca',
+                    // },
+                    // {
+                    //     data: 'status_approvals',
+                    //     name: 'status_approvals',
+                    // },
                     {
-                        data: 'status_report',
-                        name: 'status_report',
-                    },
-                    {
-                        data: 'status_review_qe_iqc',
-                        name: 'status_review_qe_iqc',
-                    },
-                    {
-                        data: 'status_review_qe_qca',
-                        name: 'status_review_qe_qca',
-                    },
-                    {
-                        data: 'status_approvals',
-                        name: 'status_approvals',
+                        data: 'status_sample',
+                        name: 'status_sample',
                     },
                     {
                         data: 'action_correction',
@@ -246,6 +251,39 @@
         $('#correctionModal').modal('show');
     }// End modal Corection Form Requisition
 
+    $(document).ready(function (){
+        $('.myForm').validate({
+            rules: {
+                // notes_qe: {
+                //     required : true,
+                // },
+                status_approvals_id_qe: {
+                    required : true,
+                },
+                
+            },
+            messages :{
+                // notes_qe: {
+                //     required : 'Please Enter Notes',
+                // },
+                status_approvals_id_qe: {
+                    required : 'Please Enter Approval Status',
+                },
+                 
+            },
+            errorElement : 'span', 
+            errorPlacement: function (error,element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight : function(element, errorClass, validClass){
+                $(element).addClass('is-invalid');
+            },
+            unhighlight : function(element, errorClass, validClass){
+                $(element).removeClass('is-invalid');
+            },
+        });
+    });
 
 </script>
 

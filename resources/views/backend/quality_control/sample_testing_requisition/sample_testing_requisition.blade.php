@@ -187,6 +187,7 @@
                                     @if(Auth::user()->can('column.action.approvalsQE'))
                                         <th>action approvals QE-IQC</th>
                                     @endif
+                                    <th>Status Sample</th>
                                     <th>View Details</th>
                                     @if(Auth::user()->can('edit.testingrequisition'))
                                         <th>Action</th>
@@ -292,7 +293,7 @@
                                                     <i data-feather="check-square" style="width: 16px; height: 16px;"></i> Approved/Rejected
                                                 </button>
                                             </td>
-                                        @elseif($items->status_approvals_id_qe == '' OR $items->status == 'incomplete' OR $items->status_approvals_id_spv == '3')
+                                        @elseif($items->status_approvals_id_qe == '' OR $items->status == 'incomplete' OR $items->status_approvals_id_spv == '3' OR $items->status_approvals_id == '3')
                                             <td><p class="text-warning">waiting review QE-IQC</p></td>
                                         @elseif($items->status_approvals_id_spv == '')
                                             <td>
@@ -357,7 +358,30 @@
                                         @endif
                                         @endif
                                         {{-- End button approvals by QE --}}
-
+                                        <td>
+                                            @if($items->pilot_project == '20')
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" title="20%"><strong class="text-dark">20%</strong></div>
+                                                </div>
+                                            @elseif($items->pilot_project == '40')
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" title="40%"><strong class="text-dark">40%</strong></div>
+                                                </div>
+                                            @elseif($items->pilot_project == '60')
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" title="60%"><strong class="text-dark">60%</strong></div>
+                                                </div>
+                                            @elseif($items->pilot_project == '80')
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" title="80%"><strong class="text-dark">80%</strong></div>
+                                                </div>
+                                            @else
+                                                {{-- <span class="badge bg-info" style="color: black;"> {{ $mrr->status_mrr }} </span> --}}
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" title="100%"><strong class="text-dark">100%</strong></div>
+                                                </div>
+                                            @endif
+                                        </td>
                                         {{-- Button view details --}}
                                         <td><button type="button" class="btn btn-inverse-primary btn-xs view-details" data-bs-toggle="modal" data-bs-target="#varyingModal" data-id="'.$items->id.'" title="View Detail"><i data-feather="eye" style="width: 16px; height: 16px;"></i></button></td>
                                         {{-- End button view details --}}
@@ -437,12 +461,13 @@
             {{-- <span aria-hidden="true">&times;</span> --}}
           </button>
         </div>
-        <form id="approvalFormManager" class="myForm" action="" method="POST">
+        <form id="approvalFormManager" class="myForm1" action="" method="POST">
           @csrf
           <div class="modal-body">
             <div class="form-group">
               <label for="approval_status">Approval Status</label>
               <select name="status_approvals_id" id="approval_status" class="form-control">
+                <option>--status approvals--</option>
                 <option value="1">Approved</option>
                 <option value="2">Rejected</option>
               </select>
@@ -463,7 +488,7 @@
 {{-- END MODAL APPROVALS BY MANAGER--}}
 
 
-{{-- MODAL APPROVALS BY QE --}}
+{{-- MODAL APPROVALS BY QE-IQC --}}
 <!-- Modal -->
 <div class="modal fade" id="approvalModalQe" tabindex="-1" role="dialog" aria-labelledby="approvalModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -481,13 +506,14 @@
             <div class="form-group">
               <label for="approval_status">Approval Status</label>
               <select name="status_approvals_id_qe" id="approval_status" class="form-control">
+                <option>--select status--</option>
                 <option value="1">Approved</option>
                 <option value="2">Rejected</option>
               </select>
             </div>
             <div class="form-group">
               <label for="notes">Notes</label>
-              <textarea name="notes_qe" id="notes" class="form-control" rows="4" placeholder="Optional"></textarea>
+              <textarea name="notes_qe" id="notes" class="form-control" rows="4" placeholder="if any correction"></textarea>
             </div>
           </div>
           <div class="modal-footer">
@@ -501,7 +527,7 @@
 {{-- END MODAL APPROVALS BY QE--}}
 
 
-{{-- MODAL APPROVALS BY SPV --}}
+{{-- MODAL APPROVALS BY QE-QCA --}}
 <!-- Modal -->
 <div class="modal fade" id="approvalModal" tabindex="-1" role="dialog" aria-labelledby="approvalModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -517,8 +543,10 @@
           @csrf
           <div class="modal-body">
             <div class="form-group">
-              <label for="approval_status">Approval Status</label>
+                {{-- sementara menggunakan column status_approvals_id_spv --}}
+              <label for="approval_status">Approval Status</label> 
               <select name="status_approvals_id_spv" id="approval_status" class="form-control">
+                <option>--select approvals--</option>
                 <option value="1">Approved</option>
                 <option value="2">Rejected</option>
               </select>
@@ -536,7 +564,7 @@
       </div>
     </div>
   </div>
-{{-- END MODAL APPROVALS BY SPV--}}
+{{-- END MODAL APPROVALS BY QE-QCA--}}
 
 
 {{-- MODAL VIEW --}}
@@ -809,18 +837,18 @@
     $(document).ready(function (){
         $('.myForm').validate({
             rules: {
-                notes_qe: {
-                    required : true,
-                },
+                // notes_qe: {
+                //     required : true,
+                // },
                 status_approvals_id_qe: {
                     required : true,
                 },
                 
             },
             messages :{
-                notes_qe: {
-                    required : 'Please Enter Notes',
-                },
+                // notes_qe: {
+                //     required : 'Please Enter Notes',
+                // },
                 status_approvals_id_qe: {
                     required : 'Please Enter Approval Status',
                 },
@@ -841,7 +869,7 @@
     });
 </script>
 
-{{-- Validate Form approvals Spv PD --}}
+{{-- Validate Form approvals QE-QCA --}}
 <script type="text/javascript">
     $(document).ready(function (){
         $('.myForm2').validate({
@@ -849,18 +877,18 @@
                 status_approvals_id_spv: {
                     required : true,
                 },
-                notes_spv: {
-                    required : true,
-                },
+                // notes_spv: {
+                //     required : true,
+                // },
                 
             },
             messages :{
                 status_approvals_id_spv: {
                     required : 'Please Enter Approvals',
                 },
-                notes_spv: {
-                    required : 'Please Enter Notes',
-                },
+                // notes_spv: {
+                //     required : 'Please Enter Notes',
+                // },
                  
             },
             errorElement : 'span', 
