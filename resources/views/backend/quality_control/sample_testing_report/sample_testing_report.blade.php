@@ -22,10 +22,11 @@
                                     <th>Doc.No</th>
                                     <th>Series</th>
                                     <th>No of samples</th>
-                                    <th>status report</th>
-                                    <th>status review QE-IQC</th>
-                                    <th>status review QE-QCA</th>
-                                    <th>Status Approvals Manager</th>
+                                    {{-- <th>status report</th> --}}
+                                    {{-- <th>status review QE-IQC</th> --}}
+                                    {{-- <th>status review QE-QCA</th> --}}
+                                    {{-- <th>Status Approvals Manager</th> --}}
+                                    <th>Status Sample</th>
                                     <th>Action Corection Form Requisition</th>
                                     <th>Action Report</th>
                                     <th>Edit Report</th>
@@ -161,21 +162,25 @@
                         data: 'no_of_sample',
                         name: 'no_of_sample',
                     },
+                    // {
+                    //     data: 'status_report',
+                    //     name: 'status_report',
+                    // },
+                    // {
+                    //     data: 'status_review_qe_iqc',
+                    //     name: 'status_review_qe_iqc',
+                    // },
+                    // {
+                    //     data: 'status_review_qe_qca',
+                    //     name: 'status_review_qe_qca',
+                    // },
+                    // {
+                    //     data: 'status_approvals',
+                    //     name: 'status_approvals',
+                    // },
                     {
-                        data: 'status_report',
-                        name: 'status_report',
-                    },
-                    {
-                        data: 'status_review_qe_iqc',
-                        name: 'status_review_qe_iqc',
-                    },
-                    {
-                        data: 'status_review_qe_qca',
-                        name: 'status_review_qe_qca',
-                    },
-                    {
-                        data: 'status_approvals',
-                        name: 'status_approvals',
+                        data: 'status_sample',
+                        name: 'status_sample',
                     },
                     {
                         data: 'action_correction',

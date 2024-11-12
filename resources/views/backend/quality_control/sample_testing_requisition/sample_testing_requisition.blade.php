@@ -187,6 +187,7 @@
                                     @if(Auth::user()->can('column.action.approvalsQE'))
                                         <th>action approvals QE-IQC</th>
                                     @endif
+                                    <th>Status Sample</th>
                                     <th>View Details</th>
                                     @if(Auth::user()->can('edit.testingrequisition'))
                                         <th>Action</th>
@@ -357,7 +358,30 @@
                                         @endif
                                         @endif
                                         {{-- End button approvals by QE --}}
-
+                                        <td>
+                                            @if($items->pilot_project == '20')
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" title="20%"><strong class="text-dark">20%</strong></div>
+                                                </div>
+                                            @elseif($items->pilot_project == '40')
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" title="40%"><strong class="text-dark">40%</strong></div>
+                                                </div>
+                                            @elseif($items->pilot_project == '60')
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" title="60%"><strong class="text-dark">60%</strong></div>
+                                                </div>
+                                            @elseif($items->pilot_project == '80')
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" title="80%"><strong class="text-dark">80%</strong></div>
+                                                </div>
+                                            @else
+                                                {{-- <span class="badge bg-info" style="color: black;"> {{ $mrr->status_mrr }} </span> --}}
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" title="100%"><strong class="text-dark">100%</strong></div>
+                                                </div>
+                                            @endif
+                                        </td>
                                         {{-- Button view details --}}
                                         <td><button type="button" class="btn btn-inverse-primary btn-xs view-details" data-bs-toggle="modal" data-bs-target="#varyingModal" data-id="'.$items->id.'" title="View Detail"><i data-feather="eye" style="width: 16px; height: 16px;"></i></button></td>
                                         {{-- End button view details --}}
@@ -464,7 +488,7 @@
 {{-- END MODAL APPROVALS BY MANAGER--}}
 
 
-{{-- MODAL APPROVALS BY QE --}}
+{{-- MODAL APPROVALS BY QE-IQC --}}
 <!-- Modal -->
 <div class="modal fade" id="approvalModalQe" tabindex="-1" role="dialog" aria-labelledby="approvalModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

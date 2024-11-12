@@ -42,43 +42,63 @@ class SampleTestingReportContoller extends Controller
             ->addColumn('no_of_sample', function($testingrequisition) {
                 return $testingrequisition->no_of_sample;
             })
-            ->addColumn('status_report', function($testingrequisition) {
-                // Logika jika status_report incomplete & complete
-                if($testingrequisition->status == 'incomplete') {
-                    return '<span class="badge bg-danger" style="color: black;">incomplete</span>';
-                }else {
-                    return '<span class="badge bg-info" style="color: black;">complete</span>';
-                }
-            })
+            // ->addColumn('status_report', function($testingrequisition) {
+            //     // Logika jika status_report incomplete & complete
+            //     if($testingrequisition->status == 'incomplete') {
+            //         return '<span class="badge bg-danger" style="color: black;">incomplete</span>';
+            //     }else {
+            //         return '<span class="badge bg-info" style="color: black;">complete</span>';
+            //     }
+            // })
             // status review by QE-IQC
-            ->addColumn('status_review_qe_iqc', function($testingrequisition) {
-                if($testingrequisition->status_approvals_id_qe == '3' OR $testingrequisition->status_approvals_id_qe == ''){
-                    return '<span class="badge bg-warning" style="color: black;">pending</span>';
-                }elseif($testingrequisition->status_approvals_id_qe == '2'){
-                    return '<span class="badge bg-danger" style="color: black;">rejected</span>';
-                }elseif($testingrequisition->status_approvals_id_qe == '1'){
-                    return '<span class="badge bg-primary" style="color: black;">review</span>';
-                }
-            })
+            // ->addColumn('status_review_qe_iqc', function($testingrequisition) {
+            //     if($testingrequisition->status_approvals_id_qe == '3' OR $testingrequisition->status_approvals_id_qe == ''){
+            //         return '<span class="badge bg-warning" style="color: black;">pending</span>';
+            //     }elseif($testingrequisition->status_approvals_id_qe == '2'){
+            //         return '<span class="badge bg-danger" style="color: black;">rejected</span>';
+            //     }elseif($testingrequisition->status_approvals_id_qe == '1'){
+            //         return '<span class="badge bg-primary" style="color: black;">review</span>';
+            //     }
+            // })
 
             // status review by QE-QCA
-            ->addColumn('status_review_qe_qca', function($testingrequisition) {
-                if($testingrequisition->status_approvals_id_spv == '3'){
-                    return '<span class="badge bg-warning" style="color: black;">pending</span>';
-                }elseif($testingrequisition->status_approvals_id_spv == '2') {
-                    return '<span class="badge bg-danger" style="color: black;">rejected</span>';
-                }else{
-                    return '<span class="badge bg-primary" style="color: black;">review</span>';
-                }
-            })
+            // ->addColumn('status_review_qe_qca', function($testingrequisition) {
+            //     if($testingrequisition->status_approvals_id_spv == '3'){
+            //         return '<span class="badge bg-warning" style="color: black;">pending</span>';
+            //     }elseif($testingrequisition->status_approvals_id_spv == '2') {
+            //         return '<span class="badge bg-danger" style="color: black;">rejected</span>';
+            //     }else{
+            //         return '<span class="badge bg-primary" style="color: black;">review</span>';
+            //     }
+            // })
             //status approvals by manager
-            ->addColumn('status_approvals', function($testingrequisition) {
-                if($testingrequisition->statusApprovals->status == 'pending'){
-                    return '<span class="badge bg-warning" style="color: black;">'.$testingrequisition->statusApprovals->status.'</span>';
-                }elseif($testingrequisition->statusApprovals->status == 'rejected') {
-                    return '<span class="badge bg-danger" style="color: black;">'.$testingrequisition->statusApprovals->status.'</span>';
-                }else{
-                    return '<span class="badge bg-success" style="color: black;">'.$testingrequisition->statusApprovals->status.'</span>';
+            // ->addColumn('status_approvals', function($testingrequisition) {
+            //     if($testingrequisition->statusApprovals->status == 'pending'){
+            //         return '<span class="badge bg-warning" style="color: black;">'.$testingrequisition->statusApprovals->status.'</span>';
+            //     }elseif($testingrequisition->statusApprovals->status == 'rejected') {
+            //         return '<span class="badge bg-danger" style="color: black;">'.$testingrequisition->statusApprovals->status.'</span>';
+            //     }else{
+            //         return '<span class="badge bg-success" style="color: black;">'.$testingrequisition->statusApprovals->status.'</span>';
+            //     }
+            // })
+            //status sample testing requisition and Report
+            ->addColumn('status_sample', function($testingrequisition) {
+                if($testingrequisition->pilot_project == '20'){
+                    return '<div class="progress">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger text-dark" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" title="20%">'.$testingrequisition->pilot_project.'%'.'</div>
+                            </div>';
+                }elseif($testingrequisition->pilot_project == '40') {
+                    return '<div class="progress">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning text-dark" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" title="40%">'.$testingrequisition->pilot_project.'%'.'</div>
+                            </div>';
+                }elseif($testingrequisition->pilot_project == '60'){
+                    return '<div class="progress">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary text-dark" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" title="60%">'.$testingrequisition->pilot_project.'%'.'</div>
+                            </div>';
+                }elseif($testingrequisition->pilot_project == '100'){
+                    return '<div class="progress">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-success text-dark" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" title="100%">'.$testingrequisition->pilot_project.'%'.'</div>
+                            </div>';
                 }
             })
             // If any correction form Inspector LifeTest
@@ -93,7 +113,7 @@ class SampleTestingReportContoller extends Controller
             })
             // Added sampple teting report from sample testing requisition
             ->addColumn('action_report', function($testingrequisition) {
-                if($testingrequisition->status_approvals_id_qe == '3') {
+                if($testingrequisition->status_approvals_id_qe == '3' OR $testingrequisition->status_approvals_id_qe == '2') {
                     return '<p class="text-danger">unchecked by qe iqc</p>';
                 }elseif($testingrequisition->status == 'complete' OR $testingrequisition->status == 'complete'){
                     return '<p class="text-success">report completed</p>';
@@ -149,7 +169,7 @@ class SampleTestingReportContoller extends Controller
             })
 
             // Added column here, if any relation with HTML
-            ->rawColumns(['status_report','status_approvals','action_report','action','status_review_qe_iqc','status_review_qe_qca','notes_qe_qca','action_correction','edit_report','notes_correction'])
+            ->rawColumns(['status_sample','action_report','action','notes_qe_qca','action_correction','edit_report','notes_correction'])
             ->make(true);
         }
 
@@ -222,6 +242,7 @@ class SampleTestingReportContoller extends Controller
         $requisition = SampleTestingRequisition::findOrFail($testinggetid);
         $requisition->update([
             'status' => 'complete',
+            'pilot_project' => 60,
             // 'sample_testing_reports_id' => $testinggetid,
         ]);
 

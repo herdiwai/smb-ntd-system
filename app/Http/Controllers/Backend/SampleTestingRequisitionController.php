@@ -455,6 +455,7 @@ class SampleTestingRequisitionController extends Controller
             'status_approvals_id' => 3,
             'status_approvals_id_spv' => 3,
             'status_approvals_id_qe' => 3,
+            'pilot_project' => 20,
         ]);
         if ($request->filled('test_purpose')) {
             $selecttestpurpose[] = $request->input('test_purpose');
@@ -520,12 +521,13 @@ class SampleTestingRequisitionController extends Controller
     }
 
 
-    // Approvals Spv Sample Requisition
+    // Approvals Spv Sample Requisition (QE-QCA)
     public function UpdateApprovalsSpv(Request $request,$id)
     {
         SampleTestingRequisition::findOrFail($id)->update([
             'status_approvals_id_spv' => $request->status_approvals_id_spv,
             'notes_spv' => $request->notes_spv,
+            'pilot_project' => 80,
         ]);
         // dd($id, $request->all());
         $notification = array(
@@ -534,12 +536,13 @@ class SampleTestingRequisitionController extends Controller
         );
         return redirect()->route('qualitycontrol.sampletestingrequisition')->with($notification);
     }
-    // Approvals QE Sample Requisition
+    // Approvals QE-IQC Sample Requisition
     public function UpdateApprovalsQe(Request $request,$id)
     {
         SampleTestingRequisition::findOrFail($id)->update([
             'status_approvals_id_qe' => $request->status_approvals_id_qe,
             'notes_qe' => $request->notes_qe,
+            'pilot_project' => 40,
         ]);
         // dd($id, $request->all());
         $notification = array(
@@ -555,6 +558,7 @@ class SampleTestingRequisitionController extends Controller
         SampleTestingRequisition::findOrFail($id)->update([
             'status_approvals_id' => $request->status_approvals_id,
             'notes_manager' => $request->notes_manager,
+            'pilot_project' => 100,
         ]);
         // dd($id, $request->all());
         $notification = array(
