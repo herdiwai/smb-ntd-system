@@ -196,11 +196,11 @@
                                                 </div>
                                             @elseif($mrr->status_mrr == '50')
                                                 <div class="progress">
-                                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" title="50%"><strong class="text-dark">50%</strong></div>
+                                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" title="50%"><strong class="text-dark">50%</strong></div>
                                                 </div>
                                             @elseif($mrr->status_mrr == '75')
                                                 <div class="progress">
-                                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" title="75%"><strong class="text-dark">75%</strong></div>
+                                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" title="75%"><strong class="text-dark">75%</strong></div>
                                                 </div>
                                             @else
                                                 {{-- <span class="badge bg-info" style="color: black;"> {{ $mrr->status_mrr }} </span> --}}
