@@ -153,5 +153,9 @@ License: For each use you must have a valid license purchased only from above li
 		<script src="{{ asset('backend/assets/js/data-table.js') }}"></script>
 		<!-- End DataTables -->
 
+		<script src="{{ asset('backend/assets/vendors/flatpickr/flatpickr.min.js') }}"></script>
+
+		<script src="{{ asset('backend/assets/js/flatpickr.js') }}"></script>
+
 	</body>
 </html>    

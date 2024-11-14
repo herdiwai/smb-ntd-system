@@ -227,7 +227,11 @@
                                                 <label for="date_pd" class="col-form-label col-form-label-sm"><b>Date</b></label>
                                             </div>
                                             <div class="col">
-                                                <input type="date" class="form-control form-control-sm" name="Date_pd" id="date_pd" >
+                                                {{-- <input type="date" class="form-control form-control-sm" name="Date_pd" id="date_pd" > --}}
+                                                <div class="input-group flatpickr" id="flatpickr-date">
+                                                    <input type="text" name="Date_pd" class="form-control" placeholder="--select date--" data-input>
+                                                    <span class="input-group-text input-group-addon" data-toggle><i data-feather="calendar"></i></span>
+                                                  </div>
                                             </div>
                                         </div>
                                     </div>

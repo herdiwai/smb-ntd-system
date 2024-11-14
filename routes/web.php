@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\ProcessController;
 use App\Http\Controllers\Backend\ProcessModelController;
 use App\Http\Controllers\Backend\SubAssyProcessPatrolController;
 use App\Http\Controllers\Backend\EngineeringChangeNotice;
+use App\Http\Controllers\Backend\EquipmentController;
 use App\Http\Controllers\Backend\ReviewApprovalController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\SampleTestingReportContoller;
@@ -341,6 +342,24 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
         Route::get('/delete/workorder/{id}', 'DeleteWorkOrder' )->name('delete.workorder');
         Route::get('/filter-workorder', 'filterWorkOrder' )->name('filter.workorder');
         Route::post('/workorder/export', 'WOExcel' )->name('workorder.export-excel');
+          
+    });
+});
+
+// Equipment Name
+Route::middleware(['auth', 'roles:admin'])->group(function() {
+
+    Route::controller(EquipmentController::class)->group(function(){
+        Route::get('/ntd/equipment', 'EquipmentNtd' )->name('ntd.equipment');
+        Route::post('/add/equipment', 'EquipmentAdd' )->name('add.equipment');
+        // Route::post('/add/workorder', 'StoreWorkOrder' )->name('post.WorkOrder');
+        // Route::get('/store/workorder/{id}', 'EditWOTechnician' )->name('edit.wotechnician');
+        // Route::post('/store/workordertechnician/{id}', 'StoreWOTechnician' )->name('store.wotechnician');
+        // Route::post('/update/spv/{id}', 'UpdateSpv' )->name('update.spv');
+        // Route::get('/wo/{id}/export-pdf', 'WOPdf' )->name('wo.export-pdf');
+        // Route::get('/delete/workorder/{id}', 'DeleteWorkOrder' )->name('delete.workorder');
+        // Route::get('/filter-workorder', 'filterWorkOrder' )->name('filter.workorder');
+        // Route::post('/workorder/export', 'WOExcel' )->name('workorder.export-excel');
           
     });
 });

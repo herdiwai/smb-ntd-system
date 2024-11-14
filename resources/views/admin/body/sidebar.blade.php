@@ -578,6 +578,24 @@
           </li>
           @endif
 
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents5" role="button" aria-expanded="false" aria-controls="uiComponents5">
+              <i class="link-icon" data-feather="table"></i>
+              <span class="link-title">Equipement</span>
+              <i class="link-arrow" data-feather="chevron-down"></i>
+            </a>
+            <div class="collapse" id="uiComponents5">
+              <ul class="nav sub-menu">
+                <li class="nav-item">
+                  <a href="{{ route('ntd.equipment') }}" class="nav-link">All Table</a>
+                </li>
+                <li class="nav-item">
+                  <a href="pages/ui-components/alerts.html" class="nav-link">Add</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+
 
         @if(Auth::user()->can('role&permission.menu'))
 
