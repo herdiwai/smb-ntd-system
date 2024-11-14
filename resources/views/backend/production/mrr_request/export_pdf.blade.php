@@ -248,41 +248,41 @@
 
     <table>
         <tr>
-            <td><strong>Request (Dept) <strong style="text-align: right; margin-left: 70px;">:</strong></strong></td>
+            <td><strong>REQUEST (Dept) <strong style="text-align: right; margin-left: 59px;">:</strong></strong></td>
             <td class="border1">{{ $data->Request_dept }}</td>
-            <td><strong>Model<strong style="text-align: right; margin-left: 124px;">:</strong></strong></td>
+            <td><strong>MODEL<strong style="text-align: right; margin-left: 115px;">:</strong></strong></td>
             <td class="border1">{{ $data->modelBrewer->model }}</td>
         </tr>
         <tr>
-            <td><strong>Name<strong style="text-align: right; margin-left: 126px;">:</strong></strong></td>
+            <td><strong>NAME<strong style="text-align: right; margin-left: 123px;">:</strong></strong></td>
             <td class="border1">{{ $data->Name }}</td>
-            <td><strong>Shift<strong style="text-align: right; margin-left: 132px;">:</strong></td>
+            <td><strong>SHIFT<strong style="text-align: right; margin-left: 123px;">:</strong></td>
             <td class="border1">{{ $data->shift->shift }}</td>
         </tr>
         <tr>
-            <td><strong>To Department<strong style="text-align: right; margin-left: 74px;">:</strong></td>
+            <td><strong>TO DEPARTMENT<strong style="text-align: right; margin-left: 55px;">:</strong></td>
             <td class="border1">{{ $data->To_department }}</td>
-            <td><strong>Lot<strong style="text-align: right; margin-left: 140px;">:</strong></td>
+            <td><strong>LOT<strong style="text-align: right; margin-left: 134px;">:</strong></td>
             <td class="border1">{{ $data->lot->lot }}</td>
         </tr>
         <tr>
-            <td><strong>Process<strong style="text-align: right; margin-left: 112px;">:</strong></strong></td>
+            <td><strong>PROCESS<strong style="text-align: right; margin-left: 100px;">:</strong></strong></td>
             <td class="border1">{{ $data->equipmentNo->Equipment_Name }}</td>
-            <td><strong>Line<strong style="text-align: right; margin-left: 134px;">:</strong></td>
+            <td><strong>LINE<strong style="text-align: right; margin-left: 131px;">:</strong></td>
             <td class="border1">{{ $data->line->line }}</td>
         </tr>
         <tr>
-            <td><strong>Equip. No<strong style="text-align: right; margin-left: 102px;">:</strong></td>
+            <td><strong>EQUIP. NO<strong style="text-align: right; margin-left: 96px;">:</strong></td>
             <td class="border1">{{ $data->equipmentNo->Equipment_Number }}</td>
-            <td><strong>Date<strong style="text-align: right; margin-left: 133px;">:</strong></td>
+            <td><strong>DATE<strong style="text-align: right; margin-left: 126px;">:</strong></td>
             <td class="border1">{{ $data->Date_pd }}</td>
         </tr>
         <tr>
             {{-- <td><strong>Breakdown Time</strong></td>
             <td class="border1">{{ $data->Breakdown_time }}</td> --}}
-            <td><strong>Sign (SPV)<strong style="text-align: right; margin-left: 97px;">:</strong></td>
+            <td><strong>SIGN (SPV)<strong style="text-align: right; margin-left: 94px;">:</strong></td>
             <td class="border1">{{ $data->Note_spv_pd }}</td>
-            <td><strong>Report Time<strong style="text-align: right; margin-left: 89px;">:</strong></td>
+            <td><strong>REPORT TIME<strong style="text-align: right; margin-left: 77px;">:</strong></td>
             <td class="border2">{{ $data->Report_time }}</td>
         </tr>
         {{-- <tr>
@@ -293,7 +293,7 @@
 
     <table>
           <tr>
-            <td><strong>Description<strong style="text-align: right; margin-left: 92px;">:</strong></td>
+            <td><strong>DESCRIPTION<strong style="text-align: right; margin-left: 77px;">:</strong></td>
             <textarea style="margin-left: -171px;">{{ $data->Description }}</textarea>
         </tr>
     </table>
@@ -310,38 +310,38 @@
             <td class="border1">{{ $data->Response_time }}</td>
         </tr> --}}
         <tr>
-            <td><strong>Issue<strong style="text-align: right; margin-left: 128px;">:</strong></td>
+            <td><strong>ISSUE<strong style="text-align: right; margin-left: 123px;">:</strong></td>
             <textarea class="border1">{{ $data->Issue }}</textarea>
             {{-- <td><strong>Repair Start Time</strong></td>
             <td class="border1">{{ $data->Repair_start_time }}</td> --}}
         </tr>
         <tr>
-            <td><strong>Root Cause<strong style="text-align: right; margin-left: 92px;">:</strong></td>
+            <td><strong>ROOT CAUSE<strong style="text-align: right; margin-left: 79px;">:</strong></td>
             <textarea class="border1">{{ $data->Root_cause }}</textarea>
             {{-- <td><strong>Repair End Time</strong></td>
             <td class="border1">{{ $data->Repair_end_time }}</td> --}}
         </tr>
         <tr>
-            <td><strong>Action<strong style="text-align: right; margin-left: 121px;">:</strong></td>
+            <td><strong>ACTION<strong style="text-align: right; margin-left: 113px;">:</strong></td>
             <textarea class="border1">{{ $data->Action }}</textarea>
             
         </tr>
         <tr>
-            <td><strong>Response Time<strong style="text-align: right; margin-left: 70px;">:</strong></td>
+            <td><strong>RESPONSE TIME<strong style="text-align: right; margin-left: 60px;">:</strong></td>
             <td class="border1">{{ $data->Response_time }}</td>
-            <td><strong>Repair Start Time<strong style="text-align: right; margin-left: 59px;">:</strong></td>
+            <td><strong>REPAIR START TIME<strong style="text-align: right; margin-left: 38px;">:</strong></td>
             <td class="border1">{{ $data->Repair_start_time }}</td>
         </tr>
         <tr>
-            <td><strong>Repair By*<strong style="text-align: right; margin-left: 98px;">:</strong></td>
+            <td><strong>REPAIR BY*<strong style="text-align: right; margin-left: 88px;">:</strong></td>
             <td class="border1">{{ $data->Repair_by }}</td>
-            <td><strong>Repair End Time<strong style="text-align: right; margin-left: 63px;">:</strong></td>
+            <td><strong>REPAIR END TIME<strong style="text-align: right; margin-left: 53px;">:</strong></td>
             <td class="border1">{{ $data->Repair_end_time }}</td>
         </tr>
         <tr>
-            <td><strong>QC Start Time<strong style="text-align: right; margin-left: 78px;">:</strong></td>
+            <td><strong>QC START TIME<strong style="text-align: right; margin-left: 65px;">:</strong></td>
             <td class="border1">{{ $data->Qc_start_time }}</td>
-            <td><strong>QC End Time<strong style="text-align: right; margin-left: 83px;">:</strong></td>
+            <td><strong>QC END TIME<strong style="text-align: right; margin-left: 80px;">:</strong></td>
             <td class="border1">{{ $data->Qc_end_time }}</td>
         </tr>
     </table>
@@ -351,15 +351,15 @@
             <th colspan="4" class="section-title">FINAL ACCEPTED BY</th>
         </tr>
         <tr>
-            <td><strong>QC Sign<strong style="text-align: right; margin-left: 111px;">:</strong></td>
+            <td><strong>QC SIGN<strong style="text-align: right; margin-left: 108px;">:</strong></td>
             <td class="border1">{{ $data->Qc_name_sign }}</td>
-            <td><strong>Date / Time<strong style="text-align: right; margin-left: 95px;">:</strong></td>
+            <td><strong>DATE / TIME<strong style="text-align: right; margin-left: 87px;">:</strong></td>
             <td class="border1">{{ $data->Date_qc }}</td>
         </tr>
         <tr>
-            <td><strong>PD Sign<strong style="text-align: right; margin-left: 113px;">:</strong></td>
+            <td><strong>PD SIGN<strong style="text-align: right; margin-left: 109px;">:</strong></td>
             <td class="border1">{{ $data->Name }}</td>
-            <td><strong>Date / Time<strong style="text-align: right; margin-left: 95px;">:</strong></td>
+            <td><strong>DATE / TIME<strong style="text-align: right; margin-left: 87px;">:</strong></td>
             <td class="border1">{{ $data->Date_pd }}</td>
         </tr>
         {{-- <tr>
