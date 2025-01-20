@@ -21,9 +21,9 @@ return new class extends Migration
             $table->string('End_time')->nullable();
             $table->string('Date_booking')->nullable();
             $table->string('Status_booking')->nullable();
-            $table->foreignId('room_meeting_id')->constrained()->onDelete('cascade'); // Relasi to table room_meeting
+            $table->foreignId('room_meeting_id')->nullable()->change();// Relasi to table room_meeting
+            $table->foreignId('user_id_personel')->nullable()->change();// Relasi to table users
             $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Relasi to table users
-            $table->foreignId('user_id_personel')->nullable()->constrained(); // Relasi to table users
             $table->string('Note_personel')->nullable();
             $table->timestamps();
         });

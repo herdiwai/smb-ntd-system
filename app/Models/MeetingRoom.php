@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class MeetingRoom extends Model
 {
     use HasFactory;
-    protected $table = 'room_meetings';
+    protected $table = 'booking_meeting_room';
     protected $fillable = [
         'Booking_number_id',
         'Name',
@@ -22,6 +22,12 @@ class MeetingRoom extends Model
         'user_id',
         'user_id_personel',
         'Note_personel',
+        'choose_meeting_room',
         ];
-
+    
+    public function MeetingRoomList()
+    {
+        return $this->hasOne(MeetingRoomList::class);
+    }
+    
 }

@@ -8,6 +8,8 @@ use App\Models\Shift;
 use App\Models\Lot;
 use App\Models\Line;
 use App\Models\MeetingRoom;
+use App\Models\MeetingRoomList;
+use Illuminate\Support\Facades\Auth;
 
 class MeetingRoomController extends Controller
 {
@@ -27,8 +29,31 @@ class MeetingRoomController extends Controller
         $lot = Lot::all();
         $line = Line::all();
         $bookedrequest =  MeetingRoom::latest()->paginate(10); 
+        $room_list = MeetingRoomList::all();
          // Mengambil semua inspeksi beserta item inspeksi terkait
-        return view('backend.personel.meeting_room.meeting_reservation_form', compact('bookedrequest','shift','line','lot'));
+        return view('backend.personel.meeting_room.add_meeting_reservation_form', compact('bookedrequest','shift','line','lot','room_list'));
+    }
+
+    public function StoreBookedMeetingRoom(Request $request) 
+    {
+        MeetingRoom::create([
+            'user_id' => Auth::id(),
+            'Name' => $request->Name,
+            'Department' => $request->Department,
+            'Description' => $request->Description,
+            'Start_time' => $request->Start_time,
+            'End_time' => $request->End_time,
+            'Date_booking' => $request->Date_booking,
+            'choose_meeting_room' => $request->choose_meeting_room,
+            'room_meeting_id' => $request->room_meeting_id,
+            'Status_booking' => 50,
+        ]);
+
+        $notification = array(
+            'message' => 'Booked Request Form Create Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('personel.meetingroomlist')->with($notification);
     }
 
     public function AddDetailApprove()
