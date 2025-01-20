@@ -30,7 +30,11 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-
+                                        @foreach ($bookedrequest as $key => $booked)
+                                        <td>1</td>
+                                        <td>{{ $booked->created_at }}</td>
+                                            <td>{{ $booked->Name }}</td>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

@@ -371,6 +371,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
     Route::controller(MeetingRoomController::class)->group(function(){
         Route::get('/meetingroomlist', 'MeetingRoomList' )->name('personel.meetingroomlist');
         Route::get('/request/meetingroom', 'AddBookedMeetingRoom' )->name('request.bookedmeetingroom');
+        Route::post('/store/request-meetingroom', 'StoreBookedMeetingRoom' )->name('store.request.meetingroom');
         Route::get('/add/detailapprove', 'AddDetailApprove' )->name('add.detailapprove');
         // Route::post('/add/workorder', 'StoreWorkOrder' )->name('post.WorkOrder');
         // Route::post('/store/workordertechnician/{id}', 'StoreWOTechnician' )->name('store.wotechnician');

@@ -43,9 +43,8 @@ class MeetingRoomController extends Controller
             'Description' => $request->Description,
             'Start_time' => $request->Start_time,
             'End_time' => $request->End_time,
-            'Date_booking' => $request->Date_booking,
+            // 'Date_booking' => $request->Date_booking,
             'choose_meeting_room' => $request->choose_meeting_room,
-            'room_meeting_id' => $request->room_meeting_id,
             'Status_booking' => 50,
         ]);
 
