@@ -369,9 +369,8 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
 Route::middleware(['auth', 'roles:admin'])->group(function() {
 
     Route::controller(MeetingRoomController::class)->group(function(){
-        Route::get('/personel/meetingroomlist', 'MeetingRoomList' )->name('personel.meetingroomlist');
-        Route::get('/add/meetingroom', 'AddBookedMeetingRoom' )->name('add.bookedmeetingroom');
-        Route::get('/add/approvemeetingroom', 'AddApproveMeetingRoom' )->name('add.approvemeetingroom');
+        Route::get('/meetingroomlist', 'MeetingRoomList' )->name('personel.meetingroomlist');
+        Route::get('/request/meetingroom', 'AddBookedMeetingRoom' )->name('request.bookedmeetingroom');
         Route::get('/add/detailapprove', 'AddDetailApprove' )->name('add.detailapprove');
         // Route::post('/add/workorder', 'StoreWorkOrder' )->name('post.WorkOrder');
         // Route::post('/store/workordertechnician/{id}', 'StoreWOTechnician' )->name('store.wotechnician');

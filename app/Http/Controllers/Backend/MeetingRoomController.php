@@ -31,18 +31,6 @@ class MeetingRoomController extends Controller
         return view('backend.personel.meeting_room.meeting_reservation_form', compact('bookedrequest','shift','line','lot'));
     }
 
-    public function AddApproveMeetingRoom()
-    {
-        $shift = Shift::all();
-        $lot = Lot::all();
-        $line = Line::all();
-        $bookedrequest =  MeetingRoom::latest()->paginate(10); 
-         // Mengambil semua inspeksi beserta item inspeksi terkait
-        return view('backend.personel.meeting_room.personel_approve_form', compact('bookedrequest','shift','line','lot'));
-    }
-
-    
-
     public function AddDetailApprove()
     {
         $shift = Shift::all();
@@ -52,4 +40,7 @@ class MeetingRoomController extends Controller
          // Mengambil semua inspeksi beserta item inspeksi terkait
         return view('backend.personel.meeting_room.detail_approve_form', compact('bookedrequest','shift','line','lot'));
     }
+
+    
+
 }

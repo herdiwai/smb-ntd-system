@@ -503,13 +503,9 @@
             </li>
             {{-- @if(Auth::user()->can('add.Mrr')) --}}
             <li class="nav-item">
-              <a href="{{ route('add.bookedmeetingroom') }}" class="nav-link">Reservation Room</a>
+              <a href="{{ route('request.bookedmeetingroom') }}" class="nav-link">Reservation Room</a>
             </li>
             {{-- @endif --}}
-
-            <li class="nav-item">
-              <a href="{{ route('add.approvemeetingroom') }}" class="nav-link">Personel Approve </a>
-            </li>
 
             <li class="nav-item">
               <a href="{{ route('add.detailapprove') }}" class="nav-link">Detail Approval </a>
