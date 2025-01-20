@@ -108,8 +108,11 @@
 
 
                         <div class="d-flex justify-content-center">
-                            <button class="btn btn-primary btn-sm" type="submit">
-                                <i data-feather="send" style="width: 16px; height: 16px;"></i> Approve
+                            <button class="btn btn-primary btn-sm me-2" type="submit">
+                                <i data-feather="send" style="width: 16px; height: 16px;"></i><b>Approve</b>
+                            </button>
+                            <button type="button" class="btn btn-inverse-danger btn-xs" data-bs-toggle="modal" data-bs-target="#rejectModalBooking" onclick="openRejectBooking" title="Sign">
+                                <i data-feather="check-square" style="width: 16px; height: 16px;"></i><b>Reject</b>
                             </button>
                         </div>
 
@@ -117,7 +120,59 @@
                     </form>
                 </div>
             </div>
+
+            {{-- MODAL REJECT BOOKING --}}
+            <div class="modal fade" id="rejectModalBooking" tabindex="-1" role="dialog" aria-labelledby="rejectModalBookingModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="rejectModalBookingModalLabel">Status Reject Booking Form</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
+                        </div>
+                        <form id="rejectFormBooking" class="myForm2" action="" method="POST">
+                            @csrf
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12 mb-3">
+                                        <div class="form-group">
+                                            <div class="form-row align-items-center">
+                                                <div class="col-sm">
+                                                    <label for="Note_spv_pd" class="col-form-label col-form-label-sm"><b>Noted:</b></label>
+                                                </div>
+                                                <div class="col">
+                                                    <textarea class="form-control form-control-sm" name="status_booking_room" id="status_booking_room" rows="2"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
+                                <button type="submit" class="btn btn-inverse-info btn-xs"><i data-feather="send" style="width: 16px; height: 16px;"></i> Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            {{-- END MODAL REJECT BOOKING--}}
+            </div>
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    // Mode Sign Spv Production
+    function openRejectBooking(itemId) {
+        // Set the form action dynamically based on the item ID
+        var actionUrl = "{{ route('update.signspv', ':id') }}";
+        actionUrl = actionUrl.replace(':id', itemId);
+        $('#rejectFormBooking').attr('action', actionUrl);
+        // Optionally reset the form fields when modal is opened
+        // $('#approval_status').val('approved'); // default status
+        // $('#notes').val('');
+        
+        // Show the modal
+        $('#rejectModalBooking').modal('show');
+    }
+</script>
 @endsection

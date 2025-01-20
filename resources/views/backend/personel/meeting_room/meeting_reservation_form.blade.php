@@ -75,6 +75,13 @@
                             </div>
                         </div>
 
+                        <style>
+                            .text-danger {
+                                color: red;
+                                font-weight: bold;
+                            }
+                        </style>
+
                         <div class="row">
                             <div class="col-md-12 mb-3">
                                 <div class="form-group">
@@ -83,19 +90,15 @@
                                             <label class="col-form-label col-form-label-sm"><b>Choose Meeting Room:</b></label>
                                         </div>
                                         <div class="col-8">
-                                            <div class="form-check mb-2">
-                                                <input class="form-check-input" type="checkbox" value="option1" id="option1" name="options[]">
-                                                <label class="form-check-label" for="option1">B | Room 1 | GF | Internal & External</label>
-                                            </div>
-                                            <div class="form-check mb-2">
-                                                <input class="form-check-input" type="checkbox" value="option2" id="option2" name="options[]">
-                                                <label class="form-check-label" for="option2">C | Room 1 | GF | Internal & External</label>
-                                            </div>
-                                            <div class="form-check mb-2">
-                                                <input class="form-check-input" type="checkbox" value="option3" id="option3" name="options[]">
-                                                <label class="form-check-label" for="option3">C | Room 2 | GF | Internal & External</label>
-                                            </div>
-                                            
+
+                                            <select id="Meeting_room" name="Meeting_room" class="form-select form-select-sm">
+                                                <option value="">--select meeting room--</option>
+                                                {{-- @foreach ($rooms as $room)
+                                                    <option value="{{ $room->id }}">
+                                                        {{ $room->name }} - Capacity: {{ $room->capacity }} - {{ $room->location }}
+                                                    </option>
+                                                @endforeach --}}
+                                            </select>                 
                                         </div>
                                     </div>
                                 </div>
