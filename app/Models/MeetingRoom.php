@@ -25,9 +25,9 @@ class MeetingRoom extends Model
         'choose_meeting_room',
         ];
     
-    public function MeetingRoomList()
+    public function meetingroom()
     {
-        return $this->hasOne(MeetingRoomList::class);
+        return $this->hasOne(MeetingRoomList::class,'id');
     }
     
 }

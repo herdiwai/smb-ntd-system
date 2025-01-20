@@ -22,18 +22,34 @@
                                             <th>Requested Dept</th>
                                             <th>Name</th>
                                             <th>Description</th>
-                                            <th>Lot</th>
-                                            <th>Room.No</th>
-                                            <th>Location</th>
-                                            <th>Usage</th>
+                                            <th>Start Time</th>
+                                            <th>End Time</th>
+                                            <th>Room Detail</th>
                                             <th>Status</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($bookedrequest as $key => $booked)
-                                        <td>1</td>
-                                        <td>{{ $booked->created_at }}</td>
+                                        <tr>
+                                            <td>{{ $key+1 }}</td>
+                                            <td>{{ $booked->Date_booking }}</td>
+                                            <td>{{ $booked->Department }}</td>
                                             <td>{{ $booked->Name }}</td>
+                                            <td>{{ $booked->Description }}</td>
+                                            <td>{{ $booked->Start_time }}</td>
+                                            <td>{{ $booked->End_time }}</td>
+                                            <td>
+                                                {{ $booked->meetingroom->Lot }} |
+                                                {{ $booked->meetingroom->Room_no }} |
+                                                {{ $booked->meetingroom->Location }} |
+                                                {{ $booked->meetingroom->Usage }}
+                                            </td>
+                                            <td></td>
+                                            <td>
+                                                <a href="{{ route('add.detailapprove', $booked->id ) }}" class="btn btn-inverse-primary btn-xs" title="Approval"><i data-feather="arrow-up-circle" style="width: 16px; height: 20px;"></i></a>
+                                            </td>
+                                        <tr>
                                         @endforeach
                                     </tbody>
                                 </table>

@@ -15,7 +15,7 @@
                                 <div class="form-group">
                                     <div class="row align-items-center">
                                         <div class="col-4">
-                                            <label for="request_name" class="col-form-label col-form-label-sm"><b>Name:</b></label>
+                                            <label for="request_name" class="col-form-label col-form-label-sm"><b>NAME:</b></label>
                                         </div>
                                         <div class="col-8">
                                             <input type="text" class="form-control form-control-sm" id="request_name" name="Name">
@@ -30,10 +30,16 @@
                                 <div class="form-group">
                                     <div class="row align-items-center">
                                         <div class="col-4">
-                                            <label for="request_dept" class="col-form-label col-form-label-sm"><b>Department:</b></label>
+                                            <label for="request_dept" class="col-form-label col-form-label-sm"><b>DEPARTMENT:</b></label>
                                         </div>
                                         <div class="col-8">
-                                            <input type="text" class="form-control form-control-sm" id="request_dept" name="Department">
+                                            <select id="department" name="Department" class="form-select form-select-sm">
+                                                <option value="">--select department--</option>
+                                                @foreach($department as $departments)
+                                                    <option value="{{ $departments }}" {{ old('department') == $departments ? 'selected' : '' }}>{{ $departments }}</option>
+                                                @endforeach
+                                            </select>
+                                            {{-- <input type="text" class="form-control form-control-sm" id="request_dept" name="Department"> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -45,10 +51,29 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-4">
-                                            <label for="description" class="col-form-label col-form-label-sm"><b>Meeting Description:</b></label>
+                                            <label for="description" class="col-form-label col-form-label-sm"><b>MEETING DESCRIPTION:</b></label>
                                         </div>
                                         <div class="col-8">
                                             <textarea class="form-control form-control-sm" name="Description" id="description" rows="2"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <div class="form-group">
+                                    <div class="row align-items-center">
+                                        <div class="col-4">
+                                            <label for="date_booking" class="col-form-label col-form-label-sm"><b>DATE BOOKING:</b></label>
+                                        </div>
+                                        <div class="col-8">
+                                            <div class="input-group flatpickr" id="flatpickr-date">
+                                                <input type="text" name="Date_booking" class="form-control" placeholder="--select date--" data-input>
+                                                <span class="input-group-text input-group-addon" data-toggle><i data-feather="calendar"></i></span>
+                                              </div>
+                                            {{-- <input type="date" class="form-control form-control-sm" id="request_dept" name="Date_booking"> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -97,16 +122,40 @@
                                                     <option value="{{ $lots->id }}">{{ $lots->lot }}</option>
                                                 @endforeach
                                             </select> --}}
-
                                             <select id="Meeting_room" name="choose_meeting_room" class="form-select form-select-sm">
+                                                @foreach ($rooms as $room)
+                                                    <option value="{{ $room->id }}" 
+                                                        {{ in_array($room->id, $unavailableRoomIds) ? 'disabled' : '' }}>
+                                                        {{ $room->Lot }} | {{ $room->Room_no }} | {{ $room->Location }} | {{ $room->Usage }} {{ in_array($room->id, $unavailableRoomIds) ? '(Unavailable)' : '' }}
+                                                    </option>
+                                                @endforeach
+                                             </select>
+                                            {{-- @foreach ($rooms as $room)
+                                                <option value="{{ $room->id }}" 
+                                                    {{ in_array($room->id, $unavailableRoomIds) ? 'disabled' : '' }}>
+                                                    {{ $room->name }} {{ in_array($room->id, $unavailableRoomIds) ? '(Unavailable)' : '' }}
+                                                </option>
+                                            @endforeach --}}
+
+
+                                            {{-- <select id="Meeting_room" name="choose_meeting_room" class="form-select form-select-sm">
                                                 <option value="">--select meeting room--</option>
                                                 @foreach($room_list as $room_meeting_list)
                                                     <option value="{{ $room_meeting_list->id }}">{{ $room_meeting_list->Lot }} | {{ $room_meeting_list->Room_no }} | {{ $room_meeting_list->Location }} | {{ $room_meeting_list->Usage }}</option>
                                                 @endforeach
-                                            </select>                 
+                                            </select>                  --}}
+                                
                                         </div>
+                                        
                                     </div>
+                                    
                                 </div>
+                                
+                            </div>
+                            <div class="d-flex justify-content-right">
+                                <button class="btn btn-primary btn-sm" type="submit">
+                                    <i data-feather="send" style="width: 16px; height: 16px;"></i> Booking Submit
+                                </button>
                             </div>
                         </div>
 
@@ -140,12 +189,7 @@
                         
 
 
-                        <div class="d-flex justify-content-center">
-                            <button class="btn btn-primary btn-sm" type="submit">
-                                <i data-feather="send" style="width: 16px; height: 16px;"></i> Booking Submit
-                            </button>
-                        </div>
-
+                        
                         
                         
 

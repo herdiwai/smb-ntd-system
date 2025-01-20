@@ -507,9 +507,9 @@
             </li>
             {{-- @endif --}}
 
-            <li class="nav-item">
+            {{-- <li class="nav-item">
               <a href="{{ route('add.detailapprove') }}" class="nav-link">Detail Approval </a>
-            </li>
+            </li> --}}
 
           <li class="nav-item">
             <a href="{{ route('filter.mrr') }}" class="nav-link">Filter MRR</a>
