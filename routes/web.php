@@ -19,6 +19,7 @@ use App\Http\Controllers\PDHourlyOutputController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Backend\SuggestionSchemeReport;
 use App\Http\Controllers\Backend\FacilityWorkOrder;
+use App\Http\Controllers\Backend\MeetingRoomController;
 use App\Models\SampleTestingReport;
 use Illuminate\Support\Facades\Route;
 
@@ -354,6 +355,25 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
         Route::post('/add/equipment', 'EquipmentAdd' )->name('add.equipment');
         // Route::post('/add/workorder', 'StoreWorkOrder' )->name('post.WorkOrder');
         // Route::get('/store/workorder/{id}', 'EditWOTechnician' )->name('edit.wotechnician');
+        // Route::post('/store/workordertechnician/{id}', 'StoreWOTechnician' )->name('store.wotechnician');
+        // Route::post('/update/spv/{id}', 'UpdateSpv' )->name('update.spv');
+        // Route::get('/wo/{id}/export-pdf', 'WOPdf' )->name('wo.export-pdf');
+        // Route::get('/delete/workorder/{id}', 'DeleteWorkOrder' )->name('delete.workorder');
+        // Route::get('/filter-workorder', 'filterWorkOrder' )->name('filter.workorder');
+        // Route::post('/workorder/export', 'WOExcel' )->name('workorder.export-excel');
+          
+    });
+});
+
+// Personel Meeting room
+Route::middleware(['auth', 'roles:admin'])->group(function() {
+
+    Route::controller(MeetingRoomController::class)->group(function(){
+        Route::get('/personel/meetingroomlist', 'MeetingRoomList' )->name('personel.meetingroomlist');
+        Route::get('/add/meetingroom', 'AddBookedMeetingRoom' )->name('add.bookedmeetingroom');
+        Route::get('/add/approvemeetingroom', 'AddApproveMeetingRoom' )->name('add.approvemeetingroom');
+        Route::get('/add/detailapprove', 'AddDetailApprove' )->name('add.detailapprove');
+        // Route::post('/add/workorder', 'StoreWorkOrder' )->name('post.WorkOrder');
         // Route::post('/store/workordertechnician/{id}', 'StoreWOTechnician' )->name('store.wotechnician');
         // Route::post('/update/spv/{id}', 'UpdateSpv' )->name('update.spv');
         // Route::get('/wo/{id}/export-pdf', 'WOPdf' )->name('wo.export-pdf');
