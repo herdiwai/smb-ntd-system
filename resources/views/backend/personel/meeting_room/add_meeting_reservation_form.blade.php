@@ -123,6 +123,7 @@
                                                 @endforeach
                                             </select> --}}
                                             <select id="Meeting_room" name="choose_meeting_room" class="form-select form-select-sm">
+                                                <option value="">--select meeting room--</option>
                                                 @foreach ($rooms as $room)
                                                     <option value="{{ $room->id }}" 
                                                         {{ in_array($room->id, $unavailableRoomIds) ? 'disabled' : '' }}>

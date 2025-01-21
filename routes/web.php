@@ -20,6 +20,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Backend\SuggestionSchemeReport;
 use App\Http\Controllers\Backend\FacilityWorkOrder;
 use App\Http\Controllers\Backend\MeetingRoomController;
+use App\Http\Controllers\Backend\MeetingRoomListController;
 use App\Models\SampleTestingReport;
 use Illuminate\Support\Facades\Route;
 
@@ -373,13 +374,23 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
         Route::get('/request/meetingroom', 'AddBookedMeetingRoom' )->name('request.bookedmeetingroom');
         Route::post('/store/request-meetingroom', 'StoreBookedMeetingRoom' )->name('store.request.meetingroom');
         Route::get('/add/detailapprove/{id}', 'AddDetailApprove' )->name('add.detailapprove');
+        Route::get('/delete-booked/{id}', 'deleteBooked' )->name('delete.booked');
         // Route::post('/add/workorder', 'StoreWorkOrder' )->name('post.WorkOrder');
         // Route::post('/store/workordertechnician/{id}', 'StoreWOTechnician' )->name('store.wotechnician');
         // Route::post('/update/spv/{id}', 'UpdateSpv' )->name('update.spv');
-        // Route::get('/wo/{id}/export-pdf', 'WOPdf' )->name('wo.export-pdf');
-        // Route::get('/delete/workorder/{id}', 'DeleteWorkOrder' )->name('delete.workorder');
-        // Route::get('/filter-workorder', 'filterWorkOrder' )->name('filter.workorder');
-        // Route::post('/workorder/export', 'WOExcel' )->name('workorder.export-excel');
+          
+    });
+});
+
+// Room Meeting Controller
+Route::middleware(['auth', 'roles:admin'])->group(function() {
+
+    Route::controller(MeetingRoomListController::class)->group(function(){
+        Route::get('/room-list', 'index' )->name('room.list');
+        Route::get('/add-meetingroom', 'addRoomMeeting' )->name('add.meetingroom');
+        Route::post('/store/meetingroom', 'storeMeetingRoom' )->name('store.meetingroom');
+        // Route::get('/add/detailapprove/{id}', 'AddDetailApprove' )->name('add.detailapprove');
+        // Route::post('/add/workorder', 'StoreWorkOrder' )->name('post.WorkOrder');
           
     });
 });

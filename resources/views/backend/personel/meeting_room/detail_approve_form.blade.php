@@ -100,7 +100,22 @@
                                             <label class="col-form-label col-form-label-sm"><b>Meeting Room:</b></label>
                                         </div>
                                         <div class="col-6">
-                                            <label for="description" class="col-form-label col-form-label-sm"><b>C | Room 1 | GF | Internal & External</b></label>
+                                            <select id="department" name="Choose_meeting_room" class="form-select form-select-sm">
+                                                {{-- <input type="text" value="{{ old('meetingroom', $bookedrequestid->meetingroom->Lot) }}" name="Date_booking" id="" class="form-control" placeholder="Select date" required /> --}}
+                                                @foreach($rooms as $room)
+                                                    <option value="{{ $room->id }}" {{ $room->id ==  old('Choose_meeting_room', $bookedrequestid->choose_meeting_room) ? 'selected' : '' }}>
+                                                        {{ $bookedrequestid->meetingroom->Lot }} | {{ $bookedrequestid->meetingroom->Room_no }} | {{ $bookedrequestid->meetingroom->Location }} | {{ $bookedrequestid->meetingroom->Usage }}
+                                                    </option>
+                                                @endforeach
+
+                                                {{-- @foreach ($rooms as $room)
+                                                    <option value="{{ $room->id }}" 
+                                                        {{ $room->id == $bookedrequestid->room_id ? 'selected' : '' }}>
+                                                        {{ $room->Lot }} | {{ $room->Room_no }} | {{ $room->Location }} | {{ $room->Usage }}
+                                                    </option>
+                                                @endforeach --}}
+                                            {{-- <label for="description" class="col-form-label col-form-label-sm"><b>C | Room 1 | GF | Internal & External</b></label> --}}
+                                            </select>
                                         </div>
                                         
                                     </div>

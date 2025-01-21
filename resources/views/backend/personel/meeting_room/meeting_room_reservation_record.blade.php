@@ -45,9 +45,12 @@
                                                 {{ $booked->meetingroom->Location }} |
                                                 {{ $booked->meetingroom->Usage }}
                                             </td>
-                                            <td></td>
                                             <td>
-                                                <a href="{{ route('add.detailapprove', $booked->id ) }}" class="btn btn-inverse-primary btn-xs" title="Approval"><i data-feather="arrow-up-circle" style="width: 16px; height: 20px;"></i></a>
+                                                <p class="text-warning">{{ $booked->Status_booking }}</p>
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('add.detailapprove', $booked->id ) }}" class="btn btn-inverse-primary btn-xs" title="Approval"><i data-feather="activity" style="width: 16px; height: 20px;"></i></a>
+                                                <a href="{{ route('delete.booked', $booked->id ) }}" class="btn btn-inverse-danger btn-xs" title="Delete Mrr"><i data-feather="trash-2" style="width: 16px; height: 16px;"></i></a>
                                             </td>
                                         <tr>
                                         @endforeach

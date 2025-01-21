@@ -52,8 +52,20 @@ class MeetingRoomController extends Controller
         //     'end_time' => 'required|date|after:start_time',
         // ]);
 
+        // Buat incomming_number (kode urut)
+        $lastCode = MeetingRoom::latest()->first();
+        if (!$lastCode) {
+            // jika tidak ada code sebelumnya, mulai dari angka 1
+            $autoCode = 'MR-0001';
+        } else {
+            // Ambil code terakhir dan tambahakan 1
+            $number = (int) substr($lastCode->incomming_number, 4) + 1;
+            $autoCode = 'MR-' . str_pad($number, 4, '0', STR_PAD_LEFT); // Auto number format MR-XXX
+        }
+
         MeetingRoom::create([
             'user_id' => Auth::id(),
+            'Booking_number_id' => $autoCode,
             'Name' => $request->Name,
             'Department' => $request->Department,
             'Description' => $request->Description,
@@ -75,11 +87,27 @@ class MeetingRoomController extends Controller
     public function AddDetailApprove($id)
     {
         $bookedrequestid = MeetingRoom::with('meetingroom')->findOrFail($id);
+        $bookedid = MeetingRoom::findOrFail($id);
         $bookedrequest =  MeetingRoom::latest()->paginate(10); 
+        $rooms = MeetingRoomList::all();
+
          // Mengambil semua inspeksi beserta item inspeksi terkait
-        return view('backend.personel.meeting_room.detail_approve_form', compact('bookedrequestid','bookedrequest'));
+        return view('backend.personel.meeting_room.detail_approve_form', compact('bookedid','rooms','bookedrequestid','bookedrequest'));
     }
 
-    
+    public function deleteBooked($id) 
+    {
+        // Cari data berdasarkan ID yang ingin dihapus
+        $mrr = MeetingRoom::find($id);
+
+        // Setelah data relasi dihapus, hapus data utama
+        $mrr->delete();
+
+        $notification = array(
+            'message' => 'Deleted Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('personel.meetingroomlist')->with($notification);
+    }
 
 }
