@@ -370,9 +370,11 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
 Route::middleware(['auth', 'roles:admin'])->group(function() {
 
     Route::controller(MeetingRoomController::class)->group(function(){
+        Route::get('/calendar-booked', 'calendarViewBooked' )->name('calendar.booked');
         Route::get('/meetingroomlist', 'MeetingRoomList' )->name('personel.meetingroomlist');
         Route::get('/request/meetingroom', 'AddBookedMeetingRoom' )->name('request.bookedmeetingroom');
         Route::post('/store/request-meetingroom', 'StoreBookedMeetingRoom' )->name('store.request.meetingroom');
+        Route::post('/update/request-meetingroom-approval/{id}', 'updateBookedMeetingRoom' )->name('update.booked.meetingroom');
         Route::get('/add/detailapprove/{id}', 'AddDetailApprove' )->name('add.detailapprove');
         Route::get('/delete-booked/{id}', 'deleteBooked' )->name('delete.booked');
         // Route::post('/add/workorder', 'StoreWorkOrder' )->name('post.WorkOrder');

@@ -87,13 +87,17 @@
                                         <div class="col-4">
                                             <label for="start_time" class="col-form-label col-form-label-sm"><b>Time:</b></label>
                                         </div>
-                                        <div class="col-4">
-                                            <input type="time" class="form-control form-control-sm" id="start_time" name="Start_time" min="08:00" max="17:00">
-                                            <small class="text-muted">Start: Only 08:00 - 17:00</small>
+                                        <div class="col input-group flatpickr" id="flatpickr-time">
+                                            <input type="text" class="form-control form-control-sm" name="Start_time" placeholder="Select time" data-input>
+                                            <span class="input-group-text input-group-addon" data-toggle><i data-feather="clock"></i></span>
+                                            {{-- <input type="time" class="form-control form-control-sm" id="start_time" name="Start_time" min="08:00" max="17:00">
+                                            <small class="text-muted">Start: Only 08:00 - 17:00</small> --}}
                                         </div>
-                                        <div class="col-4">
-                                            <input type="time" class="form-control form-control-sm" id="end_time" name="End_time" min="08:00" max="17:00">
-                                            <small class="text-muted">End: Only 08:00 - 17:00</small>
+                                        <div class="col input-group flatpickr" id="flatpickr-time">
+                                            <input type="text" class="form-control form-control-sm" name="End_time" placeholder="Select time" data-input>
+                                            <span class="input-group-text input-group-addon" data-toggle><i data-feather="clock"></i></span>
+                                            {{-- <input type="time" class="form-control form-control-sm" id="end_time" name="End_time" min="08:00" max="17:00">
+                                            <small class="text-muted">End: Only 08:00 - 17:00</small> --}}
                                         </div>
                                     </div>
                                 </div>

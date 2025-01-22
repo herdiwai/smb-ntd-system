@@ -22,6 +22,8 @@
                                             <th>Room No</th>
                                             <th>Location</th>
                                             <th>Usage</th>
+                                            {{-- <th>Status</th>
+                                            <th>Booking Details</th> --}}
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -33,6 +35,28 @@
                                             <td>{{ $rooms->Room_no }}</td>
                                             <td>{{ $rooms->Location }}</td>
                                             <td>{{ $rooms->Usage }}</td>
+                                            {{-- <td>
+                                                @if ($rooms->Meetingroom->isEmpty())
+                                                    <span class="badge bg-success">Available</span>
+                                                @else
+                                                    <span class="badge bg-danger">Booked</span>
+                                                @endif
+                                            </td> --}}
+
+                                            {{-- <td>
+                                                @if (!$rooms->Meetingroom->isEmpty())
+                                                    @foreach ($rooms->Meetingroom as $booking)
+                                                        <p>
+                                                            <strong>Date:</strong> {{ $booking->Date_booking }}<br>
+                                                            <strong>Start Time:</strong> {{ $booking->Start_time }}<br>
+                                                            <strong>End Time:</strong> {{ $booking->End_time }}
+                                                        </p>
+                                                    @endforeach
+                                                @else
+                                                    <p>No bookings</p>
+                                                @endif
+                                            </td> --}}
+
                                             <td>
                                                 <a href="" class="btn btn-inverse-primary btn-xs" title="Approval"><i data-feather="arrow-up-circle" style="width: 16px; height: 20px;"></i></a>
                                             </td>

@@ -507,6 +507,10 @@
             </li>
             {{-- @endif --}}
 
+            <li class="nav-item">
+              <a href="{{ route('calendar.booked') }}" class="nav-link">Calendar</a>
+            </li>
+
             {{-- <li class="nav-item">
               <a href="{{ route('add.detailapprove') }}" class="nav-link">Detail Approval </a>
             </li> --}}

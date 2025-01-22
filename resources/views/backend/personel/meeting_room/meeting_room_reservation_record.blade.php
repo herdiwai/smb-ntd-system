@@ -40,16 +40,53 @@
                                             <td>{{ $booked->Start_time }}</td>
                                             <td>{{ $booked->End_time }}</td>
                                             <td>
-                                                {{ $booked->meetingroom->Lot }} |
-                                                {{ $booked->meetingroom->Room_no }} |
+                                                @foreach ($booked->meetingroom as $meetingrooms)
+                                                    {{ $meetingrooms->Lot }} |
+                                                    {{ $meetingrooms->Room_no }} |
+                                                    {{ $meetingrooms->Location }} |
+                                                    {{ $meetingrooms->Usage }}
+                                                @endforeach
+                                                {{-- {{ $booked->meetingroom->Lot }} | --}}
+                                                {{-- {{ $booked->meetingroom->Room_no }} |
                                                 {{ $booked->meetingroom->Location }} |
-                                                {{ $booked->meetingroom->Usage }}
+                                                {{ $booked->meetingroom->Usage }} --}}
                                             </td>
+                                            {{-- <td> --}}
+                                                {{-- @if ($booked->meetingroom->isEmpty())
+                                                    <span class="badge bg-success">Available</span>
+                                                @else
+                                                    <span class="badge bg-danger">Booked</span>
+                                                @endif --}}
+                                                @if($booked->Status_booking == 'waiting approvals')
+                                                    <td><p class="text-warning">{{ $booked->Status_booking }}</p></td>
+                                                @else
+                                                    <td><p class="text-success">{{ $booked->Status_booking }}</p></td>
+                                                @endif
+                                            {{-- </td> --}}
+
+                                            {{-- <td>
+                                                @if (!$booked->meetingroom->isEmpty())
+                                                    @foreach ($booked->meetingroom as $booking)
+                                                        <p>
+                                                            <strong>Date:</strong> {{ $booking->Date_booking }}<br>
+                                                            <strong>Start Time:</strong> {{ $booking->Start_time }}<br>
+                                                            <strong>End Time:</strong> {{ $booking->End_time }}
+                                                        </p>
+                                                    @endforeach
+                                                @else
+                                                    <p>No bookings</p>
+                                                @endif
+                                            </td> --}}
+
+
                                             <td>
-                                                <p class="text-warning">{{ $booked->Status_booking }}</p>
-                                            </td>
-                                            <td>
-                                                <a href="{{ route('add.detailapprove', $booked->id ) }}" class="btn btn-inverse-primary btn-xs" title="Approval"><i data-feather="activity" style="width: 16px; height: 20px;"></i></a>
+                                                @if ($booked->Status_booking == 'waiting approvals')
+                                                    <a href="{{ route('add.detailapprove', $booked->id ) }}" class="btn btn-inverse-primary btn-xs" title="Approval"><i data-feather="activity" style="width: 16px; height: 20px;"></i></a>
+                                                @else
+                                                    {{-- <a href="{{ route('add.detailapprove', $booked->id ) }}" class="btn btn-inverse-primary btn-xs" title="Approval" disabled><i data-feather="activity" style="width: 16px; height: 20px;"></i></a> --}}
+                                                    <button class="btn btn-success btn-xs" disabled><i data-feather="activity" style="width: 16px; height: 20px;"></i>APPROVED</button>
+                                                @endif
+                                                
                                                 <a href="{{ route('delete.booked', $booked->id ) }}" class="btn btn-inverse-danger btn-xs" title="Delete Mrr"><i data-feather="trash-2" style="width: 16px; height: 16px;"></i></a>
                                             </td>
                                         <tr>
@@ -62,10 +99,6 @@
                 </div>
 
         </div>
-    
-
-
-
-
     </div>
+
 @endsection

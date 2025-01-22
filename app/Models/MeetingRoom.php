@@ -27,7 +27,12 @@ class MeetingRoom extends Model
     
     public function meetingroom()
     {
-        return $this->hasOne(MeetingRoomList::class,'id');
+        return $this->hasMany(MeetingRoomList::class,'id','choose_meeting_room');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
     
 }

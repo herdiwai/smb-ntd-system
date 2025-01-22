@@ -6,7 +6,10 @@
             <div class="card">
                 <div class="card-body">
                     <h6 class="card-title"><b>MEETING ROOM RESERVATION FORM </b></h6>
-                    <form id="myForm" action="" method="POST">
+                    {{-- @if ($booked_id->Status_booking === 'APPROVED')
+                        <button class="btn btn-success" disabled>Approved</button>
+                    @else --}}
+                    <form id="myForm" action="{{ route('update.booked.meetingroom', $bookedrequestid->id ) }}" method="POST">
                         @method('POST')
                         @csrf
 
@@ -103,10 +106,17 @@
                                             <select id="department" name="Choose_meeting_room" class="form-select form-select-sm">
                                                 {{-- <input type="text" value="{{ old('meetingroom', $bookedrequestid->meetingroom->Lot) }}" name="Date_booking" id="" class="form-control" placeholder="Select date" required /> --}}
                                                 @foreach($rooms as $room)
+                                                    <option value="{{ $room->id }}" 
+                                                        {{ $room->id == old('Choose_meeting_room', optional($bookedrequestid->meetingroom->first())->id) ? 'selected' : '' }}>
+                                                        {{ $room->Lot }} | {{ $room->Room_no }} | {{ $room->Location }} | {{ $room->Usage }}
+                                                    </option>
+                                                @endforeach
+                                                
+                                                {{-- @foreach($rooms as $room)
                                                     <option value="{{ $room->id }}" {{ $room->id ==  old('Choose_meeting_room', $bookedrequestid->choose_meeting_room) ? 'selected' : '' }}>
                                                         {{ $bookedrequestid->meetingroom->Lot }} | {{ $bookedrequestid->meetingroom->Room_no }} | {{ $bookedrequestid->meetingroom->Location }} | {{ $bookedrequestid->meetingroom->Usage }}
                                                     </option>
-                                                @endforeach
+                                                @endforeach --}}
 
                                                 {{-- @foreach ($rooms as $room)
                                                     <option value="{{ $room->id }}" 
@@ -135,6 +145,7 @@
 
                     
                     </form>
+                
                 </div>
             </div>
 
@@ -157,7 +168,7 @@
                                                     <label for="Note_spv_pd" class="col-form-label col-form-label-sm"><b>Noted:</b></label>
                                                 </div>
                                                 <div class="col">
-                                                    <textarea class="form-control form-control-sm" name="status_booking_room" id="status_booking_room" rows="2"></textarea>
+                                                    <textarea class="form-control form-control-sm" name="note_personel" id="status_booking_room" rows="2"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -181,7 +192,7 @@
     // Mode Sign Spv Production
     function openRejectBooking(itemId) {
         // Set the form action dynamically based on the item ID
-        var actionUrl = "{{ route('update.signspv', ':id') }}";
+        // var actionUrl = "{{ route('update.signspv', ':id') }}";
         actionUrl = actionUrl.replace(':id', itemId);
         $('#rejectFormBooking').attr('action', actionUrl);
         // Optionally reset the form fields when modal is opened

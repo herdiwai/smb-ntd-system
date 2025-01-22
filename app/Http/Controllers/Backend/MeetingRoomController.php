@@ -14,11 +14,40 @@ use Illuminate\Support\Facades\Auth;
 
 class MeetingRoomController extends Controller
 {
+    public function calendarViewBooked()
+    {
+        $currentDateTime = now()->format('H:i');
+        $bookedrequest =  MeetingRoom::with('meetingroom')->get();
+
+        $bookings = MeetingRoom::with(['meetingroom'])
+        ->where('End_time', '>=', $currentDateTime) // Filter booking aktif
+        ->orderBy('Date_booking', 'asc') // Urutkan berdasarkan tanggal booking
+        ->get();
+
+        return view('backend.personel.meeting_room.calendar_view_booked', compact('bookings','bookedrequest'));
+    }
+
     public function MeetingRoomList()
     {
-        $bookedrequest =  MeetingRoom::latest()->paginate(10); 
+        // $booked_id = MeetingRoom::findOrFail($id); // Ambil booking berdasarkan ID
+        $currentDateTime = now()->format('H:i');
+
+        // Ambil data semua ruangan beserta status bookingnya
+        // $rooms = MeetingRoom::with(['meetingroom' => function ($query) use ($currentDateTime) {
+        //     $query->where('End_time', '>=', $currentDateTime) // Booking yang belum selesai
+        //         ->orderBy('Start_time', 'asc'); // Urutkan berdasarkan waktu mulai
+        // }])->get();
+
+        $bookings = MeetingRoom::with(['meetingroom'])
+            ->where('End_time', '>=', $currentDateTime) // Filter booking aktif
+            ->orderBy('Date_booking', 'asc') // Urutkan berdasarkan tanggal booking
+            ->get();
+
+        // $bookedrequest =  MeetingRoom::latest()->paginate(10); 
+        $bookedrequest =  MeetingRoom::with('meetingroom')->get();
          // Mengambil semua inspeksi beserta item inspeksi terkait
-        return view('backend.personel.meeting_room.meeting_room_reservation_record', compact('bookedrequest'));
+        //  dd($bookings);
+        return view('backend.personel.meeting_room.meeting_room_reservation_record', compact('bookings','bookedrequest'));
     }
     
     public function AddBookedMeetingRoom()
@@ -53,14 +82,15 @@ class MeetingRoomController extends Controller
         // ]);
 
         // Buat incomming_number (kode urut)
-        $lastCode = MeetingRoom::latest()->first();
+        $lastCode = MeetingRoom::latest('Booking_number_id')->first();
         if (!$lastCode) {
-            // jika tidak ada code sebelumnya, mulai dari angka 1
+            // Jika tidak ada kode sebelumnya, mulai dari angka 1
             $autoCode = 'MR-0001';
         } else {
-            // Ambil code terakhir dan tambahakan 1
-            $number = (int) substr($lastCode->incomming_number, 4) + 1;
-            $autoCode = 'MR-' . str_pad($number, 4, '0', STR_PAD_LEFT); // Auto number format MR-XXX
+            // Ambil angka terakhir setelah "MR-" dan tambah 1
+            $lastNumber = (int) substr($lastCode->Booking_number_id, 3); // Ambil angka setelah "MR-"
+            $number = $lastNumber + 1;
+            $autoCode = 'MR-' . str_pad($number, 4, '0', STR_PAD_LEFT); // Format kode auto: MR-XXXX
         }
 
         MeetingRoom::create([
@@ -80,6 +110,21 @@ class MeetingRoomController extends Controller
         $notification = array(
             'message' => 'Booked Request Form Create Successfully',
             'alert-type' => 'success'
+        );
+        return redirect()->route('personel.meetingroomlist')->with($notification);
+    }
+
+    public function updateBookedMeetingRoom(Request $request)
+    {
+        $room_id = $request->id;
+        MeetingRoom::findOrFail($room_id)->update([
+            'user_id_personel' => Auth::id(),
+            'Note_personel' => $request->Note_personel,
+            'Status_booking' => "APPROVED",
+        ]);
+        $notification = array(
+            'message' => 'Booked Meeting Room Update/Approved Successfully',
+            'alert-type' => 'info'
         );
         return redirect()->route('personel.meetingroomlist')->with($notification);
     }

@@ -18,6 +18,6 @@ class MeetingRoomList extends Model
 
     public function MeetingRoom()
     {
-        return $this->belongsTo(MeetingRoom::class,'id');
+        return $this->belongsTo(MeetingRoom::class,'id','choose_meeting_room');
     }
 }
