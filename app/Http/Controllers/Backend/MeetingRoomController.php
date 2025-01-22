@@ -50,8 +50,10 @@ class MeetingRoomController extends Controller
         return view('backend.personel.meeting_room.meeting_room_reservation_record', compact('bookings','bookedrequest'));
     }
     
-    public function AddBookedMeetingRoom()
+    public function AddBookedMeetingRoom(Request $request)
     {
+        $booked_id = $request->id;
+
         $currentTime = Carbon::now();
 
         // Ambil semua ruangan
@@ -70,7 +72,7 @@ class MeetingRoomController extends Controller
 
         $room_list = MeetingRoomList::all();
          // Mengambil semua inspeksi beserta item inspeksi terkait
-        return view('backend.personel.meeting_room.add_meeting_reservation_form', compact('department','unavailableRoomIds','rooms','bookedrequest','room_list'));
+        return view('backend.personel.meeting_room.add_meeting_reservation_form', compact('booked_id','department','unavailableRoomIds','rooms','bookedrequest','room_list'));
     }
 
     public function StoreBookedMeetingRoom(Request $request) 
@@ -120,10 +122,10 @@ class MeetingRoomController extends Controller
         MeetingRoom::findOrFail($room_id)->update([
             'user_id_personel' => Auth::id(),
             'Note_personel' => $request->Note_personel,
-            'Status_booking' => "APPROVED",
+            'Status_booking' => $request->Status_booking,
         ]);
         $notification = array(
-            'message' => 'Booked Meeting Room Update/Approved Successfully',
+            'message' => 'Booked Meeting Room Approved/Update Successfully',
             'alert-type' => 'info'
         );
         return redirect()->route('personel.meetingroomlist')->with($notification);

@@ -134,13 +134,23 @@
                         </div>
 
 
-                        <div class="d-flex justify-content-center">
-                            <button class="btn btn-primary btn-sm me-2" type="submit">
-                                <i data-feather="send" style="width: 16px; height: 16px;"></i><b>Approve</b>
-                            </button>
-                            <button type="button" class="btn btn-inverse-danger btn-xs" data-bs-toggle="modal" data-bs-target="#rejectModalBooking" onclick="openRejectBooking" title="Sign">
-                                <i data-feather="check-square" style="width: 16px; height: 16px;"></i><b>Reject</b>
-                            </button>
+                        <div class="d-flex justify-content-right">
+                            @if($bookedrequestid->Status_booking === 'waiting approvals')
+                                <button class="btn btn-primary btn-sm me-2" type="submit" value="APPROVED">
+                                    <i data-feather="send" style="width: 16px; height: 16px;"></i><b> Approve</b>
+                                </button>
+                                <button type="button" value="REJECTED" class="btn btn-danger btn-sm me-2" data-bs-toggle="modal" data-bs-target="#rejectModalBooking" onclick="openRejectBooking" title="Sign">
+                                    <i data-feather="check-square" style="width: 16px; height: 16px;"></i><b> Reject</b>
+                                </button>
+                            @elseif($bookedrequestid->Status_booking === 'APPROVED')
+                                <button type="button" value="REJECTED" class="btn btn-danger btn-sm me-2" data-bs-toggle="modal" data-bs-target="#rejectModalBooking" onclick="openRejectBooking" title="Sign">
+                                    <i data-feather="check-square" style="width: 16px; height: 16px;"></i><b> Reject</b>
+                                </button>
+                            @elseif($bookedrequestid->Note_personel == true )
+                                <button class="btn btn-primary btn-sm me-2" type="submit" value="APPROVED">
+                                    <i data-feather="send" style="width: 16px; height: 16px;"></i><b> Approve</b>
+                                </button>
+                            @endif
                         </div>
 
                     
@@ -157,7 +167,7 @@
                             <h5 class="modal-title" id="rejectModalBookingModalLabel">Status Reject Booking Form</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
                         </div>
-                        <form id="rejectFormBooking" class="myForm2" action="" method="POST">
+                        <form id="rejectFormBooking" class="myForm2" action="{{ route('update.booked.meetingroom', $bookedrequestid->id ) }}" method="POST">
                             @csrf
                             <div class="modal-body">
                                 <div class="row">
@@ -168,7 +178,7 @@
                                                     <label for="Note_spv_pd" class="col-form-label col-form-label-sm"><b>Noted:</b></label>
                                                 </div>
                                                 <div class="col">
-                                                    <textarea class="form-control form-control-sm" name="note_personel" id="status_booking_room" rows="2"></textarea>
+                                                    <textarea class="form-control form-control-sm" name="Note_personel" id="status_booking_room" rows="2"></textarea>
                                                 </div>
                                             </div>
                                         </div>

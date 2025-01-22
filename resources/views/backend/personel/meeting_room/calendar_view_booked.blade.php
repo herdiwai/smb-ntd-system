@@ -33,7 +33,7 @@
 
         var calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
-            height: '250px', // Mengatur tinggi kalender
+            height: '1000px', // Mengatur tinggi kalender
             contentHeight: 'auto', // Konten kalender menyesuaikan
             aspectRatio: 1.5, // Mengubah aspek rasio untuk tampilan lebih kompak
             events: [
@@ -41,7 +41,7 @@
                     @foreach ($booking->meetingroom as $room)
                     {
                         title: 'Name: {{ $booking->Name }} - {{ $room->Lot }} - {{ $room->Room_no }} - {{ $room->Location }} - {{ $room->Usage }}',
-                        start: '{{ \Carbon\Carbon::parse($booking->Date_booking)->format("Y-m-d") }}T{{ \Carbon\Carbon::parse($booking->Start_time)->format("H:i:s") }}',
+                        start: '{{ \Carbon\Carbon::parse($booking->Date_booking)->format("Y-m-d") }}T{{ \Carbon\Carbon::parse($booking->Start_time)->format("H:i") }}',
                         end: '{{ \Carbon\Carbon::parse($booking->Date_booking)->format("Y-m-d") }}T{{ \Carbon\Carbon::parse($booking->End_time)->format("H:i:s") }}',
                         color: '{{ \Carbon\Carbon::parse($booking->End_time)->lt(now()) ? "green" : "red" }}',
                         extendedProps: {

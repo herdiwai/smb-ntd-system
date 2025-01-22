@@ -57,10 +57,12 @@
                                                 @else
                                                     <span class="badge bg-danger">Booked</span>
                                                 @endif --}}
-                                                @if($booked->Status_booking == 'waiting approvals')
+                                                @if($booked->Status_booking === 'waiting approvals')
                                                     <td><p class="text-warning">{{ $booked->Status_booking }}</p></td>
+                                                @elseif($booked->Note_personel == true )
+                                                    <td><p class="text-danger">REJECTED</p></td>
                                                 @else
-                                                    <td><p class="text-success">{{ $booked->Status_booking }}</p></td>
+                                                    <td><p class="text-success">APPROVED</p></td>
                                                 @endif
                                             {{-- </td> --}}
 
@@ -80,12 +82,13 @@
 
 
                                             <td>
-                                                @if ($booked->Status_booking == 'waiting approvals')
-                                                    <a href="{{ route('add.detailapprove', $booked->id ) }}" class="btn btn-inverse-primary btn-xs" title="Approval"><i data-feather="activity" style="width: 16px; height: 20px;"></i></a>
-                                                @else
-                                                    {{-- <a href="{{ route('add.detailapprove', $booked->id ) }}" class="btn btn-inverse-primary btn-xs" title="Approval" disabled><i data-feather="activity" style="width: 16px; height: 20px;"></i></a> --}}
-                                                    <button class="btn btn-success btn-xs" disabled><i data-feather="activity" style="width: 16px; height: 20px;"></i>APPROVED</button>
-                                                @endif
+                                                @if ($booked->Status_booking === 'waiting approvals')
+                                                    <a href="{{ route('add.detailapprove', $booked->id ) }}" class="btn btn-inverse-primary btn-xs" title="Approval"><i data-feather="check-circle" style="width: 16px; height: 20px;"></i></a>
+                                                @elseif($booked->Note_personel == true )
+                                                    <a href="{{ route('add.detailapprove', $booked->id ) }}" class="btn btn-inverse-primary btn-xs" title="Approval"><i data-feather="check-circle" style="width: 16px; height: 20px;"></i></a>
+                                                @else    
+                                                    <button class="btn btn-success btn-xs" disabled><i data-feather="check-circle" style="width: 16px; height: 20px;"></i> APPROVED</button>
+                                                 @endif
                                                 
                                                 <a href="{{ route('delete.booked', $booked->id ) }}" class="btn btn-inverse-danger btn-xs" title="Delete Mrr"><i data-feather="trash-2" style="width: 16px; height: 16px;"></i></a>
                                             </td>

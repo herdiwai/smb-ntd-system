@@ -126,7 +126,7 @@
                                                     <option value="{{ $lots->id }}">{{ $lots->lot }}</option>
                                                 @endforeach
                                             </select> --}}
-                                            <select id="Meeting_room" name="choose_meeting_room" class="form-select form-select-sm">
+                                            {{-- <select id="Meeting_room" name="choose_meeting_room" class="form-select form-select-sm">
                                                 <option value="">--select meeting room--</option>
                                                 @foreach ($rooms as $room)
                                                     <option value="{{ $room->id }}" 
@@ -134,7 +134,7 @@
                                                         {{ $room->Lot }} | {{ $room->Room_no }} | {{ $room->Location }} | {{ $room->Usage }} {{ in_array($room->id, $unavailableRoomIds) ? '(Unavailable)' : '' }}
                                                     </option>
                                                 @endforeach
-                                             </select>
+                                             </select> --}}
                                             {{-- @foreach ($rooms as $room)
                                                 <option value="{{ $room->id }}" 
                                                     {{ in_array($room->id, $unavailableRoomIds) ? 'disabled' : '' }}>
@@ -143,12 +143,12 @@
                                             @endforeach --}}
 
 
-                                            {{-- <select id="Meeting_room" name="choose_meeting_room" class="form-select form-select-sm">
+                                            <select id="Meeting_room" name="choose_meeting_room" class="form-select form-select-sm">
                                                 <option value="">--select meeting room--</option>
                                                 @foreach($room_list as $room_meeting_list)
                                                     <option value="{{ $room_meeting_list->id }}">{{ $room_meeting_list->Lot }} | {{ $room_meeting_list->Room_no }} | {{ $room_meeting_list->Location }} | {{ $room_meeting_list->Usage }}</option>
                                                 @endforeach
-                                            </select>                  --}}
+                                            </select>                 
                                 
                                         </div>
                                         
