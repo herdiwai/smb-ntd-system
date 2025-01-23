@@ -136,7 +136,7 @@
 
                         <div class="d-flex justify-content-right">
                             @if($bookedrequestid->Status_booking === 'waiting approvals')
-                                <button class="btn btn-success btn-sm me-2" type="submit" value="APPROVED">
+                                <button class="btn btn-success btn-sm me-2" type="submit" name="Status_booking" value="APPROVED">
                                     <i data-feather="check-circle" style="width: 18px; height: 18px;"></i><b> APPROVED</b>
                                 </button>
                                 <button type="button" value="REJECTED" class="btn btn-danger btn-sm me-2" data-bs-toggle="modal" data-bs-target="#rejectModalBooking" onclick="openRejectBooking" title="Sign">

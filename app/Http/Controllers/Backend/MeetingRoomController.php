@@ -20,6 +20,7 @@ class MeetingRoomController extends Controller
         $bookedrequest =  MeetingRoom::with('meetingroom')->get();
 
         $bookings = MeetingRoom::with(['meetingroom'])
+        ->where('Status_booking' , 'APPROVED')
         ->where('End_time', '>=', $currentDateTime) // Filter booking aktif
         ->orderBy('Date_booking', 'asc') // Urutkan berdasarkan tanggal booking
         ->get();

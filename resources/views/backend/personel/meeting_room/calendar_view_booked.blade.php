@@ -1,10 +1,19 @@
 @extends('admin.admin_dashboard')
 @section('admin')
 
+<style>
+    /* Mengubah warna teks pada header day */
+    .fc-theme-standard th {
+        background-color: #f37a2a !important; /* Warna background header */
+        color: #333 !important; /* Warna teks agar terlihat jelas */
+        font-weight: bold; /* Supaya lebih tegas */
+    }
+</style>
+
 <div class="page-content">
     <nav class="page-breadcrumb">
         <div class="container">
-            <h1>Meeting Room Bookings</h1>
+            <h3>APPROVED MEETING ROOM</h3><br>
             <div id="calendar"></div>
         </div>
     </nav>
@@ -36,6 +45,11 @@
             height: '1000px', // Mengatur tinggi kalender
             contentHeight: 'auto', // Konten kalender menyesuaikan
             aspectRatio: 1.5, // Mengubah aspek rasio untuk tampilan lebih kompak
+            headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth'
+                },
             events: [
                 @foreach ($bookings as $booking)
                     @foreach ($booking->meetingroom as $room)
