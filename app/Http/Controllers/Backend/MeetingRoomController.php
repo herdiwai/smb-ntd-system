@@ -157,4 +157,34 @@ class MeetingRoomController extends Controller
         return redirect()->route('personel.meetingroomlist')->with($notification);
     }
 
+    public function checkBooking(Request $request)
+    {
+          // Ambil data dari form
+        $dateBooking = $request->input('Date_booking');
+        $startTime = $request->input('Start_time');
+        $endTime = $request->input('End_time');
+        $room = $request->input('choose_meeting_room');
+
+        // Cari booking yang sudah ada dengan Date, Start Time, End Time dan Room yang sama
+        $existingBooking = MeetingRoom::where('Date_booking', $dateBooking)
+            ->where('Start_time', $startTime)
+            ->where('End_time', $endTime)
+            ->where('choose_meeting_room', $room)
+            ->first();
+
+        // Jika ada booking yang ditemukan
+        if ($existingBooking) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'The room is already booked at that time. Please choose another time or room.'
+            ]);
+        }
+
+        // Jika tidak ada conflict, lanjutkan dengan proses pemesanan
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Ruangan tersedia, silakan lanjutkan pemesanan.'
+        ]);
+    }
+
 }

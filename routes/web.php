@@ -377,7 +377,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
         Route::post('/update/request-meetingroom-approval/{id}', 'updateBookedMeetingRoom' )->name('update.booked.meetingroom');
         Route::get('/add/detailapprove/{id}', 'AddDetailApprove' )->name('add.detailapprove');
         Route::get('/delete-booked/{id}', 'deleteBooked' )->name('delete.booked');
-        // Route::post('/add/workorder', 'StoreWorkOrder' )->name('post.WorkOrder');
+        Route::post('/check-booking', 'checkBooking' )->name('check.booking');
         // Route::post('/store/workordertechnician/{id}', 'StoreWOTechnician' )->name('store.wotechnician');
         // Route::post('/update/spv/{id}', 'UpdateSpv' )->name('update.spv');
           
