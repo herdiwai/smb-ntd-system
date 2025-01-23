@@ -15,7 +15,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="eventDetailModalLabel">Details Booking</h5>
+                <h5 class="modal-title" id="eventDetailModalLabel">BOOKING DETAIL</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -42,14 +42,16 @@
                     {
                         title: 'Name: {{ $booking->Name }} - {{ $room->Lot }} - {{ $room->Room_no }} - {{ $room->Location }} - {{ $room->Usage }}',
                         start: '{{ \Carbon\Carbon::parse($booking->Date_booking)->format("Y-m-d") }}T{{ \Carbon\Carbon::parse($booking->Start_time)->format("H:i") }}',
-                        end: '{{ \Carbon\Carbon::parse($booking->Date_booking)->format("Y-m-d") }}T{{ \Carbon\Carbon::parse($booking->End_time)->format("H:i:s") }}',
-                        color: '{{ \Carbon\Carbon::parse($booking->End_time)->lt(now()) ? "green" : "red" }}',
+                        end: '{{ \Carbon\Carbon::parse($booking->Date_booking)->format("Y-m-d") }}T{{ \Carbon\Carbon::parse($booking->End_time)->format("H:i") }}',
+                        color: '{{ \Carbon\Carbon::parse($booking->End_time)->lt(now()) ? "red" : "green" }}',
                         extendedProps: {
-                            name: '{{ $booking->Department }}', // Menambahkan data name
+                            name: '{{ $booking->Name }}', // Menambahkan data name
+                            department: '{{ $booking->Department }}', // Menambahkan data department
+                            description: '{{ $booking->Description }}', // Menambahkan data description
                             lot: '{{ $room->Lot }}',
                             room_no: '{{ $room->Room_no }}',
                             location: '{{ $room->Location }}',
-                            usage: '{{ $room->Usage }}'
+                            usage: '{{ $room->Usage }}',
                         }
                     },
                     @endforeach
@@ -59,13 +61,19 @@
         // Tampilkan detail event
         var event = info.event.extendedProps;
         var details = `
-            <strong>Request Name:</strong> ${event.Name}<br>
-            <strong>Room Lot:</strong> ${event.lot}<br>
-            <strong>Room No:</strong> ${event.room_no}<br>
-            <strong>Location:</strong> ${event.location}<br>
-            <strong>Usage:</strong> ${event.usage}<br>
-            <strong>Start Time:</strong> ${info.event.start.toLocaleString()}<br>
-            <strong>End Time:</strong> ${info.event.end.toLocaleString()}
+        <table class="table table-bordered">
+            <tr><td><strong>Requester Name</strong></td><td>${event.name}</td></tr>
+            <tr><td><strong>Deparment</strong></td><td>${event.department}</td></tr>
+            <tr><td><strong>Brief description on meeting agenda</strong></td><td>${event.description}</td></tr>
+        </table>
+        <table class="table table-bordered">
+            <tr><td><strong>Lot</strong></td><td>${event.lot}</td></tr>
+            <tr><td><strong>Room No</strong></td><td>${event.room_no}</td></tr>
+            <tr><td><strong>Location</strong></td><td>${event.location}</td></tr>
+            <tr><td><strong>Usage</strong></td><td>${event.usage}</td></tr>
+            <tr><td><strong>Start Date Time:</strong></td><td>${info.event.start.toLocaleString()}</td></tr>
+            <tr><td><strong>End Date Time:</strong></td><td>${info.event.end.toLocaleString()}</td></tr>
+        </table>
         `;
 
         // Contoh: Tampilkan dalam alert atau modal

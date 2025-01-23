@@ -30,6 +30,7 @@
                             <option value="Ntd">NTD</option>
                             <option value="Fty">Facility</option>
                             <option value="Maintenance">Maintenance</option>
+                            <option value="Personel">Personel</option>
                             <option value="Role & Permission">Role & Permission</option>
                             <option value="Manage Admin User">Manage Admin User</option>
                         </select>

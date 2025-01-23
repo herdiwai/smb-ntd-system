@@ -11,6 +11,7 @@
     </div>
     <div class="sidebar-body">
       <ul class="nav">
+        @if(Auth::user()->can('dashboard.menu'))
         <li class="nav-item nav-category">Main</li>
         <li class="nav-item">
           <a href="{{ route('admin.dashboard') }}" class="nav-link">
@@ -18,6 +19,7 @@
             <span class="link-title">Dashboard</span>
           </a>
         </li>
+        @endif
         {{-- @if(Auth::user()->can('pullstrength.menu')) --}}
         @if(Auth::user()->can('hourlyoutput.menu'))
 
@@ -485,9 +487,10 @@
         @endif
       {{-- End Menu MRR for Maintenance user --}}
 
-      
       {{-- Menu Meeting rOOM for Personel user --}}
-      {{-- @if(Auth::user()->can('personel.menu')) --}}
+
+      @if(Auth::user()->can('personel.menu'))
+
       <li class="nav-item nav-category">Personel</li>
       <li class="nav-item">
         <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents10" role="button" aria-expanded="false" aria-controls="uiComponents10">
@@ -498,31 +501,36 @@
         <div class="collapse" id="uiComponents10">
           <ul class="nav sub-menu">
 
+            @if(Auth::user()->can('bookinglist.menu'))
             <li class="nav-item">
               <a href="{{ route('personel.meetingroomlist') }}" class="nav-link">Booking List</a>
             </li>
-            {{-- @if(Auth::user()->can('add.Mrr')) --}}
+            @endif
+
+            @if(Auth::user()->can('reservation.menu'))
             <li class="nav-item">
               <a href="{{ route('request.bookedmeetingroom') }}" class="nav-link">Reservation Room</a>
             </li>
-            {{-- @endif --}}
+            @endif
 
+            @if(Auth::user()->can('calendar.menu'))
             <li class="nav-item">
               <a href="{{ route('calendar.booked') }}" class="nav-link">Calendar</a>
             </li>
-
+            @endif
             {{-- <li class="nav-item">
               <a href="{{ route('add.detailapprove') }}" class="nav-link">Detail Approval </a>
             </li> --}}
 
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a href="{{ route('filter.mrr') }}" class="nav-link">Filter MRR</a>
-          </li>
+          </li> --}}
 
           </ul>
         </div>
       </li>
-
+      @endif
+      @if(Auth::user()->can('roomlist.menu'))
       <li class="nav-item">
         <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents12" role="button" aria-expanded="false" aria-controls="uiComponents12">
           <i class="link-icon" data-feather="book-open"></i>
@@ -532,14 +540,15 @@
         <div class="collapse" id="uiComponents12">
           <ul class="nav sub-menu">
 
+            
             <li class="nav-item">
               <a href="{{ route('room.list') }}" class="nav-link">All Table</a>
             </li>
-            {{-- @if(Auth::user()->can('add.Mrr')) --}}
+  
             <li class="nav-item">
               <a href="{{ route('add.meetingroom') }}" class="nav-link">Add Room Meeting</a>
             </li>
-            {{-- @endif --}}
+           
 
             {{-- <li class="nav-item">
               <a href="{{ route('add.detailapprove') }}" class="nav-link">Detail Approval </a>
@@ -552,9 +561,10 @@
           </ul>
         </div>
       </li>
+      @endif
     {{-- @endif --}}
   {{-- End Menu Meeting Room for Personel user --}}
-
+  
 
       {{-- Menu MRR for NTD user --}}
       @if(Auth::user()->can('menu.Mrr'))
@@ -649,6 +659,7 @@
           </li>
           @endif
 
+          @if(Auth::user()->can('equipment.menu'))
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents5" role="button" aria-expanded="false" aria-controls="uiComponents5">
               <i class="link-icon" data-feather="table"></i>
@@ -666,7 +677,7 @@
               </ul>
             </div>
           </li>
-
+          @endif
 
         @if(Auth::user()->can('role&permission.menu'))
 

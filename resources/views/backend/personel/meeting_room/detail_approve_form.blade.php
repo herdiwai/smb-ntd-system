@@ -136,19 +136,19 @@
 
                         <div class="d-flex justify-content-right">
                             @if($bookedrequestid->Status_booking === 'waiting approvals')
-                                <button class="btn btn-primary btn-sm me-2" type="submit" value="APPROVED">
-                                    <i data-feather="send" style="width: 16px; height: 16px;"></i><b> Approve</b>
+                                <button class="btn btn-success btn-sm me-2" type="submit" value="APPROVED">
+                                    <i data-feather="check-circle" style="width: 18px; height: 18px;"></i><b> APPROVED</b>
                                 </button>
                                 <button type="button" value="REJECTED" class="btn btn-danger btn-sm me-2" data-bs-toggle="modal" data-bs-target="#rejectModalBooking" onclick="openRejectBooking" title="Sign">
-                                    <i data-feather="check-square" style="width: 16px; height: 16px;"></i><b> Reject</b>
+                                    <i data-feather="x-circle" style="width: 18px; height: 18px;"></i><b> REJECTED</b>
                                 </button>
                             @elseif($bookedrequestid->Status_booking === 'APPROVED')
                                 <button type="button" value="REJECTED" class="btn btn-danger btn-sm me-2" data-bs-toggle="modal" data-bs-target="#rejectModalBooking" onclick="openRejectBooking" title="Sign">
-                                    <i data-feather="check-square" style="width: 16px; height: 16px;"></i><b> Reject</b>
+                                    <i data-feather="x-circle" style="width: 18px; height: 18px;"></i><b> REJECTED</b>
                                 </button>
                             @elseif($bookedrequestid->Note_personel == true )
                                 <button class="btn btn-primary btn-sm me-2" type="submit" value="APPROVED">
-                                    <i data-feather="send" style="width: 16px; height: 16px;"></i><b> Approve</b>
+                                    <i data-feather="send" style="width: 18px; height: 18px;"></i><b> APPROVED</b>
                                 </button>
                             @endif
                         </div>
