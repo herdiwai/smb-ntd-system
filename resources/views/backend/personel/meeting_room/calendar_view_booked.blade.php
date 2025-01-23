@@ -37,7 +37,7 @@
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.js"></script>
 
 <script>
-        document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function () {
         var calendarEl = document.getElementById('calendar');
 
         var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -46,22 +46,22 @@
             contentHeight: 'auto', // Konten kalender menyesuaikan
             aspectRatio: 1.5, // Mengubah aspek rasio untuk tampilan lebih kompak
             headerToolbar: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'dayGridMonth'
-                },
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth'
+            },
             events: [
                 @foreach ($bookings as $booking)
                     @foreach ($booking->meetingroom as $room)
                     {
                         title: 'Name: {{ $booking->Name }} - {{ $room->Lot }} - {{ $room->Room_no }} - {{ $room->Location }} - {{ $room->Usage }}',
                         start: '{{ \Carbon\Carbon::parse($booking->Date_booking)->format("Y-m-d") }}T{{ \Carbon\Carbon::parse($booking->Start_time)->format("H:i") }}',
-                        end: '{{ \Carbon\Carbon::parse($booking->Date_booking)->format("Y-m-d") }}T{{ \Carbon\Carbon::parse($booking->End_time)->format("H:i") }}',
-                        color: '{{ \Carbon\Carbon::parse($booking->End_time)->lt(now()) ? "red" : "green" }}',
+                        end: '{{ $booking->End_time ? \Carbon\Carbon::parse($booking->Date_booking)->format("Y-m-d") . "T" . \Carbon\Carbon::parse($booking->End_time)->format("H:i") : "" }}',
+                        color: getEventColor('{{ \Carbon\Carbon::parse($booking->Date_booking)->format("m") }}'), // Warna berdasarkan bulan
                         extendedProps: {
-                            name: '{{ $booking->Name }}', // Menambahkan data name
-                            department: '{{ $booking->Department }}', // Menambahkan data department
-                            description: '{{ $booking->Description }}', // Menambahkan data description
+                            name: '{{ $booking->Name }}',
+                            department: '{{ $booking->Department }}',
+                            description: '{{ $booking->Description }}',
                             lot: '{{ $room->Lot }}',
                             room_no: '{{ $room->Room_no }}',
                             location: '{{ $room->Location }}',
@@ -72,35 +72,44 @@
                 @endforeach
             ],
             eventClick: function(info) {
-        // Tampilkan detail event
-        var event = info.event.extendedProps;
-        var details = `
-        <table class="table table-bordered">
-            <tr><td><strong>Requester Name</strong></td><td>${event.name}</td></tr>
-            <tr><td><strong>Deparment</strong></td><td>${event.department}</td></tr>
-            <tr><td><strong>Brief description on meeting agenda</strong></td><td>${event.description}</td></tr>
-        </table>
-        <table class="table table-bordered">
-            <tr><td><strong>Lot</strong></td><td>${event.lot}</td></tr>
-            <tr><td><strong>Room No</strong></td><td>${event.room_no}</td></tr>
-            <tr><td><strong>Location</strong></td><td>${event.location}</td></tr>
-            <tr><td><strong>Usage</strong></td><td>${event.usage}</td></tr>
-            <tr><td><strong>Start Date Time:</strong></td><td>${info.event.start.toLocaleString()}</td></tr>
-            <tr><td><strong>End Date Time:</strong></td><td>${info.event.end.toLocaleString()}</td></tr>
-        </table>
-        `;
+                var event = info.event.extendedProps;
+                var startDate = info.event.start.toLocaleString();
+                var endDate = info.event.end ? info.event.end.toLocaleString() : "Not specified";
 
-        // Contoh: Tampilkan dalam alert atau modal
-        $('#eventDetailModal').modal('show').find('.modal-body').html(details);
+                var details = `
+                    <table class="table table-bordered">
+                        <tr><td><strong>Requester Name</strong></td><td>${event.name}</td></tr>
+                        <tr><td><strong>Department</strong></td><td>${event.department}</td></tr>
+                        <tr><td><strong>Brief Description on Meeting Agenda</strong></td><td>${event.description}</td></tr>
+                    </table>
+                    <table class="table table-bordered">
+                        <tr><td><strong>Lot</strong></td><td>${event.lot}</td></tr>
+                        <tr><td><strong>Room No</strong></td><td>${event.room_no}</td></tr>
+                        <tr><td><strong>Location</strong></td><td>${event.location}</td></tr>
+                        <tr><td><strong>Usage</strong></td><td>${event.usage}</td></tr>
+                        <tr><td><strong>Start Date Time:</strong></td><td>${startDate}</td></tr>
+                        <tr><td><strong>End Date Time:</strong></td><td>${endDate}</td></tr>
+                    </table>
+                `;
 
-        // Anda juga dapat memanggil modal Bootstrap atau elemen lain
-        // Contoh: $('#eventDetailModal').modal('show').find('.modal-body').html(details);
-    }
+                $('#eventDetailModal').modal('show').find('.modal-body').html(details);
+            }
         });
 
         calendar.render();
     });
+
+    // Fungsi untuk mengatur warna event berdasarkan bulan
+    function getEventColor(month) {
+        const colors = {
+            '01': "yellow",  '02': "green", '03': "yellow",  '04': "green",
+            '05': "yellow",  '06': "green",    '07': "yellow", '08': "green",
+            '09': "yellow", '10': "green",   '11': "yellow",   '12': "green"
+        };
+        return colors[month] || "green";
+    }
 </script>
+
 
 {{-- <script>
     document.addEventListener('DOMContentLoaded', function () {
