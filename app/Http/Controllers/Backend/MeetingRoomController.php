@@ -28,9 +28,11 @@ class MeetingRoomController extends Controller
         ->orderBy('Date_booking', 'asc') // Urutkan berdasarkan tanggal booking
         ->get();
 
+        $department = ['PIE(NTD)','PIE(MT)','PIE(PE)','PIE(IE)','PIE(FTY)'];
+        $room_list = MeetingRoomList::all();
         // $data = $bookings->paginate(10);
 
-        return view('backend.personel.meeting_room.calendar_view_booked', compact('bookings','bookedrequest'));
+        return view('backend.personel.meeting_room.calendar_view_booked', compact('room_list','department','bookings','bookedrequest'));
     }
 
     public function MeetingRoomList()
@@ -50,7 +52,7 @@ class MeetingRoomController extends Controller
             ->get();
 
         // $bookedrequest =  MeetingRoom::latest()->paginate(10); 
-        $bookedrequest =  MeetingRoom::with('meetingroom')->paginate(10);
+        $bookedrequest =  MeetingRoom::with('meetingroom')->orderBy('Date_booking', 'desc')->paginate(10);
          // Mengambil semua inspeksi beserta item inspeksi terkait
         //  dd($bookings);
         return view('backend.personel.meeting_room.meeting_room_reservation_record', compact('bookings','bookedrequest'));
@@ -152,7 +154,7 @@ class MeetingRoomController extends Controller
         $bookedid = MeetingRoom::findOrFail($id);
         $bookedrequest =  MeetingRoom::latest()->paginate(10); 
         $rooms = MeetingRoomList::all();
-
+        
          // Mengambil semua inspeksi beserta item inspeksi terkait
         return view('backend.personel.meeting_room.detail_approve_form', compact('bookedid','rooms','bookedrequestid','bookedrequest'));
     }

@@ -147,7 +147,7 @@
                                     <i data-feather="x-circle" style="width: 18px; height: 18px;"></i><b> REJECTED</b>
                                 </button>
                             @elseif($bookedrequestid->Note_personel == true )
-                                <button class="btn btn-primary btn-sm me-2" type="submit" value="APPROVED">
+                                <button class="btn btn-primary btn-sm me-2" type="submit" name="Status_booking" value="APPROVED">
                                     <i data-feather="send" style="width: 18px; height: 18px;"></i><b> APPROVED</b>
                                 </button>
                             @endif
@@ -174,6 +174,7 @@
                                     <div class="col-md-12 mb-3">
                                         <div class="form-group">
                                             <div class="form-row align-items-center">
+                                                <input type="hidden" name="Status_booking" value="REJECTED">
                                                 <div class="col-sm">
                                                     <label for="Note_spv_pd" class="col-form-label col-form-label-sm"><b>Noted:</b></label>
                                                 </div>

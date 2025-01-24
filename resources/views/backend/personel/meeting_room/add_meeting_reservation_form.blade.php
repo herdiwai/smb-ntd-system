@@ -127,12 +127,10 @@
                                             </select>                 
                                 
                                         </div>
-                                        
                                     </div>
-                                    
                                 </div>
-                                
                             </div>
+                            
                             <div class="d-flex justify-content-right">
                                 <button class="btn btn-primary btn-sm" type="submit">
                                     <i data-feather="send" style="width: 16px; height: 16px;"></i> Booking Submit
