@@ -11,6 +11,9 @@ use App\Models\MeetingRoom;
 use App\Models\MeetingRoomList;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\BookingNotification;
+use App\Mail\BookingApprovedNotification;
 
 class MeetingRoomController extends Controller
 {
@@ -80,11 +83,6 @@ class MeetingRoomController extends Controller
 
     public function StoreBookedMeetingRoom(Request $request) 
     {
-        // $request->validate([
-        //     'room_id' => 'required|exists:rooms,id',
-        //     'start_time' => 'required|date|before:end_time',
-        //     'end_time' => 'required|date|after:start_time',
-        // ]);
 
         // Buat incomming_number (kode urut)
         $lastCode = MeetingRoom::latest('Booking_number_id')->first();
@@ -98,19 +96,24 @@ class MeetingRoomController extends Controller
             $autoCode = 'MR-' . str_pad($number, 4, '0', STR_PAD_LEFT); // Format kode auto: MR-XXXX
         }
 
-        MeetingRoom::create([
-            'user_id' => Auth::id(),
-            'Booking_number_id' => $autoCode,
-            'Name' => $request->Name,
-            'Department' => $request->Department,
-            'Description' => $request->Description,
-            'Date_booking' => $request->Date_booking,
-            'Start_time' => $request->Start_time,
-            'End_time' => $request->End_time,
-            // 'Date_booking' => $request->Date_booking,
-            'choose_meeting_room' => $request->choose_meeting_room,
-            'Status_booking' => "waiting approvals",
-        ]);
+        // Simpan booking ke database
+            $booking = MeetingRoom::create([
+                'user_id' => Auth::id(),
+                'Booking_number_id' => $autoCode,
+                'Name' => $request->Name,
+                'Department' => $request->Department,
+                'Description' => $request->Description,
+                'Date_booking' => $request->Date_booking,
+                'Start_time' => $request->Start_time,
+                'End_time' => $request->End_time,
+                'choose_meeting_room' => $request->choose_meeting_room,
+                'Status_booking' => "waiting approvals",
+            ]);
+
+            $adminEmails = ['wulandaridwi257@gmail.com', 'herdi.kom@gmail.com'];
+            Mail::to($adminEmails)->send(new BookingNotification($booking));
+
+
 
         $notification = array(
             'message' => 'Booked Request Form Create Successfully',
@@ -122,15 +125,24 @@ class MeetingRoomController extends Controller
     public function updateBookedMeetingRoom(Request $request)
     {
         $room_id = $request->id;
-        MeetingRoom::findOrFail($room_id)->update([
+        $meetingRoom = MeetingRoom::findOrFail($room_id);
+        
+        // Update data
+        $meetingRoom->update([
             'user_id_personel' => Auth::id(),
             'Note_personel' => $request->Note_personel,
             'Status_booking' => $request->Status_booking,
         ]);
+    
+        // Kirim email ke user yang booking meeting room
+        Mail::to($meetingRoom->user->email)->send(new BookingApprovedNotification($meetingRoom));
+    
+        // Notifikasi sukses di halaman
         $notification = array(
-            'message' => 'Booked Meeting Room Approved/Update Successfully',
+            'message' => 'Booked Meeting Room Approved/Updated Successfully & Email Sent',
             'alert-type' => 'info'
         );
+    
         return redirect()->route('personel.meetingroomlist')->with($notification);
     }
 
