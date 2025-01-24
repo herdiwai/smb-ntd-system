@@ -491,7 +491,7 @@
 
       @if(Auth::user()->can('personel.menu'))
 
-      <li class="nav-item nav-category">Personel</li>
+      <li class="nav-item nav-category">Meeting Room Reservation</li>
       <li class="nav-item">
         <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents10" role="button" aria-expanded="false" aria-controls="uiComponents10">
           <i class="link-icon" data-feather="book-open"></i>

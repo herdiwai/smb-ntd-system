@@ -2,11 +2,11 @@
 @section('admin')
     <div class="page-content">
 
-        <nav class="page-breadcrumb">
+        {{-- <nav class="page-breadcrumb">
             <ol class="breadcrumb"> 
                  <a href="{{ route('request.bookedmeetingroom') }}" class="btn btn-inverse-info btn-xs"><i data-feather="file-plus" style="width: 16px; height: 16px;"></i> ADD RESERVATION FORM</a>
             </ol>
-        </nav>
+        </nav> --}}
     
             <div class="row">
                 <div class="col-md-12 grid-margin stretch-card">
@@ -26,7 +26,7 @@
                                             <th>End Time</th>
                                             <th>Room Detail</th>
                                             <th>Status</th>
-                                            <th>Note Personel</th>
+                                            <th>Note</th>
                                             @if(Auth::user()->can('detail.bookedapproved'))
                                             <th>Action</th>
                                             @endif
@@ -93,9 +93,9 @@
                                             @if(Auth::user()->can('detail.bookedapproved'))
                                             <td>
                                                 @if ($booked->Status_booking === 'waiting approvals')
-                                                    <a href="{{ route('add.detailapprove', $booked->id ) }}" class="btn btn-info btn-xs" title="View Detail"><i data-feather="eye" style="width: 16px; height: 20px;"></i></a>
+                                                    <a href="{{ route('add.detailapprove', $booked->id ) }}" class="btn btn-success btn-xs" title="View Detail"><i data-feather="check-circle" style="width: 16px; height: 20px;"></i> APPROVED</a>
                                                 @elseif($booked->Note_personel == true )
-                                                    <a href="{{ route('add.detailapprove', $booked->id ) }}" class="btn btn-info btn-xs" title="View Detail"><i data-feather="eye" style="width: 16px; height: 20px;"></i></a>
+                                                    <a href="{{ route('add.detailapprove', $booked->id ) }}" class="btn btn-success btn-xs" title="View Detail"><i data-feather="check-circle" style="width: 16px; height: 20px;"></i> APPROVED</a>
                                                 @else    
                                                     <button class="btn btn-success btn-xs" disabled><i data-feather="check-circle" style="width: 16px; height: 16px;"></i> APPROVED</button>
                                                     {{-- <i data-feather="check-circle" style="width: 16px; height: 20px;"></i><p class="text-success">APPROVED</p> --}}

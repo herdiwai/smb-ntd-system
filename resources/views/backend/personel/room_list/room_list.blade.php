@@ -58,7 +58,8 @@
                                             </td> --}}
 
                                             <td>
-                                                <a href="" class="btn btn-inverse-primary btn-xs" title="Approval"><i data-feather="arrow-up-circle" style="width: 16px; height: 20px;"></i></a>
+                                                <a href="{{ route('edit.meetingroom', $rooms->id ) }}" class="btn btn-inverse-primary btn-xs" title="Approval"><i data-feather="edit" style="width: 16px; height: 20px;"></i></a>
+                                                <a href="{{ route('delete.meetingroom', $rooms->id ) }}" class="btn btn-inverse-danger btn-xs" title="Approval"><i data-feather="trash" style="width: 16px; height: 20px;"></i></a>
                                             </td>
                                         <tr>
                                         @endforeach
