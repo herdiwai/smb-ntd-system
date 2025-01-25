@@ -162,7 +162,7 @@
   <!-- Layout styles -->  
 	<link rel="stylesheet" href="{{ asset('backend/assets/css/demo2/style.css') }}">
   <!-- End layout styles -->
-    
+  {{-- <img src="{{ asset('backend/assets/images/batam_sm.jpg') }}" alt="Description"> --}}
 </head>
 
 <style>
@@ -174,6 +174,10 @@
 
 body {
     font-family: Arial, sans-serif;
+    background-image: url('{{ asset('backend/assets/images/batam_sm.jpg') }}');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     background-color: #f4f4f4;
     display: flex;
     justify-content: center;

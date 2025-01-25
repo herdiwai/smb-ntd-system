@@ -86,6 +86,9 @@ License: For each use you must have a valid license purchased only from above li
 		<script src="{{ asset('backend/assets/vendors/core/core.js') }}"></script>
 		<!-- endinject -->
 
+		<!-- Plugin js cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.js -->
+		<script src="{{ asset('backend/assets/vendors/fullcalendarV6/main.min.js') }}"></script>
+
 		<!-- Plugin js for this page -->
 		<script src="{{ asset('backend/assets/vendors/flatpickr/flatpickr.min.js') }}"></script>
 		<script src="{{ asset('backend/assets/vendors/apexcharts/apexcharts.min.js') }}"></script>

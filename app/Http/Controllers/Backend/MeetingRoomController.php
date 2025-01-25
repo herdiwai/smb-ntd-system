@@ -112,8 +112,8 @@ class MeetingRoomController extends Controller
                 'Status_booking' => "waiting approvals",
             ]);
 
-            $adminEmails = ['wulandaridwi257@gmail.com', 'herdi.kom@gmail.com'];
-            Mail::to($adminEmails)->send(new BookingNotification($booking));
+            // $adminEmails = ['wulandaridwi257@gmail.com', 'herdi.kom@gmail.com'];
+            // Mail::to($adminEmails)->send(new BookingNotification($booking));
 
 
 
@@ -137,7 +137,7 @@ class MeetingRoomController extends Controller
         ]);
     
         // Kirim email ke user yang booking meeting room
-        Mail::to($meetingRoom->user->email)->send(new BookingApprovedNotification($meetingRoom));
+        // Mail::to($meetingRoom->user->email)->send(new BookingApprovedNotification($meetingRoom));
     
         // Notifikasi sukses di halaman
         $notification = array(

@@ -34,7 +34,7 @@
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.js"></script>
+{{-- <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.js"></script> --}}
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -124,7 +124,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="bookingModalLabel">Booking Form</h5>
+                <h5 class="modal-title" id="bookingModalLabel">Request Booking Form</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -167,7 +167,7 @@
                             <div class="form-group">
                                 <div class="row align-items-center">
                                     <div class="col-4">
-                                        <label for="request_dept" class="col-form-label col-form-label-sm"><b>DEPARTMENT:</b></label>
+                                        <label for="department" class="col-form-label col-form-label-sm"><b>DEPARTMENT:</b></label>
                                     </div>
                                     <div class="col-8">
                                         <select id="department" name="Department" class="form-select form-select-sm">
@@ -221,7 +221,7 @@
                             <div class="form-group">
                                 <div class="row align-items-center">
                                     <div class="col-4">
-                                        <label for="start_time" class="col-form-label col-form-label-sm"><b>START TIME:</b></label>
+                                        <label for="start_time1" class="col-form-label col-form-label-sm"><b>START TIME:</b></label>
                                     </div>
                                     <div class="col input-group flatpickr" id="flatpickr-time">
                                         <input type="text" class="form-control form-control-sm" name="Start_time" placeholder="Select time" data-input>
@@ -239,7 +239,7 @@
                             <div class="form-group">
                                 <div class="row align-items-center">
                                     <div class="col-4">
-                                        <label for="start_time" class="col-form-label col-form-label-sm"><b>END TIME:</b></label>
+                                        <label for="start_time2" class="col-form-label col-form-label-sm"><b>END TIME:</b></label>
                                     </div>
                                     <div class="col input-group flatpickr" id="flatpickr-time">
                                         <input type="text" class="form-control form-control-sm" name="End_time" placeholder="Select time" data-input>
