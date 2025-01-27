@@ -36,7 +36,7 @@
 
 {{-- <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.js"></script> --}}
 
-<script>
+{{-- <script>
     document.addEventListener('DOMContentLoaded', function () {
         var calendarEl = document.getElementById('calendar');
 
@@ -117,6 +117,61 @@
         };
         return colors[month] || "green";
     }
+</script> --}}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    var calendarEl = document.getElementById('calendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        height: 'auto',
+        contentHeight: 'auto',
+        aspectRatio: 1.5,
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth'
+        },
+        events: {
+            url: '/fetch-bookings', // Endpoint untuk mengambil data dari server
+            method: 'GET',
+            failure: function () {
+                alert('Failed to load events');
+            }
+        },
+        dateClick: function (info) {
+            document.getElementById('selectedDate').value = info.dateStr;
+            var bookingModal = new bootstrap.Modal(document.getElementById('bookingModal'));
+            bookingModal.show();
+        },
+        eventClick: function (info) {
+            var event = info.event.extendedProps;
+            var startDate = info.event.start.toLocaleString();
+            var endDate = info.event.end ? info.event.end.toLocaleString() : "Not specified";
+
+            var details = `
+                <table class="table table-bordered">
+                    <tr><td><strong>Requester Name</strong></td><td>${event.name}</td></tr>
+                    <tr><td><strong>Department</strong></td><td>${event.department}</td></tr>
+                    <tr><td><strong>Brief Description on Meeting Agenda</strong></td><td>${event.description}</td></tr>
+                </table>
+                <table class="table table-bordered">
+                    <tr><td><strong>Lot</strong></td><td>${event.lot}</td></tr>
+                    <tr><td><strong>Room No</strong></td><td>${event.room_no}</td></tr>
+                    <tr><td><strong>Location</strong></td><td>${event.location}</td></tr>
+                    <tr><td><strong>Usage</strong></td><td>${event.usage}</td></tr>
+                    <tr><td><strong>Start Date Time:</strong></td><td>${startDate}</td></tr>
+                    <tr><td><strong>End Date Time:</strong></td><td>${endDate}</td></tr>
+                </table>
+            `;
+
+            $('#eventDetailModal').modal('show').find('.modal-body').html(details);
+        }
+    });
+
+    calendar.render();
+});
 </script>
 
 <!-- Modal Form -->

@@ -371,7 +371,9 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
 
     Route::controller(MeetingRoomController::class)->group(function(){
         Route::get('/calendar-booked', 'calendarViewBooked' )->name('calendar.booked');
-        Route::get('/meetingroomlist', 'MeetingRoomList' )->name('personel.meetingroomlist');
+        Route::get('/fetch-bookings', 'fetchBookings')->name('fetch.bookings');
+        Route::get('/meetingroomlist', 'MeetingRoomList' )->name('personel.meetingroomlist'); // Tanpa DataTables
+        Route::get('/get-bookings', 'getBookings')->name('getBookings'); //Dengan DataTables
         Route::get('/request/meetingroom', 'AddBookedMeetingRoom' )->name('request.bookedmeetingroom');
         Route::post('/store/request-meetingroom', 'StoreBookedMeetingRoom' )->name('store.request.meetingroom');
         Route::post('/update/request-meetingroom-approval/{id}', 'updateBookedMeetingRoom' )->name('update.booked.meetingroom');

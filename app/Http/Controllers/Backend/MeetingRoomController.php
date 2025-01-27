@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\BookingNotification;
 use App\Mail\BookingApprovedNotification;
+use Yajra\DataTables\Facades\DataTables;
 
 class MeetingRoomController extends Controller
 {
@@ -23,10 +24,10 @@ class MeetingRoomController extends Controller
         $bookedrequest =  MeetingRoom::with('meetingroom')->get();
 
         $bookings = MeetingRoom::with(['meetingroom'])
-        ->where('Status_booking' , 'APPROVED')
-        ->where('End_time', '>=', $currentDateTime) // Filter booking aktif
-        ->orderBy('Date_booking', 'asc') // Urutkan berdasarkan tanggal booking
-        ->get();
+            // ->where('Status_booking' , 'APPROVED')
+            ->where('End_time', '>=', $currentDateTime) // Filter booking aktif
+            ->orderBy('Date_booking', 'asc') // Urutkan berdasarkan tanggal booking
+            ->get();
 
         $department = ['PIE(NTD)','PIE(MT)','PIE(PE)','PIE(IE)','PIE(FTY)'];
         $room_list = MeetingRoomList::all();
@@ -35,26 +36,98 @@ class MeetingRoomController extends Controller
         return view('backend.personel.meeting_room.calendar_view_booked', compact('room_list','department','bookings','bookedrequest'));
     }
 
-    public function MeetingRoomList()
+    public function fetchBookings()
     {
-        // $booked_id = MeetingRoom::findOrFail($id); // Ambil booking berdasarkan ID
-        $currentDateTime = now()->format('H:i');
+        $bookings = MeetingRoom::with('meetingroom')
+            ->where('Status_booking', 'APPROVED')
+            ->get();
 
-        // Ambil data semua ruangan beserta status bookingnya
-        // $rooms = MeetingRoom::with(['meetingroom' => function ($query) use ($currentDateTime) {
-        //     $query->where('End_time', '>=', $currentDateTime) // Booking yang belum selesai
-        //         ->orderBy('Start_time', 'asc'); // Urutkan berdasarkan waktu mulai
-        // }])->get();
+        $events = $bookings->flatMap(function ($booking) {
+            return $booking->meetingroom->map(function ($room) use ($booking) {
+                return [
+                    'title' => "Name: {$booking->Name} - {$room->Lot} - {$room->Room_no} - {$room->Location} - {$room->Usage}",
+                    'start' => $booking->Date_booking . 'T' . \Carbon\Carbon::parse($booking->Start_time)->format('H:i'),
+                    'end' => $booking->End_time
+                        ? $booking->Date_booking . 'T' . \Carbon\Carbon::parse($booking->End_time)->format('H:i')
+                        : null,
+                    'color' => $this->getEventColor(\Carbon\Carbon::parse($booking->Date_booking)->format('m')),
+                    'extendedProps' => [
+                        'name' => $booking->Name,
+                        'department' => $booking->Department,
+                        'description' => $booking->Description,
+                        'lot' => $room->Lot,
+                        'room_no' => $room->Room_no,
+                        'location' => $room->Location,
+                        'usage' => $room->Usage,
+                    ],
+                ];
+            });
+        });
+
+        return response()->json($events);
+    }
+
+    private function getEventColor($month)
+    {
+        $colors = [
+            '01' => "yellow", '02' => "green", '03' => "yellow", '04' => "green",
+            '05' => "yellow", '06' => "green", '07' => "yellow", '08' => "green",
+            '09' => "yellow", '10' => "green", '11' => "yellow", '12' => "green",
+        ];
+
+        return $colors[$month] ?? "green";
+    }
+
+    // Dengan DataTable
+    public function getBookings(Request $request)
+    {
+        if ($request->ajax()) {
+            $bookings = MeetingRoom::with(['meetingroom'])
+                ->where('End_time', '>=', now()->format('H:i')) // Filter booking aktif
+                ->orderBy('Date_booking', 'asc');
+
+            return DataTables::of($bookings)
+                ->addColumn('action', function ($row) {
+                    return '
+                        <a href="' . route('meeting_rooms.edit', $row->id) . '" class="btn btn-warning btn-sm">Edit</a>
+                        <form action="' . route('meeting_rooms.destroy', $row->id) . '" method="POST" class="d-inline">
+                            ' . csrf_field() . '
+                            ' . method_field('DELETE') . '
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    ';
+                })
+                ->make(true);
+        }
+
+        return view('backend.personel.meeting_room.meeting_room_reservation_record');
+    }
+
+    // tanpa DataTable (pagination)
+    public function MeetingRoomList(Request $request)
+    {
+        // Tangkap kata kunci pencarian
+        // $search = $request->input('search');
+
+        // // Query data dengan kondisi pencarian
+        // $meetingRooms = MeetingRoom::query()
+        //     ->when($search, function ($query, $search) {
+        //         return $query->where('Status_booking', 'like', "%{$search}%");
+        //                     // ->orWhere('Room_no', 'like', "%{$search}%")
+        //                     // ->orWhere('Location', 'like', "%{$search}%");
+        //     })
+        //     ->paginate(10); // Pagination jika diperlukan
+
+
+        $currentDateTime = now()->format('H:i');
 
         $bookings = MeetingRoom::with(['meetingroom'])
             ->where('End_time', '>=', $currentDateTime) // Filter booking aktif
             ->orderBy('Date_booking', 'asc') // Urutkan berdasarkan tanggal booking
             ->get();
 
-        // $bookedrequest =  MeetingRoom::latest()->paginate(10); 
         $bookedrequest =  MeetingRoom::with('meetingroom')->orderBy('Date_booking', 'desc')->paginate(10);
-         // Mengambil semua inspeksi beserta item inspeksi terkait
-        //  dd($bookings);
+
         return view('backend.personel.meeting_room.meeting_room_reservation_record', compact('bookings','bookedrequest'));
     }
     

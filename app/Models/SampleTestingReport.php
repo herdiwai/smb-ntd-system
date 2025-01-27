@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+// use Illuminate\Auth\Access\Gate;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Gate;
 
 class SampleTestingReport extends Model
 {
@@ -52,5 +55,4 @@ class SampleTestingReport extends Model
     {
         return $this->hasOne(StatusApprovals::class,'id','status_approvals_id');
     }
-
 }

@@ -507,11 +507,11 @@
             </li>
             @endif
 
-            @if(Auth::user()->can('reservation.menu'))
+            {{-- @if(Auth::user()->can('reservation.menu'))
             <li class="nav-item">
               <a href="{{ route('request.bookedmeetingroom') }}" class="nav-link">Reservation Room</a>
             </li>
-            @endif
+            @endif --}}
 
             @if(Auth::user()->can('calendar.menu'))
             <li class="nav-item">
@@ -533,7 +533,7 @@
       @if(Auth::user()->can('roomlist.menu'))
       <li class="nav-item">
         <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents12" role="button" aria-expanded="false" aria-controls="uiComponents12">
-          <i class="link-icon" data-feather="book-open"></i>
+          <i class="link-icon" data-feather="home"></i>
           <span class="link-title">Room List</span>
           <i class="link-arrow" data-feather="chevron-down"></i>
         </a>
