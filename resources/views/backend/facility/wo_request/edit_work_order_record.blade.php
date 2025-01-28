@@ -77,7 +77,7 @@
                                             @if($wo_id->line == '-') <!-- Memeriksa apakah nilai line adalah '-' -->
                                                 <input type="text" value="{{ old('line_id', $wo_id->line) }}" class="form-control form-control-sm" id="line" name="line_id" disabled>
                                             @else
-                                                <input type="text" value="{{ old('line_id', $wo_id->lines->line) }}" class="form-control form-control-sm" id="line" name="line_id">
+                                                <input type="text" value="{{ old('line_id', $wo_id->lines->line) }}" class="form-control form-control-sm" id="line" name="line_id" disabled>
                                             @endif
                                         </div>
                                     </div>
@@ -108,7 +108,7 @@
                                             @if($wo_id->lot == '-') <!-- Memeriksa apakah nilai line adalah '-' -->
                                                 <input type="text" value="{{ old('lot_id', $wo_id->lot) }}" class="form-control form-control-sm" id="lot" name="lot_id" disabled>
                                             @else
-                                                <input type="text" value="{{ old('lot_id', $wo_id->lots->lot) }}" class="form-control form-control-sm" id="lot" name="lot_id">
+                                                <input type="text" value="{{ old('lot_id', $wo_id->lots->lot) }}" class="form-control form-control-sm" id="lot" name="lot_id" disabled>
                                             @endif
                                         </div>
                                     </div>
@@ -124,7 +124,7 @@
                                             @if($wo_id->shift == '-') <!-- Memeriksa apakah nilai line adalah '-' -->
                                                 <input type="text" value="{{ old('shift_id', $wo_id->shift) }}" class="form-control form-control-sm" id="shift" name="shift_id" disabled>
                                             @else
-                                                <input type="text" value="{{ old('shift_id', $wo_id->shifts->shift) }}" class="form-control form-control-sm" id="shift" name="shift_id">
+                                                <input type="text" value="{{ old('shift_id', $wo_id->shifts->shift) }}" class="form-control form-control-sm" id="shift" name="shift_id" disabled>
                                             @endif
                                         </div>
                                     </div>
@@ -175,7 +175,7 @@
                         <hr/>
 
                         <div class="row">     
-                            <div class="col-md-6 mb-3">
+                            {{-- <div class="col-md-6 mb-3">
                                 <div class="form-group">
                                     <div class="form-row align-items-center">
                                         <div class="col-sm">
@@ -186,23 +186,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="form-group">
-                                    <div class="form-row align-items-center">
-                                        <div class="col-sm">
-                                            <label for="time_spent" class="col-form-label col-form-label-sm"><b>Time Spent (Hour/Min)</b></label>
-                                        </div>
-                                        <div class="col">
-                                            <input type="text" class="form-control form-control-sm" id="time_spent" name="time_spent">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
+                            </div> --}}
+                            <div class="col-md-4 mb-3">
                                 <div class="form-group">
                                     <div class="form-row align-items-center">
                                         <div class="col-sm">
@@ -214,7 +199,23 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-4 mb-3">
+                                <div class="form-group">
+                                    <div class="form-row align-items-center">
+                                        <div class="col-sm">
+                                            <label for="time_spent" class="col-form-label col-form-label-sm"><b>Time Spent (Hour/Min)</b></label>
+                                        </div>
+                                        <div class="col">
+                                            <input type="text" class="form-control form-control-sm" id="time_spent" name="time_spent">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {{-- </div> --}}
+                        
+                        {{-- <div class="row"> --}}
+                            
+                            <div class="col-md-4 mb-3">
                                 <div class="form-group">
                                     <div class="form-row align-items-center">
                                         <div class="col-sm">

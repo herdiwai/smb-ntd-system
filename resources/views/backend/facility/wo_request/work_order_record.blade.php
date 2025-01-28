@@ -39,7 +39,7 @@
 
                                     <th>View Detail</th>
                                     <th>Action Techinician</th>
-                                    <th>Action Spv PD</th>
+                                    <th>Action Spv FCT</th>
                                     <th>Export to PDF</th>
                                     <th>Action</th>   
                                 </tr>
@@ -115,7 +115,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h5 class="modal-title" id="spvAcceptedModalLabel">QC Form</h5>
+                    <h5 class="modal-title" id="spvAcceptedModalLabel">Facility Form</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
                 </div>
                 <form id="spvFormAccepted" action="" method="POST">
@@ -331,10 +331,10 @@
                             <div class="form-group">
                                 <div class="form-row align-items-center">
                                     <div class="col-sm">
-                                        <label for="assigned_technician" class="col-form-label col-form-label-sm"><b>Assigned To</b></label>
+                                        <label for="name_spv" class="col-form-label col-form-label-sm"><b>Assigned To</b></label>
                                     </div>
                                     <div class="col">
-                                        <input type="text" class="form-control form-control-sm assigned-technician" id="assigned_technician" disabled>
+                                        <input type="text" class="form-control form-control-sm name_spv" id="name_spv" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -379,7 +379,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    {{-- <div class="row">
                         <div class="col-md-6 mb-3">
                             <div class="form-group">
                                 <div class="form-row align-items-center">
@@ -392,7 +392,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     
 
                 </div>

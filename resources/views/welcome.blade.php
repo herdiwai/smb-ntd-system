@@ -159,6 +159,8 @@
 	<link rel="stylesheet" href="{{ asset('backend/assets/vendors/flag-icon-css/css/flag-icon.min.css') }}">
 	<!-- endinject -->
 
+    <link rel="shortcut icon" href="{{ asset('backend/assets/images/smbicon.png') }}" />
+
   <!-- Layout styles -->  
 	<link rel="stylesheet" href="{{ asset('backend/assets/css/demo2/style.css') }}">
   <!-- End layout styles -->

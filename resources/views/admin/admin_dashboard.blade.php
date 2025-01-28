@@ -48,8 +48,8 @@ License: For each use you must have a valid license purchased only from above li
   <!-- Layout styles -->  
 	<link rel="stylesheet" href="{{ asset('backend/assets/css/demo2/style.css') }}">
   <!-- End layout styles -->
-
-  <link rel="shortcut icon" href="{{ asset('backend/assets/images/favicon.png') }}" />
+  <link rel="shortcut icon" href="{{ asset('backend/assets/images/smbicon.png') }}" />
+  {{-- <link rel="shortcut icon" href="{{ asset('backend/assets/images/favicon.png') }}" /> --}}
 	{{-- Toastr notification --}}
   <link rel="stylesheet" type="text/css" href="{{ asset('backend/assets/vendors/toastr/css/toastr.css') }}" >
   {{-- jquery ajax --}}

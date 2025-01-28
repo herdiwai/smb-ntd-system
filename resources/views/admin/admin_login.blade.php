@@ -15,9 +15,19 @@
         .authlogin-side-wrapper{
             width: 100%;
             height: 100%;
-            background-image: url({{ asset('upload/login.png') }});
+            background-image: url({{ asset('upload/login_new1.png') }});
         }
 
+        /* .page-content {
+            position: relative; /* Mengatur posisi relatif untuk elemen konten */
+            background-image: url('{{ asset('backend/assets/images/batam_sm.jpg') }}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: rgba(255, 255, 255, 0.5); /* Menggunakan warna transparan dengan latar belakang */
+        } */
+
+        
         /* .color-changing-text {
             font-size: 24px;
             font-weight: bold;
@@ -56,8 +66,8 @@
   <!-- Layout styles -->  
 	<link rel="stylesheet" href="{{ asset('backend/assets/css/demo2/style.css') }}">
   <!-- End layout styles -->
-
-  <link rel="shortcut icon" href="{{ asset('backend/assets/images/favicon.png') }}" />
+  <link rel="shortcut icon" href="{{ asset('backend/assets/images/smbicon.png') }}" />
+  {{-- <link rel="shortcut icon" href="{{ asset('backend/assets/images/favicon.png') }}" /> --}}
 </head>
 <body>
 	<div class="main-wrapper">
@@ -102,7 +112,7 @@
                         </form>
 
                     </div>
-                    <p class="color-changing-text" style="margin-left: 200px; margin-bottom: 20px; color:rgb(238, 145, 47);">PT SIMATELEX MANUFACTORY BATAM</p>
+                    {{-- <p class="color-changing-text" style="margin-left: 200px; margin-bottom: 20px; color:rgb(238, 145, 47);">PT SIMATELEX MANUFACTORY BATAM</p> --}}
                 </div>
             </div>
 						</div>

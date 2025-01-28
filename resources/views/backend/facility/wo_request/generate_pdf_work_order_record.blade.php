@@ -88,7 +88,7 @@
                 </tr>
                 <tr>
                     <td>Assigned to:</td>
-                    <td>{{ $workorder->assigned_technician }}</td>
+                    <td>{{ $workorder->name_spv }}</td>
                     <td>Time Spent (Hour/Min):</td>
                     <td>{{ $workorder->time_spent }}</td>
                 </tr>
@@ -106,7 +106,7 @@
                 <table class="table" style="width: 100%;">
                     <tr>
                         <td>Name:</td>
-                        <td>{{ $workorder->name_spv }}</td>
+                        <td>{{ $workorder->request_by }}</td>
                         <td>Date/Time:</td>
                         <td>{{ $workorder->date_final }} / {{ $workorder->time_accepted }} WIB</td>
                     </tr>
