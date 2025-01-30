@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\ApprovalController;
+use App\Http\Controllers\Backend\EmployeeLogOutInController;
 use App\Http\Controllers\Backend\LotController;
 use App\Http\Controllers\Backend\ModelBrewerController;
 use App\Http\Controllers\Backend\MrrequestController;
@@ -401,3 +402,20 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
           
     });
 });
+
+// EmployeeLogOutIn Controller
+Route::middleware(['auth', 'roles:admin'])->group(function() {
+
+    Route::controller(EmployeeLogOutInController::class)->group(function(){
+        Route::get('/employee-log-data', 'index' )->name('employee.log.data');
+        // Route::get('/add-meetingroom', 'addRoomMeeting' )->name('add.meetingroom');
+        // Route::post('/store/meetingroom', 'storeMeetingRoom' )->name('store.meetingroom');
+        // Route::get('/edit/meetingroom/{id}', 'editRoomMeeting' )->name('edit.meetingroom');
+        // Route::post('/update/meetingroom/{id}', 'updateRoomMeeting' )->name('update.meetingroom');
+        // Route::get('/delete/meetingroom/{id}', 'deleteMeetingRoom' )->name('delete.meetingroom');
+        // Route::get('/add/detailapprove/{id}', 'AddDetailApprove' )->name('add.detailapprove');
+        // Route::post('/add/workorder', 'StoreWorkOrder' )->name('post.WorkOrder');
+          
+    });
+});
+

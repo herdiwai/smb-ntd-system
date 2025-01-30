@@ -565,6 +565,25 @@
     {{-- @endif --}}
   {{-- End Menu Meeting Room for Personel user --}}
   
+    {{-- Menu Employee Log Out In --}}
+    <li class="nav-item nav-category">Employee Log Out In</li>
+    <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="collapse" href="#emails13" role="button" aria-expanded="false" aria-controls="emails13">
+        <i class="link-icon" data-feather="book-open"></i>
+        <span class="link-title">Employee Log</span>
+        <i class="link-arrow" data-feather="chevron-down"></i>
+      </a>
+      <div class="collapse" id="emails13">
+        <ul class="nav sub-menu">
+
+            <li class="nav-item">
+              <a href="{{ route('employee.log.data') }}" class="nav-link">Data Out In</a>
+            </li>
+
+        </ul>
+      </div>
+    </li>
+  {{-- End Menu Employee Log Out In --}}
 
       {{-- Menu MRR for NTD user --}}
       @if(Auth::user()->can('menu.Mrr'))
