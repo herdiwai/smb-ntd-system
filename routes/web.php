@@ -376,7 +376,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
         Route::get('/get-bookings', 'getBookings')->name('getBookings'); //Dengan DataTables
         Route::get('/request/meetingroom', 'AddBookedMeetingRoom' )->name('request.bookedmeetingroom');
         Route::post('/store/request-meetingroom', 'StoreBookedMeetingRoom' )->name('store.request.meetingroom');
-        Route::post('/update/request-meetingroom-approval/{id}', 'updateBookedMeetingRoom' )->name('update.booked.meetingroom');
+        Route::patch('/update/request-meetingroom-approval/{id}', 'updateBookedMeetingRoom' )->name('update.booked.meetingroom');
         Route::get('/add/detailapprove/{id}', 'AddDetailApprove' )->name('add.detailapprove');
         Route::get('/delete-booked/{id}', 'deleteBooked' )->name('delete.booked');
         Route::post('/check-booking', 'checkBooking' )->name('check.booking');

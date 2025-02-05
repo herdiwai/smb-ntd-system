@@ -117,8 +117,7 @@ class MeetingRoomController extends Controller
         //                     // ->orWhere('Location', 'like', "%{$search}%");
         //     })
         //     ->paginate(10); // Pagination jika diperlukan
-
-
+        
         $currentDateTime = now()->format('H:i');
 
         $bookings = MeetingRoom::with(['meetingroom'])
@@ -126,9 +125,17 @@ class MeetingRoomController extends Controller
             ->orderBy('Date_booking', 'asc') // Urutkan berdasarkan tanggal booking
             ->get();
 
+        $rooms = MeetingRoomList::all();
+
         $bookedrequest =  MeetingRoom::with('meetingroom')->orderBy('Date_booking', 'desc')->paginate(10);
 
-        return view('backend.personel.meeting_room.meeting_room_reservation_record', compact('bookings','bookedrequest'));
+        // $room_id = $request->id;
+        // $bookedrequestid = MeetingRoom::with('meetingroom')->findOrFail($room_id);
+        // $bookedrequestid = MeetingRoom::with('meetingroom')->findOrFail($id);
+
+        
+
+        return view('backend.personel.meeting_room.meeting_room_reservation_record', compact('bookings','bookedrequest','rooms'));
     }
     
     public function AddBookedMeetingRoom(Request $request)
@@ -197,39 +204,111 @@ class MeetingRoomController extends Controller
         return redirect()->route('personel.meetingroomlist')->with($notification);
     }
 
-    public function updateBookedMeetingRoom(Request $request)
+    public function updateBookedMeetingRoom(Request $request, $id)
     {
+        $meetingRoom = MeetingRoom::findOrFail($id);
         $room_id = $request->id;
         $meetingRoom = MeetingRoom::findOrFail($room_id);
         
         // Update data
-        $meetingRoom->update([
-            'user_id_personel' => Auth::id(),
-            'Note_personel' => $request->Note_personel,
-            'Status_booking' => $request->Status_booking,
-        ]);
-    
+        // Cek apakah form pertama dikirim
+        if ($request->has('Date_booking') && $request->has('Start_time') && $request->has('End_time') && $request->has('choose_meeting_room')) {
+            // Update data form pertama
+            $meetingRoom->update([
+                'user_id_personel' => Auth::id(),
+                'Date_booking' => $request->Date_booking,
+                'Start_time' => $request->Start_time,
+                'End_time' => $request->End_time,
+                'choose_meeting_room' => $request->choose_meeting_room,
+                'Status_booking' => $request->Status_booking,
+            ]);
+        }
+
+        // Cek apakah form kedua dikirim
+        elseif ($request->has('Note_personel')) {
+            // Update data form kedua
+            $meetingRoom->update([
+                'user_id_personel' => Auth::id(),
+                'Note_personel' => $request->Note_personel,
+                'Status_booking' => $request->Status_booking,
+            ]);
+        }
+
+
+
+        // Jika status sebelumnya REJECTED dan sekarang Approved, atau jika ada perubahan pada start, end, date, atau choose_meeting_room
+        if ($meetingRoom->Status_booking === 'REJECTED' && $request->Status_booking === 'APPROVED') {
+            
+            // Cek apakah ada perubahan pada Start_time, End_time, Date_booking, atau choose_meeting_room
+            $isEdited = $request->Start_time !== $meetingRoom->Start_time ||
+                        $request->End_time !== $meetingRoom->End_time ||
+                        $request->Date_booking !== $meetingRoom->Date_booking ||
+                        $request->choose_meeting_room !== $meetingRoom->choose_meeting_room;
+
+            // Jika tidak ada perubahan pada waktu dan ruangan
+            if (!$isEdited) {
+                $meetingRoom->update([
+                    'Status_booking' => 'APPROVED',
+                    'Note_personel' => null, // Reset Note_personel
+                ]);
+            } else {
+                // Jika ada perubahan, update juga data lainnya
+                $meetingRoom->update([
+                    'Start_time' => $request->Start_time,
+                    'End_time' => $request->End_time,
+                    'Date_booking' => $request->Date_booking,
+                    'choose_meeting_room' => $request->choose_meeting_room,
+                    'Status_booking' => 'APPROVED',
+                    'Note_personel' => null, // Reset Note_personel
+                ]);
+            }
+        }
+        
         // Kirim email ke user yang booking meeting room
         // Mail::to($meetingRoom->user->email)->send(new BookingApprovedNotification($meetingRoom));
-    
+        
         // Notifikasi sukses di halaman
         $notification = array(
             'message' => 'Booked Meeting Room Approved/Updated Successfully & Email Sent',
             'alert-type' => 'info'
         );
-    
+        
+        // Redirect ke halaman meeting list dengan notifikasi
         return redirect()->route('personel.meetingroomlist')->with($notification);
+        
     }
 
     public function AddDetailApprove($id)
     {
-        $bookedrequestid = MeetingRoom::with('meetingroom')->findOrFail($id);
-        $bookedid = MeetingRoom::findOrFail($id);
-        $bookedrequest =  MeetingRoom::latest()->paginate(10); 
-        $rooms = MeetingRoomList::all();
+        // $bookedrequestid = MeetingRoom::with('meetingroom')->findOrFail($id);
+        // $bookedid = MeetingRoom::findOrFail($id);
+        // $bookedrequest =  MeetingRoom::latest()->paginate(10); 
+        // $rooms = MeetingRoomList::all();
         
-         // Mengambil semua inspeksi beserta item inspeksi terkait
-        return view('backend.personel.meeting_room.detail_approve_form', compact('bookedid','rooms','bookedrequestid','bookedrequest'));
+        // return view('backend.personel.meeting_room.detail_approve_form', compact('bookedrequestid', 'rooms','bookedid','bookedrequest'));
+        $bookedrequestid = MeetingRoom::with('meetingroom')->findOrFail($id);
+        $bookedrequest = MeetingRoom::latest()->paginate(10); 
+        $bookedid = MeetingRoom::findOrFail($id);
+        $rooms = MeetingRoomList::all();
+    
+        // Pastikan hanya data yang dibutuhkan yang dikirim dalam JSON
+            $response = [
+                'id' => $bookedrequestid->id,
+                'Name' => $bookedrequestid->Name,
+                'Department' => $bookedrequestid->Department,
+                'Description' => $bookedrequestid->Description,
+                'Start_time' => $bookedrequestid->Start_time,
+                'End_time' => $bookedrequestid->End_time,
+                'Date_booking' => $bookedrequestid->Date_booking,
+                'choose_meeting_room' => $bookedrequestid->choose_meeting_room,
+                'rooms' => $rooms, // pastikan rooms dikirimkan
+                'Status_booking' => $bookedrequestid->Status_booking,
+                'bookedrequest' => $bookedrequest, // menambahkan $bookedrequest ke respons JSON
+                'bookedid' => $bookedid, // menambahkan $bookedid ke respons JSON
+            ];
+
+            return response()->json($response);
+    
     }
 
     public function deleteBooked($id) 
@@ -249,20 +328,24 @@ class MeetingRoomController extends Controller
 
     public function checkBooking(Request $request)
     {
-          // Ambil data dari form
+        // Ambil data dari request
         $dateBooking = $request->input('Date_booking');
         $startTime = $request->input('Start_time');
         $endTime = $request->input('End_time');
         $room = $request->input('choose_meeting_room');
 
-        // Cari booking yang sudah ada dengan Date, Start Time, End Time dan Room yang sama
+        // Cek apakah ada booking yang bentrok di tanggal dan ruangan yang sama
         $existingBooking = MeetingRoom::where('Date_booking', $dateBooking)
-            ->where('Start_time', $startTime)
-            ->where('End_time', $endTime)
-            ->where('choose_meeting_room', $room)
-            ->first();
+        ->where('choose_meeting_room', $room)
+        ->where(function ($query) use ($startTime, $endTime) {
+            $query->where(function ($q) use ($startTime, $endTime) {
+                $q->where('Start_time', '<', $endTime)  // Start booking baru masuk dalam rentang booking lama
+                ->where('End_time', '>', $startTime); // End booking baru masuk dalam rentang booking lama
+            });
+        })
+        ->exists();
 
-        // Jika ada booking yang ditemukan
+        // Jika ada bentrokan waktu, kembalikan response error
         if ($existingBooking) {
             return response()->json([
                 'status' => 'error',
