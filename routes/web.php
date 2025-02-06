@@ -22,6 +22,7 @@ use App\Http\Controllers\Backend\SuggestionSchemeReport;
 use App\Http\Controllers\Backend\FacilityWorkOrder;
 use App\Http\Controllers\Backend\MeetingRoomController;
 use App\Http\Controllers\Backend\MeetingRoomListController;
+use App\Http\Controllers\Backend\CameraMonitoringController;
 use App\Models\SampleTestingReport;
 use Illuminate\Support\Facades\Route;
 
@@ -419,3 +420,15 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
     });
 });
 
+
+// CameraMonitoring Controller
+Route::middleware(['auth', 'roles:admin'])->group(function() {
+    
+    Route::controller(CameraMonitoringController::class)->group(function(){
+        Route::get('/monitoring', 'CameraRecord' )->name('video.monitoring');
+        Route::post('/upload-video', 'VideoRecord')->name('video.record');
+        // Route::get('/monitoring', [CameraMonitoringController::class, 'index'])->name('video.monitoring.index');
+        // Route::post('/upload-video', 'VideoRecord' )->name('video.monitoring.record');
+          
+    });
+});

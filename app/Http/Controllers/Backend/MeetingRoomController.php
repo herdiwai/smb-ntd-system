@@ -236,33 +236,33 @@ class MeetingRoomController extends Controller
 
 
 
-        // Jika status sebelumnya REJECTED dan sekarang Approved, atau jika ada perubahan pada start, end, date, atau choose_meeting_room
-        if ($meetingRoom->Status_booking === 'REJECTED' && $request->Status_booking === 'APPROVED') {
+        // // Jika status sebelumnya REJECTED dan sekarang Approved, atau jika ada perubahan pada start, end, date, atau choose_meeting_room
+        // if ($meetingRoom->Status_booking === 'REJECTED' && $request->Status_booking === 'APPROVED') {
             
-            // Cek apakah ada perubahan pada Start_time, End_time, Date_booking, atau choose_meeting_room
-            $isEdited = $request->Start_time !== $meetingRoom->Start_time ||
-                        $request->End_time !== $meetingRoom->End_time ||
-                        $request->Date_booking !== $meetingRoom->Date_booking ||
-                        $request->choose_meeting_room !== $meetingRoom->choose_meeting_room;
+        //     // Cek apakah ada perubahan pada Start_time, End_time, Date_booking, atau choose_meeting_room
+        //     $isEdited = $request->Start_time !== $meetingRoom->Start_time ||
+        //                 $request->End_time !== $meetingRoom->End_time ||
+        //                 $request->Date_booking !== $meetingRoom->Date_booking ||
+        //                 $request->choose_meeting_room !== $meetingRoom->choose_meeting_room;
 
-            // Jika tidak ada perubahan pada waktu dan ruangan
-            if (!$isEdited) {
-                $meetingRoom->update([
-                    'Status_booking' => 'APPROVED',
-                    'Note_personel' => null, // Reset Note_personel
-                ]);
-            } else {
-                // Jika ada perubahan, update juga data lainnya
-                $meetingRoom->update([
-                    'Start_time' => $request->Start_time,
-                    'End_time' => $request->End_time,
-                    'Date_booking' => $request->Date_booking,
-                    'choose_meeting_room' => $request->choose_meeting_room,
-                    'Status_booking' => 'APPROVED',
-                    'Note_personel' => null, // Reset Note_personel
-                ]);
-            }
-        }
+        //     // Jika tidak ada perubahan pada waktu dan ruangan
+        //     if (!$isEdited) {
+        //         $meetingRoom->update([
+        //             'Status_booking' => 'APPROVED',
+        //             'Note_personel' => null, // Reset Note_personel
+        //         ]);
+        //     } else {
+        //         // Jika ada perubahan, update juga data lainnya
+        //         $meetingRoom->update([
+        //             'Start_time' => $request->Start_time,
+        //             'End_time' => $request->End_time,
+        //             'Date_booking' => $request->Date_booking,
+        //             'choose_meeting_room' => $request->choose_meeting_room,
+        //             'Status_booking' => 'APPROVED',
+        //             'Note_personel' => null, // Reset Note_personel
+        //         ]);
+        //     }
+        // }
         
         // Kirim email ke user yang booking meeting room
         // Mail::to($meetingRoom->user->email)->send(new BookingApprovedNotification($meetingRoom));

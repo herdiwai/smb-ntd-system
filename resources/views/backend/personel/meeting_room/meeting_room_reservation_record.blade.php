@@ -89,9 +89,9 @@
                                                 </button>
                                                     {{-- <a href="{{ route('add.detailapprove', $booked->id ) }}" class="btn btn-success btn-xs" title="View Detail"><i data-feather="check-circle" style="width: 16px; height: 20px;"></i> APPROVED</a> --}}
                                                 @elseif($booked->Note_personel == true )
-                                                <button class="btn btn-success btn-xs" data-bs-toggle="modal" data-bs-target="#approveBookingModal"
+                                                <button class="btn btn-danger btn-xs" disabled data-bs-toggle="modal" data-bs-target="#approveBookingModal"
                                                         data-booked-id="{{ $booked->id }}" onclick="loadBookingData({{ $booked->id }})">
-                                                    <i data-feather="check-circle" style="width: 16px; height: 20px;"></i> APPROVED
+                                                    <i data-feather="check-circle" style="width: 16px; height: 20px;"></i> REJECTED
                                                 </button>
                                                     {{-- <a href="{{ route('add.detailapprove', $booked->id ) }}" class="btn btn-success btn-xs" title="View Detail"><i data-feather="check-circle" style="width: 16px; height: 20px;"></i> APPROVED</a> --}}
                                                 @else    
@@ -228,14 +228,7 @@
                                 </button>
                                 ` : ''
                             }
-                            ${data.Status_booking === 'REJECTED' ?
-                                `
-                                <button type="button" class="btn btn-primary me-2 approve-btn" 
-                                    data-id="${data.id}" data-status="APPROVED">
-                                    <i data-feather="check-circle"></i> Approved
-                                </button>
-                            ` : ''
-                        }
+                            
                         </div>
                     </form>
                 `);
@@ -304,7 +297,7 @@
                 <div class="row">
                     <div class="col-md-12 mb-3">
                         <div class="form-group">
-                            <label for="status_booking_room"><b>Noted:</b></label>
+                            <label for="status_booking_room"><b>Reason:</b></label>
                             <textarea class="form-control form-control-sm" name="Note_personel" id="status_booking_room" rows="2"></textarea>
                         </div>
                     </div>

@@ -585,6 +585,26 @@
     </li>
   {{-- End Menu Employee Log Out In --}}
 
+  {{-- Menu Camera Monitoring Record --}}
+  <li class="nav-item nav-category">Camera Monitoring Record</li>
+  <li class="nav-item">
+    <a class="nav-link" data-bs-toggle="collapse" href="#emails14" role="button" aria-expanded="false" aria-controls="emails14">
+      <i class="link-icon" data-feather="book-open"></i>
+      <span class="link-title">Camera Record</span>
+      <i class="link-arrow" data-feather="chevron-down"></i>
+    </a>
+    <div class="collapse" id="emails14">
+      <ul class="nav sub-menu">
+
+          <li class="nav-item">
+            <a href="{{ route('video.monitoring') }}" class="nav-link">Record Monitoring</a>
+          </li>
+
+      </ul>
+    </div>
+  </li>
+{{-- End Menu Employee Log Out In --}}
+
       {{-- Menu MRR for NTD user --}}
       @if(Auth::user()->can('menu.Mrr'))
       <li class="nav-item nav-category">NTD</li>
