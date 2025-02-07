@@ -23,6 +23,8 @@ class MeetingRoom extends Model
         'user_id_personel',
         'Note_personel',
         'choose_meeting_room',
+        'facilities',
+        'remarks_facilities',
         ];
     
     public function meetingroom()

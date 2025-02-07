@@ -59,6 +59,7 @@ class MeetingRoomController extends Controller
                         'room_no' => $room->Room_no,
                         'location' => $room->Location,
                         'usage' => $room->Usage,
+                        'remarks_facilities' => $booking->remarks_facilities,
                     ],
                 ];
             });
@@ -189,6 +190,9 @@ class MeetingRoomController extends Controller
                 'Start_time' => $request->Start_time,
                 'End_time' => $request->End_time,
                 'choose_meeting_room' => $request->choose_meeting_room,
+                'facilities' => implode(',', $request->facilities),
+                'remarks_facilities' => $request->remarks_facilities,
+
                 'Status_booking' => "waiting approvals",
             ]);
 
@@ -297,6 +301,7 @@ class MeetingRoomController extends Controller
                 'Name' => $bookedrequestid->Name,
                 'Department' => $bookedrequestid->Department,
                 'Description' => $bookedrequestid->Description,
+                'remarks_facilities' => $bookedrequestid->remarks_facilities,
                 'Start_time' => $bookedrequestid->Start_time,
                 'End_time' => $bookedrequestid->End_time,
                 'Date_booking' => $bookedrequestid->Date_booking,

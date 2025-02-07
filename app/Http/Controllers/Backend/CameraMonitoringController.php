@@ -31,10 +31,23 @@ class CameraMonitoringController extends Controller
             // Pindahkan file ke lokasi penyimpanan internal
             $file->move($destinationPath, $fileName);
 
-            return response()->json([
-                'message' => 'Video berhasil disimpan!',
-                'path' => $destinationPath . '/' . $fileName,
-            ]);
+            // Setelah file disimpan, konversikan dari WebM ke MP4 menggunakan FFmpeg
+            $webmFilePath = $destinationPath . '/' . $fileName;
+            $mp4FilePath = $destinationPath . '/video_' . time() . '.mp4';
+
+            // Jalankan FFmpeg untuk konversi video
+            $command = "ffmpeg -i {$webmFilePath} -vcodec libx264 -acodec aac {$mp4FilePath}";
+            exec($command, $output, $returnVar);
+
+            // Cek jika proses konversi berhasil
+            if ($returnVar === 0) {
+                return response()->json([
+                    'message' => 'Video berhasil disimpan dan dikonversi!',
+                    'path' => $mp4FilePath,
+                ]);
+            } else {
+                return response()->json(['message' => 'Gagal mengonversi video!'], 500);
+            }
         }
 
         return response()->json(['message' => 'Upload gagal, tidak ada file diterima'], 400);

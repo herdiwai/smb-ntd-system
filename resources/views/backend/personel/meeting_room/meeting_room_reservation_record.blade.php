@@ -43,6 +43,7 @@
                                             <th>Room Detail</th>
                                             <th>Status</th>
                                             <th>Note</th>
+                                            <th>Remarks Facilities</th>
                                             @if(Auth::user()->can('detail.bookedapproved'))
                                             <th>Action</th>
                                             @endif
@@ -66,19 +67,23 @@
                                                     {{ $meetingrooms->Usage }}
                                                 @endforeach
                                             </td>
-                                                @if($booked->Status_booking === 'waiting approvals')
-                                                    <td><p class="text-warning">{{ $booked->Status_booking }}</p></td>
-                                                @elseif($booked->Note_personel == true )
-                                                    <td><p class="text-danger">REJECTED</p></td>
-                                                @else
-                                                    <td><p class="text-success">APPROVED</p></td>
-                                                @endif
+                                            
+
+                                            @if($booked->Status_booking === 'waiting approvals')
+                                                <td><p class="text-warning">{{ $booked->Status_booking }}</p></td>
+                                            @elseif($booked->Note_personel == true )
+                                                <td><p class="text-danger">REJECTED</p></td>
+                                            @else
+                                                <td><p class="text-success">APPROVED</p></td>
+                                            @endif
 
                                             @if($booked->Note_personel == true )
                                                 <td><p class="text-danger">{{ $booked->Note_personel }}</p></td>
                                             @elseif($booked->Note_personel == false)
                                                 <td><p class="text-secondary">no record</p></td>
                                             @endif
+
+                                            <td>{{ $booked->remarks_facilities }}</td>
 
                                             @if(Auth::user()->can('detail.bookedapproved'))
                                             <td>
@@ -182,6 +187,11 @@
                         <div class="mb-3">
                             <label class="form-label"><b>Meeting Description:</b></label>
                             <textarea class="form-control" rows="2" disabled>${data.Description}</textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label"><b>Remarks Facilities:</b></label>
+                            <textarea class="form-control" rows="2" disabled>${data.remarks_facilities}</textarea>
                         </div>
 
                         <div class="mb-3">

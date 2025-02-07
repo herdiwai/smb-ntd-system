@@ -161,6 +161,7 @@
                     <tr><td><strong>Room No</strong></td><td>${event.room_no}</td></tr>
                     <tr><td><strong>Location</strong></td><td>${event.location}</td></tr>
                     <tr><td><strong>Usage</strong></td><td>${event.usage}</td></tr>
+                    <tr><td><strong>Remarks Facilities</strong></td><td>${event.remarks_facilities}</td></tr>
                     <tr><td><strong>Start Date Time:</strong></td><td>${startDate}</td></tr>
                     <tr><td><strong>End Date Time:</strong></td><td>${endDate}</td></tr>
                 </table>
@@ -326,6 +327,47 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-12 mb-3">
+                            <div class="form-group">
+                                <div class="row align-items-center">
+                                    <div class="col-4">
+                                        <label class="col-form-label col-form-label-sm"><b>ADDITIONAL FACILITIES:</b></label>
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="d-flex gap-3">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="seat" name="facilities[]" value="seat">
+                                                <label class="form-check-label" for="seat"><b>SEAT</b></label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="food" name="facilities[]" value="food">
+                                                <label class="form-check-label" for="food"><b>FOOD</b></label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="drink" name="facilities[]" value="drink">
+                                                <label class="form-check-label" for="drink"><b>DRINK</b></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <div class="form-group">
+                                <div class="row align-items-center">
+                                    <div class="col-4">
+                                        <label for="remarks_facilities" class="col-form-label col-form-label-sm"><b>REMARKS:</b></label>
+                                    </div>
+                                    <div class="col-8">
+                                        <textarea class="form-control form-control-sm" name="remarks_facilities" id="remarks" rows="2"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
                         <br>
                         <div class="d-flex justify-content-right modal-footer">
                             <button class="btn btn-primary btn-sm" type="submit">
@@ -382,6 +424,8 @@
             Start_time: { required: true },
             End_time: { required: true },
             choose_meeting_room: { required: true },
+            // facilities: { required: true },
+            // Remarks: { required: true },
         },
         messages: {
             Name: { required: 'Please Enter Name' },

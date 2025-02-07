@@ -91,8 +91,10 @@
         </div>
 
         <h2>Recorded Video</h2>
-        <video id="recordedVideo" controls></video>
-        <a id="download" download="recorded-video.webm">Download Video</a>
+        <video id="recordedVideo" controls>
+            <source id="recordedVideoSource" type="video/mp4">
+        </video>
+        <a id="download" download="recorded-video.mp4" style="display:none;">Download Video</a>
     </div>
 
     <script>
@@ -102,24 +104,26 @@
         const stopButton = document.getElementById('stop');
         const downloadLink = document.getElementById('download');
         const timestamp = document.getElementById('timestamp');
-
+        const seekButton = document.getElementById('seekButton');
+        const seekTimeInput = document.getElementById('seekTime');
+    
         let mediaRecorder;
         let recordedChunks = [];
-
+    
         // Durasi perekaman otomatis setiap 24 jam (24 * 60 * 60 * 1000 ms)
         const autoSaveInterval = 86400000;  
-
+    
         navigator.mediaDevices.getUserMedia({ video: true, audio: true })
             .then(stream => {
                 webcam.srcObject = stream;
                 mediaRecorder = new MediaRecorder(stream);
-
+    
                 mediaRecorder.ondataavailable = event => {
                     if (event.data.size > 0) {
                         recordedChunks.push(event.data);
                     }
                 };
-
+    
                 mediaRecorder.onstop = () => {
                     console.log("Perekaman dihentikan, menyiapkan video untuk disimpan...");
                     const blob = new Blob(recordedChunks, { type: 'video/webm' });
@@ -128,32 +132,37 @@
                     const videoURL = URL.createObjectURL(blob);
                     recordedVideo.src = videoURL;
                     downloadLink.href = videoURL;
+                    downloadLink.download = `recorded-${Date.now()}.webm`;
                     downloadLink.style.display = 'block';
 
                     // Upload video ke server setelah perekaman berhenti
                     uploadVideo(blob);
                 };
+            })
+            .catch(error => {
+                console.error("Gagal mengakses kamera:", error);
+                alert("Gagal mengakses kamera. Periksa izin atau perangkat Anda.");
             });
-
+    
         startButton.onclick = () => {
             startRecording();
         };
-
+    
         stopButton.onclick = () => {
             console.log("Perekaman dihentikan secara manual.");
             mediaRecorder.stop();
             startButton.disabled = false;
             stopButton.disabled = true;
         };
-
+    
         // Fungsi untuk memulai perekaman
         function startRecording() {
             mediaRecorder.start();
             startButton.disabled = true;
             stopButton.disabled = false;
-
+    
             console.log("Perekaman dimulai...");
-
+    
             // Timer autosave setiap 24 jam
             setTimeout(() => {
                 console.log("24 jam selesai, menghentikan perekaman dan menyimpan...");
@@ -163,12 +172,12 @@
                 setTimeout(startRecording, 5000);
             }, autoSaveInterval);
         }
-
+    
         // Fungsi untuk menyimpan dan mengunggah video
         function uploadVideo(blob) {
             let formData = new FormData();
             formData.append('video', blob, 'recorded-video.webm');
-
+            
             fetch("{{ route('video.record') }}", {
                 method: "POST",
                 body: formData,
@@ -179,14 +188,18 @@
             .then(response => response.json())
             .then(data => {
                 if (data.path) {
-                    alert("Video berhasil disimpan di: " + data.path);
+                    // Update video player source to the new MP4 video path
+                    recordedVideo.src = data.path;
+                    downloadLink.href = data.path;
+                    downloadLink.download = data.path.split('/').pop(); // Extract file name for download
+                    downloadLink.style.display = 'block';
                 } else {
                     alert("Gagal menyimpan video!");
                 }
             })
             .catch(error => console.error("Error:", error));
         }
-
+    
         // Fungsi menampilkan waktu real-time (CCTV timestamp)
         function updateTimestamp() {
             const now = new Date();
@@ -196,9 +209,20 @@
             const formattedTime = `${hours}:${minutes}:${seconds}`;
             timestamp.innerText = formattedTime;
         }
-
+    
         // Update timestamp setiap detik
         setInterval(updateTimestamp, 1000);
+    
+        // Fungsi untuk melompat ke waktu tertentu dalam video
+        seekButton.addEventListener("click", () => {
+            const seekTime = parseInt(seekTimeInput.value, 10);
+            
+            if (!isNaN(seekTime) && seekTime >= 0 && seekTime <= recordedVideo.duration) {
+                recordedVideo.currentTime = seekTime;
+            } else {
+                alert("Masukkan waktu yang valid!");
+            }
+        });
     </script>
 </div>
 @endsection
