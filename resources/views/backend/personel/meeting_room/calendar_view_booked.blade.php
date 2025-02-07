@@ -313,6 +313,112 @@
                             <div class="form-group">
                                 <div class="row align-items-center mt-3">
                                     <div class="col-4">
+                                        <label class="col-form-label col-form-label-sm"><b>CHOOSE LOT:</b></label>
+                                    </div>
+                                    <div class="col-8">
+                                        <select id="lots" name="choose_meeting_room" class="form-select">
+                                            <option value="">-- select lot --</option>
+                                            @foreach($lots as $lot)
+                                                <option value="{{ $lot->Lot }}">{{ $lot->Lot }}</option>
+                                            @endforeach
+                                        </select>            
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <div class="form-group">
+                                <div class="row align-items-center mt-3">
+                                    <div class="col-4">
+                                        <label class="col-form-label col-form-label-sm"><b>CHOOSE ROOM NO:</b></label>
+                                    </div>
+                                    <div class="col-8">
+                                        <select id="rooms" name="choose_meeting_room" class="form-select">
+                                            <option value="">-- select room no --</option>
+                                        </select>           
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <div class="form-group">
+                                <div class="row align-items-center mt-3">
+                                    <div class="col-4">
+                                        <label class="col-form-label col-form-label-sm"><b>CHOOSE LOCATION:</b></label>
+                                    </div>
+                                    <div class="col-8">
+                                        <select id="location" name="choose_meeting_room" class="form-select">
+                                            <option value="">-- select location --</option>
+                                        </select>       
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <div class="form-group">
+                                <div class="row align-items-center mt-3">
+                                    <div class="col-4">
+                                        <label class="col-form-label col-form-label-sm"><b>CHOOSE USAGE:</b></label>
+                                    </div>
+                                    <div class="col-8">
+                                        <select id="usage" name="choose_meeting_room" class="form-select">
+                                            <option value="">-- sselect usage --</option>
+                                        </select>    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    {{-- <div class="row">
+                        <!-- Pilih Room No -->
+                        <div class="col-md-12 mb-3">
+                            <div class="form-group">
+                                <label><b>Choose Room No:</b></label>
+                                <select id="room_no" name="Room_no" class="form-select">
+                                    <option value="">-- Select Room No --</option>
+                                    @foreach($rooms as $room)
+                                        <option value="{{ $room->Room_no }}">{{ $room->Room_no }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div> --}}
+                    
+                        <!-- Pilih Lot (Auto Fill) -->
+                        {{-- <div class="col-md-12 mb-3">
+                            <div class="form-group">
+                                <label><b>Lot:</b></label>
+                                <select id="lot" name="Lot" class="form-select">
+                                    <option value="">-- Select Lot --</option>
+                                </select>
+                            </div>
+                        </div> --}}
+                    
+                        <!-- Pilih Location (Auto Fill) -->
+                        {{-- <div class="col-md-12 mb-3">
+                            <div class="form-group">
+                                <label><b>Location:</b></label>
+                                <select id="location" name="location" class="form-select">
+                                    <option value="">-- Select Location --</option>
+                                </select>
+                            </div>
+                        </div> --}}
+                    
+                        <!-- Pilih Usage (Auto Fill) -->
+                        {{-- <div class="col-md-12 mb-3">
+                            <div class="form-group">
+                                <label><b>Usage:</b></label>
+                                <select id="usage" name="usage" class="form-select">
+                                    <option value="">-- Select Usage --</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div> --}}
+
+                    {{-- <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <div class="form-group">
+                                <div class="row align-items-center mt-3">
+                                    <div class="col-4">
                                         <label class="col-form-label col-form-label-sm"><b>CHOOSE MEETING ROOM:</b></label>
                                     </div>
                                     <div class="col-8">
@@ -326,7 +432,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="col-md-12 mb-3">
                             <div class="form-group">
                                 <div class="row align-items-center">
@@ -395,6 +501,154 @@
 
 
 <script>
+    //Form input select choose meeting rooms
+    // $(document).ready(function () {
+    //     $('#lots').change(function () {
+    //         var lot = $(this).val();
+    //         if (lot) {
+    //             $.ajax({
+    //                 url: '/get-rooms-details/' + lot,
+    //                 type: 'GET',
+    //                 dataType: 'json',
+    //                 success: function (data) {
+    //                     if (data.length > 0) {
+    //                         // Kosongkan dropdown sebelum menambahkan data baru
+    //                         $('#rooms, #location, #usage').empty().append('<option value="">-- Select --</option>');
+
+    //                         var roomno = new Set();
+    //                         var locations = new Set();
+    //                         var usages = new Set();
+
+    //                         // Tambahkan semua data ke dalam Set agar tidak ada duplikat
+    //                         $.each(data, function (index, room) {
+    //                             roomno.add(room.Room_no);
+    //                             locations.add(room.Location);
+    //                             usages.add(room.Usage);
+    //                         });
+
+    //                         // Tambahkan semua opsi unik ke dropdown
+    //                         roomno.forEach(Room_no => $('#rooms').append('<option value="'+Room_no+'">'+Room_no+'</option>'));
+    //                         locations.forEach(Location => $('#location').append('<option value="'+Location+'">'+Location+'</option>'));
+    //                         usages.forEach(Usage => $('#usage').append('<option value="'+Usage+'">'+Usage+'</option>'));
+    //                     } else {
+    //                         $('#rooms, #location, #usage').html('<option value="">-- Select --</option>');
+    //                     }
+    //                 }
+    //             });
+    //         } else {
+    //             $('#rooms, #location, #usage').html('<option value="">-- Select --</option>');
+    //         }
+    //     });
+   
+    // //End form input select choose meeting rooms
+
+    // // Ketika Room No dipilih
+    // $('#rooms').change(function () {
+    //         var roomNo = $(this).val();
+    //         if (roomNo) {
+    //             $.ajax({
+    //                 url: '/get-room-details-by-room-no/' + roomNo,
+    //                 type: 'GET',
+    //                 dataType: 'json',
+    //                 success: function (data) {
+    //                     if (data.length > 0) {
+    //                         $('#location, #usage').empty().append('<option value="">-- Select --</option>');
+
+    //                         var locations = new Set();
+    //                         var usages = new Set();
+
+    //                         $.each(data, function (index, room) {
+    //                             locations.add(room.Location);
+    //                             usages.add(room.Usage);
+    //                         });
+
+    //                         locations.forEach(Location => $('#location').append('<option value="'+Location+'">'+Location+'</option>'));
+    //                         usages.forEach(Usage => $('#usage').append('<option value="'+Usage+'">'+Usage+'</option>'));
+    //                     } else {
+    //                         $('#location, #usage').html('<option value="">-- Select --</option>');
+    //                     }
+    //                 }
+    //             });
+    //         } else {
+    //             $('#location, #usage').html('<option value="">-- Select --</option>');
+    //         }
+    //     });
+
+    //     // Ketika Location dipilih, filter Usage
+    //     $('#location').change(function () {
+    //         var location = $(this).val();
+    //         if (location) {
+    //             $.ajax({
+    //                 url: '/get-usage-by-location/' + location,
+    //                 type: 'GET',
+    //                 dataType: 'json',
+    //                 success: function (data) {
+    //                     $('#usage').empty().append('<option value="">-- Select --</option>');
+    //                     data.forEach(Usage => $('#usage').append('<option value="'+Usage+'">'+Usage+'</option>'));
+    //                 }
+    //             });
+    //         } else {
+    //             $('#usage').html('<option value="">-- Select --</option>');
+    //         }
+    //     });
+    // });
+    // End form select autonatis
+
+    $(document).ready(function () {
+    $('#lots').change(function () {
+        var lot = $(this).val();
+        if (lot) {
+            $.ajax({
+                url: '/get-rooms-details/' + lot,
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    $('#rooms').empty().append('<option value="">-- Select Room --</option>');
+                    data.forEach(room => {
+                        $('#rooms').append('<option value="'+room.id+'">'+room.Room_no+'</option>');
+                    });
+                }
+            });
+        }
+    });
+
+    $('#rooms').change(function () {
+        var roomId = $(this).val();
+        if (roomId) {
+            $.ajax({
+                url: '/get-room-details-by-room-no/' + roomId,
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    $('#location').empty().append('<option value="">-- Select Location --</option>');
+                    data.forEach(location => {
+                        $('#location').append('<option value="'+location.id+'">'+location.Location+'</option>');
+                    });
+                }
+            });
+        }
+    });
+
+    $('#location').change(function () {
+        var locationId = $(this).val();
+        if (locationId) {
+            $.ajax({
+                url: '/get-usage-by-location/' + locationId,
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    $('#usage').empty().append('<option value="">-- Select Usage --</option>');
+                    data.forEach(usage => {
+                        $('#usage').append('<option value="'+usage.id+'">'+usage.Usage+'</option>');
+                    });
+                }
+            });
+        }
+    });
+});
+
+
+
     // Function to show modal
     function openModal(message) {
         document.getElementById('modalMessage').innerText = message;

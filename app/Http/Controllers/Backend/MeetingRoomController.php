@@ -18,8 +18,27 @@ use Yajra\DataTables\Facades\DataTables;
 
 class MeetingRoomController extends Controller
 {
+    public function getRoomDetailsByLot($lots)
+    {
+        $room = MeetingRoomList::where('Lot', $lots)->get();
+        return response()->json($room);
+    }
+
+    public function getRoomDetailsByRoomNo($room_no)
+    {
+        $rooms = MeetingRoomList::where('Room_no', $room_no)->get();
+        return response()->json($rooms);
+    }
+
+    public function getUsageByLocation($location)
+    {
+        $usages = MeetingRoomList::where('Location', $location)->pluck('Usage')->unique();
+        return response()->json($usages);
+    }
+
     public function calendarViewBooked()
     {
+        $lots = MeetingRoomList::select('Lot')->distinct()->get();
         $currentDateTime = now()->format('H:i');
         $bookedrequest =  MeetingRoom::with('meetingroom')->get();
 
@@ -33,7 +52,7 @@ class MeetingRoomController extends Controller
         $room_list = MeetingRoomList::all();
         // $data = $bookings->paginate(10);
 
-        return view('backend.personel.meeting_room.calendar_view_booked', compact('room_list','department','bookings','bookedrequest'));
+        return view('backend.personel.meeting_room.calendar_view_booked', compact('lots','room_list','department','bookings','bookedrequest'));
     }
 
     public function fetchBookings()
@@ -138,7 +157,7 @@ class MeetingRoomController extends Controller
 
         return view('backend.personel.meeting_room.meeting_room_reservation_record', compact('bookings','bookedrequest','rooms'));
     }
-    
+
     public function AddBookedMeetingRoom(Request $request)
     {
         $booked_id = $request->id;

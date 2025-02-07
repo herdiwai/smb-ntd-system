@@ -382,6 +382,10 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
         Route::get('/add/detailapprove/{id}', 'AddDetailApprove' )->name('add.detailapprove');
         Route::get('/delete-booked/{id}', 'deleteBooked' )->name('delete.booked');
         Route::post('/check-booking', 'checkBooking' )->name('check.booking');
+
+        Route::get('/get-rooms-details/{lots}', 'getRoomDetailsByLot')->name('getdetails.bylot');
+        Route::get('/get-room-details-by-room-no/{room_no}', 'getRoomDetailsByRoomNo')->name('getdetails.byroomno');
+        Route::get('/get-usage-by-location/{location}', 'getUsageByLocation')->name('getusage.byrlocation');
         // Route::post('/store/workordertechnician/{id}', 'StoreWOTechnician' )->name('store.wotechnician');
         // Route::post('/update/spv/{id}', 'UpdateSpv' )->name('update.spv');
           
