@@ -32,7 +32,7 @@ class EOCSystem extends Model
 
     public function categoryContract()
     {
-        return $this->hasOne(CategoryContract::class,'id','category_contract_id');
+        return $this->belongsTo(CategoryContract::class, 'category_contract_id', 'id');
     }
 
     public function setJoinDateAttribute($value)

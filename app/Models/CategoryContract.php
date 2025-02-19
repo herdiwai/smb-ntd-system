@@ -15,6 +15,6 @@ class CategoryContract extends Model
     ];
     public function eocSystem()
     {
-        return $this->belongsTo(EOCSystem::class,'id');
+        return $this->belongsTo(EOCSystem::class,'id','category_contract_id');
     }
 }

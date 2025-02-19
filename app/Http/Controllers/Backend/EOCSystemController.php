@@ -37,7 +37,8 @@ class EOCSystemController extends Controller
     public function detailEOC($id) {
 
         $eocid = EOCSystem::with('categoryContract')->findOrFail($id);
-        $categoryContract = CategoryContract::all();
+        // $category = CategoryContract::all();
+        $category = CategoryContract::select('id', 'ContractName')->get();
 
         // Pastikan hanya data yang dibutuhkan yang dikirim dalam JSON
         $response = [
@@ -55,8 +56,9 @@ class EOCSystemController extends Controller
             'Sick' => $eocid->Sick,
             'Performance' => $eocid->Performance,
             'Remarks' => $eocid->Remarks,
+            'CategoryContract' => $eocid->categoryContract->id ?? null, // Mengambil ID category contract
             // 'CategoryContract' => $eocid->CategoryContract,
-            'ContractName' => $categoryContract, // pastikan rooms dikirimkan
+            'category' => $category, // pastikan rooms dikirimkan
         ];
 
         return response()->json($response);

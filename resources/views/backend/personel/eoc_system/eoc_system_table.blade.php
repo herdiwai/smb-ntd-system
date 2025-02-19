@@ -157,7 +157,7 @@
 
                         <div class="mb-3">
                             <label class="form-label"><b>JoinDate:</b></label>
-                            <input type="date" class="form-control" name="JoinDate" value="${data.JoinDate}" disabled>
+                            <input type="text" class="form-control" value="${data.JoinDate}" disabled>
                         </div>
 
                         <div class="mb-3">
@@ -167,17 +167,17 @@
 
                         <div class="mb-3">
                             <label class="form-label"><b>ContractStart:</b></label>
-                            <input type="date" class="form-control" name="ContractStart" value="${data.ContractStart}" disabled>
+                            <input type="text" class="form-control" name="ContractStart" value="${data.ContractStart}" disabled>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label"><b>ContractEnd:</b></label>
-                            <input type="date" class="form-control" name="ContractEnd" value="${data.ContractEnd}" disabled>
+                            <input type="text" class="form-control" name="ContractEnd" value="${data.ContractEnd}" disabled>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label"><b>ContractFinish:</b></label>
-                            <input type="date" class="form-control" name="ContractFinish" value="${data.ContractFinish}" disabled>
+                            <input type="text" class="form-control" name="ContractFinish" value="${data.ContractFinish}" disabled>
                         </div>
 
                         <div class="mb-3">
@@ -206,9 +206,18 @@
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label"><b>Meeting Room:</b></label>
-                            <select name="ContractName" class="form-select" id="CategoryContract">
+                            <label class="form-label"><b>Category Contracts:</b></label>
+                            <select name="CategoryContract" class="form-select" id="CategoryContracts">
                                 <!-- Options will be dynamically added by JavaScript -->
+                            </select>
+                        </div>
+
+                        <div class="mb-3" id="extendOptions" style="display: none;">
+                            <label class="form-label"><b>Extend Duration:</b></label>
+                            <select name="CategoryContract" class="form-select">
+                                <option value="3">3 Months</option>
+                                <option value="6">6 Months</option>
+                                <option value="12">12 Months</option>
                             </select>
                         </div>
 
@@ -217,27 +226,61 @@
                             <input type="date" class="form-control" name="DateSubmitContract" value="${data.DateSubmitContract}" required>
                         </div>
 
+                        <div class="d-flex justify-content-end">
+                                <button type="submit" name="Status_booking" value="APPROVED" class="btn btn-primary me-2">
+                                    <i data-feather="check-circle"></i> Submit
+                                </button>
+                            
+                        </div>
+
                     </form>
                 `);
                  // Menambahkan options untuk meeting room
-                 var categoryContract = $('#CategoryContract');
-                data.categoryContract.forEach(function(room) {
-                    var selected = (room.id == data.ContractName) ? 'selected' : '';
-                    categoryContract.append(`
-                        <option value="${room.id}" ${selected}>
-                            ${room.ContractName}
-                        </option>
-                    `);
-                });
+                //  var categoryContracts = $('#CategoryContracts');
+                // data.category.forEach(function(categories) {
+                //     var selected = (categories.id == data.CategoryContract) ? 'selected' : '';
+                //     categoryContracts.append(`
+                //         <option value="${categories.id}" ${selected}>
+                //             ${categories.ContractName}
+                //         </option>
+                //     `);
+                // });
+                var categoryContracts = $('#CategoryContracts');
+                    categoryContracts.empty(); // Kosongkan select agar tidak ada duplikasi
+
+                    // Tambahkan opsi dinamis dari data.category
+                    data.category.forEach(function(categories) {
+                        var selected = (categories.id == data.CategoryContract) ? 'selected' : '';
+                        categoryContracts.append(`
+                            <option value="${categories.id}" ${selected}>
+                                ${categories.ContractName}
+                            </option>
+                        `);
+                    });
+
+                    // Tambahkan opsi "Extend" hanya jika belum ada
+                    if (categoryContracts.find('option[value="Extend"]').length === 0) {
+                        categoryContracts.prepend('<option value="Extend">Extend</option>'); // Tambahkan di atas
+                    }
 
                 // Cek jika tombol berhasil ditambahkan atau diubah
                 feather.replace();
+                // Event listener ketika CategoryContract dipilih
+                $('#CategoryContracts').on('change', function () {
+                    if ($(this).val() === 'Extend') {
+                        $('#extendOptions').show();  // Tampilkan pilihan perpanjangan
+                    } else {
+                        $('#extendOptions').hide();  // Sembunyikan jika bukan Extend
+                    }
+                });
             },
             error: function() {
                 $('#modalContent').html('<p>Error loading booking details.</p>');
             }
         });
     }
+
 </script>
+
 
 @endsection
