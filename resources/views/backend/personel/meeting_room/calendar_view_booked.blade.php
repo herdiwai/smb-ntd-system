@@ -161,7 +161,8 @@
                     <tr><td><strong>Room No</strong></td><td>${event.room_no}</td></tr>
                     <tr><td><strong>Location</strong></td><td>${event.location}</td></tr>
                     <tr><td><strong>Usage</strong></td><td>${event.usage}</td></tr>
-                    <tr><td><strong>Remarks Facilities</strong></td><td>${event.remarks_facilities}</td></tr>
+                    <tr><td><strong>Remarks</strong></td><td>${event.remarks_facilities}</td></tr>
+                    <tr><td><strong>Participants</strong></td><td>${event.participants}</td></tr>
                     <tr><td><strong>Start Date Time:</strong></td><td>${startDate}</td></tr>
                     <tr><td><strong>End Date Time:</strong></td><td>${endDate}</td></tr>
                 </table>
@@ -280,7 +281,7 @@
                                         <label for="start_time1" class="col-form-label col-form-label-sm"><b>START TIME:</b></label>
                                     </div>
                                     <div class="col input-group flatpickr" id="flatpickr-time">
-                                        <input type="text" class="form-control form-control-sm" name="Start_time" placeholder="Select time" data-input>
+                                        <input type="text" class="form-control form-control-sm" name="Start_time" placeholder="--select start time--" data-input>
                                         <span class="input-group-text input-group-addon" data-toggle><i data-feather="clock"></i></span>
                                         {{-- <input type="time" class="form-control form-control-sm" id="start_time" name="Start_time" min="08:00" max="17:00">
                                         <small class="text-muted">Start: Only 08:00 - 17:00</small> --}}
@@ -298,7 +299,7 @@
                                         <label for="start_time2" class="col-form-label col-form-label-sm"><b>END TIME:</b></label>
                                     </div>
                                     <div class="col input-group flatpickr" id="flatpickr-time">
-                                        <input type="text" class="form-control form-control-sm" name="End_time" placeholder="Select time" data-input>
+                                        <input type="text" class="form-control form-control-sm" name="End_time" placeholder="--select end time--" data-input>
                                         <span class="input-group-text input-group-addon" data-toggle><i data-feather="clock"></i></span>
                                         {{-- <input type="time" class="form-control form-control-sm" id="end_time" name="End_time" min="08:00" max="17:00">
                                         <small class="text-muted">End: Only 08:00 - 17:00</small> --}}
@@ -308,8 +309,8 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-12 mb-3">
+                    {{-- <div class="row"> --}}
+                        {{-- <div class="col-md-12 mb-3">
                             <div class="form-group">
                                 <div class="row align-items-center mt-3">
                                     <div class="col-4">
@@ -367,7 +368,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
                     {{-- <div class="row">
                         <!-- Pilih Room No -->
@@ -414,7 +415,7 @@
                         </div>
                     </div> --}}
 
-                    {{-- <div class="row">
+                    <div class="row">
                         <div class="col-md-12 mb-3">
                             <div class="form-group">
                                 <div class="row align-items-center mt-3">
@@ -432,32 +433,81 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> --}}
+                        </div>
+
                         <div class="col-md-12 mb-3">
                             <div class="form-group">
                                 <div class="row align-items-center">
                                     <div class="col-4">
-                                        <label class="col-form-label col-form-label-sm"><b>ADDITIONAL FACILITIES:</b></label>
+                                        <label for="participants" class="col-form-label col-form-label-sm"><b>PARTICIPANTS:</b></label>
+                                    </div>
+                                    <div class="col-8">
+                                        <input type="number" class="form-control form-control-sm" id="participants" name="participants">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                            <div class="col-md-12 mb-3">
+                                <div class="form-group">
+                                    <div class="row align-items-center">
+                                        <div class="col-4">
+                                            <label for="request_name" class="col-form-label col-form-label-sm"><b>HARDWARE AVAILABILITY:</b></label>
+                                        </div>
+                                        <div class="col-8">
+                                            <label for="request_name" class="col-form-label col-form-label-sm"><b>- PROJECTOR</b></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        {{-- <div class="col-md-12 mb-3">
+                            <div class="form-group">
+                                <div class="row align-items-center">
+                                    <div class="col-4">
+                                        <label class="col-form-label col-form-label-sm"><b>HARDWARE AVAILABLE:</b></label>
                                     </div>
                                     <div class="col-8">
                                         <div class="d-flex gap-3">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="seat" name="facilities[]" value="seat">
-                                                <label class="form-check-label" for="seat"><b>SEAT</b></label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="food" name="facilities[]" value="food">
-                                                <label class="form-check-label" for="food"><b>FOOD</b></label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="drink" name="facilities[]" value="drink">
-                                                <label class="form-check-label" for="drink"><b>DRINK</b></label>
+                                                <input class="form-check-input" type="checkbox" id="seat" name="facilities[]" value="projector" checked disabled>
+                                                <label class="form-check-label" for="seat">PROJECTOR</label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </div> --}}
+                        <div class="col-md-12 mb-3">
+                            <div class="form-group">
+                                <div class="row align-items-center">
+                                    <div class="col-4">
+                                        <label class="col-form-label col-form-label-sm"><b>WIFI:</b></label>
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="d-flex gap-3">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="food" name="facilities[]" value="Need">
+                                                <label class="form-check-label" for="need">Need</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="food" name="facilities[]" value="No Need">
+                                                <label class="form-check-label" for="No Need">No Need</label>
+                                            </div>
+                                            {{-- <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="food" name="facilities[]" value="food">
+                                                <label class="form-check-label" for="food">FOOD</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="drink" name="facilities[]" value="drink">
+                                                <label class="form-check-label" for="drink">DRINK</label>
+                                            </div> --}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
                     </div>
 
                     <div class="row">
@@ -678,17 +728,21 @@
             Start_time: { required: true },
             End_time: { required: true },
             choose_meeting_room: { required: true },
-            // facilities: { required: true },
-            // Remarks: { required: true },
+            participants: { required: true },
+            "facilities[]": { required: true, minlength: 1 }, // Validasi array 
+            remarks_facilities: { required: true },
         },
         messages: {
             Name: { required: 'Please Enter Name' },
             Department: { required: 'Please Enter Dept' },
             Description: { required: 'Please Enter Description' },
             Date_booking: { required: 'Please Enter Booking Date' },
-            Start_time: { required: 'Please Enter Time' },
-            End_time: { required: '' },
+            Start_time: { required: 'Please Enter Start Time' },
+            End_time: { required: 'Please Enter End Time' },
             choose_meeting_room: { required: 'Please Select Room' },
+            participants: { required: 'Please Enter Participants' },
+            "facilities[]": { required: 'Please select at least one' }, // Tambahkan pesan error
+            remarks_facilities: { required: 'Please Enter Remarks' },
         },
         errorElement: 'span',
         errorPlacement: function (error, element) {

@@ -48,7 +48,7 @@ class MeetingRoomController extends Controller
             ->orderBy('Date_booking', 'asc') // Urutkan berdasarkan tanggal booking
             ->get();
 
-        $department = ['PIE(NTD)','PIE(MT)','PIE(PE)','PIE(IE)','PIE(FTY)'];
+        $department = ['P&A','QC','F&A','PIE (NTD)','PIE (MT)','PIE (PE)','PIE (IE)','PIE (FTY)','WH','Shipping','QA','Engineering','PMC/PPC'];
         $room_list = MeetingRoomList::all();
         // $data = $bookings->paginate(10);
 
@@ -79,6 +79,7 @@ class MeetingRoomController extends Controller
                         'location' => $room->Location,
                         'usage' => $room->Usage,
                         'remarks_facilities' => $booking->remarks_facilities,
+                        'participants' => $booking->participants,
                     ],
                 ];
             });
@@ -210,7 +211,9 @@ class MeetingRoomController extends Controller
                 'End_time' => $request->End_time,
                 'choose_meeting_room' => $request->choose_meeting_room,
                 'facilities' => implode(',', $request->facilities),
+                // 'facilities' => $request->facilities,
                 'remarks_facilities' => $request->remarks_facilities,
+                'participants' => $request->participants,
 
                 'Status_booking' => "waiting approvals",
             ]);
@@ -325,6 +328,7 @@ class MeetingRoomController extends Controller
                 'End_time' => $bookedrequestid->End_time,
                 'Date_booking' => $bookedrequestid->Date_booking,
                 'choose_meeting_room' => $bookedrequestid->choose_meeting_room,
+                'participants' => $bookedrequestid->participants,
                 'rooms' => $rooms, // pastikan rooms dikirimkan
                 'Status_booking' => $bookedrequestid->Status_booking,
                 'bookedrequest' => $bookedrequest, // menambahkan $bookedrequest ke respons JSON

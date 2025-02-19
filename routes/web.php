@@ -23,6 +23,7 @@ use App\Http\Controllers\Backend\FacilityWorkOrder;
 use App\Http\Controllers\Backend\MeetingRoomController;
 use App\Http\Controllers\Backend\MeetingRoomListController;
 use App\Http\Controllers\Backend\CameraMonitoringController;
+use App\Http\Controllers\Backend\EOCSystemController;
 use App\Models\SampleTestingReport;
 use Illuminate\Support\Facades\Route;
 
@@ -433,6 +434,26 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
         Route::post('/upload-video', 'VideoRecord')->name('video.record');
         // Route::get('/monitoring', [CameraMonitoringController::class, 'index'])->name('video.monitoring.index');
         // Route::post('/upload-video', 'VideoRecord' )->name('video.monitoring.record');
+          
+    });
+});
+
+// EmployeeLogOutIn Controller
+Route::middleware(['auth', 'roles:admin'])->group(function() {
+
+    Route::controller(EOCSystemController::class)->group(function(){
+        Route::get('/eoc-system-data', 'index' )->name('eocsystem.data');
+        Route::post('/eoc-system-data-import', 'import' )->name('eocsystem.import');
+        Route::get('/add/detaileoc/{id}', 'detailEOC' )->name('detail.eoc');
+        // Route::get('/import', [KaryawanController::class, 'importView'])->name('import.view');
+        // Route::post('/import', [KaryawanController::class, 'import'])->name('import');
+        // Route::get('/add-meetingroom', 'addRoomMeeting' )->name('add.meetingroom');
+        // Route::post('/store/meetingroom', 'storeMeetingRoom' )->name('store.meetingroom');
+        // Route::get('/edit/meetingroom/{id}', 'editRoomMeeting' )->name('edit.meetingroom');
+        // Route::post('/update/meetingroom/{id}', 'updateRoomMeeting' )->name('update.meetingroom');
+        // Route::get('/delete/meetingroom/{id}', 'deleteMeetingRoom' )->name('delete.meetingroom');
+        // Route::get('/add/detailapprove/{id}', 'AddDetailApprove' )->name('add.detailapprove');
+        // Route::post('/add/workorder', 'StoreWorkOrder' )->name('post.WorkOrder');
           
     });
 });

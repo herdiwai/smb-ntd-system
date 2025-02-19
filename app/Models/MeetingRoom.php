@@ -25,6 +25,7 @@ class MeetingRoom extends Model
         'choose_meeting_room',
         'facilities',
         'remarks_facilities',
+        'participants',
         ];
     
     public function meetingroom()

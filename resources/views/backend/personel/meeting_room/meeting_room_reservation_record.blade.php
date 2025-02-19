@@ -43,7 +43,7 @@
                                             <th>Room Detail</th>
                                             <th>Status</th>
                                             <th>Note</th>
-                                            <th>Remarks Facilities</th>
+                                            <th>Remarks</th>
                                             @if(Auth::user()->can('detail.bookedapproved'))
                                             <th>Action</th>
                                             @endif
@@ -190,8 +190,13 @@
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label"><b>Remarks Facilities:</b></label>
+                            <label class="form-label"><b>Remarks:</b></label>
                             <textarea class="form-control" rows="2" disabled>${data.remarks_facilities}</textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label"><b>Participants:</b></label>
+                            <textarea class="form-control" rows="2" disabled>${data.participants}</textarea>
                         </div>
 
                         <div class="mb-3">

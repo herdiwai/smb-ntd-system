@@ -564,8 +564,31 @@
       @endif
     {{-- @endif --}}
   {{-- End Menu Meeting Room for Personel user --}}
+
+  {{-- Menu Employee Log Out In --}}
+  {{-- @if(Auth::user()->can('menu.employeeloginout')) --}}
+  <li class="nav-item nav-category">EOC System</li>
+  <li class="nav-item">
+    <a class="nav-link" data-bs-toggle="collapse" href="#emails16" role="button" aria-expanded="false" aria-controls="emails16">
+      <i class="link-icon" data-feather="book-open"></i>
+      <span class="link-title">Employee EOC Data</span>
+      <i class="link-arrow" data-feather="chevron-down"></i>
+    </a>
+    <div class="collapse" id="emails16">
+      <ul class="nav sub-menu">
+
+          <li class="nav-item">
+            <a href="{{ route('eocsystem.data') }}" class="nav-link">Upload Haermes Data</a>
+          </li>
+
+      </ul>
+    </div>
+  </li>
+  {{-- @endif --}}
+{{-- End Menu EOC System --}}
   
     {{-- Menu Employee Log Out In --}}
+    @if(Auth::user()->can('menu.employeeloginout'))
     <li class="nav-item nav-category">Employee Log Out In</li>
     <li class="nav-item">
       <a class="nav-link" data-bs-toggle="collapse" href="#emails13" role="button" aria-expanded="false" aria-controls="emails13">
@@ -583,9 +606,11 @@
         </ul>
       </div>
     </li>
+    @endif
   {{-- End Menu Employee Log Out In --}}
 
   {{-- Menu Camera Monitoring Record --}}
+  @if(Auth::user()->can('menu.camera'))
   <li class="nav-item nav-category">Camera Monitoring Record</li>
   <li class="nav-item">
     <a class="nav-link" data-bs-toggle="collapse" href="#emails14" role="button" aria-expanded="false" aria-controls="emails14">
@@ -603,7 +628,8 @@
       </ul>
     </div>
   </li>
-{{-- End Menu Employee Log Out In --}}
+  @endif
+{{-- End Menu Camera Monitoring Record --}}
 
       {{-- Menu MRR for NTD user --}}
       @if(Auth::user()->can('menu.Mrr'))
