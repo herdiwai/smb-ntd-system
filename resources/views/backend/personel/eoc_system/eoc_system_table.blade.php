@@ -2,14 +2,15 @@
 @section('admin')
 <meta name="csrf-token" content="{{ csrf_token() }}">
     <div class="page-content">
-
+<!-- Tambahkan Font Awesome CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
         {{-- <nav class="page-breadcrumb">
             <ol class="breadcrumb"> 
                  <a href="{{ route('request.bookedmeetingroom') }}" class="btn btn-inverse-info btn-xs"><i data-feather="file-plus" style="width: 16px; height: 16px;"></i> CALENDAR</a>
             </ol>
         </nav> --}}
 
-        <div class="row">
+        {{-- <div class="row">
             <div class="col-md-8 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
@@ -28,7 +29,41 @@
                     </div>
                 </div>
             </div>
+        </div> --}}
+        
+        <div class="row">
+            <div class="col-md-12 mx-auto">
+                <div class="card shadow-lg">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold text-primary"><i class="fas fa-file-upload"></i> Import EOC File</h5>
+                        <p class="text-muted">Upload file dalam format <strong>.xlsx</strong> atau <strong>.xls</strong></p>
+        
+                        <form id="uploadForm" action="{{ route('eocsystem.import') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+        
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Xlsx File Import</label>
+                                <div class="input-group">
+                                    <input type="file" name="file" class="form-control" id="fileInput" accept=".xlsx,.xls">
+                                    <label class="input-group-text bg-primary text-white" for="fileInput">
+                                        <i class="fas fa-folder-open"></i>
+                                    </label>
+                                </div>
+                                <small class="text-danger d-none" id="fileError">Please select files before uploading.</small>
+                            </div>
+        
+                            <div class="d-flex justify-content-end">
+                                <button class="btn btn-primary px-4" type="submit" id="uploadButton">
+                                    <i class="fas fa-upload"></i> Upload
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <br>
 
         {{-- <div class="row mb-3">
             <div class="col-md-6">
@@ -44,14 +79,15 @@
     
             <div class="row">
                 <div class="col-md-12 grid-margin stretch-card">
-                    <div class="card">
+                    <div class="card shadow-lg">
                         <div class="card-body">
                             <h4 class="card-title">EOC System Table</h4>
+                            <h5 class="card-title fw-bold text-success"><i class="fas fa-table"></i> Import Result Data</h5>
                                 {{-- <a href="" class="btn btn-inverse-primary btn-xs"><i data-feather="calendar" style="width: 16px; height: 16px;"></i> CALENDAR</a> --}}
                             <div class="table-responsive">
-                            <table id="table" class="table">
+                            <table id="eocTable" class="table table-striped table-hover">
                                 {{-- <table id="bookingsTable" class="table table-striped table-bordered"> --}}
-                                    <thead>
+                                    <thead class="table-dark">
                                         <tr>
                                             <th>No</th>
                                             <th>EmployeeID</th>
@@ -66,7 +102,8 @@
                                             <th>Absent</th>
                                             <th>Sick</th>
                                             <th>Performance</th>
-                                            <th>Remarks</th>
+                                            <th>Remarks/Extend/Not Extend</th>
+                                            <th>Date Submitted</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -86,14 +123,27 @@
                                                 <td>{{ $dataeoc->Absent }}</td>
                                                 <td>{{ $dataeoc->Sick }}</td>
                                                 <td>{{ $dataeoc->Performance }}</td>
-                                                <td>{{ $dataeoc->Remarks }}</td>
+                                                <td>
+                                                    @if($dataeoc->ExtendOptions)
+                                                        {{ $dataeoc->ExtendOptions }}
+                                                    @else
+                                                    {{ $dataeoc->categoryContract->ContractName ?? '-' }}
+                                                    @endif
+                                                </td>
+                                                <td>{{ $dataeoc->DateSubmitContract }}</td>
 
                                                 <td>
-                                                    <button class="btn btn-success btn-xs" data-bs-toggle="modal" data-bs-target="#approveEOC"
-                                                        data-dataeoc-id="{{ $dataeoc->id }}" onclick="loadEocData({{ $dataeoc->id }})">
-                                                        <i data-feather="check-circle" style="width: 16px; height: 20px;"></i> Detail
-                                                    </button>
-
+                                                    @if ($dataeoc->DateSubmitContract)
+                                                        <button class="btn btn-primary btn-xs" disabled data-bs-toggle="modal" data-bs-target="#approveEOC"
+                                                            data-dataeoc-id="{{ $dataeoc->id }}" onclick="loadEocData({{ $dataeoc->id }})">
+                                                            <i data-feather="check-circle" style="width: 16px; height: 20px;"></i> CHECK
+                                                        </button>
+                                                    @else
+                                                        <button class="btn btn-primary btn-xs" data-bs-toggle="modal" data-bs-target="#approveEOC"
+                                                            data-dataeoc-id="{{ $dataeoc->id }}" onclick="loadEocData({{ $dataeoc->id }})">
+                                                            <i data-feather="check-circle" style="width: 16px; height: 20px;"></i> CHECK
+                                                        </button>
+                                                    @endif
                                                 </td>
                                             <tr>
                                         @endforeach
@@ -125,6 +175,38 @@
 </div>
 
 <script>
+
+   // Menangani form submit
+    $('#uploadForm').on('submit', function (event) {
+        event.preventDefault(); // Mencegah form untuk submit secara default
+
+        // Mengambil file dari input
+        var fileInput = $('#fileInput')[0].files;
+
+        // Jika tidak ada file yang dipilih
+        if (fileInput.length === 0) {
+            // Tampilkan pesan error
+            $('#fileError').removeClass('d-none');
+        } else {
+            // Sembunyikan pesan error jika file sudah dipilih
+            $('#fileError').addClass('d-none');
+
+            // Kirim form jika valid
+            this.submit();
+        }
+    });
+
+    // Menangani perubahan pada input file
+    $('#fileInput').on('change', function () {
+        var fileInput = $(this)[0].files;
+
+        // Jika file dipilih, sembunyikan pesan error
+        if (fileInput.length > 0) {
+            $('#fileError').addClass('d-none');
+        }
+    });
+
+
     function loadEocData(eocid) {
         // Menampilkan loader jika perlu
         $('#modalContent').html('<p>Loading...</p>');
@@ -136,7 +218,7 @@
             success: function(data) {
                 console.log(data); // Periksa data yang diterima
                 $('#modalContent').html(`
-                    <form id="approveForm" action="/update/request-meetingroom-approval/${data.id}" method="POST">
+                    <form id="approveForm" action="/submit-eoc-form/${data.id}" method="POST">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <input type="hidden" name="_method" value="PATCH">
 
@@ -195,7 +277,7 @@
                             <input type="text" class="form-control" value="${data.Sick}" disabled>
                         </div>
 
-                        <div class="mb-3">
+                       <!-- <div class="mb-3">
                             <label class="form-label"><b>Performance:</b></label>
                             <input type="text" class="form-control" value="${data.Performance}" disabled>
                         </div>
@@ -203,21 +285,24 @@
                         <div class="mb-3">
                             <label class="form-label"><b>Remarks:</b></label>
                             <textarea class="form-control" rows="2" disabled>${data.Remarks}</textarea>
-                        </div>
+                        </div> -->
 
                         <div class="mb-3">
                             <label class="form-label"><b>Category Contracts:</b></label>
-                            <select name="CategoryContract" class="form-select" id="CategoryContracts">
+                            <select name="category_contract_id" class="form-select" id="CategoryContracts">
                                 <!-- Options will be dynamically added by JavaScript -->
                             </select>
                         </div>
 
                         <div class="mb-3" id="extendOptions" style="display: none;">
                             <label class="form-label"><b>Extend Duration:</b></label>
-                            <select name="CategoryContract" class="form-select">
-                                <option value="3">3 Months</option>
-                                <option value="6">6 Months</option>
-                                <option value="12">12 Months</option>
+                            <select name="ExtendOptions" class="form-select">
+                                <option value="3 Months">3 Months</option>
+                                <option value="6 Months">6 Months</option>
+                                <option value="9 Months">9 Months</option>
+                                <option value="12 Months">12 Months</option>
+                                <option value="15 Months">15 Months</option>
+                                <option value="18 Months">18 Months</option>
                             </select>
                         </div>
 
@@ -227,7 +312,7 @@
                         </div>
 
                         <div class="d-flex justify-content-end">
-                                <button type="submit" name="Status_booking" value="APPROVED" class="btn btn-primary me-2">
+                                <button type="submit" class="btn btn-primary me-2">
                                     <i data-feather="check-circle"></i> Submit
                                 </button>
                             
@@ -259,16 +344,20 @@
                     });
 
                     // Tambahkan opsi "Extend" hanya jika belum ada
-                    if (categoryContracts.find('option[value="Extend"]').length === 0) {
-                        categoryContracts.prepend('<option value="Extend">Extend</option>'); // Tambahkan di atas
+                    // if (categoryContracts.find('option[value="Extend"]').length === 0) {
+                    //     categoryContracts.prepend('<option value="Extend">Extend</option>'); // Tambahkan di atas
+                    // }
+
+                    if ($('#CategoryContracts').find('option[value="extend"]').length === 0) {
+                        $('#CategoryContracts').prepend('<option value="extend">Extend</option>'); // Tambahkan Extend dengan value kosong
                     }
 
                 // Cek jika tombol berhasil ditambahkan atau diubah
                 feather.replace();
                 // Event listener ketika CategoryContract dipilih
                 $('#CategoryContracts').on('change', function () {
-                    if ($(this).val() === 'Extend') {
-                        $('#extendOptions').show();  // Tampilkan pilihan perpanjangan
+                    if ($(this).val() === 'extend') {  // Periksa jika value adalah "extend"
+                        $('#extendOptions').show();  // Tampilkan opsi perpanjangan
                     } else {
                         $('#extendOptions').hide();  // Sembunyikan jika bukan Extend
                     }
@@ -279,6 +368,78 @@
             }
         });
     }
+
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).on("click", ".approve-btn", function() {
+    var eocID = $(this).attr("data-eocid"); 
+    // var dateSubmit = $(this).attr("data-DateSubmitContract"); 
+
+    console.log("eocID:", eocID); // Debugging
+
+    if (!eocID) {
+        alert("Error: ID tidak ditemukan!");
+        return;
+    }
+
+    $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+        }
+    });
+
+    $.ajax({
+        url: `/submit-eoc-form/${eocID}`,
+        type: "POST",
+        data: {
+            _method: "PATCH", 
+            // DateSubmitContract: dateSubmit,
+        },
+        success: function(response) {
+            console.log("Success:", response);
+
+            // Menonaktifkan tombol setelah submit berhasil
+            $(".approve-btn").prop("disabled", true);  // Disable tombol submit
+            $(".approve-btn").text("Submitted");  // Ganti teks tombol untuk menandakan form sudah disubmit
+
+            window.location.reload();
+        },
+        error: function(xhr) {
+            alert("Failed to submit form. Please try again.");
+            console.log("Status Code:", xhr.status);
+            console.log(xhr.responseText);
+        }
+    });
+});
+
+$('#approveForm').on('submit', function (event) {
+    event.preventDefault(); // Mencegah reload halaman
+
+    let formData = $(this).serializeArray(); // Ambil semua data dalam form
+    let selectedCategory = $('#CategoryContracts').val();
+
+    // Jika bukan "Extend", hapus ExtendOptions dari data yang dikirim
+    if (selectedCategory !== 'Extend') {
+        formData = formData.filter(field => field.name !== 'ExtendOptions');
+    }
+
+    $.ajax({
+        url: $(this).attr('action'),
+        type: "POST",
+        data: formData,
+        success: function (response) {
+            console.log("Success:", response);
+            window.location.reload(); // Refresh halaman setelah sukses
+        },
+        error: function (xhr) {
+            alert("Failed to submit form. Please try again.");
+            console.log("Status Code:", xhr.status);
+            console.log(xhr.responseText);
+        }
+    });
+});
 
 </script>
 

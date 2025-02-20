@@ -27,7 +27,11 @@ class EOCSystem extends Model
         'Sick', 
         'Performance',
         'Remarks',
-        'CategoryContract'
+        'DateSubmitContract',
+        'CategoryContract',
+        'category_contract_id',
+        'ExtendOptions',
+        'user_id',
     ];
 
     public function categoryContract()

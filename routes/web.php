@@ -445,6 +445,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
         Route::get('/eoc-system-data', 'index' )->name('eocsystem.data');
         Route::post('/eoc-system-data-import', 'import' )->name('eocsystem.import');
         Route::get('/add/detaileoc/{id}', 'detailEOC' )->name('detail.eoc');
+        Route::patch('/submit-eoc-form/{id}', 'submitEOCForm' )->name('submit.eocform');
         // Route::get('/import', [KaryawanController::class, 'importView'])->name('import.view');
         // Route::post('/import', [KaryawanController::class, 'import'])->name('import');
         // Route::get('/add-meetingroom', 'addRoomMeeting' )->name('add.meetingroom');
