@@ -31,7 +31,7 @@
             </div>
         </div> --}}
         
-        <div class="row">
+        {{-- <div class="row">
             <div class="col-md-12 mx-auto">
                 <div class="card shadow-lg">
                     <div class="card-body">
@@ -61,9 +61,8 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
-        <br>
 
         {{-- <div class="row mb-3">
             <div class="col-md-6">
@@ -81,13 +80,19 @@
                 <div class="col-md-12 grid-margin stretch-card">
                     <div class="card shadow-lg">
                         <div class="card-body">
-                            <h4 class="card-title">EOC System Table</h4>
-                            <h5 class="card-title fw-bold text-success"><i class="fas fa-table"></i> Import Result Data</h5>
+                            {{-- <div class="d-flex align-items-center"> --}}
+                                <h2 class="card-title fw-bold text-success me-3">
+                                    <i data-feather="file-text" ></i> Import Result Data
+                                </h2>
+                                <button class="btn btn-inverse-warning btn-xs mb-3" data-bs-toggle="modal" data-bs-target="#uploadModal">
+                                    <i data-feather="upload" style="width: 16px; height: 20px;"></i> Upload File
+                                </button>
+                            {{-- </div> --}}
                                 {{-- <a href="" class="btn btn-inverse-primary btn-xs"><i data-feather="calendar" style="width: 16px; height: 16px;"></i> CALENDAR</a> --}}
                             <div class="table-responsive">
-                            <table id="eocTable" class="table table-striped table-hover">
+                            <table id="eocTable" class="table">
                                 {{-- <table id="bookingsTable" class="table table-striped table-bordered"> --}}
-                                    <thead class="table-dark">
+                                    <thead class="table">
                                         <tr>
                                             <th>No</th>
                                             <th>EmployeeID</th>
@@ -136,14 +141,17 @@
                                                     @if ($dataeoc->DateSubmitContract)
                                                         <button class="btn btn-primary btn-xs" disabled data-bs-toggle="modal" data-bs-target="#approveEOC"
                                                             data-dataeoc-id="{{ $dataeoc->id }}" onclick="loadEocData({{ $dataeoc->id }})">
-                                                            <i data-feather="check-circle" style="width: 16px; height: 20px;"></i> CHECK
+                                                            <i data-feather="arrow-right-circle" style="width: 16px; height: 16px;"></i> Submit
                                                         </button>
                                                     @else
                                                         <button class="btn btn-primary btn-xs" data-bs-toggle="modal" data-bs-target="#approveEOC"
                                                             data-dataeoc-id="{{ $dataeoc->id }}" onclick="loadEocData({{ $dataeoc->id }})">
-                                                            <i data-feather="check-circle" style="width: 16px; height: 20px;"></i> CHECK
+                                                            <i data-feather="arrow-right-circle" style="width: 16px; height: 16px;"></i> Submit
                                                         </button>
                                                     @endif
+                                                        <a href="#" class="btn btn-danger btn-xs delete-btn" data-id="{{ route('delete.eoc', $dataeoc->id ) }}" title="Delete EOC">
+                                                            <i data-feather="trash-2" style="width: 16px; height: 18px;"></i>
+                                                        </a>
                                                 </td>
                                             <tr>
                                         @endforeach
@@ -159,12 +167,50 @@
         </div>
     </div>
 
+<!-- Modal untuk upload -->
+<div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold text-primary" id="uploadModalLabel">
+                    <i class="fas fa-file-upload"></i> Import EOC File
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-muted">Upload file dalam format <strong>.xlsx</strong> atau <strong>.xls</strong></p>
 
+                <form id="uploadForm" action="{{ route('eocsystem.import') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Xlsx File Import</label>
+                        <div class="input-group">
+                            <input type="file" name="file" class="form-control" id="fileInput" accept=".xlsx,.xls">
+                            <label class="input-group-text bg-primary text-white" for="fileInput">
+                                <i class="fas fa-folder-open"></i>
+                            </label>
+                        </div>
+                        <small class="text-danger d-none" id="fileError">Please select files before uploading.</small>
+                    </div>
+
+                    <div class="d-flex justify-content-end">
+                        <button class="btn btn-primary btn-xs" type="submit" id="uploadButton">
+                            <i data-feather="upload" style="width: 16px; height: 16px;"></i> Upload
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Detail -->
 <div class="modal fade" id="approveEOC" tabindex="-1" aria-labelledby="approveEOCLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="approveEOCModalLabel">DETAIL EOC FORM</h5>
+                <h5 class="modal-title text-primary" id="approveEOCModalLabel"><i data-feather="file-text"></i>DETAIL EOC FORM</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" id="modalContent">
@@ -173,39 +219,68 @@
         </div>
     </div>
 </div>
+{{-- End --}}
+
+<!-- Modal Konfirmasi Delete -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger" id="deleteModalLabel"><i data-feather="trash-2" style="width: 16px; height: 16px;"></i> Confirm Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this data?</p>
+            </div>
+            <div class="modal-footer">
+                <form id="deleteForm" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="button" class="btn btn-xs btn-secondary" data-bs-dismiss="modal"><i data-feather="corner-down-left" style="width: 16px; height: 16px;"></i> Cancel</button>
+                    <button type="submit" class="btn btn-xs btn-danger"><i data-feather="trash-2" style="width: 16px; height: 16px;"></i> Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- End --}}
 
 <script>
 
-   // Menangani form submit
-    $('#uploadForm').on('submit', function (event) {
-        event.preventDefault(); // Mencegah form untuk submit secara default
+$(document).ready(function () {
+    // Validasi sebelum submit form
+    $('#uploadButton').on('click', function (event) {
+        var fileInput = $('#fileInput')[0].files.length;
 
-        // Mengambil file dari input
-        var fileInput = $('#fileInput')[0].files;
-
-        // Jika tidak ada file yang dipilih
-        if (fileInput.length === 0) {
-            // Tampilkan pesan error
-            $('#fileError').removeClass('d-none');
+        if (fileInput === 0) {
+            event.preventDefault(); // Mencegah form submit
+            $('#fileError').removeClass('d-none'); // Menampilkan pesan error
         } else {
-            // Sembunyikan pesan error jika file sudah dipilih
-            $('#fileError').addClass('d-none');
-
-            // Kirim form jika valid
-            this.submit();
+            $('#fileError').addClass('d-none'); // Sembunyikan pesan error jika file dipilih
         }
     });
 
-    // Menangani perubahan pada input file
+    // Hilangkan error saat file dipilih
     $('#fileInput').on('change', function () {
-        var fileInput = $(this)[0].files;
-
-        // Jika file dipilih, sembunyikan pesan error
-        if (fileInput.length > 0) {
-            $('#fileError').addClass('d-none');
+        if (this.files.length > 0) {
+            $('#fileError').addClass('d-none'); // Sembunyikan error jika ada file
         }
     });
+});
 
+// Delete confirmation modal
+document.addEventListener("DOMContentLoaded", function () {
+    const deleteButtons = document.querySelectorAll(".delete-btn");
+    deleteButtons.forEach(button => {
+        button.addEventListener("click", function (event) {
+            event.preventDefault(); // Mencegah navigasi default
+            let deleteUrl = this.getAttribute("data-id");
+            document.getElementById("deleteForm").setAttribute("action", deleteUrl);
+            new bootstrap.Modal(document.getElementById("deleteModal")).show();
+        });
+    });
+});
+// End Delete confirmation modal
 
     function loadEocData(eocid) {
         // Menampilkan loader jika perlu
@@ -222,80 +297,80 @@
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <input type="hidden" name="_method" value="PATCH">
 
-                        <div class="mb-3">
-                            <label class="form-label"><b>Requester EmployeeID:</b></label>
-                            <input type="text" class="form-control" value="${data.EmployeeID}" disabled>
+                        <div class="row">
+                            <!-- Kolom Kiri -->
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">EmployeeID</label>
+                                    <input type="text" class="form-control" value="${data.EmployeeID}" disabled>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Employee Name</label>
+                                    <input type="text" class="form-control" value="${data.EmployeeName}" disabled>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Position</label>
+                                    <input type="text" class="form-control" value="${data.Position}" disabled>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Join Date</label>
+                                    <input type="text" class="form-control" value="${data.JoinDate}" disabled>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Contract Type</label>
+                                    <input type="text" class="form-control" value="${data.ContractType}" disabled>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Contract Start</label>
+                                    <input type="text" class="form-control" name="ContractStart" value="${data.ContractStart}" disabled>
+                                </div>
+                            </div>
+
+                            <!-- Kolom Kanan -->
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Contract End</label>
+                                    <input type="text" class="form-control" name="ContractEnd" value="${data.ContractEnd}" disabled>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Contract Finish</label>
+                                    <input type="text" class="form-control" name="ContractFinish" value="${data.ContractFinish}" disabled>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Current Leave Balance</label>
+                                    <input type="text" class="form-control" value="${data.CurrentLeaveBalance}" disabled>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Absent</label>
+                                    <input type="text" class="form-control" value="${data.Absent}" disabled>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Sick</label>
+                                    <input type="text" class="form-control" value="${data.Sick}" disabled>
+                                </div>
+                            </div>
                         </div>
 
+                        <!-- Category Contracts -->
                         <div class="mb-3">
-                            <label class="form-label"><b>EmployeeName:</b></label>
-                            <input type="text" class="form-control" value="${data.EmployeeName}" disabled>
-                        </div>
-
-                       <div class="mb-3">
-                            <label class="form-label"><b>Position:</b></label>
-                            <input type="text" class="form-control" value="${data.Position}" disabled>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label"><b>JoinDate:</b></label>
-                            <input type="text" class="form-control" value="${data.JoinDate}" disabled>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label"><b>ContractType:</b></label>
-                            <input type="text" class="form-control" value="${data.ContractType}" disabled>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label"><b>ContractStart:</b></label>
-                            <input type="text" class="form-control" name="ContractStart" value="${data.ContractStart}" disabled>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label"><b>ContractEnd:</b></label>
-                            <input type="text" class="form-control" name="ContractEnd" value="${data.ContractEnd}" disabled>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label"><b>ContractFinish:</b></label>
-                            <input type="text" class="form-control" name="ContractFinish" value="${data.ContractFinish}" disabled>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label"><b>CurrentLeaveBalance:</b></label>
-                            <input type="text" class="form-control" value="${data.CurrentLeaveBalance}" disabled>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label"><b>Absent:</b></label>
-                            <input type="text" class="form-control" value="${data.Absent}" disabled>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label"><b>Sick:</b></label>
-                            <input type="text" class="form-control" value="${data.Sick}" disabled>
-                        </div>
-
-                       <!-- <div class="mb-3">
-                            <label class="form-label"><b>Performance:</b></label>
-                            <input type="text" class="form-control" value="${data.Performance}" disabled>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label"><b>Remarks:</b></label>
-                            <textarea class="form-control" rows="2" disabled>${data.Remarks}</textarea>
-                        </div> -->
-
-                        <div class="mb-3">
-                            <label class="form-label"><b>Category Contracts:</b></label>
+                            <label class="form-label fw-bold">Category Contracts</label>
                             <select name="category_contract_id" class="form-select" id="CategoryContracts">
                                 <!-- Options will be dynamically added by JavaScript -->
                             </select>
                         </div>
 
-                        <div class="mb-3" id="extendOptions" style="display: none;">
-                            <label class="form-label"><b>Extend Duration:</b></label>
+                        <!-- Extend Options -->
+                        <div class="mb-3" id="extendOptions" style="display none;">
+                            <label class="form-label fw-bold">Extend Duration</label>
                             <select name="ExtendOptions" class="form-select">
                                 <option value="3 Months">3 Months</option>
                                 <option value="6 Months">6 Months</option>
@@ -306,30 +381,20 @@
                             </select>
                         </div>
 
+                        <!-- Date Input -->
                         <div class="mb-3">
-                            <label class="form-label"><b>Date:</b></label>
+                            <label class="form-label fw-bold">Date</label>
                             <input type="date" class="form-control" name="DateSubmitContract" value="${data.DateSubmitContract}" required>
                         </div>
 
+                        <!-- Tombol Submit -->
                         <div class="d-flex justify-content-end">
-                                <button type="submit" class="btn btn-primary me-2">
-                                    <i data-feather="check-circle"></i> Submit
-                                </button>
-                            
+                            <button type="submit" class="btn btn-xs btn-primary">
+                                <i data-feather="send" style="width 16px; height: 20px;"></i> Submit
+                            </button>
                         </div>
-
                     </form>
                 `);
-                 // Menambahkan options untuk meeting room
-                //  var categoryContracts = $('#CategoryContracts');
-                // data.category.forEach(function(categories) {
-                //     var selected = (categories.id == data.CategoryContract) ? 'selected' : '';
-                //     categoryContracts.append(`
-                //         <option value="${categories.id}" ${selected}>
-                //             ${categories.ContractName}
-                //         </option>
-                //     `);
-                // });
                 var categoryContracts = $('#CategoryContracts');
                     categoryContracts.empty(); // Kosongkan select agar tidak ada duplikasi
 
@@ -355,12 +420,20 @@
                 // Cek jika tombol berhasil ditambahkan atau diubah
                 feather.replace();
                 // Event listener ketika CategoryContract dipilih
-                $('#CategoryContracts').on('change', function () {
-                    if ($(this).val() === 'extend') {  // Periksa jika value adalah "extend"
-                        $('#extendOptions').show();  // Tampilkan opsi perpanjangan
+                function checkExtendOptions() {
+                    if ($('#CategoryContracts').val() === 'extend') {
+                        $('#extendOptions').show();
                     } else {
-                        $('#extendOptions').hide();  // Sembunyikan jika bukan Extend
+                        $('#extendOptions').hide();
                     }
+                }
+
+                // Panggil fungsi langsung setelah select diisi
+                checkExtendOptions();
+
+                // Tambahkan event listener agar tetap berjalan saat user mengubah pilihan
+                $('#CategoryContracts').on('change', function () {
+                    checkExtendOptions();
                 });
             },
             error: function() {
@@ -371,7 +444,7 @@
 
 </script>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
 <script>
     $(document).on("click", ".approve-btn", function() {
     var eocID = $(this).attr("data-eocid"); 
@@ -445,3 +518,4 @@ $('#approveForm').on('submit', function (event) {
 
 
 @endsection
+

@@ -446,13 +446,13 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
         Route::post('/eoc-system-data-import', 'import' )->name('eocsystem.import');
         Route::get('/add/detaileoc/{id}', 'detailEOC' )->name('detail.eoc');
         Route::patch('/submit-eoc-form/{id}', 'submitEOCForm' )->name('submit.eocform');
+        Route::delete('/delete-eoc/{id}', 'deleteEOC' )->name('delete.eoc');
         // Route::get('/import', [KaryawanController::class, 'importView'])->name('import.view');
         // Route::post('/import', [KaryawanController::class, 'import'])->name('import');
         // Route::get('/add-meetingroom', 'addRoomMeeting' )->name('add.meetingroom');
         // Route::post('/store/meetingroom', 'storeMeetingRoom' )->name('store.meetingroom');
         // Route::get('/edit/meetingroom/{id}', 'editRoomMeeting' )->name('edit.meetingroom');
         // Route::post('/update/meetingroom/{id}', 'updateRoomMeeting' )->name('update.meetingroom');
-        // Route::get('/delete/meetingroom/{id}', 'deleteMeetingRoom' )->name('delete.meetingroom');
         // Route::get('/add/detailapprove/{id}', 'AddDetailApprove' )->name('add.detailapprove');
         // Route::post('/add/workorder', 'StoreWorkOrder' )->name('post.WorkOrder');
           

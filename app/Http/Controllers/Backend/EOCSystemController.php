@@ -117,4 +117,20 @@ class EOCSystemController extends Controller
         return redirect()->route('eocsystem.data')->with($notification);
     }
 
+    public function deleteEOC($id) 
+    {
+        // Cari data berdasarkan ID yang ingin dihapus
+        $mrr = EOCSystem::find($id);
+
+        // Setelah data relasi dihapus, hapus data utama
+        $mrr->delete();
+
+        $notification = array(
+            'message' => 'Deleted Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('eocsystem.data')->with($notification);
+    }
+
+
 }

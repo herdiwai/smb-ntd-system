@@ -13,7 +13,7 @@
 <div class="page-content">
     <nav class="page-breadcrumb">
         <div class="container">
-            <h3>APPROVED MEETING ROOM</h3><br>
+            <h3 class="text-primary"><i data-feather="calendar"></i> APPROVED MEETING ROOM</h3><br>
             <div id="calendar"></div>
         </div>
     </nav>
@@ -181,7 +181,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="bookingModalLabel">Request Booking Form</h5>
+                <h5 class="modal-title text-primary" id="bookingModalLabel"><i data-feather="file-text"></i>Request Booking Form</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -455,7 +455,7 @@
                                             <label for="request_name" class="col-form-label col-form-label-sm"><b>HARDWARE AVAILABILITY:</b></label>
                                         </div>
                                         <div class="col-8">
-                                            <label for="request_name" class="col-form-label col-form-label-sm"><b>- PROJECTOR</b></label>
+                                            <label for="request_name" class="col-form-label col-form-label-sm"><b><i data-feather="check" style="width 16px; height: 18px;"></i>PROJECTOR</b></label>
                                         </div>
                                     </div>
                                 </div>

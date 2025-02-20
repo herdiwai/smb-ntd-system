@@ -26,7 +26,10 @@
                 <div class="col-md-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">BOOKED LIST RESERVATION ROOM</h4>
+                            {{-- <h4 class="card-title">BOOKED LIST RESERVATION ROOM</h4> --}}
+                            <h2 class="card-title fw-bold text-primary me-3">
+                                <i data-feather="file-text" ></i> BOOKED LIST RESERVATION ROOM
+                            </h2>
                             <a href="{{ route('calendar.booked') }}" class="btn btn-inverse-primary btn-xs"><i data-feather="calendar" style="width: 16px; height: 16px;"></i> CALENDAR</a>
                             <div class="table-responsive">
                             <table id="table" class="table">
@@ -224,22 +227,22 @@
                             <!-- Kondisi untuk tombol Approve dan Reject berdasarkan Status_booking -->
                             ${data.Status_booking === 'waiting approvals' ?
                                 `
-                                <button type="submit" name="Status_booking" value="APPROVED" class="btn btn-success me-2">
-                                    <i data-feather="check-circle"></i> Approved
+                                <button type="submit" name="Status_booking" value="APPROVED" class="btn btn-xs btn-inverse-success me-2">
+                                    <i data-feather="check-circle" style="width: 16px; height: 20px;"></i> Approved
                                 </button>
-                                <button type="button" class="btn btn-danger reject-btn"
+                                <button type="button" class="btn btn-xs btn-inverse-danger reject-btn"
                                     data-bs-toggle="modal" data-bs-target="#rejectModalBooking" 
                                     data-id="${data.id}">
-                                    <i data-feather="x-circle"></i> Rejected
+                                    <i data-feather="x-circle" style="width: 16px; height: 20px;"></i> Rejected
                                 </button>
                                 ` : ''
                             }
                             ${data.Status_booking === 'APPROVED' ?
                                 `
-                                <button type="button" class="btn btn-danger reject-btn"
+                                <button type="button" class="btn btn-inverse-danger btn-xs reject-btn"
                                     data-bs-toggle="modal" data-bs-target="#rejectModalBooking" 
                                     data-id="${data.id}">
-                                    <i data-feather="x-circle"></i> Rejected
+                                    <i data-feather="x-circle" style="width: 16px; height: 20px;"></i> Rejected
                                 </button>
                                 ` : ''
                             }
