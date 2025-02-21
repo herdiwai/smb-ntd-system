@@ -781,7 +781,55 @@
         }
     });
 });
+
+
+
+$(document).ready(function () {
+        // AJAX Submit Booking
+        // $('#bookingForm').submit(function (event) {
+        //     event.preventDefault(); // Mencegah reload halaman
+
+        //     $.ajax({
+        //         url: $(this).attr('action'),
+        //         type: 'POST',
+        //         data: $(this).serialize(),
+        //         success: function (response) {
+        //             if (response.success) {
+        //                 // Update notifikasi sidebar
+        //                 fetchNotifications();
+        //             }
+        //         }
+        //     });
+        // });
+
+        // Fungsi untuk mengambil jumlah notifikasi terbaru
+        function fetchNotifications() {
+            $.ajax({
+                url: '/get-notifications',
+                type: 'GET',
+                success: function (data) {
+                    // Update angka di sidebar
+                    $('#notif-count').text(data.count > 0 ? `(${data.count})` : '');
+                    
+                    // Perbarui daftar notifikasi
+                    $('#notif-list').html('');
+                    data.notifications.forEach(notif => {
+                        $('#notif-list').append(`<li>${notif.message}</li>`);
+                    });
+                }
+            });
+        }
+
+        // Panggil notifikasi setiap 5 detik
+        setInterval(fetchNotifications, 5000);
+    });
+
+
+
 </script>
+
+
+
 <!-- CSS Modal -->
 <style>
     .modal1 {

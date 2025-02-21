@@ -388,4 +388,19 @@ class MeetingRoomController extends Controller
         ]);
     }
 
+    public function getNotifications()
+    {
+        // Ambil booking dalam 24 jam terakhir
+        $notifications = MeetingRoom::where('created_at', '>=', Carbon::now()->subHours(24))
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return response()->json([
+            'count' => $notifications->count(),
+            'notifications' => $notifications->map(function ($booking) {
+                return ['message' => "Booking ID {$booking->id} telah dibuat."];
+            })
+        ]);
+    }
+
 }

@@ -387,6 +387,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
         Route::get('/get-rooms-details/{lots}', 'getRoomDetailsByLot')->name('getdetails.bylot');
         Route::get('/get-room-details-by-room-no/{room_no}', 'getRoomDetailsByRoomNo')->name('getdetails.byroomno');
         Route::get('/get-usage-by-location/{location}', 'getUsageByLocation')->name('getusage.byrlocation');
+        Route::get('/get-notifications', 'getNotifications')->name('get.notifications');
         // Route::post('/store/workordertechnician/{id}', 'StoreWOTechnician' )->name('store.wotechnician');
         // Route::post('/update/spv/{id}', 'UpdateSpv' )->name('update.spv');
           
