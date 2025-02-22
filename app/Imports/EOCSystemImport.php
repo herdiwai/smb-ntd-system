@@ -27,8 +27,8 @@ class EOCSystemImport implements ToModel, WithHeadingRow
             'CurrentLeaveBalance' => $row['currentleavebalance'],
             'Absent' => $row['absent'],
             'Sick' => $row['sick'],
-            'Performance' => $row['performance'],
-            'Remarks' => $row['remarks'],
+            // 'Performance' => $row['performance'],
+            // 'Remarks' => $row['remarks'],
         ]);
     }
 }

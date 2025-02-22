@@ -503,7 +503,7 @@
 
             @if(Auth::user()->can('bookinglist.menu'))
             <li class="nav-item">
-              <a href="{{ route('personel.meetingroomlist') }}" id="notif-dropdown" class="nav-link">Booking List <i class="fa fa-bell"></i> <span id="notif-count" class="badge badge-danger"></span>
+              <a href="{{ route('personel.meetingroomlist') }}" id="notif-dropdown" class="nav-link">Booking List  <span id="notif-count" class="badge badge-danger"></span>
               </a>
               <ul id="notif-list" class="dropdown-menu"></ul>
             </li>

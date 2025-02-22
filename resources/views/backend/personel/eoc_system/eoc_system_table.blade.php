@@ -106,9 +106,11 @@
                                             <th>CurrentLeaveBalance</th>
                                             <th>Absent</th>
                                             <th>Sick</th>
-                                            <th>Performance</th>
+                                            <th hidden>Performance</th>
                                             <th>Remarks/Extend/Not Extend</th>
+                                            <th>Extend Duration</th>
                                             <th>Date Submitted</th>
+                                            <th>View Detail</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -116,27 +118,32 @@
                                         @foreach ($data as $key => $dataeoc)
                                             <tr>
                                                 <td>{{ $key+1 + ($data->currentPage() - 1) * $data->perPage() }}</td>
-                                                <td>{{ $dataeoc->EmployeeID }}</td>
-                                                <td>{{ $dataeoc->EmployeeName }}</td>
-                                                <td>{{ $dataeoc->Position }}</td>
-                                                <td>{{ $dataeoc->JoinDate }}</td>
-                                                <td>{{ $dataeoc->ContractType }}</td>
-                                                <td>{{ $dataeoc->ContractStart }}</td>
-                                                <td>{{ $dataeoc->ContractEnd }}</td>
-                                                <td>{{ $dataeoc->ContractFinish }}</td>
-                                                <td>{{ $dataeoc->CurrentLeaveBalance }}</td>
-                                                <td>{{ $dataeoc->Absent }}</td>
-                                                <td>{{ $dataeoc->Sick }}</td>
-                                                <td>{{ $dataeoc->Performance }}</td>
+                                                <td class="employeeid">{{ $dataeoc->EmployeeID }}</td>
+                                                <td class="employeeName">{{ $dataeoc->EmployeeName }}</td>
+                                                <td class="position">{{ $dataeoc->Position }}</td>
+                                                <td class="joinDate">{{ $dataeoc->JoinDate }}</td>
+                                                <td class="contractType">{{ $dataeoc->ContractType }}</td>
+                                                <td class="contractStart">{{ $dataeoc->ContractStart }}</td>
+                                                <td class="contractEnd">{{ $dataeoc->ContractEnd }}</td>
+                                                <td class="contractFinish">{{ $dataeoc->ContractFinish }}</td>
+                                                <td class="currentLeaveBalance">{{ $dataeoc->CurrentLeaveBalance }}</td>
+                                                <td class="absent">{{ $dataeoc->Absent }}</td>
+                                                <td class="sick">{{ $dataeoc->Sick }}</td>
+                                                <td class="performance" hidden>{{ $dataeoc->Performance }}</td>
+                                                <td class="remarks">{{ $dataeoc->Remarks }}</td>
+                                                <td class="extendDuration" hidden>{{ $dataeoc->ExtendOptions }}</td>
+                                                <td class="dateSubmitContract">{{ $dataeoc->DateSubmitContract }}</td>
                                                 <td>
+                                                    <button type="button" class="btn btn-inverse-primary btn-xs view-details" data-bs-toggle="modal" data-bs-target="#varyingModal" data-id="'.$mrr->id.'" title="View Detail"><i data-feather="eye" style="width: 16px; height: 16px;"></i></button>
+                                                </td>
+                                                <td class="category" hidden>{{ $dataeoc->categoryContract->ContractName ?? 'contract extended' }}</td>
+                                                <td class="extendOptions" hidden>
                                                     @if($dataeoc->ExtendOptions)
                                                         {{ $dataeoc->ExtendOptions }}
                                                     @else
-                                                    {{ $dataeoc->categoryContract->ContractName ?? '-' }}
+                                                        {{ $dataeoc->categoryContract->ContractName ?? '-' }}
                                                     @endif
                                                 </td>
-                                                <td>{{ $dataeoc->DateSubmitContract }}</td>
-
                                                 <td>
                                                     @if ($dataeoc->DateSubmitContract)
                                                         <button class="btn btn-primary btn-xs" disabled data-bs-toggle="modal" data-bs-target="#approveEOC"
@@ -205,7 +212,7 @@
     </div>
 </div>
 
-<!-- Modal Detail -->
+<!-- Modal Submit -->
 <div class="modal fade" id="approveEOC" tabindex="-1" aria-labelledby="approveEOCLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -215,6 +222,131 @@
             </div>
             <div class="modal-body" id="modalContent">
                 <!-- Konten modal akan dimuat di sini -->
+            </div>
+        </div>
+    </div>
+</div>
+{{-- End --}}
+
+<!-- Modal View Detail -->
+<div class="modal fade" id="varyingModal" tabindex="-1" aria-labelledby="varyingModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-primary" id="varyingModalLabel"><i data-feather="file-text"></i>DETAIL EOC FORM</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="" action="">
+                <div class="modal-body">
+                    <div class="row">
+                        <!-- Kolom Kiri -->
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold employeeid">EmployeeID</label>
+                                <input type="text" class="form-control employeeid" id="employeeid" disabled>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold employeeName">Employee Name</label>
+                                <input type="text" class="form-control employeeName" disabled>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold position">Position</label>
+                                <input type="text" class="form-control position" disabled>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold joinDate">Join Date</label>
+                                <input type="text" class="form-control joinDate" disabled>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold contractType">Contract Type</label>
+                                <input type="text" class="form-control contractType" disabled>
+                            </div>
+                            
+                        </div>
+
+                        <!-- Kolom Kanan -->
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold contractEnd">Contract End</label>
+                                <input type="text" class="form-control contractEnd" disabled>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold contractFinish">Contract Finish</label>
+                                <input type="text" class="form-control contractFinish" disabled>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold currentLeaveBalance">Current Leave Balance</label>
+                                <input type="text" class="form-control currentLeaveBalance" disabled>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold absent">Absent</label>
+                                <input type="text" class="form-control absent" disabled>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold sick">Sick</label>
+                                <input type="text" class="form-control sick" disabled>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold contractStart">Contract Start</label>
+                        <input type="text" class="form-control contractStart" disabled>
+                    </div>
+
+                    <b><hr></b>
+                        <h6 style="text-align: center;" class="text-success">SUBMITTED FORM BY EACH DEPARTMENT</h6>
+                    <b><hr></b>
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold performance">Performance</label>
+                                <input type="text" class="form-control performance" disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold category">Category</label>
+                                <input type="text" class="form-control category" disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold extendDuration">Extend Duration</label>
+                                <input type="text" class="form-control extendDuration" disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold dateSubmitContract">Date Submitted</label>
+                                <input type="text" class="form-control dateSubmitContract" disabled>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="form-label fw-bold remarks">Remarks</label>
+                        <textarea class="form-control remarks" id="remarks" rows="2" placeholder="" disabled></textarea>
+                    </div>
+
+                    <!-- Tombol Submit -->
+                    {{-- <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-xs btn-primary">
+                            <i data-feather="send" style="width 16px; height: 20px;"></i> Submit
+                        </button>
+                    </div> --}}
+                </form>
             </div>
         </div>
     </div>
@@ -246,6 +378,27 @@
 {{-- End --}}
 
 <script>
+
+// View Detail
+$(document).on('click','.view-details', function(){
+    var _this = $(this).parents('tr');
+        $('.employeeid').val(_this.find('.employeeid').text());
+        $('.employeeName').val(_this.find('.employeeName').text());
+        $('.position').val(_this.find('.position').text());
+        $('.joinDate').val(_this.find('.joinDate').text());
+        $('.contractType').val(_this.find('.contractType').text());
+        $('.contractStart').val(_this.find('.contractStart').text());
+        $('.contractEnd').val(_this.find('.contractEnd').text());
+        $('.contractFinish').val(_this.find('.contractFinish').text());
+        $('.currentLeaveBalance').val(_this.find('.currentLeaveBalance').text());
+        $('.absent').val(_this.find('.absent').text());
+        $('.sick').val(_this.find('.sick').text());
+        $('.performance').val(_this.find('.performance').text());
+        $('.remarks').val(_this.find('.remarks').text());
+        $('.category').val(_this.find('.category').text());
+        $('.extendDuration').val(_this.find('.extendDuration').text());
+        $('.dateSubmitContract').val(_this.find('.dateSubmitContract').text());
+});
 
 $(document).ready(function () {
     // Validasi sebelum submit form
