@@ -439,7 +439,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
     });
 });
 
-// EmployeeLogOutIn Controller
+// EOC Controller
 Route::middleware(['auth', 'roles:admin'])->group(function() {
 
     Route::controller(EOCSystemController::class)->group(function(){
@@ -448,6 +448,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
         Route::get('/add/detaileoc/{id}', 'detailEOC' )->name('detail.eoc');
         Route::patch('/submit-eoc-form/{id}', 'submitEOCForm' )->name('submit.eocform');
         Route::delete('/delete-eoc/{id}', 'deleteEOC' )->name('delete.eoc');
+        Route::get('/eoc/{id}/export-pdf', 'exportPDF' )->name('eoc.export-pdf');
         // Route::get('/import', [KaryawanController::class, 'importView'])->name('import.view');
         // Route::post('/import', [KaryawanController::class, 'import'])->name('import');
         // Route::get('/add-meetingroom', 'addRoomMeeting' )->name('add.meetingroom');

@@ -111,6 +111,7 @@
                                             <th>Extend Duration</th>
                                             <th>Date Submitted</th>
                                             <th>View Detail</th>
+                                            <th>Export to PDF</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -144,6 +145,7 @@
                                                         {{ $dataeoc->categoryContract->ContractName ?? '-' }}
                                                     @endif
                                                 </td>
+                                                <td><a href="{{ route('eoc.export-pdf', $dataeoc->id) }}" class="btn btn-inverse-success btn-xs" title="Export-PDF"><i data-feather="download" style="width: 16px; height: 16px;"></i> PDF</a></td>
                                                 <td>
                                                     @if ($dataeoc->DateSubmitContract)
                                                         <button class="btn btn-primary btn-xs" disabled data-bs-toggle="modal" data-bs-target="#approveEOC"

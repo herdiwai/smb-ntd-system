@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Imports\EOCSystemImport;
 use App\Models\CategoryContract;
 use App\Models\EOCSystem;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
@@ -130,6 +131,14 @@ class EOCSystemController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->route('eocsystem.data')->with($notification);
+    }
+
+    public function exportPDF($id)
+    {
+        $data = EOCSystem::with('categoryContract')->findOrFail($id);
+        $pdf = Pdf::loadView('backend.personel.eoc_system.export_pdf', compact('data'));
+    
+        return $pdf->stream('EOC.pdf', ['Attachment' => false]);
     }
 
 
