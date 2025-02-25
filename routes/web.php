@@ -449,6 +449,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function() {
         Route::patch('/submit-eoc-form/{id}', 'submitEOCForm' )->name('submit.eocform');
         Route::delete('/delete-eoc/{id}', 'deleteEOC' )->name('delete.eoc');
         Route::get('/eoc/{id}/export-pdf', 'exportPDF' )->name('eoc.export-pdf');
+        Route::get('/export-eoc', 'exportExcel' )->name('eoc.export-excel');
         // Route::get('/import', [KaryawanController::class, 'importView'])->name('import.view');
         // Route::post('/import', [KaryawanController::class, 'import'])->name('import');
         // Route::get('/add-meetingroom', 'addRoomMeeting' )->name('add.meetingroom');

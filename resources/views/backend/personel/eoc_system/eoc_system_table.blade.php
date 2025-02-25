@@ -82,17 +82,50 @@
                         <div class="card-body">
                             {{-- <div class="d-flex align-items-center"> --}}
                                 <h2 class="card-title fw-bold text-success me-3">
-                                    <i data-feather="file-text" ></i> Import Result Data
+                                    <i data-feather="file-text" ></i> End Of Contract Table
                                 </h2>
-                                <button class="btn btn-inverse-warning btn-xs mb-3" data-bs-toggle="modal" data-bs-target="#uploadModal">
-                                    <i data-feather="upload" style="width: 16px; height: 20px;"></i> Upload File
-                                </button>
-                                <select id="filterStatus" class="form-select">
-                                    <option value="">-- Filter Status --</option>
-                                    <option value="Extend">Extend</option>
-                                    <option value="Not Extend">Not Extend</option>
-                                    <option value="Permanent">Permanent</option>
-                                </select>
+                                 <!-- Filter Section -->
+                                    <div class="row align-items-center g-3 mb-3">
+                                        <!-- Filter Date -->
+                                        <div class="col-md-3">
+                                            <label for="filterDateFrom" class="form-label fw-bold">From</label>
+                                            <input type="date" id="filterDateFrom" name="filterDateFrom" class="form-control">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="filterDateTo" class="form-label fw-bold">To</label>
+                                            <input type="date" id="filterDateTo" name="filterDateTo" class="form-control">
+                                        </div>
+
+                                        <!-- Filter Status -->
+                                        <div class="col-md-3">
+                                            <label for="filterStatus" class="form-label fw-bold">Status</label>
+                                            <select id="filterStatus" class="form-select">
+                                                <option value="">-- Select Status --</option>
+                                                <option value="Extend">Extend</option>
+                                                <option value="Not Extend">Not Extend</option>
+                                                <option value="Permanent">Permanent</option>
+                                                <option value="End Of Contract">End Of Contract</option>
+                                                <option value="Absconded">Absconded</option>
+                                                <option value="Resign">Resign</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- Buttons -->
+                                    <div class="d-flex justify-content-start gap-2">
+                                        <button type="button" class="btn btn-inverse-warning btn-xs mb-3" data-bs-toggle="modal" data-bs-target="#uploadModal">
+                                            <i data-feather="upload" style="width: 16px; height: 16px;"></i> Upload File
+                                        </button>
+                                        <button type="button" id="applyDateFilter" class="btn btn-inverse-primary btn-xs mb-3">
+                                            <i data-feather="filter" style="width: 16px; height: 16px;"></i> Apply Filter
+                                        </button>
+                                        <button id="resetFilter" class="btn btn-inverse-secondary btn-xs mb-3">
+                                            <i data-feather="refresh-ccw" style="width: 16px; height: 16px;"></i> Reset Filter
+                                        </button>
+                                        <button id="exportExcel" class="btn btn-inverse-success btn-xs mb-3"> 
+                                            <i data-feather="download" style="width: 16px; height: 16px;"></i> Export Excel
+                                        </button>
+                                    </div>
                                 <br>
                             {{-- </div> --}}
                                 {{-- <a href="" class="btn btn-inverse-primary btn-xs"><i data-feather="calendar" style="width: 16px; height: 16px;"></i> CALENDAR</a> --}}
@@ -195,7 +228,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title fw-bold text-primary" id="uploadModalLabel">
-                    <i class="fas fa-file-upload"></i> Import EOC File
+                    <i data-feather="folder-plus" style="width: 16px; height: 16px;"></i> Import EOC File
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -210,7 +243,7 @@
                         <div class="input-group">
                             <input type="file" name="file" class="form-control" id="fileInput" accept=".xlsx,.xls">
                             <label class="input-group-text bg-primary text-white" for="fileInput">
-                                <i class="fas fa-folder-open"></i>
+                                <i data-feather="folder" style="width: 16px; height: 16px;"></i>
                             </label>
                         </div>
                         <small class="text-danger d-none" id="fileError">Please select files before uploading.</small>
@@ -403,6 +436,9 @@ $(document).ready(function() {
             url: "{{ route('eocsystem.data') }}",
             data: function(d) {
                 d.status = $('#filterStatus').val(); // Mengirim status filter ke server
+                d.date_from = $('#filterDateFrom').val(); // Mengirim filter tanggal dari
+                d.date_to = $('#filterDateTo').val(); // Mengirim filter tanggal ke
+                console.log("Data yang dikirim ke server:", d);
             }
         },
         columns: [
@@ -431,6 +467,24 @@ $(document).ready(function() {
     // Event listener untuk dropdown filter
     $('#filterStatus').change(function() {
         table.ajax.reload(); // Reload DataTables setelah filter berubah
+    });
+    // Event listener untuk filter berdasarkan tanggal
+    $('#applyDateFilter').click(function() {
+        console.log("Date From:", $('#filterDateFrom').val());
+        console.log("Date To:", $('#filterDateTo').val());
+        table.ajax.reload(); // Reload DataTables setelah filter tanggal berubah
+    });
+    // Tombol reset filter untuk mengembalikan semua data
+    $('#resetFilter').click(function() {
+        $('#filterStatus').val(''); // Reset dropdown status
+        $('#filterDateFrom').val(''); // Reset tanggal dari
+        $('#filterDateTo').val(''); // Reset tanggal sampai
+        // table.ajax.reload(null, false); // Reload tanpa reset pagination
+        location.reload();
+    });
+    $('#exportExcel').click(function() {
+        var status = $('#filterStatus').val(); // Ambil status dari filter
+        window.location.href = "{{ route('eoc.export-excel') }}?status=" + status;
     });
 });
 

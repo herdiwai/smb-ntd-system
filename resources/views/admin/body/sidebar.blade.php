@@ -569,18 +569,18 @@
 
   {{-- Menu Employee Log Out In --}}
   {{-- @if(Auth::user()->can('menu.employeeloginout')) --}}
-  <li class="nav-item nav-category">EOC System</li>
+  <li class="nav-item nav-category">EOC Management</li>
   <li class="nav-item">
     <a class="nav-link" data-bs-toggle="collapse" href="#emails16" role="button" aria-expanded="false" aria-controls="emails16">
-      <i class="link-icon" data-feather="book-open"></i>
-      <span class="link-title">Employee EOC Data</span>
+      <i class="link-icon" data-feather="map"></i>
+      <span class="link-title">EOC Data</span>
       <i class="link-arrow" data-feather="chevron-down"></i>
     </a>
     <div class="collapse" id="emails16">
       <ul class="nav sub-menu">
 
           <li class="nav-item">
-            <a href="{{ route('eocsystem.data') }}" class="nav-link">Upload Haermes Data</a>
+            <a href="{{ route('eocsystem.data') }}" class="nav-link">End Of Contract</a>
           </li>
 
       </ul>

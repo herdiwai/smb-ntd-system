@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Exports\EOCSystemExport;
 use App\Http\Controllers\Controller;
 use App\Imports\EOCSystemImport;
 use App\Models\CategoryContract;
@@ -11,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Log;
 
 class EOCSystemController extends Controller
 {
@@ -20,6 +22,10 @@ class EOCSystemController extends Controller
 
     //     return view('backend.personel.eoc_system.eoc_system_table', compact('data'));
     // }
+    public function exportExcel(Request $request)
+    {
+        return Excel::download(new EOCSystemExport($request->status), 'EOCSystem_' . $request->status . '.xlsx');
+    }
 
     public function import(Request $request) {
         $request->validate([
@@ -44,22 +50,54 @@ class EOCSystemController extends Controller
         // Memeriksa apakah ada filter status yang dikirim dari frontend
         if ($request->has('status') && $request->status != '') {
             $status = $request->status;
-
-            // Filter berdasarkan status Extend, Not Extend, Permanent di categoryContract
+        
             if ($status === 'Extend') {
-                $data->whereNotNull('ExtendOptions'); // Filter data yang memiliki ExtendOptions
+                // Hanya data yang memiliki ExtendOptions (Extend)
+                $data->whereNotNull('ExtendOptions');
             } elseif ($status === 'Not Extend') {
-                $data->whereNull('ExtendOptions'); // Filter data yang tidak memiliki ExtendOptions
+                // Hanya data yang tidak memiliki ExtendOptions dan bukan Permanent, Resign, Absconded, atau End Of Contract
+                $data->whereNull('ExtendOptions')
+                     ->whereHas('categoryContract', function($query) {
+                         $query->whereNotIn('ContractName', ['Permanent', 'Resign', 'Absconded', 'End Of Contract']);
+                     });
             } elseif ($status === 'Permanent') {
-                // Filter berdasarkan ContractName yang ada di tabel categoryContract
+                // Hanya data yang berstatus Permanent
                 $data->whereHas('categoryContract', function($query) {
-                    $query->where('ContractName', 'Permanent'); // Filter berdasarkan ContractName = 'Permanent'
+                    $query->where('ContractName', 'Permanent');
+                });
+            } elseif ($status === 'End Of Contract') {
+                // Hanya data yang berstatus End Of Contract
+                $data->whereHas('categoryContract', function($query) {
+                    $query->where('ContractName', 'End Of Contract');
+                });
+            } elseif ($status === 'Absconded') {
+                // Hanya data yang berstatus Absconded
+                $data->whereHas('categoryContract', function($query) {
+                    $query->where('ContractName', 'Absconded');
+                });
+            } elseif ($status === 'Resign') {
+                // Hanya data yang berstatus Resign
+                $data->whereHas('categoryContract', function($query) {
+                    $query->where('ContractName', 'Resign');
                 });
             }
         }
+
+        // Filter berdasarkan rentang tanggal
+            if (!empty($request->date_from) && !empty($request->date_to)) {
+                $data->whereBetween('DateSubmitContract', [$request->date_from, $request->date_to]);
+            } elseif (!empty($request->date_from)) {
+                $data->whereDate('DateSubmitContract', '>=', $request->date_from);
+            } elseif (!empty($request->date_to)) {
+                $data->whereDate('DateSubmitContract', '<=', $request->date_to);
+            }
+
+             // Debugging untuk melihat apakah data difilter dengan benar
+            Log::info('Filter Date From: ' . $request->date_from);
+            Log::info('Filter Date To: ' . $request->date_to);
         
         if ($request->ajax()) {
-            $data = EOCSystem::with('categoryContract')->select('*'); 
+            // $data = EOCSystem::with('categoryContract')->select('*'); 
 
             return DataTables::of($data)
                 ->addIndexColumn() // Tambahkan nomor urut
@@ -74,6 +112,11 @@ class EOCSystemController extends Controller
                     // Tentukan nilai data-extendduration berdasarkan kategori
                     $extendDuration = ($category === 'Permanent' || $category === 'Not Extend') ? '-' : $row->ExtendOptions;
 
+                    // Pastikan Performance, Remarks, dan DateSubmitContract tidak kosong
+                    $performance = !empty($row->Performance) ? $row->Performance : '-';
+                    $remarks = !empty($row->Remarks) ? $row->Remarks : '-';
+                    $dateSubmitContract = !empty($row->DateSubmitContract) ? $row->DateSubmitContract : '-';
+
                     $viewButton = '<button class="btn btn-inverse-primary btn-xs view-details" 
                         data-id="' . $row->id . '" 
                         data-employeeid="' . $row->EmployeeID . '" 
@@ -87,15 +130,14 @@ class EOCSystemController extends Controller
                         data-currentleavebalance="' . $row->CurrentLeaveBalance . '" 
                         data-absent="' . $row->Absent . '" 
                         data-sick="' . $row->Sick . '" 
-                        data-performance="' . $row->Performance . '" 
-                        data-remarks="' . $row->Remarks . '" 
+                        data-performance="' . $performance . '" 
+                        data-remarks="' . $remarks . '" 
                         data-category="' . $category . '"
                         data-extendduration="' .  $extendDuration . '" 
-                        data-datesubmitcontract="' . $row->DateSubmitContract . '" >
+                        data-datesubmitcontract="' . $dateSubmitContract . '" >
                         <i class="fa fa-eye" style="width: 16px; height: 16px;"></i> View
                     </button>';
                         
-
                     return $viewButton ;
                 })
                 ->addColumn('export-pdf', function($row) {
@@ -176,6 +218,7 @@ class EOCSystemController extends Controller
             //     $categoryContract = $request->old_category_contract_id; // Ambil ID kontrak sebelumnya
             // }
          $extendDuration = $request->ExtendOptions;
+         $remarks = $request->Remarks;
         // Jika bukan Extend, kosongkan nilai ExtendOptions sebelum disimpan
         // if ($categoryContract !== 'Extend') {
         //     $extendDuration = null;
@@ -196,6 +239,7 @@ class EOCSystemController extends Controller
             'DateSubmitContract' => $dateSubmitContract,
             'category_contract_id' => $categoryContract,
             'Performance' => $performance,
+            'Remarks' => $remarks,
             'ExtendOptions' => $extendDuration,  // Menyimpan extend duration
         ]);
     }
