@@ -28,7 +28,7 @@
                             <h4 class="card-title">EMPLOYEE LOG OUT IN</h4>
                                 {{-- <a href="" class="btn btn-inverse-primary btn-xs"><i data-feather="calendar" style="width: 16px; height: 16px;"></i> CALENDAR</a> --}}
                             <div class="table-responsive">
-                            <table id="table" class="table">
+                            <table id="serverside" class="table">
                                 {{-- <table id="bookingsTable" class="table table-striped table-bordered"> --}}
                                     <thead>
                                         <tr>
@@ -44,10 +44,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($all_employee as $key => $employee)
+                                        {{-- @foreach ($all_employee as $key => $employee)
                                         <tr>
                                             <td>{{ $key+1 + ($all_employee->currentPage() - 1) * $all_employee->perPage() }}</td>
-                                            {{-- <td>{{ $key+1 }}</td> --}}
                                             <td>{{ $employee->Cardno }}</td>
                                             <td>{{ $employee->Code }}</td>
                                             <td>{{ $employee->Name }}</td>
@@ -55,14 +54,11 @@
                                             <td>{{ $employee->Date }}</td>
                                             <td>{{ $employee->TimeOut }}</td>
                                             <td>{{ $employee->TimeIn }}</td>
-                                            {{-- <td>
-                                                <a href="{{ route('delete.booked', $booked->id ) }}" class="btn btn-inverse-danger btn-xs" title="Delete Mrr"><i data-feather="trash-2" style="width: 16px; height: 16px;"></i></a>
-                                            </td> --}}
-                                        <tr>
-                                        @endforeach
+                                        <tr> --}}
+                                        {{-- @endforeach --}}
                                     </tbody>
                                 </table>
-                                {{ $all_employee->links('pagination::bootstrap-5') }}
+                                {{-- {{ $all_employee->links('pagination::bootstrap-5') }} --}}
                                 {{-- {{ $meetingRooms->appends(['search' => request('search')])->links('pagination::bootstrap-5') }} --}}
                             </div>
                         </div>
@@ -71,5 +67,77 @@
 
         </div>
     </div>
+
+    <script>
+        $(document).ready( function() {
+            // var canDelete = {{ Auth::user()->can('column.delete') ? 'true' : 'false' }};
+            var columns = [
+                    {
+                        data: 'No',
+                        name: 'No',
+                    },
+                    {
+                        data: 'CardNo',
+                        name: 'CardNo',
+                    },
+                    {
+                        data: 'Code',
+                        name: 'Code',
+                    },
+                    {
+                        data: 'Name',
+                        name: 'Name',
+                    },
+                    {
+                        data: 'CompanyStructure',
+                        name: 'CompanyStructure',
+                    },
+                    {
+                        data: 'Date',
+                        name: 'Date',
+                    },
+                    {
+                        data: 'TimeOut',
+                        name: 'TimeOut',
+                    },
+                    {
+                        data: 'TimeIn',
+                        name: 'TimeIn',
+                    },
+                    
+                    ];
+                    
+            $('#serverside').DataTable({
+                pageLength: 10,
+                lengthMenu: [ [5,10, 25, 50, -1], [5, 10, 25, 50, "All"] ],
+                processing:true,
+                pagination:true,
+                responsive:true,
+                serverSide:true,
+                searching:true,
+                ordering:false,
+                columnDefs: [ 
+                    {
+                        "targets": 0, // Menargetkan kolom pertama untuk nomor urut
+                        "searchable": false,
+                        "orderable": false,
+                        "render": function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    }
+                ],
+                drawCallback: function() {
+                        feather.replace(); // Redraw icons after table update
+                    },
+                ajax:{
+                    url:"{{ route('employee.log.data') }}",
+                    error: function(xhr, error, code) {
+                        console.error('AJAX error:', error); // Menangkap error jika ada
+                    }
+                },
+                columns:columns
+            });
+        });
+    </script>
 
 @endsection

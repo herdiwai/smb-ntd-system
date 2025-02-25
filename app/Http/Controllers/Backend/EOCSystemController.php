@@ -10,15 +10,16 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
+use Yajra\DataTables\Facades\DataTables;
 
 class EOCSystemController extends Controller
 {
-    public function index() {
+    // public function index() {
 
-        $data = EOCSystem::paginate(10);
+    //     $data = EOCSystem::paginate(10);
 
-        return view('backend.personel.eoc_system.eoc_system_table', compact('data'));
-    }
+    //     return view('backend.personel.eoc_system.eoc_system_table', compact('data'));
+    // }
 
     public function import(Request $request) {
         $request->validate([
@@ -34,6 +35,95 @@ class EOCSystemController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->route('eocsystem.data')->with($notification);
+    }
+
+    // Dengan data Tables
+    public function index(Request $request)
+    {
+        $data = EOCSystem::with('categoryContract')->select('*'); 
+        // Memeriksa apakah ada filter status yang dikirim dari frontend
+        if ($request->has('status') && $request->status != '') {
+            $status = $request->status;
+
+            // Filter berdasarkan status Extend, Not Extend, Permanent di categoryContract
+            if ($status === 'Extend') {
+                $data->whereNotNull('ExtendOptions'); // Filter data yang memiliki ExtendOptions
+            } elseif ($status === 'Not Extend') {
+                $data->whereNull('ExtendOptions'); // Filter data yang tidak memiliki ExtendOptions
+            } elseif ($status === 'Permanent') {
+                // Filter berdasarkan ContractName yang ada di tabel categoryContract
+                $data->whereHas('categoryContract', function($query) {
+                    $query->where('ContractName', 'Permanent'); // Filter berdasarkan ContractName = 'Permanent'
+                });
+            }
+        }
+        
+        if ($request->ajax()) {
+            $data = EOCSystem::with('categoryContract')->select('*'); 
+
+            return DataTables::of($data)
+                ->addIndexColumn() // Tambahkan nomor urut
+                ->addColumn('ExtendOptions', function($row) {
+                    return $row->ExtendOptions ?: ($row->categoryContract->ContractName ?? '-');
+                })
+                ->addColumn('view-button', function($row) {
+                    // Tentukan nilai data-extendduration berdasarkan kategori
+                    // Tentukan nilai data-category
+                    $category = !empty($row->ExtendOptions) ? 'Extend' : ($row->categoryContract->ContractName ?? '-');
+
+                    // Tentukan nilai data-extendduration berdasarkan kategori
+                    $extendDuration = ($category === 'Permanent' || $category === 'Not Extend') ? '-' : $row->ExtendOptions;
+
+                    $viewButton = '<button class="btn btn-inverse-primary btn-xs view-details" 
+                        data-id="' . $row->id . '" 
+                        data-employeeid="' . $row->EmployeeID . '" 
+                        data-employeename="' . $row->EmployeeName . '" 
+                        data-position="' . $row->Position . '" 
+                        data-joindate="' . $row->JoinDate . '" 
+                        data-contracttype="' . $row->ContractType . '" 
+                        data-contractstart="' . $row->ContractStart . '" 
+                        data-contractend="' . $row->ContractEnd . '" 
+                        data-contractfinish="' . $row->ContractFinish . '" 
+                        data-currentleavebalance="' . $row->CurrentLeaveBalance . '" 
+                        data-absent="' . $row->Absent . '" 
+                        data-sick="' . $row->Sick . '" 
+                        data-performance="' . $row->Performance . '" 
+                        data-remarks="' . $row->Remarks . '" 
+                        data-category="' . $category . '"
+                        data-extendduration="' .  $extendDuration . '" 
+                        data-datesubmitcontract="' . $row->DateSubmitContract . '" >
+                        <i class="fa fa-eye" style="width: 16px; height: 16px;"></i> View
+                    </button>';
+                        
+
+                    return $viewButton ;
+                })
+                ->addColumn('export-pdf', function($row) {
+                    $exportpdf = $row->DateSubmitContract 
+                    ? '<a href="'.route('eoc.export-pdf', $row->id).'" class="btn btn-inverse-success btn-xs" title="Export-PDF">
+                        <i data-feather="download" style="width: 16px; height: 16px;"></i> PDF</a>' 
+                    : '<p class="text-secondary">Submit form not complete</p>';
+                        
+
+                    return $exportpdf ;
+                })
+                ->addColumn('action', function($row) {
+                    $submitButton = '<button class="btn btn-primary btn-xs" ' 
+                        . ($row->DateSubmitContract ? 'disabled' : '') 
+                        . ' data-bs-toggle="modal" data-bs-target="#approveEOC" '
+                        . 'onclick="loadEocData('.$row->id.')">'
+                        . '<i data-feather="arrow-right-circle" style="width: 16px; height: 16px;"></i> Submit</button>';
+
+                    $deleteButton = '<a href="#" class="btn btn-danger btn-xs delete-btn" data-id="'.route('delete.eoc', $row->id).'" title="Delete EOC">'
+                        . '<i data-feather="trash-2" style="width: 16px; height: 16px;"></i></a>';
+
+                    return $submitButton . ' ' . $deleteButton ;
+                })
+                ->rawColumns(['action','view-button','export-pdf']) // Pastikan kolom action dirender sebagai HTML
+                ->make(true);
+        }
+
+        return view('backend.personel.eoc_system.eoc_system_table', compact('data'));
     }
 
     public function detailEOC($id) {
@@ -75,6 +165,7 @@ class EOCSystemController extends Controller
 
     
         $dateSubmitContract = $request->DateSubmitContract;
+        $performance = $request->Performance;
 
         // Cek jika 'Extend' dipilih, simpan category_contract_id yang lama
         // if ($categoryContract === 'Extend') {
@@ -104,6 +195,7 @@ class EOCSystemController extends Controller
             'user_id' => Auth::id(),  // Pastikan Auth::id() menghasilkan ID user yang valid
             'DateSubmitContract' => $dateSubmitContract,
             'category_contract_id' => $categoryContract,
+            'Performance' => $performance,
             'ExtendOptions' => $extendDuration,  // Menyimpan extend duration
         ]);
     }
@@ -120,17 +212,63 @@ class EOCSystemController extends Controller
 
     public function deleteEOC($id) 
     {
-        // Cari data berdasarkan ID yang ingin dihapus
-        $mrr = EOCSystem::find($id);
+        // // Cari data berdasarkan ID yang ingin dihapus
+        $eoc = EOCSystem::find($id);
 
-        // Setelah data relasi dihapus, hapus data utama
-        $mrr->delete();
+        if ($eoc) {
+            $eoc->delete();
+    
+            return response()->json([
+                'success' => true,
+                'message' => 'Deleted Successfully',
+                'alert_type' => 'success'
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data not found'
+            ]);
+        }
+        
 
-        $notification = array(
-            'message' => 'Deleted Successfully',
-            'alert-type' => 'success'
-        );
-        return redirect()->route('eocsystem.data')->with($notification);
+        // // Setelah data relasi dihapus, hapus data utama
+        // $eoc->delete();
+
+        // $notification = array(
+        //     'message' => 'Deleted Successfully',
+        //     'alert-type' => 'success'
+        // );
+        // // return redirect()->route('eocsystem.data')->with($notification);
+        // // Kembalikan response sukses
+        // return response()->json(['success' => 'Data deleted successfully']);
+
+        
+        // $eoc = EOCSystem::find($id);
+        // // Jika data ditemukan, hapus data utama
+        // if ($eoc) {
+        //     // Menghapus data relasi terlebih dahulu jika diperlukan
+        //     $eoc->delete();
+
+        //     // Persiapkan notifikasi
+        //     $notification = array(
+        //         'message' => 'Deleted Successfully',
+        //         'alert-type' => 'success'
+        //     );
+
+        //     // Mengembalikan response JSON dengan data notifikasi
+        //     return response()->json([
+        //         'success' => true,
+        //         'message' => $notification['message'],
+        //         'alert_type' => $notification['alert-type']
+        //     ]);
+        // } else {
+        //     // Jika data tidak ditemukan
+        //     return response()->json([
+        //         'success' => false,
+        //         'message' => 'Data not found'
+        //     ]);
+        // }
+
     }
 
     public function exportPDF($id)
