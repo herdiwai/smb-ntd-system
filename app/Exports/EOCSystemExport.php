@@ -53,7 +53,7 @@ class EOCSystemExport implements FromCollection, WithHeadings, WithMapping, With
         return [
             'Employee ID', 'Employee Name', 'Position', 'Join Date', 'Contract Type',
             'Contract Start', 'Contract End', 'Contract Finish', 'Current Leave Balance',
-            'Absent', 'Sick', 'Extend Options', 'Date Submit Contract', 'Performance', 'Remarks'
+            'Absent', 'Sick', 'Extend Duration', 'Date Submit Contract', 'Performance', 'Remarks'
         ];
     }
 

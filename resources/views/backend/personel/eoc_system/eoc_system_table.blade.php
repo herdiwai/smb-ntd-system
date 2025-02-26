@@ -141,7 +141,6 @@
                                             <th>JoinDate</th>
                                             <th>ContractType</th>
                                             <th>ContractStart</th>
-                                            <th>ContractEnd</th>
                                             <th>ContractFinish</th>
                                             <th>CurrentLeaveBalance</th>
                                             <th>Absent</th>
@@ -310,22 +309,22 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label fw-bold contractType">Contract Type</label>
-                                <input type="text" class="form-control contractType" disabled>
+                                <label class="form-label fw-bold contractStart">Contract Start</label>
+                                <input type="text" class="form-control contractStart" disabled>
                             </div>
-                            
+
                         </div>
 
                         <!-- Kolom Kanan -->
                         <div class="col-md-6">
-                            <div class="mb-3">
+                            {{-- <div class="mb-3">
                                 <label class="form-label fw-bold contractEnd">Contract End</label>
                                 <input type="text" class="form-control contractEnd" disabled>
-                            </div>
+                            </div> --}}
 
                             <div class="mb-3">
-                                <label class="form-label fw-bold contractFinish">Contract Finish</label>
-                                <input type="text" class="form-control contractFinish" disabled>
+                                <label class="form-label fw-bold contractType">Contract Type</label>
+                                <input type="text" class="form-control contractType" disabled>
                             </div>
 
                             <div class="mb-3">
@@ -343,12 +342,12 @@
                                 <input type="text" class="form-control sick" disabled>
                             </div>
 
-                        </div>
-                    </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold contractFinish">Contract Finish</label>
+                                <input type="text" class="form-control contractFinish" disabled>
+                            </div>
 
-                    <div class="mb-3">
-                        <label class="form-label fw-bold contractStart">Contract Start</label>
-                        <input type="text" class="form-control contractStart" disabled>
+                        </div>
                     </div>
 
                     <b><hr></b>
@@ -449,7 +448,6 @@ $(document).ready(function() {
             { data: 'JoinDate', name: 'JoinDate' },
             { data: 'ContractType', name: 'ContractType' },
             { data: 'ContractStart', name: 'ContractStart' },
-            { data: 'ContractEnd', name: 'ContractEnd' },
             { data: 'ContractFinish', name: 'ContractFinish' },
             { data: 'CurrentLeaveBalance', name: 'CurrentLeaveBalance' },
             { data: 'Absent', name: 'Absent' },
@@ -518,7 +516,6 @@ $(document).on('click', '.view-details', function () {
     var joinDate = $(this).data('joindate');
     var contractType = $(this).data('contracttype');
     var contractStart = $(this).data('contractstart');
-    var contractEnd = $(this).data('contractend');
     var contractFinish = $(this).data('contractfinish');
     var currentLeaveBalance = $(this).data('currentleavebalance');
     var absent = $(this).data('absent');
@@ -536,7 +533,6 @@ $(document).on('click', '.view-details', function () {
     $('.joinDate').val(joinDate);
     $('.contractType').val(contractType);
     $('.contractStart').val(contractStart);
-    $('.contractEnd').val(contractEnd);
     $('.contractFinish').val(contractFinish);
     $('.currentLeaveBalance').val(currentLeaveBalance);
     $('.absent').val(absent);
@@ -695,28 +691,26 @@ $(document).ready(function() {
                                 </div>
 
                                 <div class="mb-3">
-                                    <label class="form-label fw-bold">Contract Type</label>
-                                    <input type="text" class="form-control" value="${data.ContractType}" disabled>
-                                </div>
-
-                                <div class="mb-3">
                                     <label class="form-label fw-bold">Contract Start</label>
                                     <input type="text" class="form-control" name="ContractStart" value="${data.ContractStart}" disabled>
                                 </div>
+
+                               
+
                             </div>
 
                             <!-- Kolom Kanan -->
                             <div class="col-md-6">
-                                <div class="mb-3">
+                                <!-- <div class="mb-3">
                                     <label class="form-label fw-bold">Contract End</label>
                                     <input type="text" class="form-control" name="ContractEnd" value="${data.ContractEnd}" disabled>
-                                </div>
+                                </div> -->
 
-                                <div class="mb-3">
-                                    <label class="form-label fw-bold">Contract Finish</label>
-                                    <input type="text" class="form-control" name="ContractFinish" value="${data.ContractFinish}" disabled>
+                                 <div class="mb-3">
+                                    <label class="form-label fw-bold">Contract Type</label>
+                                    <input type="text" class="form-control" value="${data.ContractType}" disabled>
                                 </div>
-
+                        
                                 <div class="mb-3">
                                     <label class="form-label fw-bold">Current Leave Balance</label>
                                     <input type="text" class="form-control" value="${data.CurrentLeaveBalance}" disabled>
@@ -731,6 +725,12 @@ $(document).ready(function() {
                                     <label class="form-label fw-bold">Sick</label>
                                     <input type="text" class="form-control" value="${data.Sick}" disabled>
                                 </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Contract Finish</label>
+                                    <input type="text" class="form-control" name="ContractFinish" value="${data.ContractFinish}" disabled>
+                                </div>
+                                
                             </div>
                         </div>
 

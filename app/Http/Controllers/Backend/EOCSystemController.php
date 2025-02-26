@@ -125,7 +125,6 @@ class EOCSystemController extends Controller
                         data-joindate="' . $row->JoinDate . '" 
                         data-contracttype="' . $row->ContractType . '" 
                         data-contractstart="' . $row->ContractStart . '" 
-                        data-contractend="' . $row->ContractEnd . '" 
                         data-contractfinish="' . $row->ContractFinish . '" 
                         data-currentleavebalance="' . $row->CurrentLeaveBalance . '" 
                         data-absent="' . $row->Absent . '" 
@@ -183,7 +182,7 @@ class EOCSystemController extends Controller
             'JoinDate' => $eocid->JoinDate,
             'ContractType' => $eocid->ContractType,
             'ContractStart' => $eocid->ContractStart,
-            'ContractEnd' => $eocid->ContractEnd,
+            // 'ContractEnd' => $eocid->ContractEnd,
             'ContractFinish' => $eocid->ContractFinish,
             'CurrentLeaveBalance' => $eocid->CurrentLeaveBalance,
             'Absent' => $eocid->Absent,

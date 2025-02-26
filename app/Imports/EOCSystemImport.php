@@ -22,7 +22,7 @@ class EOCSystemImport implements ToModel, WithHeadingRow
             'JoinDate' => $row['joindate'],
             'ContractType' => $row['contracttype'],
             'ContractStart' => $row['contractstart'],
-            'ContractEnd' => $row['contractend'],
+            // 'ContractEnd' => $row['contractend'],
             'ContractFinish' => $row['contractfinish'],
             'CurrentLeaveBalance' => $row['currentleavebalance'],
             'Absent' => $row['absent'],
